@@ -1,0 +1,14 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$darkgreen: #007672;
+
+$theme-primary: mat-palette($mat-teal-palette);
+$theme-accent: mat-palette($mat-red-palette);
+
+
+$theme: mat-light-theme($theme-primary,$theme-accent);
+
+
+@include angular-material-theme($theme);
