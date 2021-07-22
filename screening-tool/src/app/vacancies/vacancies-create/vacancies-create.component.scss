@@ -1,4 +1,4 @@
-::ng-deep body {
+ body {
   background-color: #fafafa;
 }
 .container {
@@ -22,24 +22,7 @@ h2 {
   gap: 10px;
 }
 
-.mat-card {
-  border-radius: 0;
-}
 
-.mat-form-field {
-  width: 23vw;
-}
-
-::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-end {
-  border-radius: 0px !important;
-}
-::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-start {
-  border-radius: 0px !important;
-}
-
-::ng-deep .mat-form-field-label {
-  color: #999999;
-}
 
 textarea {
   resize: none !important;
@@ -90,16 +73,14 @@ textarea {
   height: 80vh;
 }
 
-::ng-deep .mat-select-arrow {
+.mat-select-arrow {
   color: black;
 }
 
-::ng-deep .mat-form-field-flex > .mat-form-field-infix {
+.mat-form-field-flex > .mat-form-field-infix {
   padding: 0.4em 0px !important;
 }
-::ng-deep .mat-form-field-appearance-outline .mat-form-field-label {
+.mat-form-field-appearance-outline .mat-form-field-label {
   margin-top: -15px;
 }
-::ng-deep label.ng-star-inserted {
-  transform: translateY(-0.59375em) scale(0.75) !important;
-}
+

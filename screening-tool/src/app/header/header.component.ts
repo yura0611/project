@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {QuestionsComponent} from "../questions-library/questions/questions.component";
+import {VacanciesComponent} from "../vacancies/vacancies.component";
 
 @Component({
   selector: 'app-header',
@@ -13,8 +15,11 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  links = ['First', 'Second', 'Third'];
-  activeLink = this.links[0];
+  navLinks = [
+    { path: 'vacancies', label: 'Vacancies', component: VacanciesComponent },
+    { path: 'questions', label: 'Questions', component: QuestionsComponent },
+    { path: 'system-settings', label: 'System Settings' },
+  ];
 
 
 }

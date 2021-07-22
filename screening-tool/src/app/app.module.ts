@@ -8,11 +8,13 @@ import { GoogleAuthButtonComponent } from './sign-in/google-auth-button/google-a
 import { HeaderComponent } from './header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MaterialModule} from "./material";
-import { VacanciesComponent } from './header/vacancies/vacancies.component';
-import { VacanciesCreateComponent } from './header/vacancies/vacancies-create/vacancies-create.component';
+import { VacanciesComponent } from './vacancies/vacancies.component';
+import { VacanciesCreateComponent } from './vacancies/vacancies-create/vacancies-create.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { VacanciesTableComponent } from './header/vacancies/vacancies-table/vacancies-table.component';
-import { VacanciesEditComponent } from './header/vacancies/vacancies-edit/vacancies-edit.component';
+import { VacanciesTableComponent } from './vacancies/vacancies-table/vacancies-table.component';
+import { VacanciesEditComponent } from './vacancies/vacancies-edit/vacancies-edit.component';
+import {QuestionsLibraryModule} from "./questions-library/shared/questions-library.module";
+import {MatDialogModule} from "@angular/material/dialog";
 
 
 
@@ -33,6 +35,7 @@ import { VacanciesEditComponent } from './header/vacancies/vacancies-edit/vacanc
     BrowserAnimationsModule,
     MaterialModule,
     ReactiveFormsModule,
+    QuestionsLibraryModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

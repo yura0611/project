@@ -11,3 +11,25 @@ a {
 .mat-typography p {
   margin: 0;
 }
+label.ng-star-inserted {
+  transform: none !important;
+}
+
+.mat-card {
+  border-radius: 0;
+}
+
+.mat-form-field {
+  width: 23vw;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-end {
+  border-radius: 0px;
+}
+.mat-form-field-appearance-outline .mat-form-field-outline-start {
+  border-radius: 0px;
+}
+
+.mat-form-field-label {
+  color: #999999;
+}

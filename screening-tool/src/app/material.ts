@@ -13,9 +13,38 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import {MatIconModule} from '@angular/material/icon';
+import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
-  imports: [MatTabsModule,MatCardModule,MatFormFieldModule,MatSelectModule,MatInputModule,MatChipsModule,MatCheckboxModule,MatButtonModule,MatTableModule,MatPaginatorModule,MatSortModule,MatIconModule],
-  exports: [MatTabsModule, MatCardModule,MatFormFieldModule,MatSelectModule,MatInputModule,MatChipsModule,MatCheckboxModule,MatButtonModule,MatTableModule,MatPaginatorModule,MatSortModule,MatIconModule],
+  imports: [
+    MatTabsModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    MatChipsModule,
+    MatCheckboxModule,
+    MatButtonModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatIconModule,
+    MatDialogModule
+  ],
+  exports: [
+    MatTabsModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    MatChipsModule,
+    MatCheckboxModule,
+    MatButtonModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatIconModule,
+    MatDialogModule
+  ],
 })
 export class MaterialModule { }
