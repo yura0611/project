@@ -8,15 +8,13 @@ import { GoogleAuthButtonComponent } from './sign-in/google-auth-button/google-a
 import { HeaderComponent } from './header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MaterialModule} from "./material";
-import { QuestionsFilterComponent } from './questions-library/questions-filter/questions-filter.component';
-import { QuestionsListComponent } from './questions-library/questions-list/questions-list.component';
-import {ReactiveFormsModule} from "@angular/forms";
-import { QuestionViewModalComponent } from './questions-library/question-view-modal/question-view-modal.component';
-import { QuestionEditModalComponent } from './questions-library/question-edit-modal/question-edit-modal.component';
-import { QuestionNewModalComponent } from './questions-library/question-new-modal/question-new-modal.component';
-import { QuestionsComponent } from './questions-library/questions/questions.component';
-import {RouterModule} from "@angular/router";
-import {QuestionsLibraryModule} from "./questions-library/shared/questions-library.module";
+import { VacanciesComponent } from './header/vacancies/vacancies.component';
+import { VacanciesCreateComponent } from './header/vacancies/vacancies-create/vacancies-create.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { VacanciesTableComponent } from './header/vacancies/vacancies-table/vacancies-table.component';
+import { VacanciesEditComponent } from './header/vacancies/vacancies-edit/vacancies-edit.component';
+
+
 
 @NgModule({
   declarations: [
@@ -24,6 +22,10 @@ import {QuestionsLibraryModule} from "./questions-library/shared/questions-libra
     SignInComponent,
     GoogleAuthButtonComponent,
     HeaderComponent,
+    VacanciesComponent,
+    VacanciesCreateComponent,
+    VacanciesTableComponent,
+    VacanciesEditComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,7 +33,6 @@ import {QuestionsLibraryModule} from "./questions-library/shared/questions-libra
     BrowserAnimationsModule,
     MaterialModule,
     ReactiveFormsModule,
-    QuestionsLibraryModule
   ],
   providers: [],
   bootstrap: [AppComponent]

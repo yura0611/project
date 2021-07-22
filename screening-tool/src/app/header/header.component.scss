@@ -1,15 +1,14 @@
 ::ng-deep mat-tab-header {
-  width: 1440px;
-  height: 60px;
+  width: 100vw;
+  height: 10vh;
   margin: 0 0 20px;
-  padding: 0 150px;
-  box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.05), 0 4px 25px 0 rgba(0, 184, 178, 0.05);
+  box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.05),
+    0 4px 25px 0 rgba(0, 184, 178, 0.05);
   background-color: #ffffff;
 }
 
-
-
-::ng-deep .mat-tab-label:first-child{
+::ng-deep .mat-tab-label:first-child {
+  margin-left: 10vw;
   font-size: 14px;
   font-weight: 800;
   font-stretch: normal;
@@ -19,7 +18,7 @@
   letter-spacing: 0.5px;
 }
 
-::ng-deep .mat-tab-label:nth-child(even){
+::ng-deep .mat-tab-label:nth-child(even) {
   opacity: 0.5;
   font-size: 14px;
   font-weight: 800;
@@ -29,7 +28,7 @@
   letter-spacing: 0.5px;
 }
 
-::ng-deep .mat-tab-label:last-child{
+::ng-deep .mat-tab-label:last-child {
   width: 134px;
   opacity: 0.5;
   font-size: 14px;
@@ -40,6 +39,7 @@
   letter-spacing: 0.5px;
 }
 
-::ng-deep .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar{
+::ng-deep .mat-tab-group.mat-primary .mat-ink-bar,
+.mat-tab-nav-bar.mat-primary .mat-ink-bar {
   box-shadow: inset 0 -3px 0 0 #007672;
 }

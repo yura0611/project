@@ -1,0 +1,61 @@
+.container {
+  margin: 0 10vw;
+}
+
+.vacancy-type {
+  color: #00b2a9;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.vacancy-title{
+  font-size: 20px;
+  font-weight: bold;
+  color: #373a36;
+}
+
+.vacancy-description{
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: 13px;
+}
+
+
+.mat-cards{
+  display: flex;
+  gap:10px;
+  width: 300px;  
+  margin-bottom: 30px;
+}
+
+mat-card-content{
+  width: 73px;
+  height: 29px;
+  margin: 18px 67px 0 0;
+  
+  font-size: 24px;
+  font-weight: 450;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #e0004d;
+}
+
+.show {
+  overflow: visible;
+  height: 10px;
+}
+
+
+a{
+  color: #007672;
+  text-decoration: none;
+}
+
+h1{
+  font-weight: bold;
+  color: #373a36;
+  margin-left: 15px;
+}
+
