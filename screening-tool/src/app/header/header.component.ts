@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from "@angular/router";
+import {QuestionsComponent} from "../questions-library/questions/questions.component";
 
 @Component({
   selector: 'app-header',
@@ -6,10 +8,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
-  constructor() { }
+  navLinks = [
+    { path: '/vacancies', label: 'Vacancies' },
+    { path: 'questions', label: 'Questions', component: QuestionsComponent },
+    { path: '/system-settings', label: 'System Settings' },
+  ];
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
+
 
 }
