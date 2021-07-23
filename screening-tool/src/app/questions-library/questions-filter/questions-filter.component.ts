@@ -21,8 +21,6 @@ export class QuestionsFilterComponent implements OnInit {
     this.topics = this.questionService.availableTopics
 
     this.filterForm = new FormGroup({
-      "title": new FormControl(null),
-      "type": new FormControl(''),
       "topics": new FormArray([])
     })
   }
@@ -55,8 +53,6 @@ export class QuestionsFilterComponent implements OnInit {
 
   resetFormValue () {
     let arr = (<FormArray>this.filterForm.controls['topics']);
-    this.filterForm.get('title').reset();
-    this.filterForm.get('type').reset('code');
     document.querySelectorAll('.list-item').forEach(el => el.remove());
     document.getElementById("filter-component-checkboxes").style.display = 'none';
     this.expanded = false;

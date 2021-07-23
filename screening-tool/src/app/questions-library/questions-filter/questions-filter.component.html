@@ -1,36 +1,13 @@
 <div class="library-question">
   <p>Library questions</p>
 </div>
-
-
 <div class="question-filter_block">
   <div class="question-filter-title">
     <p>Filter Settings</p>
   </div>
   <div class="question-filter_content">
     <div class="question-filter_form">
-
       <form (ngSubmit)="onSearch(formElement)" [formGroup]="filterForm" #formElement>
-        <div class="question-filter_form-title inputs-block">
-          <label for="title">Title</label>
-          <br>
-          <input type="text"
-                 name="title"
-                 id="title"
-                 placeholder="Type question title"
-                 formControlName="title"
-          >
-        </div>
-        <div class="question-filter_form-type inputs-block">
-          <label for="type">Type</label>
-          <br>
-          <select name="type" id="type" formControlName="type">
-            <option hidden value="" >Select question type</option>
-            <option value="code">code</option>
-            <option value="text">text</option>
-            <option value="video">video</option>
-          </select>
-        </div>
         <div class="question-filter_form-topics" >
           <label for="topics">Topics</label>
           <br>
@@ -53,8 +30,6 @@
                   <img (click)="onRemoveTopic(i)" class="img-cross" src="../../../assets/cross.svg" alt="Cross" style="width: 10px">
                 </li>
               </div>
-
-
           </ul>
         </div>
         <div class="question-filter_form-btn">
