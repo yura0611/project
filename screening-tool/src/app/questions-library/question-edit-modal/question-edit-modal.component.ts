@@ -38,7 +38,6 @@ export class QuestionEditModalComponent implements OnInit {
     return (<FormArray>this.editModal.get('topics')).getRawValue();
   }
   onSubmit() {
-    console.log(this.editModal)
     this.dialogRef.closeAll()
   }
   onClose() {
@@ -49,9 +48,6 @@ export class QuestionEditModalComponent implements OnInit {
   }
 
   onAddTopic(input,index: number) {
-    console.log('control array value', this.editModal.get('topics').value);
-    console.log(input);
-    console.log(index)
     this.modalService.addTopic(input,index,this.editModal,this.availableTopics)
     console.log('dialog-edit-input',input.value)
 
