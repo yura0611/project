@@ -1,7 +1,7 @@
 <div class="create-modal_title">
   <div class="create-modal_close_btn">
     <a (click)="onClose()">
-      <img src="../../../assets/cross.svg" alt="Cross" style="width: 15px"/>
+      <img src="src/assets/cross.svg" alt="Cross" style="width: 15px"/>
     </a>
   </div>
   <p>Create Question</p>
@@ -48,7 +48,7 @@
       <div class="chosen-topics_list-block"  >
         <li  class="list-item" *ngFor="let topic of getControls(); let i = index">
           {{topic}}
-          <img (click)="onRemoveTopic(i)" class="img-cross" src="../../../assets/cross.svg" alt="Cross" style="width: 10px">
+          <img (click)="onRemoveTopic(i)" class="img-cross" src="src/assets/cross.svg" alt="Cross" style="width: 10px">
         </li>
       </div>
       <!--      <span *ngIf="createNewModal.get('topics').invalid ">Field is required</span>-->
