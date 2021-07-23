@@ -15,6 +15,7 @@ import { VacanciesTableComponent } from './vacancies/vacancies-table/vacancies-t
 import { VacanciesEditComponent } from './vacancies/vacancies-edit/vacancies-edit.component';
 import {QuestionsLibraryModule} from "./questions-library/shared/questions-library.module";
 import {MatDialogModule} from "@angular/material/dialog";
+import {HttpClientModule} from "@angular/common/http";
 
 
 
@@ -36,6 +37,7 @@ import {MatDialogModule} from "@angular/material/dialog";
     MaterialModule,
     ReactiveFormsModule,
     QuestionsLibraryModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,5 +1,6 @@
-import {Injectable, EventEmitter, Input} from '@angular/core';
+import {Injectable, EventEmitter, Input, OnInit} from '@angular/core';
 import {Subject} from "rxjs";
+import {HttpClient} from "@angular/common/http";
 
 export interface question {
   title: string,
@@ -12,7 +13,7 @@ export interface question {
 @Injectable({
   providedIn: 'root'
 })
-export class QuestionService {
+export class QuestionService  {
   specificQuestionID: number;
   availableTopics = ['js', 'node', 'angular', 'java', 'ruby', 'react', 'vue'];
   questionEmitter = new EventEmitter<question[]>()
@@ -70,9 +71,10 @@ export class QuestionService {
   ]
   isSorted = false;
 
-
-  constructor() {
+  allQuestionUrl = 'http://localhost:3000/api/question'
+  constructor(private http: HttpClient) {
   }
+
 
   addNewQuestion(question: question) {
     this.questionList.push(question)
@@ -80,7 +82,11 @@ export class QuestionService {
   }
 
   getAllQuestions() {
-    return this.questionList.slice();
+     this.http.get<question[]>(this.allQuestionUrl).subscribe(data => {
+       this.questionList = data
+       this.questionEmitter.emit(this.questionList)
+     })
+
   }
 
   getQuestionById(id: number) {
