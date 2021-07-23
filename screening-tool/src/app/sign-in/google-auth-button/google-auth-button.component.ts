@@ -14,11 +14,11 @@ export class GoogleAuthButtonComponent implements OnInit {
 
   ngOnInit(): void {
     this.googleAuth.checkIfUserAuthenticated()
+
   }
 
 
   onAuthenticate() {
-    // this.http.post(this.sendToken,)
     return this.googleAuth.authenticate()
   }
 

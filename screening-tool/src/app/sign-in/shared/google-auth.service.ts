@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {AuthService} from "../../auth.service";
 
 export type userDataType = {
   userProfileData: {}
@@ -10,9 +11,8 @@ export type userDataType = {
   providedIn: 'root'
 })
 export class GoogleAuthService {
-  loginUrl = 'http://localhost:3000/api/user/login';
-  allQuestionUrl = 'http://localhost:3000/api/question'
-  constructor(private http: HttpClient) { }
+
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   private clientId = '575303630273-90569cp922fdrci95s7vrjre9isp9kec.apps.googleusercontent.com';
   public gapiSetup: boolean = false;
@@ -52,7 +52,8 @@ export class GoogleAuthService {
           userAuthData: user.getAuthResponse(),
           userProfileData: user.getBasicProfile()
         }
-        this.sendToken(this.userData.userAuthData)
+        this.authService.sendToken(this.userData.userAuthData)
+        localStorage.setItem('user', JSON.stringify(this.userData.userAuthData['id_token']))
         console.log('user data', this.userData)
       }, error => this.error = error);
     })
@@ -66,13 +67,5 @@ export class GoogleAuthService {
     return this.authInstance.isSignedIn.get();
   }
 
-  sendToken(userData) {
-    console.log(userData)
-    // console.log('token', {"token": token.id_token})
-    return this.http.post(this.loginUrl,{"token": userData.id_token}).subscribe(data => {
-      console.log('from back',data)
-    })
-    // this.http.post(this.loginUrl, this.userData.userAuthData['id_token'])
-    // this.http.get(this.allQuestionUrl).subscribe(data => console.log(data))
-  }
+
 }
