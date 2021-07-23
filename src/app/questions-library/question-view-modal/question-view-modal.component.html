@@ -1,0 +1,32 @@
+<div class="view-question-header">
+  <div class="view-question-header_title">
+    <a (click)="onClose()">
+      <img src="src/assets/cross.svg" alt="Cross" style="width: 15px"/>
+    </a>
+    <p>View question</p>
+  </div>
+</div>
+<div class="view-question-content">
+  <div class="view-question-content_title">
+    <span>Title</span>
+    <div>{{currentQuestion.title}}</div>
+  </div>
+  <div class="view-question-content_description">
+    <span>Description</span>
+    <div>{{currentQuestion.description}}</div>
+  </div>
+  <div class="view-question-content_topics">
+    <span>Topics</span>
+    <div >
+      <span class="topic-item" *ngFor="let topic of currentQuestion.topics">{{topic}}</span>
+
+    </div>
+  </div>
+  <div class="edit-modal-form_edit_btn">
+    <button type="submit" (click)="onClose()">
+      Cancel
+    </button>
+  </div>
+
+</div>
+

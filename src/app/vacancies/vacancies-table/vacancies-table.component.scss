@@ -1,0 +1,59 @@
+.full-width-table {
+  width: 100%;
+}
+
+.mat-elevation-z8 {
+  margin-top: 30px;
+}
+
+.mat-header-cell {
+  width: 27px;
+  height: 15px;
+  margin: 8px 143px 16px 348px;
+  font-size: 11px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #101820;
+}
+
+.mat-cell:nth-child(3) {
+  width: 31px;
+  height: 13px;
+  font-size: 11px;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+}
+
+.cell-active {
+  width: 39px;
+  height: 17px;
+  padding: 2px 4px;
+  border-radius: 2px;
+  background-color: #00b2a9;
+}
+
+.cell-closed {
+  width: 43px;
+  height: 17px;
+  padding: 2px 4px;
+  border-radius: 2px;
+  background-color: #4a4a4a;
+}
+
+.mat-row:hover .hidden {
+  visibility: visible;
+}
+
+.mat-row:hover {
+  background-color: rgba(0, 118, 114, 0.1);
+}
+
+.hidden {
+  visibility: hidden;
+}

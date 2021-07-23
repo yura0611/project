@@ -1,0 +1,70 @@
+ <div class="container">
+    <div>
+        <span class="vacancy-type">{{message['type'] | uppercase}} &#160;</span>
+        <span class="vacancy-title">{{message['vacancy'] | uppercase}}</span>
+    
+
+        <button mat-button>
+          <mat-icon><span class="material-icons-outlined">
+              delete
+            </span></mat-icon>
+          </button>
+    <button mat-button>
+    <mat-icon><span class="material-icons-outlined">
+        edit 
+      </span></mat-icon>
+    </button>
+  
+
+   
+  
+  </div>
+
+
+
+
+    <p class="vacancy-description">
+        {{(showMore) ? text : text | slice:0:150 }} <span *ngIf="!showMore">... &#160;</span> 
+        <a href="javascript:;" *ngIf="!showMore" (click)="showMore=true">view more</a>
+        </p>
+
+
+
+    <div class="mat-cards">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Status</mat-card-title>
+          </mat-card-header>
+         <mat-card-content>
+          <div class="container-card-content">{{message['status'] |  titlecase}}
+      
+            <button mat-stroked-button>CLOSE</button>
+                </div>
+      </mat-card-content>   </mat-card>
+      <mat-card>
+        <mat-card-header>
+            <mat-card-title>Avg.score</mat-card-title>
+          </mat-card-header>
+        <mat-card-content>
+       {{percentage}}%
+      </mat-card-content></mat-card>
+      <mat-card>
+        <mat-card-header>
+            <mat-card-title>Completed</mat-card-title>
+          </mat-card-header>
+        <mat-card-content>
+     <p>{{completed}}  <span>  out of {{applications}}</span> </p>
+      </mat-card-content></mat-card>
+      <mat-card>
+        <mat-card-header>
+            <mat-card-title>Opened</mat-card-title>
+          </mat-card-header>
+        <mat-card-content>
+       <span> {{message['opened']}} </span>
+      </mat-card-content></mat-card>
+     </div>
+     <h1>Applications</h1>
+   
+
+</div>
+

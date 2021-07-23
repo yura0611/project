@@ -1,0 +1,32 @@
+.sign-in {
+  padding: 40px 188px 56px;
+  background-color: #ffff;
+  box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.05), 0 4px 25px 0 rgba(0, 184, 178, 0.05);
+  font-family: 'OpenSans', sans-serif;
+
+
+  a {
+    text-decoration: none;
+  }
+  .sign-in-content {
+
+    text-align: center;
+    .text {
+      color: #101820;
+    }
+    .link {
+      color: #e0004d;
+    }
+  }
+}
+
+.sign-in-content_logo {
+  text-align: center;
+  font-family: 'Raleway', sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  margin-bottom: 40px;
+  .text {
+    color: #007672;
+  }
+}
