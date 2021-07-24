@@ -20,12 +20,13 @@ export class QuestionNewModalComponent implements OnInit {
               public modalService: ModalService) { }
 
   ngOnInit(): void {
-    this.availableTopics = this.questionService.availableTopics;
+    this.availableTopics = this.questionService.availableTopics
+
     this.createNewModal = new FormGroup({
       "title": new FormControl(null, Validators.max(250)),
       "description": new FormControl(null, [Validators.max(800), Validators.required]),
       "topics": new FormArray([], [Validators.min(0),Validators.required]),
-      "type": new FormControl('-1'),
+      "type": new FormControl(),
       "maxLength": new FormControl(null,Validators.pattern(/^-?(0|[1-9]\d*)?$/))
     })
   }
@@ -56,7 +57,8 @@ export class QuestionNewModalComponent implements OnInit {
 
   onCreate() {
     console.log(this.createNewModal.value)
-    this.questionService.addNewQuestion(this.createNewModal.value)
+    // this.questionService.addNewQuestion(this.createNewModal.value)
+    this.questionService.addNewQuestion(this.createNewModal.value).subscribe(data => console.log(data))
   }
 
 }

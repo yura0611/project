@@ -12,15 +12,17 @@ import {QuestionViewModalComponent} from "../question-view-modal/question-view-m
   styleUrls: ['./questions-list.component.scss']
 })
 export class QuestionsListComponent implements OnInit {
-
-  questionList: question[] = []
-  subscription: Subscription
+  allTopics: [];
+  questionList: question[] = [];
+  subscription: Subscription;
 
   constructor(private questionService: QuestionService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.questionService.questionEmitter.subscribe(data => this.questionList = data)
+    this.questionService.topicsEmitter.subscribe(data => this.allTopics = data)
     this.questionService.getAllQuestions()
+    this.questionService.getAllTopics()
 
     // this.questionService.getAllQuestions().subscribe(data => {
     //   console.log(data)

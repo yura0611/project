@@ -15,8 +15,9 @@ export interface question {
 })
 export class QuestionService  {
   specificQuestionID: number;
-  availableTopics = ['js', 'node', 'angular', 'java', 'ruby', 'react', 'vue'];
+  availableTopics = ['front-end', 'back-end'];
   questionEmitter = new EventEmitter<question[]>()
+  topicsEmitter = new EventEmitter<any>()
   changedQuestion = new Subject<question[]>()
   questionList: question[] = [
     {
@@ -72,21 +73,35 @@ export class QuestionService  {
   isSorted = false;
 
   allQuestionUrl = 'http://localhost:3000/api/question'
+  addQuestionUrl = 'http://localhost:3000/api/question'
+  allAvailibleTopicsUrl = 'http://localhost:3000/api/question/topics'
   constructor(private http: HttpClient) {
   }
 
 
   addNewQuestion(question: question) {
-    this.questionList.push(question)
-    this.questionEmitter.emit(this.questionList.slice())
+
+   return this.http.post(this.addQuestionUrl, {question: question, email: 'vasilishin08@gmail.com'})
+    // this.questionList.push(question)
+    // this.questionEmitter.emit(this.questionList.slice())
   }
 
   getAllQuestions() {
      this.http.get<question[]>(this.allQuestionUrl).subscribe(data => {
+       console.log('question', data)
        this.questionList = data
        this.questionEmitter.emit(this.questionList)
      })
 
+  }
+
+  getAllTopics() {
+    this.http.get<any>(this.allAvailibleTopicsUrl).subscribe(data => {
+      console.log('topics', data)
+      this.availableTopics = data
+      this.topicsEmitter.emit(this.availableTopics)
+    })
+    // return this.http.get<any>(this.allAvailibleTopicsUrl)
   }
 
   getQuestionById(id: number) {

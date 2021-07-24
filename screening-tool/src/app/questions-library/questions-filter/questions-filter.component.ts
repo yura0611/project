@@ -18,8 +18,8 @@ export class QuestionsFilterComponent implements OnInit {
   constructor( private questionService: QuestionService, private modalService: ModalService) { }
 
   ngOnInit(): void {
-    this.topics = this.questionService.availableTopics
-
+    // this.topics = this.questionService.availableTopics
+    this.questionService.topicsEmitter.subscribe(data => this.topics = data)
     this.filterForm = new FormGroup({
       "topics": new FormArray([])
     })
