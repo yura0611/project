@@ -7,7 +7,7 @@
   </div>
   <div class="question-filter_content">
     <div class="question-filter_form">
-      <form (ngSubmit)="onSearch(formElement)" [formGroup]="filterForm" #formElement>
+      <form (ngSubmit)="onSubmit(formElement)" [formGroup]="filterForm" #formElement>
         <div class="question-filter_form-topics" >
           <label for="topics">Topics</label>
           <br>
@@ -33,7 +33,7 @@
           </ul>
         </div>
         <div class="question-filter_form-btn">
-          <button type="submit">Search</button>
+          <button type="submit" (click)="onSearch()">Search</button>
         </div>
       </form>
     </div>

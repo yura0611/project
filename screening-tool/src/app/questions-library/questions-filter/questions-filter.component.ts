@@ -2,6 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormArray, FormControl, FormGroup} from "@angular/forms";
 import {question, QuestionService} from "../shared/question.service";
 import {ModalService} from "../shared/modals.service";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-questions-filter',
@@ -15,7 +16,8 @@ export class QuestionsFilterComponent implements OnInit {
   filterForm: FormGroup;
   expanded = false;
   formData: question
-  constructor( private questionService: QuestionService, private modalService: ModalService) { }
+  QuestionByFilter = 'http://localhost:3000/api/question/filtered'
+  constructor( private questionService: QuestionService, private modalService: ModalService, private http: HttpClient) { }
 
   ngOnInit(): void {
     // this.topics = this.questionService.availableTopics
@@ -29,7 +31,12 @@ export class QuestionsFilterComponent implements OnInit {
     return (<FormArray>this.filterForm.get('topics')).getRawValue();
   }
 
-  onSearch(form) {
+  onSearch() {
+    console.log('filter value',this.filterForm.value)
+    this.questionService.getQuestionByFilters(this.filterForm.value)
+  }
+
+  onSubmit(form) {
     this.formData = this.filterForm.value;
     this.resetFormValue()
     console.log(this.formData)
@@ -58,5 +65,7 @@ export class QuestionsFilterComponent implements OnInit {
     this.expanded = false;
     arr.clear();
   }
+
+
 
 }

@@ -19,6 +19,7 @@ export class QuestionService  {
   questionEmitter = new EventEmitter<question[]>()
   topicsEmitter = new EventEmitter<any>()
   changedQuestion = new Subject<question[]>()
+  filteredQuestion = new Subject<question[]>()
   questionList: question[] = [
     {
       title: 'Today was a greate day',
@@ -75,6 +76,7 @@ export class QuestionService  {
   allQuestionUrl = 'http://localhost:3000/api/question'
   addQuestionUrl = 'http://localhost:3000/api/question'
   allAvailibleTopicsUrl = 'http://localhost:3000/api/question/topics'
+  QuestionByFilter = 'http://localhost:3000/api/question/filtered'
   constructor(private http: HttpClient) {
   }
 
@@ -93,6 +95,12 @@ export class QuestionService  {
        this.questionEmitter.emit(this.questionList)
      })
 
+  }
+
+  getQuestionByFilters(value) {
+    this.http.post(this.QuestionByFilter, value).subscribe(data => {
+      console.log('from service', data)
+    })
   }
 
   getAllTopics() {
@@ -127,6 +135,7 @@ export class QuestionService  {
     }
 
   }
+
 
   sortByTimeASC(a,b) {
     return a.maxLength - b.maxLength;
