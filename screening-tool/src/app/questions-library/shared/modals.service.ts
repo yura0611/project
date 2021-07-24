@@ -9,15 +9,22 @@ export class ModalService {
 
   constructor() { }
 
+
   addTopic(input, index: number, modal, availableTopics) {
-    if (input.checked) {
-      if ((modal.get('topics').value.length >= availableTopics.length)  ||
-        (modal.get('topics').value.indexOf(input.value) !== -1)) {
-        return;
-      } else {
-        (<FormArray>modal.get('topics')).push(new FormControl(input.value));
-      }
+    if (!input.checked) {
+        this.removeTopics(modal, index, input)
+    } else if ((modal.get('topics').value.length >= availableTopics.length) ||
+      (modal.get('topics').value.indexOf(input.value) !== -1)) {
+      return;
+    } else {
+      (<FormArray>modal.get('topics')).push(new FormControl(input.value));
     }
+
+  }
+
+  removeTopics(modal, index, input) {
+    let topics = (<FormArray>modal.get('topics'))
+    topics.removeAt(topics.value.findIndex(topic => topic === input.value))
   }
 
   showCheckboxes(selector) {
@@ -30,8 +37,6 @@ export class ModalService {
       this.expanded = false;
     }
   }
-
-
+  
 }
 
-//new branches name

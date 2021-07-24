@@ -14,12 +14,10 @@ export interface question {
   providedIn: 'root'
 })
 export class QuestionService  {
-  specificQuestionID: number;
   availableTopics = ['front-end', 'back-end'];
   questionEmitter = new EventEmitter<question[]>()
   topicsEmitter = new EventEmitter<any>()
   changedQuestion = new Subject<question[]>()
-  filteredQuestion = new Subject<question[]>()
   questionList: question[] = [
     {
       title: 'Today was a greate day',
@@ -75,17 +73,14 @@ export class QuestionService  {
 
   allQuestionUrl = 'http://localhost:3000/api/question'
   addQuestionUrl = 'http://localhost:3000/api/question'
-  allAvailibleTopicsUrl = 'http://localhost:3000/api/question/topics'
+  allAvailableTopicsUrl = 'http://localhost:3000/api/question/topics'
   QuestionByFilter = 'http://localhost:3000/api/question/filtered'
   constructor(private http: HttpClient) {
   }
 
 
   addNewQuestion(question: question) {
-
    return this.http.post(this.addQuestionUrl, {question: question, email: 'vasilishin08@gmail.com'})
-    // this.questionList.push(question)
-    // this.questionEmitter.emit(this.questionList.slice())
   }
 
   getAllQuestions() {
@@ -104,16 +99,14 @@ export class QuestionService  {
   }
 
   getAllTopics() {
-    this.http.get<any>(this.allAvailibleTopicsUrl).subscribe(data => {
+    this.http.get<any>(this.allAvailableTopicsUrl).subscribe(data => {
       console.log('topics', data)
       this.availableTopics = data
       this.topicsEmitter.emit(this.availableTopics)
     })
-    // return this.http.get<any>(this.allAvailibleTopicsUrl)
   }
 
   getQuestionById(id: number) {
-    this.specificQuestionID = id
     return this.questionList.slice()[id];
   }
 

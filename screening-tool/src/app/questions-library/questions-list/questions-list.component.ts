@@ -19,16 +19,10 @@ export class QuestionsListComponent implements OnInit {
   constructor(private questionService: QuestionService, public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.questionService.questionEmitter.subscribe(data => this.questionList = data)
-    this.questionService.topicsEmitter.subscribe(data => this.allTopics = data)
     this.questionService.getAllQuestions()
     this.questionService.getAllTopics()
-
-    // this.questionService.getAllQuestions().subscribe(data => {
-    //   console.log(data)
-    //   this.questionList = data
-    // }, error => console.log(error
-    // ))
+    this.subscription = this.questionService.questionEmitter.subscribe(data => this.questionList = data)
+    this.subscription = this.questionService.topicsEmitter.subscribe(data => this.allTopics = data)
     this.subscription = this.questionService.questionEmitter.subscribe((questions: question[]) => {
       this.questionList = questions;
     })
