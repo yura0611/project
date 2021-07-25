@@ -18,6 +18,7 @@ export class QuestionService  {
   questionEmitter = new EventEmitter<question[]>()
   topicsEmitter = new EventEmitter<any>()
   changedQuestion = new Subject<question[]>()
+  questionByFilters = new Subject<question[]>()
   questionList: question[] = [
     {
       title: 'Today was a greate day',
@@ -93,8 +94,8 @@ export class QuestionService  {
   }
 
   getQuestionByFilters(value) {
-    this.http.post(this.QuestionByFilter, value).subscribe(data => {
-      console.log('from service', data)
+    this.http.post(this.QuestionByFilter, value).subscribe((data: question[]) => {
+      this.questionByFilters.next(data)
     })
   }
 

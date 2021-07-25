@@ -30,6 +30,9 @@ export class QuestionsListComponent implements OnInit {
       console.log('from question list component', questions)
       this.questionList = questions
     })
+    this.subscription = this.questionService.questionByFilters.subscribe(data => {
+      this.questionList = data
+    })
 
     console.log('from component',this.questionList);
   }

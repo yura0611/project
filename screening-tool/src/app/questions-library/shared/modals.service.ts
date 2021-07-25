@@ -37,6 +37,5 @@ export class ModalService {
       this.expanded = false;
     }
   }
-  
 }
 
