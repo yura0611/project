@@ -8,7 +8,7 @@
     <p>Questions({{questionList.length}})</p>
     <div class="question-list_title-avg_time">
       <p>time/min</p>
-      <a (click)="onSort('time')"> <img class="arrow" src="src/assets/arrowDown.svg" alt="Arrow" > </a>
+      <a (click)="onSort('time')"> <img class="arrow" src="../../../assets/arrowDown.svg" alt="Arrow" > </a>
     </div>
 
   </div>
@@ -28,8 +28,8 @@
           <p [ngClass]="{'dot': question.description.length >= 300 }">{{question.description}}</p>
 
           <div class="question-list_item-description-links">
-            <a href="#" class="question-list_link" (click)="$event.preventDefault(); openViewQuestionModal(i)"><img src="src/assets/arrowRight.svg" alt="Arrow" style="width: 15px"></a>
-            <a href="#" class="question-list_link" (click)="$event.preventDefault(); openEditModal(i)" ><img src="src/assets/pencil.svg" alt="Pencil" style="width: 15px"></a>
+            <a href="#" class="question-list_link" (click)="$event.preventDefault(); openViewQuestionModal(i)"><img src="../../../assets/arrowRight.svg" alt="Arrow" style="width: 15px"></a>
+            <a href="#" class="question-list_link" (click)="$event.preventDefault(); openEditModal(this.question._id)" ><img src="../../../assets/pencil.svg" alt="Pencil" style="width: 15px"></a>
           </div>
         </div>
       </div>

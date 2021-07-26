@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
-import {QuestionService} from "../shared/question.service";
+import {question, QuestionService} from "../shared/question.service";
 import {ModalService} from "../shared/modals.service";
 
 @Component({
@@ -13,7 +13,8 @@ import {ModalService} from "../shared/modals.service";
 export class QuestionEditModalComponent implements OnInit {
 
   availableTopics: string[];
-  editModal: FormGroup
+  editModal: FormGroup;
+  editedQuestion: question;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any ,
               private dialogRef: MatDialog,
@@ -38,20 +39,28 @@ export class QuestionEditModalComponent implements OnInit {
     return (<FormArray>this.editModal.get('topics')).getRawValue();
   }
   onSubmit() {
-    console.log(this.editModal)
     this.dialogRef.closeAll()
   }
   onClose() {
     this.dialogRef.closeAll()
   }
   onEdit() {
-    this.questionService.editQuestion(this.editModal.value, this.data.questionId)
+    this.editedQuestion = {
+      '_id': this.data.question._id,
+      "title": this.editModal.value.title,
+      "description": this.editModal.value.description,
+      "topics": this.editModal.value.topics,
+      "type": this.editModal.value.type,
+      "maxLength": this.editModal.value.maxLength
+    }
+    this.questionService.editQuestion(this.editedQuestion, this.editedQuestion._id)
+  }
+  onDelete() {
+    this.questionService.deleteQuestion(this.data.question._id)
+    this.dialogRef.closeAll()
   }
 
   onAddTopic(input,index: number) {
-    console.log('control array value', this.editModal.get('topics').value);
-    console.log(input);
-    console.log(index)
     this.modalService.addTopic(input,index,this.editModal,this.availableTopics)
     console.log('dialog-edit-input',input.value)
 

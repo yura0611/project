@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {AuthService} from "../../auth.service";
 
 export type userDataType = {
   userProfileData: {}
@@ -10,7 +12,7 @@ export type userDataType = {
 })
 export class GoogleAuthService {
 
-  constructor() { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   private clientId = '575303630273-90569cp922fdrci95s7vrjre9isp9kec.apps.googleusercontent.com';
   public gapiSetup: boolean = false;
@@ -44,12 +46,15 @@ export class GoogleAuthService {
     }
 
     return new Promise(async () => {
-      await this.authInstance.signIn({prompt: 'select_account'}).then((user) => {
+      await this.authInstance.signIn({prompt: 'select_account', ux_mode: 'popup'}).then((user) => {
+        console.log('user from google', user.getAuthResponse())
         this.user = user;
         this.userData = {
           userAuthData: user.getAuthResponse(),
           userProfileData: user.getBasicProfile()
         }
+        this.authService.sendToken(this.userData.userAuthData)
+        localStorage.setItem('user', JSON.stringify(this.userData.userAuthData['id_token']))
         console.log('user data', this.userData)
       }, error => this.error = error);
     })
@@ -62,4 +67,6 @@ export class GoogleAuthService {
 
     return this.authInstance.isSignedIn.get();
   }
+
+
 }

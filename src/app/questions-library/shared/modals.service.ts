@@ -1,45 +1,30 @@
 import {Injectable} from '@angular/core';
-import {question, QuestionService} from "./question.service";
 import {FormArray, FormControl} from "@angular/forms";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ModalService {
-  currentQuestion: question
   expanded = false;
-  private modals: any[] = []
 
-  constructor(private questionService: QuestionService) { }
+  constructor() { }
 
-  add(modal: any) {
-    this.modals.push(modal)
-    console.log(this.modals)
-  }
-
-  remove(modalId: string) {
-    this.modals = this.modals.filter(modal => modal.modalId !== modalId)
-  }
-
-  open(modalId: string) {
-    const modal = this.modals.find(modal => modal.modalId === modalId)
-    modal.open()
-  }
-
-  close(modalId: string) {
-    const modal = this.modals = this.modals.find(modal => modal.modalId === modalId)
-    modal.close()
-  }
 
   addTopic(input, index: number, modal, availableTopics) {
-    if (input.checked) {
-      if ((modal.get('topics').value.length >= availableTopics.length)  ||
-        (modal.get('topics').value.indexOf(input.value) !== -1)) {
-        return;
-      } else {
-        (<FormArray>modal.get('topics')).push(new FormControl(input.value));
-      }
+    if (!input.checked) {
+        this.removeTopics(modal, index, input)
+    } else if ((modal.get('topics').value.length >= availableTopics.length) ||
+      (modal.get('topics').value.indexOf(input.value) !== -1)) {
+      return;
+    } else {
+      (<FormArray>modal.get('topics')).push(new FormControl(input.value));
     }
+
+  }
+
+  removeTopics(modal, index, input) {
+    let topics = (<FormArray>modal.get('topics'))
+    topics.removeAt(topics.value.findIndex(topic => topic === input.value))
   }
 
   showCheckboxes(selector) {
@@ -52,6 +37,5 @@ export class ModalService {
       this.expanded = false;
     }
   }
-
-
 }
+

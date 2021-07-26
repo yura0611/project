@@ -93,7 +93,7 @@ app-create-new-modal {
   .chosen-topics_list-block {
     display: flex;
     flex-wrap: wrap;
-    align-content: end;
+    align-content: flex-start;
     padding: 8px 9px;
 
     border-radius: 2px;

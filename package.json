@@ -23,6 +23,7 @@
     "@angular/router": "~11.2.13",
     "@types/gapi.auth2": "0.0.55",
     "gapi": "0.0.3",
+    "ngx-cookie-service": "^12.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"

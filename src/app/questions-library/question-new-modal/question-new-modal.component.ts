@@ -1,8 +1,9 @@
 import {Component, Inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
-import {QuestionService} from "../shared/question.service";
+import {question, QuestionService} from "../shared/question.service";
 import {ModalService} from "../shared/modals.service";
+import {tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-question-new-modal',
@@ -20,12 +21,13 @@ export class QuestionNewModalComponent implements OnInit {
               public modalService: ModalService) { }
 
   ngOnInit(): void {
-    this.availableTopics = this.questionService.availableTopics;
+    this.availableTopics = this.questionService.availableTopics
+
     this.createNewModal = new FormGroup({
       "title": new FormControl(null, Validators.max(250)),
       "description": new FormControl(null, [Validators.max(800), Validators.required]),
       "topics": new FormArray([], [Validators.min(0),Validators.required]),
-      "type": new FormControl('-1'),
+      "type": new FormControl(),
       "maxLength": new FormControl(null,Validators.pattern(/^-?(0|[1-9]\d*)?$/))
     })
   }
@@ -56,7 +58,10 @@ export class QuestionNewModalComponent implements OnInit {
 
   onCreate() {
     console.log(this.createNewModal.value)
-    this.questionService.addNewQuestion(this.createNewModal.value)
+    // this.questionService.addNewQuestion(this.createNewModal.value)
+    this.questionService.addNewQuestion(this.createNewModal.value).pipe(
+      tap(newQuestion => this.questionService.updateQuestionList(newQuestion.question))
+    ).subscribe()
   }
 
 }

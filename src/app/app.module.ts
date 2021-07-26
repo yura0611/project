@@ -12,9 +12,11 @@ import { VacanciesComponent } from './vacancies/vacancies.component';
 import { VacanciesCreateComponent } from './vacancies/vacancies-create/vacancies-create.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { VacanciesTableComponent } from './vacancies/vacancies-table/vacancies-table.component';
-import { VacanciesInfoComponent } from './vacancies/vacancies-info/vacancies-info.component';
+import { VacanciesEditComponent } from './vacancies/vacancies-edit/vacancies-edit.component';
 import {QuestionsLibraryModule} from "./questions-library/shared/questions-library.module";
 import {MatDialogModule} from "@angular/material/dialog";
+import {HttpClientModule} from "@angular/common/http";
+import {CookieService} from "ngx-cookie-service";
 
 
 
@@ -27,7 +29,7 @@ import {MatDialogModule} from "@angular/material/dialog";
     VacanciesComponent,
     VacanciesCreateComponent,
     VacanciesTableComponent,
-    VacanciesInfoComponent,
+    VacanciesEditComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,8 +38,9 @@ import {MatDialogModule} from "@angular/material/dialog";
     MaterialModule,
     ReactiveFormsModule,
     QuestionsLibraryModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
