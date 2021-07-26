@@ -70,7 +70,9 @@
     </div>
   </div>
 
+
   <div class="edit-modal-form_edit_btn">
+    <button type="button" (click)="onDelete()" style="background: red; cursor: pointer">{{'delete' | uppercase}}</button>
     <button type="submit"
             style="cursor:
                 pointer" (click)="onEdit()"

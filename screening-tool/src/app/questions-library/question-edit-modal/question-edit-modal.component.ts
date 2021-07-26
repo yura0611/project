@@ -46,6 +46,9 @@ export class QuestionEditModalComponent implements OnInit {
   onEdit() {
     this.questionService.editQuestion(this.editModal.value, this.data.questionId)
   }
+  onDelete() {
+
+  }
 
   onAddTopic(input,index: number) {
     this.modalService.addTopic(input,index,this.editModal,this.availableTopics)

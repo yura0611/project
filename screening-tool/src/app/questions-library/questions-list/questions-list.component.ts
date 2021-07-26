@@ -46,6 +46,7 @@ export class QuestionsListComponent implements OnInit {
     const questionId = id;
     const modalConfig = new MatDialogConfig();
     modalConfig.width = '496px';
+    modalConfig.height = '100vh';
     modalConfig.data = {question:question, questionId:questionId};
     this.dialog.open(QuestionEditModalComponent, modalConfig);
   }
@@ -54,6 +55,7 @@ export class QuestionsListComponent implements OnInit {
     const modalConfig = new MatDialogConfig();
     modalConfig.autoFocus = false;
     modalConfig.width = '496px';
+    modalConfig.height = '100vh';
     this.dialog.open(QuestionNewModalComponent, modalConfig)
   }
 
@@ -62,6 +64,7 @@ export class QuestionsListComponent implements OnInit {
     const questionId = id;
     modalConfig.autoFocus = false;
     modalConfig.width = '496px';
+    modalConfig.height = '100vh';
     modalConfig.data = {id: questionId};
 
     this.dialog.open(QuestionViewModalComponent, modalConfig)

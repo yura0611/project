@@ -69,6 +69,8 @@ app-dialog-edit {
   .edit-modal-form_edit_btn {
     text-align: right;
     margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
     button {
       padding: 12px 20px;
       border: none;
