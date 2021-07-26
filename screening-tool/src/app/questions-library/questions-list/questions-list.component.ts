@@ -23,16 +23,18 @@ export class QuestionsListComponent implements OnInit {
     this.questionService.getAllTopics()
     this.subscription = this.questionService.questionEmitter.subscribe(data => this.questionList = data)
     this.subscription = this.questionService.topicsEmitter.subscribe(data => this.allTopics = data)
-    this.subscription = this.questionService.questionEmitter.subscribe((questions: question[]) => {
+    this.subscription = this.questionService.allQuestionEmitter.subscribe((questions: question[]) => {
       this.questionList = questions;
     })
-    this.subscription = this.questionService.changedQuestion.subscribe((questions: question[]) => {
-      console.log('from question list component', questions)
-      this.questionList = questions
+    this.subscription = this.questionService.changedQuestion.subscribe((question: question) => {
+      console.log('from question list component', question)
+      this.questionList.find(el => {
+        if (el._id === question._id) {
+          this.questionList[this.questionList.findIndex(el => el._id === question._id)] = question
+        }
+      })
     })
-    this.subscription = this.questionService.questionByFilters.subscribe(data => {
-      this.questionList = data
-    })
+    this.subscription = this.questionService.questionByFilters.subscribe(data => this.questionList = data)
 
     console.log('from component',this.questionList);
   }
@@ -41,7 +43,7 @@ export class QuestionsListComponent implements OnInit {
     this.questionService.sortType(type)
   }
 
-  openEditModal(id: number) {
+  openEditModal(id: string) {
     const question = this.questionService.getQuestionById(id)
     const questionId = id;
     const modalConfig = new MatDialogConfig();

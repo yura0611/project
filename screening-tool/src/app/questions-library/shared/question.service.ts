@@ -3,6 +3,7 @@ import {Subject} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 
 export interface question {
+  _id: string
   title: string,
   type: string,
   topics: string[],
@@ -16,66 +17,68 @@ export interface question {
 export class QuestionService  {
   availableTopics = ['front-end', 'back-end'];
   questionEmitter = new EventEmitter<question[]>()
+  allQuestionEmitter = new EventEmitter<question[]>()
   topicsEmitter = new EventEmitter<any>()
-  changedQuestion = new Subject<question[]>()
+  changedQuestion = new Subject<question>()
   questionByFilters = new Subject<question[]>()
   questionList: question[] = [
-    {
-      title: 'Today was a greate day',
-      type: 'video',
-      topics: ['js', 'node', 'angular'],
-      description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur dolor dolores, eius ex illo, incidunt maiores mollitia neque nisi non officia pariatur, repudiandae. Accusamus, accusantium debitis eius iste perferendis porro possimus reiciendis ullam. Aut dignissimos eaque eligendi, facere nostrum, odio officia quibusdam quos suscipit unde ut voluptates! Dolorem facere facilis laboriosam laborum nulla sit! Asperiores enim error pariatur repellendus sapiente?',
-      maxLength: 145
-    },
-    {
-      title: 'The best title',
-      type: 'code',
-      topics: ['js','node', 'angular'],
-      description: '',
-      maxLength: 12
-    },
-    {
-      title: 'The best title 2',
-      type: 'video',
-      topics: ['js', 'node', 'angular'],
-      description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur dolor dolores, eius ex illo, incidunt maiores mollitia neque nisi non officia pariatur, repudiandae. Accusamus, accusantium debitis eius iste perferendis porro possimus reiciendis ullam. Aut dignissimos eaque eligendi, facere nostrum, odio officia quibusdam quos suscipit unde ut voluptates! Dolorem facere facilis laboriosam laborum nulla sit! Asperiores enim error pariatur repellendus sapiente?',
-      maxLength: 67
-    },
-    {
-      title: 'The best title 3',
-      type: 'text',
-      topics: ['js', 'node', 'java'],
-      description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur dolor dolores, eius ex illo, incidunt maiores mollitia neque nisi non officia pariatur, repudiandae. Accusamus, accusantium debitis eius iste perferendis porro possimus reiciendis ullam. Aut dignissimos eaque eligendi, facere nostrum, odio officia quibusdam quos suscipit unde ut voluptates! Dolorem facere facilis laboriosam laborum nulla sit! Asperiores enim error pariatur repellendus sapiente?',
-      maxLength: 9
-    },
-    {
-      title: 'The best title 4',
-      type: 'text',
-      topics: ['js','node', 'angular'],
-      description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur dolor dolores, eius ex illo, incidunt maiores mollitia neque nisi non officia pariatur, repudiandae. Accusamus, accusantium debitis eius iste perferendis porro possimus reiciendis ullam. Aut dignissimos eaque eligendi, facere nostrum, odio officia quibusdam quos suscipit unde ut voluptates! Dolorem facere facilis laboriosam laborum nulla sit! Asperiores enim error pariatur repellendus sapiente?',
-      maxLength: 12
-    },
-    {
-      title: 'The best title 5',
-      type: 'code',
-      topics: ['js', 'node', 'angular'],
-      description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur dolor dolores, eius ex illo, incidunt maiores mollitia neque nisi non officia pariatur, repudiandae. Accusamus, accusantium debitis eius iste perferendis porro possimus reiciendis ullam. Aut dignissimos eaque eligendi, facere nostrum, odio officia quibusdam quos suscipit unde ut voluptates! Dolorem facere facilis laboriosam laborum nulla sit! Asperiores enim error pariatur repellendus sapiente?',
-      maxLength: 33
-    },
-    {
-      title: 'The best title 6',
-      type: 'video',
-      topics: ['js', 'node', 'Go'],
-      description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur dolor dolores, eius ex illo, incidunt maiores mollitia neque nisi non officia pariatur, repudiandae. Accusamus, accusantium debitis eius iste perferendis porro possimus reiciendis ullam. Aut dignissimos eaque eligendi, facere nostrum, odio officia quibusdam quos suscipit unde ut voluptates! Dolorem facere facilis laboriosam laborum nulla sit! Asperiores enim error pariatur repellendus sapiente?',
-      maxLength: 44
-    },
+    // {
+    //   title: 'Today was a greate day',
+    //   type: 'video',
+    //   topics: ['js', 'node', 'angular'],
+    //   description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur dolor dolores, eius ex illo, incidunt maiores mollitia neque nisi non officia pariatur, repudiandae. Accusamus, accusantium debitis eius iste perferendis porro possimus reiciendis ullam. Aut dignissimos eaque eligendi, facere nostrum, odio officia quibusdam quos suscipit unde ut voluptates! Dolorem facere facilis laboriosam laborum nulla sit! Asperiores enim error pariatur repellendus sapiente?',
+    //   maxLength: 145
+    // },
+    // {
+    //   title: 'The best title',
+    //   type: 'code',
+    //   topics: ['js','node', 'angular'],
+    //   description: '',
+    //   maxLength: 12
+    // },
+    // {
+    //   title: 'The best title 2',
+    //   type: 'video',
+    //   topics: ['js', 'node', 'angular'],
+    //   description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur dolor dolores, eius ex illo, incidunt maiores mollitia neque nisi non officia pariatur, repudiandae. Accusamus, accusantium debitis eius iste perferendis porro possimus reiciendis ullam. Aut dignissimos eaque eligendi, facere nostrum, odio officia quibusdam quos suscipit unde ut voluptates! Dolorem facere facilis laboriosam laborum nulla sit! Asperiores enim error pariatur repellendus sapiente?',
+    //   maxLength: 67
+    // },
+    // {
+    //   title: 'The best title 3',
+    //   type: 'text',
+    //   topics: ['js', 'node', 'java'],
+    //   description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur dolor dolores, eius ex illo, incidunt maiores mollitia neque nisi non officia pariatur, repudiandae. Accusamus, accusantium debitis eius iste perferendis porro possimus reiciendis ullam. Aut dignissimos eaque eligendi, facere nostrum, odio officia quibusdam quos suscipit unde ut voluptates! Dolorem facere facilis laboriosam laborum nulla sit! Asperiores enim error pariatur repellendus sapiente?',
+    //   maxLength: 9
+    // },
+    // {
+    //   title: 'The best title 4',
+    //   type: 'text',
+    //   topics: ['js','node', 'angular'],
+    //   description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur dolor dolores, eius ex illo, incidunt maiores mollitia neque nisi non officia pariatur, repudiandae. Accusamus, accusantium debitis eius iste perferendis porro possimus reiciendis ullam. Aut dignissimos eaque eligendi, facere nostrum, odio officia quibusdam quos suscipit unde ut voluptates! Dolorem facere facilis laboriosam laborum nulla sit! Asperiores enim error pariatur repellendus sapiente?',
+    //   maxLength: 12
+    // },
+    // {
+    //   title: 'The best title 5',
+    //   type: 'code',
+    //   topics: ['js', 'node', 'angular'],
+    //   description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur dolor dolores, eius ex illo, incidunt maiores mollitia neque nisi non officia pariatur, repudiandae. Accusamus, accusantium debitis eius iste perferendis porro possimus reiciendis ullam. Aut dignissimos eaque eligendi, facere nostrum, odio officia quibusdam quos suscipit unde ut voluptates! Dolorem facere facilis laboriosam laborum nulla sit! Asperiores enim error pariatur repellendus sapiente?',
+    //   maxLength: 33
+    // },
+    // {
+    //   title: 'The best title 6',
+    //   type: 'video',
+    //   topics: ['js', 'node', 'Go'],
+    //   description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur dolor dolores, eius ex illo, incidunt maiores mollitia neque nisi non officia pariatur, repudiandae. Accusamus, accusantium debitis eius iste perferendis porro possimus reiciendis ullam. Aut dignissimos eaque eligendi, facere nostrum, odio officia quibusdam quos suscipit unde ut voluptates! Dolorem facere facilis laboriosam laborum nulla sit! Asperiores enim error pariatur repellendus sapiente?',
+    //   maxLength: 44
+    // },
   ]
   isSorted = false;
 
   allQuestionUrl = 'http://localhost:3000/api/question'
   addQuestionUrl = 'http://localhost:3000/api/question'
   allAvailableTopicsUrl = 'http://localhost:3000/api/question/topics'
-  QuestionByFilter = 'http://localhost:3000/api/question/filtered'
+  QuestionByFilterUrl = 'http://localhost:3000/api/question/filtered'
+  editQuestionUrl = 'http://localhost:3000/api/question/edit';
   constructor(private http: HttpClient) {
   }
 
@@ -86,15 +89,15 @@ export class QuestionService  {
 
   getAllQuestions() {
      this.http.get<question[]>(this.allQuestionUrl).subscribe(data => {
-       console.log('question', data)
+       console.log('question from back', data)
        this.questionList = data
-       this.questionEmitter.emit(this.questionList)
+       this.allQuestionEmitter.emit(this.questionList)
      })
 
   }
 
   getQuestionByFilters(value) {
-    this.http.post(this.QuestionByFilter, value).subscribe((data: question[]) => {
+    this.http.post(this.QuestionByFilterUrl, value).subscribe((data: question[]) => {
       this.questionByFilters.next(data)
     })
   }
@@ -107,14 +110,24 @@ export class QuestionService  {
     })
   }
 
-  getQuestionById(id: number) {
-    return this.questionList.slice()[id];
+  getQuestionById(id: string) {
+    let question = this.questionList.find(el => {
+      if (el._id === id) {
+        return el
+      }
+    })
+    return question
   }
 
-  editQuestion(editedQuestion: question, index) {
+  editQuestion(editedQuestion: question, id) {
+    console.log('edited question',editedQuestion)
+    this.http.put(this.editQuestionUrl, {question: editedQuestion, _id: id})
+      .subscribe(data => {
+        console.log('data from request', data['question'])
+        console.log('data from request id', data['id'])
+        this.changedQuestion.next(data['question'])
 
-    this.questionList[index] = editedQuestion;
-    this.changedQuestion.next(this.questionList.slice())
+      })
   }
 
   sortType(type) {
