@@ -94,7 +94,7 @@ export class QuestionService  {
   getAllQuestions() {
      this.http.get<question[]>(this.allQuestionUrl).subscribe(data => {
        console.log('question from back', data)
-       this.questionListSubject.next(data)
+       // this.questionListSubject.next(data)
        this.questionList = data
        this.allQuestionEmitter.emit(this.questionList)
      })
@@ -118,10 +118,14 @@ export class QuestionService  {
 
   getQuestionById(id: string) {
     let question = this.questionList.find(el => {
+      console.log(el)
       if (el._id === id) {
+
         return el
       }
     })
+    console.log('id from srv',id)
+    console.log('question', question)
     return question
   }
 
@@ -144,6 +148,7 @@ export class QuestionService  {
 
   updateQuestionList(question: question) {
     // this.questionList = [...this.questionList, question]
+    console.log('question from service', question)
     this.questionListSubject.next([...this.questionListSubject.value, question])
   }
 

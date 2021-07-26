@@ -16,22 +16,24 @@ export class QuestionsListComponent implements OnInit {
   allTopics: [];
   questionList: question[] = [];
   subscription: Subscription;
-  observableAlive = true;
   constructor(private questionService: QuestionService, public dialog: MatDialog) { }
 
   ngOnInit() {
+
     this.questionService.getAllQuestions()
     this.questionService.questionList$.pipe(
-      tap(questionList => this.questionList = questionList),
+      tap(question => console.log('question from subject', question)),
+      tap(questionList => this.questionList.push(...questionList)),
     ).subscribe(value => {}, error => {}, () => console.log('good game'))
 
-
+    console.log('questio list test blabla', this.questionList)
 
 
     this.questionService.getAllTopics()
-    this.subscription = this.questionService.questionEmitter.subscribe(data => this.questionList = data)
-    this.subscription.add(this.questionService.topicsEmitter.subscribe(data => this.allTopics = data))
+    // this.subscription = this.questionService.questionEmitter.subscribe(data => this.questionList = data)
+    this.subscription = this.questionService.topicsEmitter.subscribe(data => this.allTopics = data)
     this.subscription.add(this.questionService.allQuestionEmitter.subscribe((questions: question[]) => {
+      // TODO : check emitter and questionList subject. Emitter works properly, subject doesn't
       this.questionList = questions;
     }))
     this.subscription.add(this.questionService.changedQuestion.subscribe((question: question) => {
@@ -81,7 +83,6 @@ export class QuestionsListComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.observableAlive = false;
     this.subscription.unsubscribe()
   }
 
