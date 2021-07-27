@@ -16,6 +16,7 @@ import { VacanciesEditComponent } from './vacancies/vacancies-edit/vacancies-edi
 import {QuestionsLibraryModule} from "./questions-library/shared/questions-library.module";
 import {MatDialogModule} from "@angular/material/dialog";
 import {HttpClientModule} from "@angular/common/http";
+import {CookieService} from "ngx-cookie-service";
 
 
 
@@ -39,7 +40,7 @@ import {HttpClientModule} from "@angular/common/http";
     QuestionsLibraryModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

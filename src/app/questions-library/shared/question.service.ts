@@ -1,5 +1,5 @@
-import {Injectable, EventEmitter, Input, OnInit} from '@angular/core';
-import {Subject} from "rxjs";
+import {EventEmitter, Injectable} from '@angular/core';
+import {BehaviorSubject, Subject} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 
 export interface question {
@@ -16,11 +16,14 @@ export interface question {
 })
 export class QuestionService  {
   availableTopics = ['front-end', 'back-end'];
-  questionEmitter = new EventEmitter<question[]>()
-  allQuestionEmitter = new EventEmitter<question[]>()
-  topicsEmitter = new EventEmitter<any>()
-  changedQuestion = new Subject<question>()
-  questionByFilters = new Subject<question[]>()
+  questionEmitter = new EventEmitter<question[]>();
+  allQuestionEmitter = new EventEmitter<question[]>();
+  topicsEmitter = new EventEmitter<any>();
+  changedQuestion = new Subject<question>();
+  questionByFilters = new Subject<question[]>();
+  questionsAfterDelete = new Subject<question[]>();
+  private questionListSubject = new BehaviorSubject<question[]>([]);
+  public questionList$ = this.questionListSubject.asObservable();
   questionList: question[] = [
     // {
     //   title: 'Today was a greate day',
@@ -71,36 +74,32 @@ export class QuestionService  {
     //   description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur dolor dolores, eius ex illo, incidunt maiores mollitia neque nisi non officia pariatur, repudiandae. Accusamus, accusantium debitis eius iste perferendis porro possimus reiciendis ullam. Aut dignissimos eaque eligendi, facere nostrum, odio officia quibusdam quos suscipit unde ut voluptates! Dolorem facere facilis laboriosam laborum nulla sit! Asperiores enim error pariatur repellendus sapiente?',
     //   maxLength: 44
     // },
-  ]
+  ];
   isSorted = false;
 
-  allQuestionUrl = 'http://localhost:3000/api/question'
-  addQuestionUrl = 'http://localhost:3000/api/question'
-  allAvailableTopicsUrl = 'http://localhost:3000/api/question/topics'
-  QuestionByFilterUrl = 'http://localhost:3000/api/question/filtered'
+  allQuestionUrl = 'http://localhost:3000/api/question';
+  addQuestionUrl = 'http://localhost:3000/api/question';
+  allAvailableTopicsUrl = 'http://localhost:3000/api/question/topics';
+  QuestionByFilterUrl = 'http://localhost:3000/api/question/filtered';
   editQuestionUrl = 'http://localhost:3000/api/question/edit';
+  deleteQuestionUrl = 'http://localhost:3000/api/question/delete';
   constructor(private http: HttpClient) {
   }
 
 
   addNewQuestion(question: question) {
-   return this.http.post(this.addQuestionUrl, {question: question, email: 'vasilishin08@gmail.com'})
+   return this.http.post<any>(this.addQuestionUrl, {question: question, email: 'vasilishin08@gmail.com'})
   }
 
   getAllQuestions() {
      this.http.get<question[]>(this.allQuestionUrl).subscribe(data => {
        console.log('question from back', data)
+       // this.questionListSubject.next(data)
        this.questionList = data
        this.allQuestionEmitter.emit(this.questionList)
      })
-
   }
 
-  getQuestionByFilters(value) {
-    this.http.post(this.QuestionByFilterUrl, value).subscribe((data: question[]) => {
-      this.questionByFilters.next(data)
-    })
-  }
 
   getAllTopics() {
     this.http.get<any>(this.allAvailableTopicsUrl).subscribe(data => {
@@ -110,12 +109,23 @@ export class QuestionService  {
     })
   }
 
+  getQuestionByFilters(value) {
+    this.http.post(this.QuestionByFilterUrl, value).subscribe((data: question[]) => {
+      this.questionByFilters.next(data)
+    })
+  }
+
+
   getQuestionById(id: string) {
     let question = this.questionList.find(el => {
+      console.log(el)
       if (el._id === id) {
+
         return el
       }
     })
+    console.log('id from srv',id)
+    console.log('question', question)
     return question
   }
 
@@ -128,6 +138,18 @@ export class QuestionService  {
         this.changedQuestion.next(data['question'])
 
       })
+  }
+
+  deleteQuestion(id: string) {
+    this.http.post(this.deleteQuestionUrl, {_id: id}).subscribe((data: question[]) => {
+      this.questionsAfterDelete.next(data)
+    })
+  }
+
+  updateQuestionList(question: question) {
+    // this.questionList = [...this.questionList, question]
+    console.log('question from service', question)
+    this.questionListSubject.next([...this.questionListSubject.value, question])
   }
 
   sortType(type) {

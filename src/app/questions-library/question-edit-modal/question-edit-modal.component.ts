@@ -56,7 +56,8 @@ export class QuestionEditModalComponent implements OnInit {
     this.questionService.editQuestion(this.editedQuestion, this.editedQuestion._id)
   }
   onDelete() {
-
+    this.questionService.deleteQuestion(this.data.question._id)
+    this.dialogRef.closeAll()
   }
 
   onAddTopic(input,index: number) {

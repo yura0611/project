@@ -1,8 +1,9 @@
 import {Component, Inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
-import {QuestionService} from "../shared/question.service";
+import {question, QuestionService} from "../shared/question.service";
 import {ModalService} from "../shared/modals.service";
+import {tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-question-new-modal',
@@ -58,7 +59,9 @@ export class QuestionNewModalComponent implements OnInit {
   onCreate() {
     console.log(this.createNewModal.value)
     // this.questionService.addNewQuestion(this.createNewModal.value)
-    this.questionService.addNewQuestion(this.createNewModal.value).subscribe(data => console.log(data))
+    this.questionService.addNewQuestion(this.createNewModal.value).pipe(
+      tap(newQuestion => this.questionService.updateQuestionList(newQuestion.question))
+    ).subscribe()
   }
 
 }

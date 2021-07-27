@@ -46,7 +46,8 @@ export class GoogleAuthService {
     }
 
     return new Promise(async () => {
-      await this.authInstance.signIn({prompt: 'select_account'}).then((user) => {
+      await this.authInstance.signIn({prompt: 'select_account', ux_mode: 'popup'}).then((user) => {
+        console.log('user from google', user.getAuthResponse())
         this.user = user;
         this.userData = {
           userAuthData: user.getAuthResponse(),
