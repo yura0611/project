@@ -15,7 +15,6 @@ import {tap} from "rxjs/operators";
 })
 export class QuestionsListComponent implements OnInit {
   allTopics: [];
-  // questionList: question[] = [];
   questionList$ = this.questionService.questionList$;
   subscription: Subscription;
   constructor(private questionService: QuestionService, public dialog: MatDialog) { }
@@ -24,34 +23,8 @@ export class QuestionsListComponent implements OnInit {
     this.questionService.getAllTopics()
     this.questionService.getQuestionByFilters().subscribe();
     this.questionService.questionList$.subscribe()
-    // this.questionService.questionByFilters.subscribe(data => this.questionList = data)
-
-    // this.questionService.getAllQuestions().pipe(
-    //   tap(questionList => this.questionService.questionList = questionList),
-    // ).subscribe(data => {
-    //   console.log('question from back', data)
-    //   this.questionList = data
-    // })
-
-    // this.questionService.questionList$.pipe(
-    //   tap(question => console.log('question from subject', question)),
-    //   tap(questionList => this.questionList.push(...questionList)),
-    // ).subscribe(value => {}, error => {}, () => console.log('good game'))
-
     this.subscription = this.questionService.topicsEmitter.subscribe(data => this.allTopics = data)
 
-    // this.subscription.add(this.questionService.changedQuestion.subscribe((question: question) => {
-    //   console.log('from question list component', question)
-    //   this.questionList.find(el => {
-    //     if (el._id === question._id) {
-    //       this.questionList[this.questionList.findIndex(el => el._id === question._id)] = question
-    //     }
-    //   })
-    // }))
-
-    // this.subscription.add(this.questionService.questionsAfterDelete.
-    // subscribe(data => this.questionList = data))
-    // console.log('from component',this.questionList);
   }
 
   onSort(type: string) {
