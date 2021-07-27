@@ -1,8 +1,9 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {FormArray, FormControl, FormGroup} from "@angular/forms";
+import {FormArray, FormGroup} from "@angular/forms";
 import {question, QuestionService} from "../shared/question.service";
 import {ModalService} from "../shared/modals.service";
 import {HttpClient} from "@angular/common/http";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-questions-filter',
@@ -16,11 +17,13 @@ export class QuestionsFilterComponent implements OnInit {
   filterForm: FormGroup;
   expanded = false;
   formData: question
-  QuestionByFilter = 'http://localhost:3000/api/question/filtered'
-  constructor( private questionService: QuestionService, private modalService: ModalService, private http: HttpClient) { }
+  constructor( private questionService: QuestionService,
+               private modalService: ModalService,
+               private http: HttpClient,
+               private router: Router,
+               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    // this.topics = this.questionService.availableTopics
     this.questionService.topicsEmitter.subscribe(data => this.topics = data)
     this.filterForm = new FormGroup({
       "topics": new FormArray([])
@@ -33,7 +36,8 @@ export class QuestionsFilterComponent implements OnInit {
 
   onSearch() {
     console.log('filter value',this.filterForm.value)
-    this.questionService.getQuestionByFilters(this.filterForm.value)
+    this.questionService.getQuestionByFilters(this.filterForm.value).subscribe(value => {}, error => {}, () => {console.log('gg')})
+
   }
 
   onSubmit(form) {
@@ -51,6 +55,7 @@ export class QuestionsFilterComponent implements OnInit {
 
   onRemoveTopic(index) {
     (<FormArray>this.filterForm.controls['topics']).removeAt(index)
+    console.log((<FormArray>this.filterForm.controls['topics']).getRawValue())
 
   }
 

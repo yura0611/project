@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 
-import {MatTabsModule} from '@angular/material/tabs';
+import {MatTabNav, MatTabsModule} from '@angular/material/tabs';
 import {MatCardModule} from '@angular/material/card';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
@@ -29,7 +29,7 @@ import {MatDialog, MatDialogModule} from "@angular/material/dialog";
     MatPaginatorModule,
     MatSortModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   exports: [
     MatTabsModule,

@@ -1,8 +1,15 @@
-<nav mat-tab-nav-bar >
-  <a mat-tab-link *ngFor="let link of navLinks"
-     [routerLink]="'/' + link.path"
-  > {{link.label}} </a>
-</nav>
-<!--<a [routerLink]="['questions']">Questions</a>-->
+    <div class="header">
+      <div class="header_links" >
+        <a [routerLink]="['/home']" class="active">HOME</a>
+        <a [routerLink]="['/vacancies']" class="active">VACANCIES</a>
+        <a [routerLink]="['/questions']" class="active">QUESTIONS LIBRARY</a>
+        <a [routerLink]="['/system-settings']" class="active">SYSTEM SETTINGS</a>
+      </div>
+      <div class="header_profile">
+        <a [routerLink]="['/profile']" ><img src="../../assets/profile.svg" alt="Profile"></a>
+      </div>
+    </div>
+
+
 
 

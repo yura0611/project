@@ -3,7 +3,7 @@
 </div>
 
 
-<div class="question-list_block">
+<div *ngIf="(questionList$ | async) as questionList" class="question-list_block">
   <div class="question-list_title">
     <p>Questions({{questionList.length}})</p>
     <div class="question-list_title-avg_time">
