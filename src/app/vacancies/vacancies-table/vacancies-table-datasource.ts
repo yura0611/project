@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 import { Data } from '@angular/router';
 
-// TODO: Replace this with your own data model type
+
 export interface VacanciesTableItem {
   vacancy: string;
   type: string;
@@ -15,12 +15,11 @@ export interface VacanciesTableItem {
   description: string;
 }
 
-// TODO: replace this with real data from your application
 export const EXAMPLE_DATA: VacanciesTableItem[] = [
-  {vacancy: 'Senior Full-stack Developer', type: 'Web', status: 'Active', number_of_applicants: 3, opened: '22 Sep 2020',description:'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'},
-  {vacancy: 'Delivery Manager', type: 'Managment', status: 'Active', number_of_applicants: 6, opened:'21 Nov 2018',description:'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'},
-  {vacancy: 'Senior Ruby Developer', type: 'Web', status: 'Active', number_of_applicants: 0, opened:'21 Oct 2020',description:'ffffff'},
-  {vacancy: 'AWS DevOps engineer', type: 'Web', status: 'Active', number_of_applicants: 2, opened:'21 Oct 2019',description:'ffffff'},
+  {vacancy: 'Senior Full-stack Developer', type: 'Web', status: 'ACTIVE', number_of_applicants: 3, opened: '22 Sep. 2020',description:'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'},
+  {vacancy: 'Delivery Manager', type: 'Managment', status: 'ACTIVE', number_of_applicants: 6, opened:'21 Nov. 2018',description:'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'},
+  {vacancy: 'Senior Ruby Developer', type: 'Web', status: 'ACTIVE', number_of_applicants: 0, opened:'21 Oct. 2020',description:'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'},
+  {vacancy: 'AWS DevOps engineer', type: 'Web', status: 'CLOSED', number_of_applicants: 2, opened:'21 Oct. 2019',description:'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'},
 ];
 
 

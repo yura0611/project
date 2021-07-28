@@ -1,0 +1,91 @@
+.full-width-table {
+  width: 100%;
+}
+
+
+.mat-header-cell {
+  font-size: 11px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #101820;
+}
+
+
+
+.cell-invited {
+  width: 50px;
+  height: 17px;
+  padding: 2px 4px;
+  border-radius: 2px;
+  background-color: #00b2a9;
+}
+
+
+
+.cell-InProgress {
+ width: 70px;
+  padding: 2px 4px;
+  border-radius: 2px;
+  background-color: #f5a623;
+}
+
+
+.cell-evaluated {
+  width: 70px;
+  height: 17px;
+  padding: 2px 4px;
+  border-radius: 2px;
+  background-color:  #4a90e2;;
+}
+
+
+
+.cell-completed {
+  width:70px;
+  height: 17px;
+  padding: 2px 4px;
+  border-radius: 2px;
+  background-color:  #4a4a4a;;
+}
+
+
+
+
+
+
+
+.mat-cell:nth-child(3) {
+  width: 31px;
+  height: 13px;
+  font-size: 11px;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+  text-align: center;
+}
+
+.link{
+  color: #007672;
+}
+
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  min-width: 300px;
+}
+
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+}
+
+.mat-column-select {
+  overflow: visible;
+}
