@@ -17,7 +17,7 @@ import {QuestionsLibraryModule} from "./questions-library/shared/questions-libra
 import {MatDialogModule} from "@angular/material/dialog";
 import {HttpClientModule} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
-import { HomePageComponent } from './home-page/home-page.component';
+
 
 
 
@@ -31,7 +31,6 @@ import { HomePageComponent } from './home-page/home-page.component';
     VacanciesCreateComponent,
     VacanciesTableComponent,
     VacanciesEditComponent,
-    HomePageComponent,
   ],
   imports: [
     BrowserModule,
