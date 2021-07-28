@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SharedService } from '../shared/shared.service';
+
 
 
 @Component({
@@ -12,18 +12,17 @@ export class VacanciesEditComponent implements OnInit {
   name = 'Angular';
   showMore = false;
   text = '';
-  constructor(private shared:SharedService) {
-   
-    
+  constructor() {
+
+
 
   }
 
   ngOnInit(): void {
-    this.message =  this.shared.getMessage()
-    this.text = this.message['description']; 
+    this.text = this.message['description'];
   }
 
-  
+
 
 
 
