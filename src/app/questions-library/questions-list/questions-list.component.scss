@@ -1,8 +1,11 @@
+app-questions-list {
+  width: 100%;
+}
 .question-list_block {
   box-sizing: border-box;
   background-color: #fafafa;
   box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.05), 0 4px 25px 0 rgba(0, 184, 178, 0.05);
-  width: 750px;
+  width: 100%;
   .question-list_title {
     display: flex;
     justify-content: space-between;

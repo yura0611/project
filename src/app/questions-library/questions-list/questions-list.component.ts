@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {question, QuestionService} from "../shared/question.service";
 import {Subscription} from "rxjs";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
@@ -10,43 +10,21 @@ import {tap} from "rxjs/operators";
 @Component({
   selector: 'app-questions-list',
   templateUrl: './questions-list.component.html',
-  styleUrls: ['./questions-list.component.scss']
+  styleUrls: ['./questions-list.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class QuestionsListComponent implements OnInit {
   allTopics: [];
-  questionList: question[] = [];
+  questionList$ = this.questionService.questionList$;
   subscription: Subscription;
   constructor(private questionService: QuestionService, public dialog: MatDialog) { }
 
   ngOnInit() {
-
-    this.questionService.getAllQuestions()
-    this.questionService.questionList$.pipe(
-      tap(question => console.log('question from subject', question)),
-      tap(questionList => this.questionList.push(...questionList)),
-    ).subscribe(value => {}, error => {}, () => console.log('good game'))
-
-    console.log('questio list test blabla', this.questionList)
-
-
     this.questionService.getAllTopics()
-    // this.subscription = this.questionService.questionEmitter.subscribe(data => this.questionList = data)
+    this.questionService.getQuestionByFilters().subscribe();
+    this.questionService.questionList$.subscribe()
     this.subscription = this.questionService.topicsEmitter.subscribe(data => this.allTopics = data)
-    this.subscription.add(this.questionService.allQuestionEmitter.subscribe((questions: question[]) => {
-      // TODO : check emitter and questionList subject. Emitter works properly, subject doesn't
-      this.questionList = questions;
-    }))
-    this.subscription.add(this.questionService.changedQuestion.subscribe((question: question) => {
-      console.log('from question list component', question)
-      this.questionList.find(el => {
-        if (el._id === question._id) {
-          this.questionList[this.questionList.findIndex(el => el._id === question._id)] = question
-        }
-      })
-    }))
-    this.subscription.add(this.questionService.questionByFilters.subscribe(data => this.questionList = data))
-    this.subscription.add(this.questionService.questionsAfterDelete.subscribe(data => this.questionList = data))
-    console.log('from component',this.questionList);
+
   }
 
   onSort(type: string) {

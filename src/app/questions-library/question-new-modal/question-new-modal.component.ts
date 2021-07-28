@@ -60,6 +60,7 @@ export class QuestionNewModalComponent implements OnInit {
     console.log(this.createNewModal.value)
     // this.questionService.addNewQuestion(this.createNewModal.value)
     this.questionService.addNewQuestion(this.createNewModal.value).pipe(
+      tap(q => console.log('from new modal', q)),
       tap(newQuestion => this.questionService.updateQuestionList(newQuestion.question))
     ).subscribe()
   }

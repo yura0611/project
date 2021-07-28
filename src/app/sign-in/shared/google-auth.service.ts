@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../../auth.service";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 
 export type userDataType = {
   userProfileData: {}
@@ -12,7 +13,7 @@ export type userDataType = {
 })
 export class GoogleAuthService {
 
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  constructor(private http: HttpClient, private authService: AuthService, private router: Router, private route: ActivatedRoute) { }
 
   private clientId = '575303630273-90569cp922fdrci95s7vrjre9isp9kec.apps.googleusercontent.com';
   public gapiSetup: boolean = false;
@@ -56,6 +57,7 @@ export class GoogleAuthService {
         this.authService.sendToken(this.userData.userAuthData)
         localStorage.setItem('user', JSON.stringify(this.userData.userAuthData['id_token']))
         console.log('user data', this.userData)
+        this.router.navigate(['/home'], {relativeTo:this.route})
       }, error => this.error = error);
     })
   }
