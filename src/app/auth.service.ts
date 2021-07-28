@@ -14,7 +14,7 @@ export class AuthService {
 
   sendToken(userData) {
     console.log(userData)
-    return this.http.post(this.loginUrl,{"token": userData.id_token}).subscribe(data => {
+    return this.http.post(this.loginUrl,{"token": userData.id_token}, {observe: "response"}).subscribe(data => {
       console.log('from back',data)
     })
   }
