@@ -54,8 +54,8 @@ export class GoogleAuthService {
           userAuthData: user.getAuthResponse(),
           userProfileData: user.getBasicProfile()
         }
+        console.log('test', this.userData.userAuthData)
         this.authService.sendToken(this.userData.userAuthData)
-        localStorage.setItem('user', JSON.stringify(this.userData.userAuthData['id_token']))
         console.log('user data', this.userData)
         this.router.navigate(['/home'], {relativeTo:this.route})
       }, error => this.error = error);

@@ -1,7 +1,8 @@
 import {Injectable, OnInit} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service"
-import { map, tap } from "rxjs/operators";
+import {catchError, map, tap } from "rxjs/operators";
+import { Router } from "@angular/router";
 
 
 @Injectable({
@@ -19,25 +20,29 @@ export class AuthService  {
 
   constructor(
     private http: HttpClient,
+    private router: Router,
     private cookieService: CookieService
     ) {
   }
 
 
   private setToken(token) {
+    console.log(token)
     return this.cookieService.set(
       'auth-token',
       token)
   }
 
   public sendToken(userData) {
-    console.log(userData)
-    return this.http.post<ISignInInfo>(this.loginUrl,{"token": userData.id_token}/*,{observe: "response"} */)
+    console.log('in send token',userData)
+    return this.http.post<any>(this.loginUrl,{"token": userData.id_token})
       .pipe(
+        tap(resp => console.log(resp)),
         map(resp => resp.token),
         tap(token => this.setToken((token)))
       )
       .subscribe()
+    
 
   }
 }
