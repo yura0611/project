@@ -20,6 +20,7 @@ export class QuestionsListComponent implements OnInit {
   constructor(private questionService: QuestionService, public dialog: MatDialog) { }
 
   ngOnInit() {
+    
     this.questionService.getAllTopics()
     this.questionService.getQuestionByFilters().subscribe();
     this.questionService.questionList$.subscribe()
