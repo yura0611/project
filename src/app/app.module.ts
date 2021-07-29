@@ -12,14 +12,15 @@ import { VacanciesComponent } from './vacancies/vacancies.component';
 import { VacanciesCreateComponent } from './vacancies/vacancies-create/vacancies-create.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { VacanciesTableComponent } from './vacancies/vacancies-table/vacancies-table.component';
-import { VacanciesEditComponent } from './vacancies/vacancies-edit/vacancies-edit.component';
+import { VacanciesInfoComponent} from "./vacancies/vacancies-info/vacancies-info.component";
 import {QuestionsLibraryModule} from "./questions-library/shared/questions-library.module";
 import {MatDialogModule} from "@angular/material/dialog";
 import {HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
 import { HomePageComponent } from './home-page/home-page.component';
+import {ApplicationsTableComponent} from "./vacancies/vacancies-info/applications-table/applications-table.component";
+import {VacanciesInviteModalComponent} from "./vacancies/vacancies-invite-modal/vacancies-invite-modal.component";
 import { TokenInterceptor } from './app.interceptor';
-
 
 
 @NgModule({
@@ -31,8 +32,10 @@ import { TokenInterceptor } from './app.interceptor';
     VacanciesComponent,
     VacanciesCreateComponent,
     VacanciesTableComponent,
-    VacanciesEditComponent,
+    VacanciesInfoComponent,
     HomePageComponent,
+    ApplicationsTableComponent,
+    VacanciesInviteModalComponent
   ],
   imports: [
     BrowserModule,

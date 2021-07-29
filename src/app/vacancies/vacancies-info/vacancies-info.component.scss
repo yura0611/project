@@ -1,0 +1,165 @@
+.vacancy-type {
+  color: #00b2a9;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.vacancy-title{
+  font-size: 20px;
+  font-weight: bold;
+  color: #373a36;
+}
+
+.vacancy-description{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 13px;
+
+}
+
+
+.mat-cards{
+  display: flex;
+  gap:10px;
+  margin-bottom: 30px;
+}
+
+mat-card{
+  width: 500px;
+  height: 80px;
+}
+
+mat-card-content{
+  width: 73px;
+  height: 29px;
+  font-size: 24px;
+  font-weight: 450;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #e0004d;
+  margin-top: -10px;
+}
+
+// ::ng-deepmat-card-title{
+//   font-size: 5px;
+// }
+
+
+.show {
+  overflow: visible;
+  height: 10px;
+}
+
+
+a{
+  color: #007672;
+  text-decoration: none;
+}
+
+h1{
+  font-weight: bold;
+  color: #373a36;
+  margin-left: 15px;
+}
+
+
+.mat-card-title{
+  font-size: 15px;
+  margin-left: -10px!important;
+}
+
+
+.container-card-content{
+  display: flex;
+  flex-direction: row;
+  gap: 90px;
+}
+
+.mat-stroked-button{
+  color: #007672;
+  border:  solid 2px #007672;
+  border-radius: 2px;
+}
+
+.mat-button{
+  margin-left: 10px;
+  float: right;
+  border:  solid 2px #007672;
+  color: #007672;
+  height: 40px;
+}
+
+p > span{
+  color: gray;
+}
+
+.mat-card-content{
+  display: inline-block;
+  white-space: nowrap;
+}
+
+
+.btn{
+  width: 40px;
+  height: 40px;
+  margin-left: 10px;
+  float: right;
+  background-color: transparent;
+  border-color: #007672;
+  border-radius: 2px;
+  border-style: solid;
+  color: #007672;
+}
+
+.btn:hover{
+  cursor: pointer;
+}
+
+
+.btns{
+  width: 87px;
+  height: 40px;
+  margin-left: -20px;
+  padding: 12px 19.5px;
+  border-radius: 2px;
+  border: solid 2px #007672;
+  background-color: transparent;
+  color: #007672;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+
+.btns:hover{
+  cursor:pointer;
+}
+
+.content-title{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+
+.invite-text{
+  width: 191px;
+  height: 16px;
+  font-size: 14px;
+  font-weight: 800;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.5px;
+  color: #101820;
+}
+
+.invite{
+  gap:5px;
+  display: flex;
+  align-items: center;
+  color: #101820;
+}
+
+

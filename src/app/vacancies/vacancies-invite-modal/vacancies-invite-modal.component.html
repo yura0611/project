@@ -1,0 +1,48 @@
+<!--<div class="card-center">-->
+<!--  <mat-card class="example-card">-->
+<!--    <mat-card-header>-->
+<!--      <mat-card-title>Shiba Inu</mat-card-title>-->
+<!--      <mat-card-subtitle>Dog Breed</mat-card-subtitle>-->
+<!--    </mat-card-header>-->
+<!--    <mat-card-content>-->
+<!--      <form [formGroup]="invitationForm">-->
+<!--        <p>Email</p>-->
+<!--        <mat-form-field appearance="outline">-->
+<!--          <input  matInput  formControlName="email" placeholder="Read only text" >-->
+<!--        </mat-form-field>-->
+<!--        <p>First Name</p>-->
+<!--        <mat-form-field appearance="outline">-->
+<!--          <input  matInput  formControlName="firstName" placeholder="Read only text" >-->
+<!--        </mat-form-field>-->
+<!--        <p>Last Name</p>-->
+<!--        <mat-form-field appearance="outline">-->
+<!--          <input  matInput  formControlName="lastName" placeholder="Read only text" >-->
+<!--        </mat-form-field>-->
+<!--      </form>-->
+<!--    </mat-card-content>-->
+<!--  </mat-card>-->
+<!--</div>-->
+<div class="header">
+  <h2>Invite Candidate</h2>
+</div>
+<div>
+  <div class="content">
+    <p class="subheader">Please, write email to find candidate</p>
+    <form [formGroup]="invitationForm">
+      <p>Email</p>
+      <mat-form-field appearance="outline">
+        <input  matInput type="email" [(ngModel)]="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" formControlName="email" placeholder="Read only text" >
+      </mat-form-field>
+      <p>First Name</p>
+      <mat-form-field appearance="outline">
+        <input  matInput  formControlName="firstName" [(ngModel)]="firstName"   placeholder="Read only text" >
+      </mat-form-field>
+      <p>Last Name</p>
+      <mat-form-field appearance="outline">
+        <input  matInput  formControlName="lastName" [(ngModel)]="lastName" placeholder="Read only text" >
+      </mat-form-field>
+    </form>
+    <button class="btn" [ngClass]="{'btn-disabled': this.firstName === null}" >INVITE</button>
+  </div>
+
+</div>
