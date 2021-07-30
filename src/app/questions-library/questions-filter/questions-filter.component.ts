@@ -1,9 +1,9 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {FormArray, FormGroup} from "@angular/forms";
-import {question, QuestionService} from "../shared/question.service";
-import {ModalService} from "../shared/modals.service";
-import {HttpClient} from "@angular/common/http";
-import {ActivatedRoute, Router} from "@angular/router";
+import {FormArray, FormGroup} from '@angular/forms';
+import {question, QuestionService} from '../shared/question.service';
+import {ModalService} from '../shared/modals.service';
+import {HttpClient} from '@angular/common/http';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-questions-filter',
@@ -12,65 +12,62 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class QuestionsFilterComponent implements OnInit {
 
-  @ViewChild('element') checkBoxInput: ElementRef
+  @ViewChild('element') checkBoxInput: ElementRef;
   topics: string[];
   filterForm: FormGroup;
   expanded = false;
-  formData: question
-  constructor( private questionService: QuestionService,
-               private modalService: ModalService,
-               private http: HttpClient,
-               private router: Router,
-               private route: ActivatedRoute) { }
+  formData: question;
+
+  constructor(private questionService: QuestionService,
+              private modalService: ModalService,
+              private http: HttpClient,
+              private router: Router,
+              private route: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
-    this.questionService.topicsEmitter.subscribe(data => this.topics = data)
+    this.questionService.topicsEmitter.subscribe(data => this.topics = data);
     this.filterForm = new FormGroup({
-      "topics": new FormArray([])
-    })
+      'topics': new FormArray([])
+    });
   }
 
   getControls() {
-    return (<FormArray>this.filterForm.get('topics')).getRawValue();
+    return (<FormArray> this.filterForm.get('topics')).getRawValue();
   }
 
   onSearch() {
-    console.log('filter value',this.filterForm.value)
-    this.questionService.getQuestionByFilters(this.filterForm.value).subscribe(value => {}, error => {}, () => {console.log('gg')})
+    this.questionService.getQuestionByFilters(this.filterForm.value).subscribe();
 
   }
 
   onSubmit(form) {
     this.formData = this.filterForm.value;
-    this.resetFormValue()
-    console.log(this.formData)
-    form.reset()
+    this.resetFormValue();
+    form.reset();
   }
 
   onAddTopic(input, index) {
-    this.modalService.addTopic(input,index,this.filterForm,this.topics)
-    console.log('question-filter-input',input)
+    this.modalService.addTopic(input, index, this.filterForm, this.topics);
 
   }
 
   onRemoveTopic(index) {
-    (<FormArray>this.filterForm.controls['topics']).removeAt(index)
-    console.log((<FormArray>this.filterForm.controls['topics']).getRawValue())
+    (<FormArray> this.filterForm.controls['topics']).removeAt(index);
 
   }
 
   onShowCheckboxes() {
-    this.modalService.showCheckboxes('filter-component-checkboxes')
+    this.modalService.showCheckboxes('filter-component-checkboxes');
   }
 
-  resetFormValue () {
-    let arr = (<FormArray>this.filterForm.controls['topics']);
+  resetFormValue() {
+    let arr = (<FormArray> this.filterForm.controls['topics']);
     document.querySelectorAll('.list-item').forEach(el => el.remove());
-    document.getElementById("filter-component-checkboxes").style.display = 'none';
+    document.getElementById('filter-component-checkboxes').style.display = 'none';
     this.expanded = false;
     arr.clear();
   }
-
 
 
 }

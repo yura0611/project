@@ -5,7 +5,6 @@ import {VacanciesCreateService} from "../shared/vacancies-create.service";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {VacanciesViewModalComponent} from "./vacancies-view-modal/vacancies-view-modal.component";
 import {QuestionNewModalComponent} from "../../questions-library/question-new-modal/question-new-modal.component";
-
 @Component({
   selector: 'app-vacancies-create',
   templateUrl: './vacancies-create.component.html',
