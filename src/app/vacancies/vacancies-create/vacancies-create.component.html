@@ -1,49 +1,135 @@
 <div class="container">
-    <div class="sub-header"> 
+  <div class="sub-header">
     <h2>Create vacancy</h2>
-    <button mat-raised-button color="success" (click)='saveForm()'>SAVE</button>
-    </div>
-    <div class="card-center">
+    <button mat-raised-button color="success" (click)='saveForm()' [disabled]="!element.valid">SAVE</button>
+  </div>
+  <div class="card-center">
     <mat-card class="example-card">
-        <mat-card-content>
-            <form [formGroup]="vacanciesForm">
-                <p>Title</p>
-            <mat-form-field appearance="outline">
-                <input  matInput maxlength="200" formControlName="title" placeholder="Type vacancy name" >
-              </mat-form-field>
-              <p>Type</p>
-              <mat-form-field appearance="outline">
-                <mat-select formControlName="type" placeholder='Select vacancy type'>
-                  <mat-option value="one">WEB</mat-option>
-                  <mat-option value="two">Management</mat-option>
-                  <mat-option value="two">Android</mat-option>
-                  <mat-option value="two">IOS</mat-option>
-                </mat-select>
-              </mat-form-field>
-              <p>Link</p>
-              <mat-form-field appearance="outline" >
-                  <input matInput type="url" pattern="https?://.+"  placeholder="Type vacancy name" matInput maxlength="200" formControlName="link" >
-                </mat-form-field>
-              <p>Description</p>
-              <mat-form-field appearance="outline">
-                <textarea matInput rows="10" maxlength="800" cols="40" formControlName="description" placeholder="Type text"></textarea>
-              </mat-form-field>
-              </form>
-        </mat-card-content>
-      </mat-card>
-      <mat-card class="example-card">
-        <mat-card-header>
-        <mat-card-title>Task questions ()</mat-card-title>
-    </mat-card-header>
-        <mat-card-content >
-          
-        </mat-card-content>
-      </mat-card>
-      <mat-card class="example-card">
-        <mat-card-title>Library questions</mat-card-title>
-        <mat-card-content>
-        </mat-card-content>
-      </mat-card>
+      <mat-card-content>
+        <form [formGroup]="vacanciesForm" #element='ngForm'>
+          <div class="vacancies-form_title">
+            <label for="title">Title</label> <br>
+            <input formControlName="title" type="text" id="title" name="title" placeholder="Type your title">
+          </div>
+
+          <div class="vacancies-form_type">
+            <label for="type">Type</label> <br>
+            <select name="type" id="type" formControlName="type">
+              <option hidden selected style="color: gray" value="">Choose your type</option>
+              <option value="code">Code</option>
+              <option value="text">Text</option>
+              <option value="video">Video</option>
+            </select>
+          </div>
+
+          <div class="vacancies-form_link">
+            <label for="Link">Link</label> <br>
+            <input formControlName="link" type="text" id="Link" name="Link" placeholder="Type your link">
+          </div>
+
+          <div class="vacancies-form_description">
+            <label for="desc">Description</label> <br>
+            <textarea id="desc" name="desc" rows="10" placeholder="Type your description"
+                      formControlName="description"></textarea>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+    <div class="question_library">
+      <div class="question_library-title">
+        Task Questions ({{getQuestionsArray().length}})
       </div>
+
+      <div class="question_library-content">
+        <div class="question_library-items">
+          <div class="question_library-item" *ngFor="let question of getQuestionsArray(); let i = index;">
+
+            <div class="question_library-title-block">
+
+              <span>{{question.maxLength}}</span>
+
+              <p class="title" style="margin-left: 20px;">{{question.title}}</p>
+            </div>
+            <div class="bin">
+              <a class="vacancies-view-question_link" (click)="onDelete(i,question)"><img src="../../../assets/bin.svg"
+                                                                                          alt="Bin"
+                                                                                          style="width: 15px;"></a>
+            </div>
+
+            <div class="topics question_topics">
+
+              <div>
+                <span *ngFor="let topic of question.topics">{{topic}}</span>
+              </div>
+
+              <a class="vacancies-view-question_link" (click)="openViewQuestionModal(question)">
+                <img src="../../../assets/arrowRight.svg" alt="Arrow"
+                     style="width: 15px;">
+              </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="total_time-block">
+        <p>TOTAL TIME</p>
+        <div>
+          <span>{{totalTime}} MIN</span>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="question_library">
+      <div class="question_library-title">
+        <p *ngIf="!searchMode">Library questions ({{allQuestions.length}})</p>
+        <input [(ngModel)]="inputSearchValue" class="search-input" *ngIf="searchMode" type="text" name="search">
+        <div>
+          <a><img src="../../../assets/search.svg" alt="Search"></a>
+          <a (click)=" openCreateNewModal()"><img src="../../../assets/plus.svg" alt="Search"></a>
+        </div>
+      </div>
+
+      <div class="question_library-items-title">
+        <p>Question</p>
+        <div>
+          <span>TIME, MIN</span>
+        </div>
+      </div>
+      <div class="question_library-content">
+        <div class="question_library-items">
+          <div class="question_library-item" *ngFor="let question of allQuestions; let i = index;">
+
+            <input [name]="question.title"
+                   #element
+                   type="checkbox"
+                   (click)="onAddQuestion(question, element)"
+                   [id]="question._id"
+                   [value]="question.title"
+                   required/>
+            <div class="question_library-title-block">
+
+              <span>{{question.maxLength}}</span>
+
+              <p class="title">{{question.title}}</p>
+            </div>
+            <div class="topics">
+              <div>
+                <span *ngFor="let topic of question.topics">{{topic}}</span>
+              </div>
+
+              <a class="vacancies-view-question_link" (click)="openViewQuestionModal(question)">
+                <img src="../../../assets/arrowRight.svg" alt="Arrow" style="width: 15px;">
+              </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
 </div>
 

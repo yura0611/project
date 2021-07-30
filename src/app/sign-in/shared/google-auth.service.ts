@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../../auth.service";
-import {ActivatedRoute, Router, RouterLink} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 export type userDataType = {
   userProfileData: {}
@@ -12,7 +12,6 @@ export type userDataType = {
   providedIn: 'root'
 })
 export class GoogleAuthService {
-
   constructor(private http: HttpClient, private authService: AuthService, private router: Router, private route: ActivatedRoute) { }
 
   private clientId = '575303630273-90569cp922fdrci95s7vrjre9isp9kec.apps.googleusercontent.com';

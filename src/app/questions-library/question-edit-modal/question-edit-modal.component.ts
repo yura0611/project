@@ -29,11 +29,10 @@ export class QuestionEditModalComponent implements OnInit {
       "description": new FormControl(this.data.question.description, [Validators.required, Validators.max(800)]),
       "topics": new FormArray(this.data.question.topics.map(el => new FormControl(el)), Validators.required),
       "type": new FormControl(this.data.question.type, Validators.required),
-      "maxLength": new FormControl(this.data.question.maxLength, Validators.pattern(/^-?(0|[1-9]\d*)?$/))
+      "maxLength": new FormControl(this.data.question.maxLength, [Validators.required,Validators.pattern(/^\d{10}$/)])
     })
 
   }
-
 
   getControls() {
     return (<FormArray>this.editModal.get('topics')).getRawValue();

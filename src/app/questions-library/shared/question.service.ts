@@ -37,7 +37,7 @@ export class QuestionService  {
   }
 
   getAllTopics() {
-    this.http.get<any>(this.allAvailableTopicsUrl).subscribe(data => {
+    return this.http.get<any>(this.allAvailableTopicsUrl).subscribe(data => {
       console.log('topics', data)
       this.availableTopics = data
       this.topicsEmitter.emit(this.availableTopics)
@@ -58,12 +58,12 @@ export class QuestionService  {
 
   getQuestionById(id: string) {
     const questionList = this.questionListSubject.value
-    let question = questionList.find(el => {
+    return questionList.find(el => {
       if (el._id === id) {
         return el
       }
     })
-    return question
+
 
   }
 

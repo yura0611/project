@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { SharedService } from '../shared/shared.service';
 import { ApplicationsTableComponent } from './applications-table/applications-table.component';
 import {MatDialog} from '@angular/material/dialog';
 import {VacanciesInviteModalComponent} from '../vacancies-invite-modal/vacancies-invite-modal.component';
@@ -18,7 +17,7 @@ export class VacanciesInfoComponent implements OnInit {
   percentage = 0;
   completed = 0;
   applications = 0;
-  constructor(private shared: SharedService,
+  constructor(
               public dialog: MatDialog) {}
 
   openInviteModal(){
@@ -30,7 +29,6 @@ export class VacanciesInfoComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.message =  this.shared.getMessage()
     this.text = this.message['description'];
 
   }
