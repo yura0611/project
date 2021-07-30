@@ -1,8 +1,8 @@
-import {Injectable, OnInit} from "@angular/core";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {CookieService} from "ngx-cookie-service"
-import {catchError, map, tap } from "rxjs/operators";
-import { Router } from "@angular/router";
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {CookieService} from 'ngx-cookie-service';
+import {map, tap} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 
 @Injectable({
@@ -10,8 +10,7 @@ import { Router } from "@angular/router";
 })
 
 
-
-export class AuthService  {
+export class AuthService {
 
 
   loginUrl = 'http://localhost:3000/api/user/login';
@@ -22,39 +21,34 @@ export class AuthService  {
     private http: HttpClient,
     private router: Router,
     private cookieService: CookieService
-    ) {
+  ) {
   }
 
 
   private setToken(token) {
-    console.log(token)
+    this.cookieService.deleteAll();
     return this.cookieService.set(
       'auth-token',
-      token)
+      token);
   }
 
   public sendToken(userData) {
-    console.log('in send token',userData)
-    return this.http.post<any>(this.loginUrl,{"token": userData.id_token})
+    return this.http.post<any>(this.loginUrl, {token: userData.id_token})
       .pipe(
-        tap(resp => console.log(resp)),
         map(resp => resp.token),
         tap(token => this.setToken((token)))
-      )
-      .subscribe()
-    
-
+      );
   }
 }
 
 interface ISignInInfo {
   token: string;
   user: {
-    role: "USER" | "ADMIN";
+    role: 'USER' | 'ADMIN';
     isActive: boolean;
     _id: string;
     email: string;
     firstName: string;
     lastName: string;
-  }
+  };
 }

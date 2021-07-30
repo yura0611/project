@@ -1,11 +1,8 @@
-import { AfterViewInit, Component, ViewChild, OnInit } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { VacancyTableService } from '../../shared/vacancy-table.service';
-// import { ApplicationsTableDataSource, ApplicationsTableItem } from './applications-table-datasource';
+import {Component, OnInit} from '@angular/core';
+import {VacancyTableService} from '../../shared/vacancy-table.service';
 import {SelectionModel} from '@angular/cdk/collections';
-import { MatTableDataSource } from '@angular/material/table';
-import {  tap } from 'rxjs/operators';
+import {MatTableDataSource} from '@angular/material/table';
+import {tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-applications-table',
@@ -15,11 +12,11 @@ import {  tap } from 'rxjs/operators';
 export class ApplicationsTableComponent implements OnInit {
 
 
-
   constructor(
     private vacancyTableService: VacancyTableService
   ) {
   }
+
   data;
   selection;
   dataSource;
@@ -30,14 +27,16 @@ export class ApplicationsTableComponent implements OnInit {
   // @ViewChild(MatTable) table!: MatTable<ApplicationsTableItem>;
   // dataSource: ApplicationsTableDataSource;
   // tslint:disable-next-line:typedef
-  ngOnInit(){
+  ngOnInit() {
     this.initMaterialTable();
   }
 
 
   initMaterialTable = () => {
     this.vacancyTableService.getApplicationsTableData().pipe(
-      tap(val => {this.data = val; })
+      tap(val => {
+        this.data = val;
+      })
     ).subscribe();
 
     this.selection = new SelectionModel<Element>(true, []);
@@ -71,11 +70,6 @@ export class ApplicationsTableComponent implements OnInit {
   // }
 
 
-
-
-
-
-
   // ngAfterViewInit(): void {
   //   this.dataSource.sort = this.sort;
   //   this.dataSource.paginator = this.paginator;
@@ -88,11 +82,11 @@ export class ApplicationsTableComponent implements OnInit {
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
   }
+
   // tslint:disable-next-line:typedef
   removeSelectedRows() {
     this.selection.selected.forEach(item => {
       const index: number = this.data.findIndex(d => d === item);
-      console.log(this.data.findIndex(d => d === item));
       this.data.splice(index, 1);
       this.dataSource = new MatTableDataSource<Element>(this.data);
     });
@@ -109,8 +103,6 @@ export class ApplicationsTableComponent implements OnInit {
 }
 
 
-
-
 // export interface ApplicationsTableItem {
 //   candidate: string;
 //   status: string;
@@ -118,9 +110,6 @@ export class ApplicationsTableComponent implements OnInit {
 //   reviewer: string;
 //   invited: string;
 // }
-
-
-
 
 
 // const EXAMPLE_DATA: Element[] = [

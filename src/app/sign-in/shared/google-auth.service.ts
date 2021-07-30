@@ -1,26 +1,31 @@
-import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {AuthService} from "../../auth.service";
-import {ActivatedRoute, Router, RouterLink} from "@angular/router";
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {AuthService} from '../../auth.service';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
+import {switchMap, tap} from 'rxjs/operators';
+import {from, Subject} from 'rxjs';
 
 export type userDataType = {
   userProfileData: {}
   userAuthData: {}
-}
+};
 
 @Injectable({
   providedIn: 'root'
 })
 export class GoogleAuthService {
-
-  constructor(private http: HttpClient, private authService: AuthService, private router: Router, private route: ActivatedRoute) { }
+  isLogin = false;
+  loginSubject = new Subject();
+  constructor(private http: HttpClient, private authService: AuthService, private router: Router, private route: ActivatedRoute) {
+  }
 
   private clientId = '575303630273-90569cp922fdrci95s7vrjre9isp9kec.apps.googleusercontent.com';
-  public gapiSetup: boolean = false;
+  public gapiSetup = false;
   public authInstance: gapi.auth2.GoogleAuth;
   public error: string;
   public user: gapi.auth2.GoogleUser;
-  public userData: userDataType
+  public userData: userDataType;
+
   // public mainUserData: userDataType;
 
 
@@ -32,7 +37,7 @@ export class GoogleAuthService {
 
     return payload.then(async () => {
       await gapi.auth2
-        .init({ client_id: this.clientId })
+        .init({client_id: this.clientId})
         .then(auth => {
           this.gapiSetup = true;
           this.authInstance = auth;
@@ -40,26 +45,29 @@ export class GoogleAuthService {
     });
   }
 
-  async authenticate(): Promise<gapi.auth2.GoogleUser> {
-
+  async authenticate(): Promise<any> {
     if (!this.gapiSetup) {
       await this.initGoogleAuth();
     }
+    return from(this.authInstance.signIn({prompt: 'select_account', ux_mode: 'popup'}))
+      .pipe(
+        tap(user => this.user = user),
+        tap(user => {
+          this.userData = {
+            userAuthData: user.getAuthResponse(),
+            userProfileData: user.getBasicProfile()
+          };
+          this.isLogin = true;
+          this.loginSubject.next(this.isLogin);
 
-    return new Promise(async () => {
-      await this.authInstance.signIn({prompt: 'select_account', ux_mode: 'popup'}).then((user) => {
-        console.log('user from google', user.getAuthResponse())
-        this.user = user;
-        this.userData = {
-          userAuthData: user.getAuthResponse(),
-          userProfileData: user.getBasicProfile()
-        }
-        console.log('test', this.userData.userAuthData)
-        this.authService.sendToken(this.userData.userAuthData)
-        console.log('user data', this.userData)
-        this.router.navigate(['/home'], {relativeTo:this.route})
-      }, error => this.error = error);
-    })
+        }),
+        switchMap(() => this.authService.sendToken(this.userData.userAuthData))
+      )
+      .subscribe(() => {
+
+          this.router.navigate(['/questions'], {relativeTo: this.route});
+        },
+        error => this.error = error);
   }
 
   async checkIfUserAuthenticated(): Promise<boolean> {
