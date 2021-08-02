@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {question, QuestionService} from "../../questions-library/shared/question.service";
+import {IQuestion, QuestionService} from "../../questions-library/shared/question.service";
 
 
 @Injectable({
@@ -7,7 +7,7 @@ import {question, QuestionService} from "../../questions-library/shared/question
 })
 export class VacanciesCreateService {
 
-  allQuestions: question[]
+  allQuestions: IQuestion[]
   constructor(public questionService: QuestionService) { }
 
   getAllQuestions() {

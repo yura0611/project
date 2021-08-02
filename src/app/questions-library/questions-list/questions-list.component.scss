@@ -15,6 +15,7 @@ app-questions-list {
     font-weight: bold;
     height: 48px;
     .question-list_title-avg_time {
+      text-align: center;
       p {
         font-size: 11px;
         font-weight: bold;
@@ -133,4 +134,5 @@ app-questions-list {
 .arrow {
   width: 15px;
   margin-top: 5px;
+  cursor: pointer;
 }

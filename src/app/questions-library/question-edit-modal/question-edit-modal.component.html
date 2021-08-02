@@ -28,12 +28,12 @@
         </select>
         <div class="overSelect-1"></div>
       </div>
-      <div id="edit-modal-checkboxes" >
+      <div id="edit-modal-checkboxes" #expandSelect>
         <label [attr.for]="topic + i + '_id'" *ngFor="let topic of availableTopics; let i = index;">
           <input [name]="topic"
                  #element
                  type="checkbox"
-                 (click)="onAddTopic(element, i)"
+                 (click)="onAddTopic(element, i, topic)"
                  [id]="topic + i + '_id'"
                  [value]="topic"
                  required/>
@@ -43,12 +43,10 @@
 
     </div>
     <ul class="chosen-topics_list" >
-      <div class="chosen-topics_list-block"  >
         <li  class="list-item" *ngFor="let topic of getControls(); let i = index">
           {{topic}}
-          <img (click)="onRemoveTopic(i)" class="img-cross" src="../../../assets/cross.svg" alt="Cross" style="width: 10px">
+          <img (click)="onRemoveTopic(i, topic)" class="img-cross" src="../../../assets/cross.svg" alt="Cross" style="width: 10px">
         </li>
-      </div>
     </ul>
   </div>
 
@@ -66,7 +64,7 @@
     <div class="edit-modal-form_max-length">
       <label for="maxlength">Max length</label>
       <br>
-      <input type="text" id="maxlength" name="maxLength" formControlName="maxLength" required >
+      <input type="number" id="maxlength" name="maxLength" formControlName="maxLength" required min="0">
     </div>
   </div>
 

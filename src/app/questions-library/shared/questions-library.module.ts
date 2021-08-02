@@ -5,11 +5,13 @@ import {QuestionsFilterComponent} from "../questions-filter/questions-filter.com
 import {ModalsModule} from "./modals.module";
 import {CommonModule} from "@angular/common";
 import {ReactiveFormsModule} from "@angular/forms";
-
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatSelectModule} from "@angular/material/select";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [QuestionsComponent,QuestionsListComponent,QuestionsFilterComponent, QuestionsListComponent],
-  imports: [ModalsModule, CommonModule, ReactiveFormsModule],
+  imports: [ModalsModule, CommonModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatIconModule],
   exports: [QuestionsComponent,QuestionsListComponent,QuestionsFilterComponent, QuestionsListComponent]
 })
 export class QuestionsLibraryModule {

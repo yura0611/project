@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {GoogleAuthService} from './sign-in/shared/google-auth.service';
+import {NavigationStart, Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -7,13 +7,23 @@ import {GoogleAuthService} from './sign-in/shared/google-auth.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  showHead: boolean = false;
   title = 'screening-tool';
-  isLogin: boolean;
-  constructor(public googleAuthService: GoogleAuthService) {}
-
-  ngOnInit(): void {
-    this.googleAuthService.loginSubject.subscribe((data: boolean) => this.isLogin = data);
+  constructor(private router: Router) {
+    // on route change to '/login', set the variable showHead to false
+    router.events.forEach((event) => {
+      if (event instanceof NavigationStart) {
+        if (event['url'] == '/sign-in') {
+          this.showHead = false;
+        } else {
+          // console.log("NU")
+          this.showHead = true;
+        }
+      }
+    });
   }
+  ngOnInit(): void {
 
+  }
 
 }

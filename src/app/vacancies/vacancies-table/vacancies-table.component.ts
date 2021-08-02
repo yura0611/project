@@ -16,20 +16,14 @@ export class VacanciesTableComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<VacanciesTableItem>;
   dataSource: VacanciesTableDataSource;
-
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
+  message;
   displayedColumns = ['VACANCIES','TYPE','STATUS','NUMBER OF APPLICATIONS','OPENED','ARROW'];
 
   constructor(private router: Router) {
     this.dataSource = new VacanciesTableDataSource();
   }
 
-  message;
-
-
-
   ngOnInit(): void {
-
   }
 
   ngAfterViewInit(): void {
@@ -39,11 +33,10 @@ export class VacanciesTableComponent implements AfterViewInit {
 
   }
 
-
   edit(row){
   this.router.navigate(['/vacancies-edit']);
   this.message = row
-  }
 
+  }
 
 }

@@ -8,13 +8,12 @@ import {QuestionsComponent} from './questions-library/questions/questions.compon
 import {HomePageComponent} from './home-page/home-page.component';
 
 const routes: Routes = [
-  {path: '', component: SignInComponent},
+  {path: 'sign-in', component: SignInComponent},
   {path: 'home', component: HomePageComponent},
   {path: 'questions', component: QuestionsComponent},
   {path: 'vacancies', component: VacanciesComponent},
   {path: 'vacancies-create', component: VacanciesCreateComponent},
-  {path: 'vacancies-edit', component: VacanciesInfoComponent},
-
+  {path: 'vacancies-edit', component: VacanciesInfoComponent}
 ];
 
 @NgModule({

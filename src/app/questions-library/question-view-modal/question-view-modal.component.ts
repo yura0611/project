@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
-import {question, QuestionService} from "../shared/question.service";
+import {IQuestion, QuestionService} from "../shared/question.service";
 import {ModalService} from "../shared/modals.service";
 
 @Component({
@@ -11,7 +11,7 @@ import {ModalService} from "../shared/modals.service";
 })
 export class QuestionViewModalComponent implements OnInit {
 
-  currentQuestion: question
+  currentQuestion: IQuestion
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any ,
               private dialogRef: MatDialog,

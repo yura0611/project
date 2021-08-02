@@ -1,28 +1,31 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, ElementRef, OnInit, QueryList, ViewChildren, ViewEncapsulation} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
-import {question, QuestionService} from "../../questions-library/shared/question.service";
+import {IQuestion, QuestionService} from "../../questions-library/shared/question.service";
 import {VacanciesCreateService} from "../shared/vacancies-create.service";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {VacanciesViewModalComponent} from "./vacancies-view-modal/vacancies-view-modal.component";
 import {QuestionNewModalComponent} from "../../questions-library/question-new-modal/question-new-modal.component";
+
 @Component({
   selector: 'app-vacancies-create',
   templateUrl: './vacancies-create.component.html',
   styleUrls: ['./vacancies-create.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class VacanciesCreateComponent implements OnInit {
+export class VacanciesCreateComponent implements OnInit{
+  @ViewChildren('element') checkbox: QueryList<ElementRef>;
   inputSearchValue: any = '';
   searchMode = false;
   totalTime: number = 0;
-  allQuestions: question[];
+  allQuestions: IQuestion[];
   vacanciesForm: FormGroup;
   isChecked = false;
   checked: boolean = false;
 
   constructor(public dialog: MatDialog,
               public questionService: QuestionService,
-              public vacanciesService: VacanciesCreateService) { }
+              public vacanciesService: VacanciesCreateService,
+              ) { }
 
   ngOnInit() {
       this.questionService.getAllTopics()
@@ -38,6 +41,7 @@ export class VacanciesCreateComponent implements OnInit {
     })
   }
 
+
   getQuestionsArray() {
     return (<FormArray>this.vacanciesForm.get('questions')).getRawValue()
   }
@@ -46,13 +50,11 @@ export class VacanciesCreateComponent implements OnInit {
     if (!this.vacanciesForm.valid) {
       return;
     }
-    console.log(this.vacanciesForm.value);
-
   }
 
   onAddQuestion(question, input) {
-    console.log(input)
     if (!input.checked) {
+      console.log('qes bes', question)
       this.removeQuestion(this.vacanciesForm, input, question)
     } else if ((this.vacanciesForm.get('questions').value.length >= this.allQuestions.length) ||
       (this.vacanciesForm.get('questions').value.indexOf(input.value) !== -1)) {
@@ -65,39 +67,32 @@ export class VacanciesCreateComponent implements OnInit {
   }
 
   removeQuestion(modal, input, question) {
+    console.log('qes', question)
     this.totalTime -= question.maxLength
     let questions = (<FormArray>modal.get('questions'))
-    questions.removeAt(questions.value.findIndex(question => question.title === input.value))
+    questions.removeAt(questions.value.findIndex(question => {
+      if (question.title === input.value && question._id === input.id) {
+        return question
+      }
+    }))
 
   }
 
   onDelete(index, question) {
-    this.totalTime -= question.maxLength;
-    let input = document.getElementsByTagName('input');
-    for(let i = 0; i <= input.length - 1; i++) {
-      if (input[i].getAttribute('name') === question.title &&
-        input[i].getAttribute('id') === question._id) {
-        input[i].checked = false;
+
+    let inputs = []
+    this.checkbox.toArray().filter(el => el.nativeElement).map(el => inputs.push(el))
+    for(let i = 0; i <= inputs.length - 1; i++) {
+      if (inputs[i].nativeElement.name === question.title &&
+        inputs[i].nativeElement.id === question._id) {
+        inputs[i].nativeElement.checked = false;
       }
     }
+    this.totalTime -= question.maxLength;
     (<FormArray>this.vacanciesForm.controls['questions']).removeAt(index)
   }
 
-  // This feature
-  // onSearch() {
-  //   let value = {topics: []};
-  //   this.searchMode = !this.searchMode
-  //   if (!this.inputSearchValue) {
-  //     return;
-  //   }
-  //   value.topics.push(this.inputSearchValue)
-  //   this.questionService.getQuestionByFilters(value.topics)
-  //     .subscribe(data => this.allQuestions = data)
-  //   console.log(value)
-  // }
-
-
-  openViewQuestionModal(question: question) {
+  openViewQuestionModal(question: IQuestion) {
     const modalConfig = new MatDialogConfig();
     modalConfig.autoFocus = false;
     modalConfig.width = '496px';
@@ -114,13 +109,5 @@ export class VacanciesCreateComponent implements OnInit {
     modalConfig.height = '850px';
     this.dialog.open(QuestionNewModalComponent, modalConfig)
   }
-
-
-
-
-
-
-
-
 
 }

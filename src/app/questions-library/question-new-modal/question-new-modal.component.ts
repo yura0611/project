@@ -1,4 +1,13 @@
-import {Component, Inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Inject,
+  OnInit,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+  ViewEncapsulation
+} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
 import {QuestionService} from '../shared/question.service';
@@ -12,7 +21,10 @@ import {tap} from 'rxjs/operators';
   encapsulation: ViewEncapsulation.None
 })
 export class QuestionNewModalComponent implements OnInit {
-
+  @ViewChildren('element') checkBoxInput: QueryList<ElementRef>;
+  @ViewChild('expandSelect') select: ElementRef;
+  // This pattern validate only number
+  regexPattern = /^[0-9]*$/;
   availableTopics: string[];
   createNewModal: FormGroup;
 
@@ -30,7 +42,7 @@ export class QuestionNewModalComponent implements OnInit {
       'description': new FormControl(null, [Validators.max(800), Validators.required]),
       'topics': new FormArray([], [Validators.min(0), Validators.required]),
       'type': new FormControl(),
-      'maxLength': new FormControl(null, Validators.pattern(/^-?(0|[1-9]\d*)?$/))
+      'maxLength': new FormControl(null, Validators.pattern(this.regexPattern))
     });
   }
 
@@ -39,7 +51,7 @@ export class QuestionNewModalComponent implements OnInit {
   }
 
 
-  onSubmit(form) {
+  onSubmit() {
     this.dialogRef.closeAll();
   }
 
@@ -48,19 +60,22 @@ export class QuestionNewModalComponent implements OnInit {
   }
 
   onShowCheckboxes() {
-    this.modalService.showCheckboxes('create-new-modal-checkboxes');
+    this.modalService.showCheckboxes(this.select);
   }
 
-  onAddTopic(input, index: number) {
-    this.modalService.addTopic(input, index, this.createNewModal, this.availableTopics);
+  onAddTopic(input, index: number, topic) {
+    this.modalService.addTopic(input, index, this.createNewModal, this.availableTopics, topic);
   }
 
-  onRemoveTopic(index: number) {
-    (<FormArray> this.createNewModal.controls['topics']).removeAt(index);
+  onRemoveTopic(topic, index) {
+    this.modalService.removeTopics(this.createNewModal,index,this.checkBoxInput,topic)
+
+
   }
 
   onCreate() {
     this.questionService.addNewQuestion(this.createNewModal.value).pipe(
+      tap(el => console.log(el)),
       tap(newQuestion => this.questionService.updateQuestionList(newQuestion.question))
     ).subscribe();
   }

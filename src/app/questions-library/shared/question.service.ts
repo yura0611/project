@@ -1,9 +1,10 @@
+import { environment } from "../../../environments/environment";
 import {EventEmitter, Injectable} from '@angular/core';
 import {BehaviorSubject, Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {tap} from 'rxjs/operators';
 
-export interface question {
+export interface IQuestion {
   _id: string;
   title: string;
   type: string;
@@ -18,34 +19,28 @@ export interface question {
 export class QuestionService {
   availableTopics = ['front-end', 'back-end'];
   topicsEmitter = new EventEmitter<any>();
-  changedQuestion = new Subject<question>();
-  private questionListSubject = new BehaviorSubject<question[]>([]);
+  changedQuestion = new Subject<IQuestion>();
+  private questionListSubject = new BehaviorSubject<IQuestion[]>([]);
   public questionList$ = this.questionListSubject.asObservable();
   isSorted = false;
-
-  addQuestionUrl = 'http://localhost:3000/api/question';
-  allAvailableTopicsUrl = 'http://localhost:3000/api/question/topics';
-  QuestionByFilterUrl = 'http://localhost:3000/api/question/filtered';
-  editQuestionUrl = 'http://localhost:3000/api/question/edit';
-  deleteQuestionUrl = 'http://localhost:3000/api/question/delete';
 
   constructor(private http: HttpClient) {
   }
 
 
-  addNewQuestion(question: question) {
-    return this.http.post<any>(this.addQuestionUrl, {question: question, email: 'vasilishin08@gmail.com'});
+  addNewQuestion(question: IQuestion) {
+    return this.http.post<{email: string, question: IQuestion}>(`${environment.API_URL}question`, {question, email: 'vasilishin08@gmail.com'});
   }
 
   getAllTopics() {
-    this.http.get<any>(this.allAvailableTopicsUrl).subscribe(data => {
+    this.http.get<string[]>(`${environment.API_URL}question/topics`).subscribe(data => {
       this.availableTopics = data;
       this.topicsEmitter.emit(this.availableTopics);
     });
   }
 
   getQuestionByFilters(value = []) {
-    return this.http.post<question[]>(this.QuestionByFilterUrl, value)
+    return this.http.post<IQuestion[]>(`${environment.API_URL}question/filtered`, value)
       .pipe(
         tap(data => {
           this.questionListSubject.next(data);
@@ -55,17 +50,29 @@ export class QuestionService {
 
   getQuestionById(id: string) {
     const questionList = this.questionListSubject.value;
-    const question = questionList.find(el => {
+    return questionList.find(el => {
       if (el._id === id) {
         return el;
       }
     });
-    return question;
 
   }
 
-  editQuestion(editedQuestion: question, id) {
-    this.http.put(this.editQuestionUrl, {question: editedQuestion, _id: id})
+  editQuestion(editedQuestion: IQuestion, id) {
+    this.http.put(`${environment.API_URL}question/edit`, {question: editedQuestion, _id: id}).pipe(
+      tap(el => console.log(el)),
+      tap(data => {
+        const editedQuestion = data['question'];
+        const questionList = this.questionListSubject.value;
+        const newQuestionList = questionList.map(question => {
+          if (question._id === editedQuestion._id) {
+            return editedQuestion;
+          }
+          return question
+        })
+        this.questionListSubject.next(newQuestionList)
+      })
+    )
       .subscribe(data => {
         this.changedQuestion.next(data['question']);
 
@@ -73,12 +80,12 @@ export class QuestionService {
   }
 
   deleteQuestion(id: string) {
-    this.http.post(this.deleteQuestionUrl, {_id: id}).subscribe((data: question[]) => {
+    this.http.post(`${environment.API_URL}question/delete`, {_id: id}).subscribe((data: IQuestion[]) => {
       this.questionListSubject.next(data);
     });
   }
 
-  updateQuestionList(question: question) {
+  updateQuestionList(question: IQuestion) {
     this.questionListSubject.next([...this.questionListSubject.value, question]);
   }
 
