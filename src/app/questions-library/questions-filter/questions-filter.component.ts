@@ -30,18 +30,13 @@ export class QuestionsFilterComponent implements OnInit {
     });
   }
 
-
   getControls() {
     return (<FormArray> this.filterForm.get('topics')).getRawValue();
   }
 
   onSearch() {
-    console.log(this.filterForm.value)
     this.questionService.getQuestionByFilters(this.filterForm.value).subscribe();
 
-  }
-  onClose(value) {
-    console.log(value)
   }
 
   onSubmit() {
@@ -50,10 +45,8 @@ export class QuestionsFilterComponent implements OnInit {
   }
 
   onAddTopic(input, index, topic) {
-    console.log(input)
-
     this.modalService.addTopic(input, index, this.filterForm, this.topics, topic);
-    console.log(this.checkBoxInput)
+
   }
 
   onRemoveTopic(topic, index) {
@@ -65,8 +58,5 @@ export class QuestionsFilterComponent implements OnInit {
     this.modalService.showCheckboxes(this.select);
   }
 
-  getTopic(event) {
-    console.log('e',event)
-  }
 
 }

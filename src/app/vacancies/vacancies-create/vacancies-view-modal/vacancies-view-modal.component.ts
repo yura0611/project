@@ -10,8 +10,10 @@ import {IQuestion} from "../../../questions-library/shared/question.service";
 })
 export class VacanciesViewModalComponent implements OnInit {
   currentQuestion: IQuestion
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any ,
-              private dialogRef: MatDialog,) { }
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+              private dialogRef: MatDialog,) {
+  }
 
   ngOnInit(): void {
     this.currentQuestion = this.data

@@ -1,21 +1,21 @@
- body {
+body {
   background-color: #fafafa;
 }
 
- mat-card {
-   box-shadow: none !important;
-   padding: 20px !important;
- }
- .mat-card {
-   box-shadow: 0 4px 25px 0 rgb(0 0 0 / 5%), 0 4px 25px 0 rgb(0 184 178 / 5%);
- }
- .example-card {
-   width: 28vw;
-   box-shadow: 0 4px 25px 0 rgb(0 0 0 / 5%), 0 4px 25px 0 rgb(0 184 178 / 5%) !important;
-   //box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.05),
-   //0 4px 25px 0 rgba(0, 184, 178, 0.05);
+mat-card {
+  box-shadow: none !important;
+  padding: 20px !important;
+}
 
- }
+.mat-card {
+  box-shadow: 0 4px 25px 0 rgb(0 0 0 / 5%), 0 4px 25px 0 rgb(0 184 178 / 5%);
+}
+
+.example-card {
+  width: 28vw;
+  box-shadow: 0 4px 25px 0 rgb(0 0 0 / 5%), 0 4px 25px 0 rgb(0 184 178 / 5%) !important;
+
+}
 
 h2 {
   font-size: 24px;
@@ -33,7 +33,6 @@ h2 {
   flex-direction: row;
   gap: 10px;
 }
-
 
 
 textarea {
@@ -65,47 +64,48 @@ textarea {
   letter-spacing: normal;
   color: #101820;
   box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.05),
-    0 4px 25px 0 rgba(0, 184, 178, 0.05);
+  0 4px 25px 0 rgba(0, 184, 178, 0.05);
 }
-
 
 
 .mat-select-arrow {
   color: black;
 }
 
- label.mat-checkbox-layout {
-   width: 100%;
- }
- .mat-checkbox-label {
-   width: 100%;
- }
- mat-checkbox {
-   width: 100%;
- }
- .mat-form-field {
-   padding-top: 5px !important;
-   width: 100% !important;
- }
- .mat-form-field-wrapper {
-   padding-bottom: 20px;
- }
- .mat-form-field-appearance-outline .mat-form-field-label {
+label.mat-checkbox-layout {
+  width: 100%;
+}
+
+.mat-checkbox-label {
+  width: 100%;
+}
+
+mat-checkbox {
+  width: 100%;
+}
+
+.mat-form-field {
+  padding-top: 5px !important;
+  width: 100% !important;
+}
+
+.mat-form-field-wrapper {
+  padding-bottom: 20px;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-label {
 
   margin-top: -15px;
 }
- .mat-input-element {
-   caret-color: transparent !important;
- }
- .mat-form-field-appearance-outline .mat-form-field-outline .mat-focused{
-   color: green;
- }
 
- //input:focus {
- //  outline: none !important;
- //  border-color: #719ECE;
- //  box-shadow: 0 0 10px #719ECE;
- //}
+.mat-input-element {
+  caret-color: transparent !important;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline .mat-focused {
+  color: green;
+}
+
 .btn-disabled {
   opacity: 0.5;
   border-radius: 2px;
@@ -117,6 +117,7 @@ textarea {
   background-color: #ffffff;
   border-radius: 4px;
   width: 30vw;
+
   .question_library-title {
     display: flex;
     justify-content: space-between;
@@ -131,9 +132,11 @@ textarea {
     letter-spacing: normal;
     color: #101820;
     font-family: Raleway, sans-serif;
+
     img {
       width: 15px;
     }
+
     img:last-child {
       margin-left: 30px;
     }
@@ -146,6 +149,7 @@ textarea {
   justify-content: space-between;
   flex-direction: row-reverse;
   margin-bottom: 10px;
+
   span {
     font-size: 0.8rem;
     font-weight: bold;
@@ -159,6 +163,7 @@ textarea {
     width: 40px;
 
   }
+
   p {
     padding-left: 10px;
     font-family: OpenSans, sans-serif;
@@ -170,26 +175,33 @@ textarea {
   padding: 20px;
   border-bottom: 1px solid #eeeeee;
   border-right: 1px solid #eeeeee;
+
   .view-link_block {
     width: 100%;
   }
+
   .vacancies-view-question_link {
     visibility: hidden;
   }
-  &:hover{
+
+  &:hover {
     background-color: rgba(0, 118, 114, 0.1);
     cursor: pointer;
   }
+
   &:hover .vacancies-view-question_link {
     visibility: visible;
   }
+
   input {
     float: left;
     margin-right: 10px;
   }
+
   .bin {
     float: left;
   }
+
   .topics {
     display: flex;
     justify-content: space-between;
@@ -210,8 +222,8 @@ textarea {
       border-radius: 2px;
       background-color: #eeeeee;
     }
-    }
   }
+}
 
 .question_library-items {
   border-bottom: 1px solid #eeeeee;
@@ -225,11 +237,13 @@ textarea {
   align-items: baseline;
   padding: 15px 10px 15px 45px;
   border-bottom: 1px solid #eeeeee;;
+
   img {
     margin-left: 10px;
     width: 15px;
     margin-right: 15px;
   }
+
   span {
     font-size: 0.7rem;
     font-weight: bold;
@@ -240,6 +254,7 @@ textarea {
     text-align: right;
     color: #101820;
   }
+
   p {
     font-size: 0.9rem;
     font-weight: bold;
@@ -250,6 +265,7 @@ textarea {
     color: #101820;
     font-family: OpenSans, sans-serif;
   }
+
   div {
     margin-right: 10px;
   }
@@ -271,9 +287,11 @@ form {
     border: solid 2px #dddddd;
     outline-color: #007672;
   }
+
   select {
     background-color: transparent;
   }
+
   div:not(:last-child) {
     margin-bottom: 10px;
   }
@@ -288,6 +306,7 @@ form {
   display: flex;
   justify-content: space-between;
   padding: 20px;
+
   p {
     font-family: OpenSans, sans-serif;
     font-size: 14px;
@@ -310,6 +329,7 @@ form {
     color: #e0004d;
   }
 }
+
 .search-input {
   box-sizing: border-box;
   width: 70%;

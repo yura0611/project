@@ -50,6 +50,7 @@ export class VacanciesCreateComponent implements OnInit{
     if (!this.vacanciesForm.valid) {
       return;
     }
+    console.log(this.vacanciesForm.value)
   }
 
   onAddQuestion(question, input) {

@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {AuthService} from '../../auth.service';
+import {environment} from "../../../environments/environment";
 
 export type userDataType = {
   userProfileData: {}
@@ -15,7 +16,6 @@ export class GoogleAuthService {
               private authService: AuthService) {
   }
 
-  private clientId = '575303630273-90569cp922fdrci95s7vrjre9isp9kec.apps.googleusercontent.com';
   public gapiSetup = false;
   public authInstance: gapi.auth2.GoogleAuth;
   public error: string;
@@ -30,7 +30,7 @@ export class GoogleAuthService {
 
     return payload.then(async () => {
       await gapi.auth2
-        .init({client_id: this.clientId})
+        .init({client_id: `${environment.GOOGLE_CLIENT_ID}`})
         .then(auth => {
           this.gapiSetup = true;
           this.authInstance = auth;

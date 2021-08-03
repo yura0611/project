@@ -50,7 +50,6 @@ export class QuestionNewModalComponent implements OnInit {
     return (<FormArray> this.createNewModal.get('topics')).getRawValue();
   }
 
-
   onSubmit() {
     this.dialogRef.closeAll();
   }
@@ -70,12 +69,10 @@ export class QuestionNewModalComponent implements OnInit {
   onRemoveTopic(topic, index) {
     this.modalService.removeTopics(this.createNewModal,index,this.checkBoxInput,topic)
 
-
   }
 
   onCreate() {
     this.questionService.addNewQuestion(this.createNewModal.value).pipe(
-      tap(el => console.log(el)),
       tap(newQuestion => this.questionService.updateQuestionList(newQuestion.question))
     ).subscribe();
   }

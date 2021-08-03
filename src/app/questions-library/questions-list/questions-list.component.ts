@@ -22,7 +22,6 @@ export class QuestionsListComponent implements OnInit {
     this.questionService.getAllTopics()
     this.questionService.getQuestionByFilters().subscribe();
     this.questionService.questionList$.subscribe()
-    // this.questionService.changedQuestion.subscribe(el => console.log(el))
     this.subscription = this.questionService.topicsEmitter.subscribe(data => this.allTopics = data)
 
   }

@@ -4,6 +4,7 @@ import {CookieService} from 'ngx-cookie-service';
 import {map, tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {BehaviorSubject, Subject} from "rxjs";
+import {environment} from "../environments/environment";
 
 
 @Injectable({
@@ -12,11 +13,8 @@ import {BehaviorSubject, Subject} from "rxjs";
 
 
 export class AuthService {
-  isLogged = false;
   private isLoggedInSubject = new BehaviorSubject(false)
-  public isLoggedIn$ = this.isLoggedInSubject.asObservable()
   login = new Subject()
-  loginUrl = 'http://localhost:3000/api/user/login';
 
   constructor(
     private http: HttpClient,
@@ -40,7 +38,7 @@ export class AuthService {
   }
 
   public sendToken(userData) {
-    return this.http.post<any>(this.loginUrl, {token: userData.id_token})
+    return this.http.post<any>(`${environment.API_URL}user/login`, {token: userData.id_token})
       .pipe(
         map(resp => resp.token),
         tap(token => this.setToken((token))),
