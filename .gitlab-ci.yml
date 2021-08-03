@@ -16,7 +16,7 @@ build-develop:
     # Install dependencies
     - npm install
     # Build App
-    - npm run build
+    - ng build --configuration develop
   artifacts:
     paths:
       # Build folder
