@@ -15,12 +15,12 @@ import { VacanciesTableComponent } from './vacancies/vacancies-table/vacancies-t
 import { VacanciesInfoComponent} from "./vacancies/vacancies-info/vacancies-info.component";
 import {QuestionsLibraryModule} from "./questions-library/shared/questions-library.module";
 import {MatDialogModule} from "@angular/material/dialog";
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
 import { HomePageComponent } from './home-page/home-page.component';
 import {ApplicationsTableComponent} from "./vacancies/vacancies-info/applications-table/applications-table.component";
 import {VacanciesInviteModalComponent} from "./vacancies/vacancies-invite-modal/vacancies-invite-modal.component";
-
+import { TokenInterceptor } from './app.interceptor';
 
 
 @NgModule({
@@ -46,7 +46,10 @@ import {VacanciesInviteModalComponent} from "./vacancies/vacancies-invite-modal/
     QuestionsLibraryModule,
     HttpClientModule
   ],
-  providers: [CookieService],
+  providers: [
+    CookieService,
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

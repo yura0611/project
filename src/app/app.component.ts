@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {CookieService} from "ngx-cookie-service";
+import {GoogleAuthService} from './sign-in/shared/google-auth.service';
 
 @Component({
   selector: 'app-root',
@@ -8,12 +8,12 @@ import {CookieService} from "ngx-cookie-service";
 })
 export class AppComponent implements OnInit {
   title = 'screening-tool';
+  isLogin: boolean;
+  constructor(public googleAuthService: GoogleAuthService) {}
 
-  constructor(private cookieService: CookieService) {
+  ngOnInit(): void {
+    this.googleAuthService.loginSubject.subscribe((data: boolean) => this.isLogin = data);
   }
 
-  ngOnInit() {
-    this.cookieService.set('token', 'test-token')
-    console.log(this.cookieService.get('token'))
-  }
+
 }
