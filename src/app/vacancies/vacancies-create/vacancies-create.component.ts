@@ -52,9 +52,15 @@ export class VacanciesCreateComponent implements OnInit{
       return;
     }
     const questions = this.vacanciesForm.value.questions;
+    const newVacancy = {
+      title: this.vacanciesForm.value.title,
+      type: this.vacanciesForm.value.type,
+      description: this.vacanciesForm.value.description,
+      link: this.vacanciesForm.value.link
+    }
     const questionsId = [];
     questions.map(el => questionsId.push(el._id))
-    this.vacanciesService.createVacancy(questionsId)
+    this.vacanciesService.createVacancy(questionsId, newVacancy)
     console.log(this.vacanciesForm.value)
   }
 

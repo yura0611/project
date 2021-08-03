@@ -16,8 +16,8 @@ export class VacanciesCreateService {
     return this.questionService.getQuestionByFilters()
   }
 
-  createVacancy(id) {
-    return this.http.post(`${environment.API_URL}vacancy`, {id, email: 'vasilishin08@gmail.com', status: 'Active'})
+  createVacancy(id, vacancy) {
+    return this.http.post(`${environment.API_URL}vacancy`, {id, vacancy})
       .subscribe(el => console.log(el))
   }
 

@@ -22,7 +22,6 @@ import {VacanciesInviteModalComponent} from "./vacancies/vacancies-invite-modal/
 import {TokenInterceptor} from './app.interceptor';
 import {VacanciesViewModalComponent} from './vacancies/vacancies-create/vacancies-view-modal/vacancies-view-modal.component';
 import {CommonModule} from "@angular/common";
-import {OutSideClickHandlerDirective} from './out-side-click-handler.directive';
 import { VacanciesListComponent } from './home-page/vacancies-list/vacancies-list.component';
 
 @NgModule({
@@ -39,7 +38,6 @@ import { VacanciesListComponent } from './home-page/vacancies-list/vacancies-lis
     ApplicationsTableComponent,
     VacanciesInviteModalComponent,
     VacanciesViewModalComponent,
-    OutSideClickHandlerDirective,
     VacanciesListComponent,
   ],
   imports: [
@@ -57,9 +55,7 @@ import { VacanciesListComponent } from './home-page/vacancies-list/vacancies-lis
     CookieService,
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
   ],
-  exports: [
-    OutSideClickHandlerDirective
-  ],
+  exports: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
