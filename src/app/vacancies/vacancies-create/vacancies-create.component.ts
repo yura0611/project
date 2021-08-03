@@ -51,7 +51,10 @@ export class VacanciesCreateComponent implements OnInit{
     if (!this.vacanciesForm.valid) {
       return;
     }
-    this.vacanciesService.createVacancy(this.vacanciesForm.value)
+    const questions = this.vacanciesForm.value.questions;
+    const questionsId = [];
+    questions.map(el => questionsId.push(el._id))
+    this.vacanciesService.createVacancy(questionsId)
     console.log(this.vacanciesForm.value)
   }
 
