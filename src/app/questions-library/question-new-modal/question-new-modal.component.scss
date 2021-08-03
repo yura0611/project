@@ -1,6 +1,4 @@
-app-create-new-modal {
-  width: 50%;
-}
+
 .mat-dialog-container {
   padding: 0;
 }
@@ -89,16 +87,14 @@ app-create-new-modal {
 
 .chosen-topics_list {
   list-style-type: none;
-  padding-left: 0;
-  .chosen-topics_list-block {
-    display: flex;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    padding: 8px 9px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  padding: 8px 9px;
+  border-radius: 2px;
+  border: solid 2px #dddddd;
+  background-color: #ffffff;
 
-    border-radius: 2px;
-    border: solid 2px #dddddd;
-    background-color: #ffffff;
     li {
       margin-right: 5px;
       margin-bottom: 5px;
@@ -108,8 +104,6 @@ app-create-new-modal {
       height: 20px;
     }
   }
-
-}
 
 .create-modal_title {
   background-color: #fafafa;

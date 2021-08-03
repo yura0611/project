@@ -1,7 +1,16 @@
-import {Component, Inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Inject,
+  OnInit,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+  ViewEncapsulation
+} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
-import {question, QuestionService} from '../shared/question.service';
+import {IQuestion, QuestionService} from '../shared/question.service';
 import {ModalService} from '../shared/modals.service';
 
 @Component({
@@ -11,10 +20,13 @@ import {ModalService} from '../shared/modals.service';
   encapsulation: ViewEncapsulation.None
 })
 export class QuestionEditModalComponent implements OnInit {
-
+  @ViewChild('expandSelect') select: ElementRef;
+  @ViewChildren('element') checkBoxInput: QueryList<ElementRef>;
+  // This pattern validate only number
+  regexPattern = /^[0-9]*$/;
   availableTopics: string[];
   editModal: FormGroup;
-  editedQuestion: question;
+  editedQuestion: IQuestion;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               private dialogRef: MatDialog,
@@ -30,11 +42,10 @@ export class QuestionEditModalComponent implements OnInit {
       'description': new FormControl(this.data.question.description, [Validators.required, Validators.max(800)]),
       'topics': new FormArray(this.data.question.topics.map(el => new FormControl(el)), Validators.required),
       'type': new FormControl(this.data.question.type, Validators.required),
-      'maxLength': new FormControl(this.data.question.maxLength, Validators.pattern(/^-?(0|[1-9]\d*)?$/))
+      'maxLength': new FormControl(this.data.question.maxLength, Validators.pattern(this.regexPattern))
     });
 
   }
-
 
   getControls() {
     return (<FormArray> this.editModal.get('topics')).getRawValue();
@@ -65,17 +76,17 @@ export class QuestionEditModalComponent implements OnInit {
     this.dialogRef.closeAll();
   }
 
-  onAddTopic(input, index: number) {
-    this.modalService.addTopic(input, index, this.editModal, this.availableTopics);
+  onAddTopic(input, index: number, topic) {
+    this.modalService.addTopic(input, index, this.editModal, this.availableTopics, topic);
 
   }
 
-  onRemoveTopic(index: number) {
-    (<FormArray> this.editModal.controls['topics']).removeAt(index);
+  onRemoveTopic(index: number, topic) {
+    this.modalService.removeTopics(this.editModal,index,this.checkBoxInput,topic)
   }
 
   onShowCheckBox() {
-    this.modalService.showCheckboxes('edit-modal-checkboxes');
+    this.modalService.showCheckboxes(this.select);
   }
 
 }

@@ -1,11 +1,10 @@
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
-import {question, QuestionService} from "../shared/question.service";
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {QuestionService} from "../shared/question.service";
 import {Subscription} from "rxjs";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {QuestionNewModalComponent} from "../question-new-modal/question-new-modal.component";
 import {QuestionEditModalComponent} from "../question-edit-modal/question-edit-modal.component";
 import {QuestionViewModalComponent} from "../question-view-modal/question-view-modal.component";
-import {tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-questions-list',
@@ -20,7 +19,6 @@ export class QuestionsListComponent implements OnInit {
   constructor(private questionService: QuestionService, public dialog: MatDialog) { }
 
   ngOnInit() {
-    
     this.questionService.getAllTopics()
     this.questionService.getQuestionByFilters().subscribe();
     this.questionService.questionList$.subscribe()

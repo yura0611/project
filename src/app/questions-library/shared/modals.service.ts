@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Renderer2, RendererFactory2} from '@angular/core';
 import {FormArray, FormControl} from "@angular/forms";
 
 @Injectable({
@@ -6,13 +6,16 @@ import {FormArray, FormControl} from "@angular/forms";
 })
 export class ModalService {
   expanded = false;
+  renderer: Renderer2
 
-  constructor() { }
+  constructor(rendererFactory: RendererFactory2) {
+    this.renderer = rendererFactory.createRenderer(null,null)
+  }
 
 
-  addTopic(input, index: number, modal, availableTopics) {
+  addTopic(input, index: number, modal, availableTopics, topic) {
     if (!input.checked) {
-        this.removeTopics(modal, index, input)
+        this.removeTopics(modal, index, input, topic)
     } else if ((modal.get('topics').value.length >= availableTopics.length) ||
       (modal.get('topics').value.indexOf(input.value) !== -1)) {
       return;
@@ -22,20 +25,31 @@ export class ModalService {
 
   }
 
-  removeTopics(modal, index, input) {
-    let topics = (<FormArray>modal.get('topics'))
-    topics.removeAt(topics.value.findIndex(topic => topic === input.value))
+  removeTopics(modal, index, checkBoxes, topic) {
+    let inputs = []
+    checkBoxes.toArray().filter(el => el.nativeElement).map(el => inputs.push(el));
+    console.log(inputs);
+    for(let i = 0; i <= inputs.length - 1; i++) {
+      if (inputs[i].nativeElement.name === topic) {
+        inputs[i].nativeElement.checked = false;
+      }
+    }
+    (<FormArray> modal.controls['topics']).removeAt(index);
   }
 
   showCheckboxes(selector) {
-    let checkboxes = document.getElementById(selector);
+
     if (!this.expanded) {
-      checkboxes.style.display = "block";
+      this.renderer.setStyle(selector.nativeElement, 'display', 'block')
       this.expanded = true;
+
     } else {
-      checkboxes.style.display = "none";
+      this.renderer.setStyle(selector.nativeElement, 'display', 'none')
       this.expanded = false;
+
     }
+
   }
+
 }
 

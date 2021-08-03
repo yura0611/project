@@ -1,9 +1,7 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {FormArray, FormGroup} from '@angular/forms';
-import {question, QuestionService} from '../shared/question.service';
+import {IQuestion, QuestionService} from '../shared/question.service';
 import {ModalService} from '../shared/modals.service';
-import {HttpClient} from '@angular/common/http';
-import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-questions-filter',
@@ -12,17 +10,17 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class QuestionsFilterComponent implements OnInit {
 
-  @ViewChild('element') checkBoxInput: ElementRef;
+  @ViewChildren('element') checkBoxInput: QueryList<ElementRef>;
+  @ViewChild('expandSelect') select: ElementRef;
+  @ViewChild('questionBlock') questionBlock: ElementRef;
   topics: string[];
   filterForm: FormGroup;
   expanded = false;
-  formData: question;
+  formData: IQuestion;
 
   constructor(private questionService: QuestionService,
-              private modalService: ModalService,
-              private http: HttpClient,
-              private router: Router,
-              private route: ActivatedRoute) {
+              private modalService: ModalService) {
+
   }
 
   ngOnInit(): void {
@@ -41,32 +39,23 @@ export class QuestionsFilterComponent implements OnInit {
 
   }
 
-  onSubmit(form) {
+  onSubmit() {
     this.formData = this.filterForm.value;
-    this.resetFormValue();
-    form.reset();
-  }
-
-  onAddTopic(input, index) {
-    this.modalService.addTopic(input, index, this.filterForm, this.topics);
 
   }
 
-  onRemoveTopic(index) {
-    (<FormArray> this.filterForm.controls['topics']).removeAt(index);
+  onAddTopic(input, index, topic) {
+    this.modalService.addTopic(input, index, this.filterForm, this.topics, topic);
+
+  }
+
+  onRemoveTopic(topic, index) {
+    this.modalService.removeTopics(this.filterForm,index,this.checkBoxInput,topic)
 
   }
 
   onShowCheckboxes() {
-    this.modalService.showCheckboxes('filter-component-checkboxes');
-  }
-
-  resetFormValue() {
-    let arr = (<FormArray> this.filterForm.controls['topics']);
-    document.querySelectorAll('.list-item').forEach(el => el.remove());
-    document.getElementById('filter-component-checkboxes').style.display = 'none';
-    this.expanded = false;
-    arr.clear();
+    this.modalService.showCheckboxes(this.select);
   }
 
 

@@ -6,7 +6,7 @@
   </div>
   <p>Create Question</p>
 </div>
-<form class="create-modal-form" [formGroup]="createNewModal" (ngSubmit)="onSubmit(formElement)" #formElement='ngForm'>
+<form class="create-modal-form" [formGroup]="createNewModal" (ngSubmit)="onSubmit()" #formElement='ngForm'>
   <div class="create-modal-form_title form-element_block">
     <label for="title">Title</label>
     <br>
@@ -30,12 +30,12 @@
         </select>
         <div class="overSelect-1"></div>
       </div>
-      <div id="create-new-modal-checkboxes" >
+      <div id="create-new-modal-checkboxes" #expandSelect>
         <label [attr.for]="topic + i + '_id'" *ngFor="let topic of availableTopics; let i = index;">
           <input [name]="topic"
                  #element
                  type="checkbox"
-                 (click)="onAddTopic(element, i)"
+                 (click)="onAddTopic(element, i, topic)"
                  [id]="topic + i + '_id'"
                  [value]="topic"
                  required/>
@@ -45,13 +45,12 @@
 
     </div>
     <ul class="chosen-topics_list" >
-      <div class="chosen-topics_list-block"  >
+<!--      <div class="chosen-topics_list-block"  >-->
         <li  class="list-item" *ngFor="let topic of getControls(); let i = index">
           {{topic}}
-          <img (click)="onRemoveTopic(i)" class="img-cross" src="../../../assets/cross.svg" alt="Cross" style="width: 10px">
+          <img (click)="onRemoveTopic(topic, i)" class="img-cross" src="../../../assets/cross.svg" alt="Cross" style="width: 10px">
         </li>
-      </div>
-      <!--      <span *ngIf="createNewModal.get('topics').invalid ">Field is required</span>-->
+<!--      </div>-->
     </ul>
   </div>
 
@@ -60,7 +59,7 @@
     <div class="create-modal-form_type form-element_block">
       <label for="type">Type</label>
       <br>
-      <select name="type" id="type" formControlName="type" appSelectValidator>
+      <select name="type" id="type" formControlName="type">
         <option hidden selected value="-1">Select type</option>
         <option value="code">code</option>
         <option value="text">text</option>
@@ -72,7 +71,6 @@
       <label for="maxlength">Max length</label>
       <br>
       <input type="text" id="maxlength" name="maxLength" formControlName="maxLength" required placeholder="min">
-      <!--      <span *ngIf="!createNewModal.get('maxLength').valid && createNewModal.get('maxLength').touched">Field is required</span>-->
     </div>
   </div>
 
