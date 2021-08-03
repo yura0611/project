@@ -21,7 +21,6 @@ export class QuestionsListComponent implements OnInit {
   ngOnInit() {
     this.questionService.getAllTopics()
     this.questionService.getQuestionByFilters().subscribe();
-    this.questionService.questionList$.subscribe()
     this.subscription = this.questionService.topicsEmitter.subscribe(data => this.allTopics = data)
 
   }

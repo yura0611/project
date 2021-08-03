@@ -180,7 +180,7 @@ mat-checkbox {
     width: 100%;
   }
 
-  .vacancies-view-question_link {
+  .vacancies-view-question_link, .pencil {
     visibility: hidden;
   }
 
@@ -189,7 +189,7 @@ mat-checkbox {
     cursor: pointer;
   }
 
-  &:hover .vacancies-view-question_link {
+  &:hover .vacancies-view-question_link, &:hover .pencil {
     visibility: visible;
   }
 
@@ -213,8 +213,6 @@ mat-checkbox {
     line-height: normal;
     letter-spacing: normal;
     color: #101820;
-    padding-left: 10px;
-
 
     span {
       margin: 0 4px;
@@ -333,4 +331,11 @@ form {
 .search-input {
   box-sizing: border-box;
   width: 70%;
+}
+
+.pencil {
+  width: 15px;
+  margin-right: 13px;
+  margin-left: 5px;
+  opacity: 0.5;
 }

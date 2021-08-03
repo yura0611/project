@@ -22,7 +22,8 @@ import {VacanciesInviteModalComponent} from "./vacancies/vacancies-invite-modal/
 import {TokenInterceptor} from './app.interceptor';
 import {VacanciesViewModalComponent} from './vacancies/vacancies-create/vacancies-view-modal/vacancies-view-modal.component';
 import {CommonModule} from "@angular/common";
-import { OutSideClickHandlerDirective } from './out-side-click-handler.directive';
+import {OutSideClickHandlerDirective} from './out-side-click-handler.directive';
+import { VacanciesListComponent } from './home-page/vacancies-list/vacancies-list.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { OutSideClickHandlerDirective } from './out-side-click-handler.directive
     VacanciesInviteModalComponent,
     VacanciesViewModalComponent,
     OutSideClickHandlerDirective,
+    VacanciesListComponent,
   ],
   imports: [
     BrowserModule,

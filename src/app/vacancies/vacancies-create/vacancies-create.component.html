@@ -114,8 +114,11 @@
 
               <p class="title">{{question.title}}</p>
             </div>
+
             <div class="topics">
+
               <div>
+                <a (click)="openEditModal(question, question._id)"><img class="pencil" src="../../../assets/pencil.svg" alt="Pencil"></a>
                 <span *ngFor="let topic of question.topics">{{topic}}</span>
               </div>
 

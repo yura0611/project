@@ -5,6 +5,7 @@ import {VacanciesCreateService} from "../shared/vacancies-create.service";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {VacanciesViewModalComponent} from "./vacancies-view-modal/vacancies-view-modal.component";
 import {QuestionNewModalComponent} from "../../questions-library/question-new-modal/question-new-modal.component";
+import {QuestionEditModalComponent} from "../../questions-library/question-edit-modal/question-edit-modal.component";
 
 @Component({
   selector: 'app-vacancies-create',
@@ -50,6 +51,7 @@ export class VacanciesCreateComponent implements OnInit{
     if (!this.vacanciesForm.valid) {
       return;
     }
+    this.vacanciesService.createVacancy(this.vacanciesForm.value)
     console.log(this.vacanciesForm.value)
   }
 
@@ -109,6 +111,15 @@ export class VacanciesCreateComponent implements OnInit{
     modalConfig.width = '496px';
     modalConfig.height = '850px';
     this.dialog.open(QuestionNewModalComponent, modalConfig)
+  }
+
+  openEditModal(question: IQuestion, id) {
+    const questionId = id;
+    const modalConfig = new MatDialogConfig();
+    modalConfig.width = '496px';
+    modalConfig.height = '850px';
+    modalConfig.data = {question:question, questionId:questionId};
+    this.dialog.open(QuestionEditModalComponent, modalConfig);
   }
 
 }

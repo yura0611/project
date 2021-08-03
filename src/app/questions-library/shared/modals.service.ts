@@ -26,9 +26,12 @@ export class ModalService {
   }
 
   removeTopics(modal, index, checkBoxes, topic) {
-    let inputs = []
-    checkBoxes.toArray().filter(el => el.nativeElement).map(el => inputs.push(el));
-    console.log(inputs);
+    let inputs = checkBoxes.toArray().reduce((acc, prV) => {
+      if (prV.nativeElement) {
+        acc.push(prV)
+      }
+      return acc;
+    }, []);
     for(let i = 0; i <= inputs.length - 1; i++) {
       if (inputs[i].nativeElement.name === topic) {
         inputs[i].nativeElement.checked = false;
