@@ -16,7 +16,7 @@ build-develop:
     # Install dependencies
     - npm install
     # Build App
-    - ng build --configuration develop
+    - node_modules/@angular/cli/bin/ng build --prod --configuration=develop
   artifacts:
     paths:
       # Build folder
