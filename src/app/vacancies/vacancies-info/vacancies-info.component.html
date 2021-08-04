@@ -1,33 +1,21 @@
- <div class="container">
-    <div>
+<div>
         <span class="vacancy-type">{{message['type'] | uppercase}} &#160;</span>
         <span class="vacancy-title">{{message['vacancy'] | uppercase}}</span>
-        <button class="btn" >
+        <button class="btn" (click)="this.vacanciesService.deleteVacancy(this.message['_id'])" >
           <mat-icon><span class="material-icons-outlined">
               delete
             </span></mat-icon>
           </button >
-    <button class="btn">
+    <button class="btn" (click)="editVacancy()">
     <mat-icon><span class="material-icons-outlined">
         edit
       </span></mat-icon>
     </button>
-
-
-
-
   </div>
-
-
-
-
     <p class="vacancy-description">
         {{(showMore) ? text : text | slice:0:150 }} <span *ngIf="!showMore">... &#160;</span>
-        <a href="javascript:;" *ngIf="!showMore" (click)="showMore=true">view more</a>
+        <a href="javascript:" *ngIf="!showMore" (click)="showMore=true">view more</a>
         </p>
-
-
-
     <div class="mat-cards">
     <mat-card>
         <mat-card-header>
@@ -63,20 +51,31 @@
      </div>
      <div class="content-title">
       <h1>Applications</h1>
-      <a  (click)="openInviteModal()">
+      <a  (click)="openInviteModal()" *ngIf="!vacanciesService.candidateSubject.getValue()">
       <div class="invite">
       <mat-icon><span>
         person_add
       </span></mat-icon>
       <span class="invite-text">INVITE CANDIDATE</span>
-
     </div>
     </a>
+       <a   *ngIf="vacanciesService.candidateSubject.getValue()" (click)="openSetReviewerModal()">
+         <div class="mat-icon-btns">
+           <mat-icon><span>
+        person
+      </span></mat-icon>
+           <span class="invite-text">SET REVIEWER</span>
+         </div>
+       </a>
+       <a  (click)="this.vacanciesService.removeSelectedRow()" *ngIf="vacanciesService.candidateSubject.getValue()">
+         <div class="mat-icon-btns">
+           <mat-icon><span>
+            delete
+      </span></mat-icon>
+           <span class="invite-text">REMOVE CANDIDATE</span>
+         </div>
+       </a>
      </div>
-
-
      <app-applications-table></app-applications-table>
 
-
-</div>
 

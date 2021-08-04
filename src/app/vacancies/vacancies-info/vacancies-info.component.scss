@@ -1,3 +1,4 @@
+
 .vacancy-type {
   color: #00b2a9;
   font-size: 20px;
@@ -42,10 +43,6 @@ mat-card-content{
   margin-top: -10px;
 }
 
-// ::ng-deepmat-card-title{
-//   font-size: 5px;
-// }
-
 
 .show {
   overflow: visible;
@@ -56,6 +53,7 @@ mat-card-content{
 a{
   color: #007672;
   text-decoration: none;
+  cursor: pointer;
 }
 
 h1{
@@ -121,7 +119,6 @@ p > span{
 .btns{
   width: 87px;
   height: 40px;
-  margin-left: -20px;
   padding: 12px 19.5px;
   border-radius: 2px;
   border: solid 2px #007672;
@@ -162,4 +159,10 @@ p > span{
   color: #101820;
 }
 
+.mat-icon-btns{
+  color: #101820;
+  gap:5px;
+  display: flex;
+  align-items: center;
+}
 

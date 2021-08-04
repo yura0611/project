@@ -12,7 +12,7 @@ export class VacanciesInviteModalComponent implements OnInit {
   email = '';
   invitationForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder,) {
+  constructor(private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
@@ -20,7 +20,8 @@ export class VacanciesInviteModalComponent implements OnInit {
       email: [this.email, [Validators.maxLength(200), Validators.required]],
       firstName: [this.firstName, [Validators.required]],
       lastName: [this.lastName, [Validators.required, Validators.maxLength(800)]],
-    })
+    });
   }
+
 
 }

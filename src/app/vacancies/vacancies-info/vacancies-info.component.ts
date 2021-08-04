@@ -1,7 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild,  } from '@angular/core';
+import { VacanciesService} from '../shared/vacancies.service';
 import { ApplicationsTableComponent } from './applications-table/applications-table.component';
 import {MatDialog} from '@angular/material/dialog';
 import {VacanciesInviteModalComponent} from '../vacancies-invite-modal/vacancies-invite-modal.component';
+import {Router} from '@angular/router';
+
 
 @Component({
   selector: 'app-vacancies-info',
@@ -17,24 +20,47 @@ export class VacanciesInfoComponent implements OnInit {
   percentage = 0;
   completed = 0;
   applications = 0;
-  constructor(
-              public dialog: MatDialog) {}
+  time;
+  monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+  ];
 
-  openInviteModal(){
-    this.dialog.open(VacanciesInviteModalComponent,{
+
+
+  constructor(public vacanciesService: VacanciesService,
+              public dialog: MatDialog,
+              public router: Router) {
+
+  }
+
+  openInviteModal(): void{
+    this.dialog.open(VacanciesInviteModalComponent, {
       width: '496px',
       height: '488px',
-    })
+    });
   }
+
+  openSetReviewerModal(): void{
+    this.vacanciesService.ReviewerModal();
+  }
+
 
 
   ngOnInit(): void {
-    this.text = this.message['description'];
-
+    const desc = 'description';
+    const date = 'createdAt';
+    this.vacanciesService.candidateSubject.subscribe();
+    this.vacanciesService.candidateSubject.next(false);
+    this.message =  this.vacanciesService.getMessage();
+    this.text = this.message[desc];
+    this.time =  Date.parse(this.message[date]);
+    console.log(this.time);
   }
 
 
 
-
+  editVacancy(): void{
+    this.router.navigate(['/vacancy-info']);
+  }
 
 }
