@@ -34,9 +34,9 @@ export class VacanciesCreateComponent implements OnInit{
       this.questionService.questionList$.subscribe(data => this.allQuestions = data)
 
     this.vacanciesForm = new FormGroup({
-      'title': new FormControl(null, Validators.required),
+      'title': new FormControl(null, [Validators.required, Validators.max(200)]),
       'type': new FormControl('', Validators.required),
-      'description': new FormControl(null, Validators.required),
+      'description': new FormControl(null, [Validators.required, Validators.max(800)]),
       'link': new FormControl(null, Validators.required),
       'questions': new FormArray([], Validators.required)
     })

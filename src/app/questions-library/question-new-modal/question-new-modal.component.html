@@ -10,13 +10,14 @@
   <div class="create-modal-form_title form-element_block">
     <label for="title">Title</label>
     <br>
-    <input type="text" name="title" id="title" formControlName="title" required placeholder="Type question title">
+    <input type="text" name="title" id="title" formControlName="title" required placeholder="Type question title"
+           maxlength="200">
   </div>
   <div class="create-modal-form_description form-element_block">
     <label for="description">Description</label>
     <br>
     <textarea name="description" id="description" rows="10" formControlName="description" required
-              placeholder="Type text"></textarea>
+              placeholder="Type text" maxlength="800"></textarea>
   </div>
 
   <div class="create-modal_form-topics form-element_block">

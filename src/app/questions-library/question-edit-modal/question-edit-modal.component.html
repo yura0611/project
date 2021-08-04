@@ -10,20 +10,21 @@
   <div class="edit-modal-form_title form-element_block">
     <label for="title">Title</label>
     <br>
-    <input type="text" name="title" id="title" formControlName="title" required >
+    <input type="text" name="title" id="title" formControlName="title" required maxlength="200">
   </div>
-  <div class="edit-modal-form_description form-element_block"  >
+  <div class="edit-modal-form_description form-element_block">
     <label for="description">Description</label>
     <br>
-    <textarea  name="description" id="description" rows="10" formControlName="description" required></textarea>
+    <textarea name="description" id="description" rows="10" formControlName="description" required
+              maxlength="800"></textarea>
   </div>
 
-  <div class="edit-modal_form-topics form-element_block" >
+  <div class="edit-modal_form-topics form-element_block">
     <label>Topics</label>
     <br>
     <div class="multiselect-1">
       <div class="selectBox-1" (click)="onShowCheckBox()">
-        <select  required formArrayName="topics" >
+        <select required formArrayName="topics">
           <option hidden>Select topic</option>
         </select>
         <div class="overSelect-1"></div>
@@ -42,11 +43,12 @@
       </div>
 
     </div>
-    <ul class="chosen-topics_list" >
-        <li  class="list-item" *ngFor="let topic of getControls(); let i = index">
-          {{topic}}
-          <img (click)="onRemoveTopic(i, topic)" class="img-cross" src="../../../assets/cross.svg" alt="Cross" style="width: 10px">
-        </li>
+    <ul class="chosen-topics_list">
+      <li class="list-item" *ngFor="let topic of getControls(); let i = index">
+        {{topic}}
+        <img (click)="onRemoveTopic(i, topic)" class="img-cross" src="../../../assets/cross.svg" alt="Cross"
+             style="width: 10px">
+      </li>
     </ul>
   </div>
 
@@ -69,7 +71,8 @@
 
 
   <div class="edit-modal-form_edit_btn">
-    <button type="button" (click)="onDelete()" style="background: red; cursor: pointer">{{'delete' | uppercase}}</button>
+    <button type="button" (click)="onDelete()"
+            style="background: red; cursor: pointer">{{'delete' | uppercase}}</button>
     <button type="submit"
             style="cursor:
                 pointer" (click)="onEdit()"
