@@ -6,14 +6,15 @@ import {VacanciesComponent} from './vacancies/vacancies.component';
 import {SignInComponent} from './sign-in/sign-in.component';
 import {QuestionsComponent} from './questions-library/questions/questions.component';
 import {HomePageComponent} from './home-page/home-page.component';
+import {AuthGuard} from "./auth.guard";
 
 const routes: Routes = [
   {path: 'sign-in', component: SignInComponent},
-  {path: 'home', component: HomePageComponent},
-  {path: 'questions', component: QuestionsComponent},
-  {path: 'vacancies', component: VacanciesComponent},
-  {path: 'vacancies-create', component: VacanciesCreateComponent},
-  {path: 'vacancies-edit', component: VacanciesInfoComponent},
+  {path: 'home', canActivate:[AuthGuard], component: HomePageComponent},
+  {path: 'questions', canActivate:[AuthGuard], component: QuestionsComponent},
+  {path: 'vacancies', canActivate:[AuthGuard], component: VacanciesComponent},
+  {path: 'vacancies-create', canActivate:[AuthGuard], component: VacanciesCreateComponent},
+  {path: 'vacancies-edit', canActivate:[AuthGuard], component: VacanciesInfoComponent},
   {path: 'system-settings', redirectTo: 'home'},
 ];
 
