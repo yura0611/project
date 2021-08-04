@@ -4,6 +4,8 @@ import { ApplicationsTableComponent } from './applications-table/applications-ta
 import {MatDialog} from '@angular/material/dialog';
 import {VacanciesInviteModalComponent} from '../vacancies-invite-modal/vacancies-invite-modal.component';
 import {Router} from '@angular/router';
+import {Constants} from '../../constants/constants';
+
 
 
 @Component({
@@ -21,22 +23,19 @@ export class VacanciesInfoComponent implements OnInit {
   completed = 0;
   applications = 0;
   time;
-  monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-  ];
-
 
 
   constructor(public vacanciesService: VacanciesService,
               public dialog: MatDialog,
-              public router: Router) {
+              public router: Router,
+              private constants: Constants) {
 
   }
 
   openInviteModal(): void{
     this.dialog.open(VacanciesInviteModalComponent, {
-      width: '496px',
-      height: '488px',
+      width: this.constants.modalWidth,
+      height: this.constants.modalHeight
     });
   }
 
@@ -54,7 +53,6 @@ export class VacanciesInfoComponent implements OnInit {
     this.message =  this.vacanciesService.getMessage();
     this.text = this.message[desc];
     this.time =  Date.parse(this.message[date]);
-    console.log(this.time);
   }
 
 
@@ -62,5 +60,20 @@ export class VacanciesInfoComponent implements OnInit {
   editVacancy(): void{
     this.router.navigate(['/vacancy-info']);
   }
+
+  VacancyDelete(id): void{
+    this.vacanciesService.deleteVacancy(id);
+  }
+
+  getCandidateSubjectValue(): boolean{
+    return this.vacanciesService.candidateSubject.getValue();
+  }
+
+  removeCandidateRow(): void{
+    this.vacanciesService.removeSelectedRow();
+  }
+
+
+
 
 }

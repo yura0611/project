@@ -33,7 +33,7 @@
 
     <ng-container matColumnDef="OPENED">
       <mat-header-cell *matHeaderCellDef> OPENED </mat-header-cell>
-      <mat-cell *matCellDef="let element"> 0 </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.createdAt | date}} </mat-cell>
     </ng-container>
 
     <ng-container  matColumnDef="ARROW">

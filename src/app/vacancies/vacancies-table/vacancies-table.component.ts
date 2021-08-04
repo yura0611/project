@@ -3,6 +3,7 @@ import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { VacanciesService} from '../shared/vacancies.service';
 
+
 @Component({
   selector: 'app-vacancies-table',
   templateUrl: './vacancies-table.component.html',
@@ -25,7 +26,7 @@ export class VacanciesTableComponent implements OnInit {
   data;
   length: number;
   pageIndex: number;
-
+  createdAt = 'createdAt';
 
 
 
@@ -45,6 +46,7 @@ export class VacanciesTableComponent implements OnInit {
     this.router.navigate(['/vacancy-info']);
     this.message = row;
     this.vacanciesService.setMessage(this.message);
+    console.log(this.message);
   }
 
 

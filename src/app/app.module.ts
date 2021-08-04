@@ -25,6 +25,8 @@ import {CommonModule} from '@angular/common';
 import { OutSideClickHandlerDirective } from './out-side-click-handler.directive';
 import { SetReviewerModalComponent } from './vacancies/vacancies-info/set-reviewer-modal/set-reviewer-modal.component';
 import { VacanciesEditComponent } from './vacancies/vacancies-edit/vacancies-edit.component';
+import {Environments} from './config/environment';
+import {Constants} from './constants/constants';
 
 @NgModule({
   declarations: [
@@ -58,9 +60,11 @@ import { VacanciesEditComponent } from './vacancies/vacancies-edit/vacancies-edi
   providers: [
     CookieService,
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
+    Environments,
+    Constants
   ],
   exports: [
-    OutSideClickHandlerDirective
+    OutSideClickHandlerDirective,
   ],
   bootstrap: [AppComponent]
 })

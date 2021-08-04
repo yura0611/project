@@ -1,7 +1,7 @@
 <div>
         <span class="vacancy-type">{{message['type'] | uppercase}} &#160;</span>
-        <span class="vacancy-title">{{message['vacancy'] | uppercase}}</span>
-        <button class="btn" (click)="this.vacanciesService.deleteVacancy(this.message['_id'])" >
+        <span class="vacancy-title">{{message['title'] | uppercase}}</span>
+        <button class="btn" (click)="VacancyDelete(message['_id'])" >
           <mat-icon><span class="material-icons-outlined">
               delete
             </span></mat-icon>
@@ -46,12 +46,12 @@
             <mat-card-title>Opened</mat-card-title>
           </mat-card-header>
         <mat-card-content>
-       <span> {{message['opened']}} </span>
+       <span> {{ this.time | date  }} </span>
       </mat-card-content></mat-card>
      </div>
      <div class="content-title">
       <h1>Applications</h1>
-      <a  (click)="openInviteModal()" *ngIf="!vacanciesService.candidateSubject.getValue()">
+      <a  (click)="openInviteModal()" *ngIf="!getCandidateSubjectValue()">
       <div class="invite">
       <mat-icon><span>
         person_add
@@ -59,7 +59,7 @@
       <span class="invite-text">INVITE CANDIDATE</span>
     </div>
     </a>
-       <a   *ngIf="vacanciesService.candidateSubject.getValue()" (click)="openSetReviewerModal()">
+       <a   *ngIf="getCandidateSubjectValue()" (click)="openSetReviewerModal()">
          <div class="mat-icon-btns">
            <mat-icon><span>
         person
@@ -67,7 +67,7 @@
            <span class="invite-text">SET REVIEWER</span>
          </div>
        </a>
-       <a  (click)="this.vacanciesService.removeSelectedRow()" *ngIf="vacanciesService.candidateSubject.getValue()">
+       <a  (click)="removeCandidateRow()" *ngIf="getCandidateSubjectValue()">
          <div class="mat-icon-btns">
            <mat-icon><span>
             delete

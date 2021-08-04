@@ -7,7 +7,10 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {SetReviewerModalComponent} from '../vacancies-info/set-reviewer-modal/set-reviewer-modal.component';
 import {MatDialog} from '@angular/material/dialog';
-
+import {Environments} from '../../config/environment';
+import {Constants} from '../../constants/constants';
+import {ApplicationsTableItem} from './vacancies.models';
+import {TestVacanciesTableItem} from './vacancies.models';
 
 @Injectable({
   providedIn: 'root'
@@ -31,10 +34,6 @@ export class VacanciesService {
   data;
   selection;
   dataSource;
-  getVacancies = 'http://localhost:3000/api/vacancy';
-  deleteVacancyUrl = 'http://localhost:3000/api/vacancy/delete/';
-
-
 
   candidateSubject =  new BehaviorSubject(false);
   dataSubject = new BehaviorSubject(0);
@@ -42,11 +41,13 @@ export class VacanciesService {
 
   constructor(private http: HttpClient,
               private router: Router,
-              public dialog: MatDialog, ) { }
+              public dialog: MatDialog,
+              private environments: Environments,
+              private  constants: Constants) { }
 
 
   getAllVacancies(): void {
-    this.http.get<any>(this.getVacancies).pipe(
+    this.http.get<any>(this.environments.API_GET_VACANCIES).pipe(
       tap(vacancies => this.vacanciesListSubject.next(vacancies))
     ).subscribe(data => {
     });
@@ -97,17 +98,22 @@ export class VacanciesService {
 
   ReviewerModal(): void{
     this.dialog.open(SetReviewerModalComponent, {
-      width: '496px',
-      height: '488px',
+      width: this.constants.modalWidth,
+      height: this.constants.modalHeight,
     });
   }
 
 
 
+  // editStatus(id: string): void{
+  //   this.http.post(this.editVacancyStatus)
+  // }
+
+
 
 
   deleteVacancy(id: string): void {
-    this.http.post(this.deleteVacancyUrl, {_id: id}).subscribe((data: TestVacanciesTableItem[]) => {
+    this.http.post(this.environments.API_DELETE_VACANCY, {_id: id}).subscribe((data: TestVacanciesTableItem[]) => {
       this.vacanciesListSubject.next(data);
     });
     this.router.navigate(['/vacancies']);
@@ -115,31 +121,6 @@ export class VacanciesService {
 
 }
 
-export interface ApplicationsTableItem {
-  _id: string;
-  candidate: string;
-  status: string;
-  score: number;
-  reviewer: string;
-  invited: string;
-}
 
-export interface VacanciesTableItem {
-  _id: string;
-  vacancy: string;
-  type: string;
-  status: string;
-  number_of_applicants: number;
-  opened: string;
-  description: string;
-}
 
-export interface TestVacanciesTableItem {
-  _id: string;
-  title: string;
-  description: string;
-  status: string;
-  type: string;
-  questions: [];
-}
 
