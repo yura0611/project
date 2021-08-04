@@ -1,14 +1,15 @@
-import {Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {FormArray, FormGroup} from '@angular/forms';
 import {IQuestion, QuestionService} from '../shared/question.service';
 import {ModalService} from '../shared/modals.service';
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-questions-filter',
   templateUrl: './questions-filter.component.html',
   styleUrls: ['./questions-filter.component.scss']
 })
-export class QuestionsFilterComponent implements OnInit {
+export class QuestionsFilterComponent implements OnInit, OnDestroy {
 
   @ViewChildren('checkBox') checkBoxInput: QueryList<ElementRef>;
   @ViewChild('expandSelect') select: ElementRef;
@@ -17,14 +18,14 @@ export class QuestionsFilterComponent implements OnInit {
   filterForm: FormGroup;
   expanded = false;
   formData: IQuestion;
-
+  subscription: Subscription
   constructor(private questionService: QuestionService,
               private modalService: ModalService) {
 
   }
 
   ngOnInit(): void {
-    this.questionService.availableTopics$.subscribe(data => this.topics = data)
+    this.subscription = this.questionService.availableTopics$.subscribe(data => this.topics = data)
     this.filterForm = new FormGroup({
       'topics': new FormArray([])
     });
@@ -56,6 +57,10 @@ export class QuestionsFilterComponent implements OnInit {
 
   onShowCheckboxes() {
     this.modalService.showCheckboxes(this.select);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe()
   }
 
 

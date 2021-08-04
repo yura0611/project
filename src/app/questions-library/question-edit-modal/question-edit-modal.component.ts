@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   Inject,
@@ -19,7 +20,7 @@ import {ModalService} from '../shared/modals.service';
   styleUrls: ['./question-edit-modal.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class QuestionEditModalComponent implements OnInit {
+export class QuestionEditModalComponent implements OnInit, AfterViewInit {
   @ViewChild('expandSelect') select: ElementRef;
   @ViewChildren('element') checkBoxInput: QueryList<ElementRef>;
   // This pattern validate only number
@@ -44,6 +45,9 @@ export class QuestionEditModalComponent implements OnInit {
       'type': new FormControl(this.data.question.type, Validators.required),
       'maxLength': new FormControl(this.data.question.maxLength, Validators.pattern(this.regexPattern))
     });
+
+    console.log((<FormArray> this.editModal.get('topics')).getRawValue())
+
 
   }
 
@@ -87,6 +91,19 @@ export class QuestionEditModalComponent implements OnInit {
 
   onShowCheckBox() {
     this.modalService.showCheckboxes(this.select);
+  }
+
+  ngAfterViewInit() {
+    const topics = (<FormArray> this.editModal.get('topics')).getRawValue();
+    const checkboxes = this.checkBoxInput.toArray();
+    for (let i = 0; i <= checkboxes.length - 1; i++) {
+      for (let k = 0; k <= topics.length - 1; k++) {
+        if (checkboxes[i].nativeElement.name === topics[k]) {
+          checkboxes[i].nativeElement.checked = true;
+        }
+      }
+
+    }
   }
 
 }

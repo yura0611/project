@@ -1,7 +1,7 @@
 import {
   Component,
   ElementRef,
-  Inject,
+  Inject, OnDestroy,
   OnInit,
   QueryList,
   ViewChild,
@@ -13,6 +13,7 @@ import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
 import {QuestionService} from '../shared/question.service';
 import {ModalService} from '../shared/modals.service';
 import {tap} from 'rxjs/operators';
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-question-new-modal',
@@ -20,14 +21,14 @@ import {tap} from 'rxjs/operators';
   styleUrls: ['./question-new-modal.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class QuestionNewModalComponent implements OnInit {
+export class QuestionNewModalComponent implements OnInit, OnDestroy {
   @ViewChildren('element') checkBoxInput: QueryList<ElementRef>;
   @ViewChild('expandSelect') select: ElementRef;
   // This pattern validate only number
   regexPattern = /^[1-9][0-9]*$/;
   availableTopics: string[];
   createNewModal: FormGroup;
-
+  subscription: Subscription
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               private dialogRef: MatDialog,
               private questionService: QuestionService,
@@ -35,7 +36,7 @@ export class QuestionNewModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.questionService.availableTopics$.subscribe(data => this.availableTopics = data);
+    this.subscription = this.questionService.availableTopics$.subscribe(data => this.availableTopics = data);
 
     this.createNewModal = new FormGroup({
       'title': new FormControl(null, Validators.max(250)),
@@ -75,6 +76,10 @@ export class QuestionNewModalComponent implements OnInit {
     this.questionService.addNewQuestion(this.createNewModal.value).pipe(
       tap(newQuestion => this.questionService.updateQuestionList(newQuestion.question))
     ).subscribe();
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe()
   }
 
 }
