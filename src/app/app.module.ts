@@ -22,7 +22,7 @@ import {VacanciesInviteModalComponent} from "./vacancies/vacancies-invite-modal/
 import {TokenInterceptor} from './app.interceptor';
 import {VacanciesViewModalComponent} from './vacancies/vacancies-create/vacancies-view-modal/vacancies-view-modal.component';
 import {CommonModule} from "@angular/common";
-import { VacanciesListComponent } from './home-page/vacancies-list/vacancies-list.component';
+import {VacanciesListComponent} from './home-page/vacancies-list/vacancies-list.component';
 
 @NgModule({
   declarations: [
@@ -58,4 +58,5 @@ import { VacanciesListComponent } from './home-page/vacancies-list/vacancies-lis
   exports: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

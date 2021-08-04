@@ -8,7 +8,7 @@
     <p>Questions({{questionList.length}})</p>
     <div class="question-list_title-avg_time">
       <p>time/min</p>
-      <a (click)="onSort('time')"> <img class="arrow" src="../../../assets/arrowDown.svg" alt="Arrow" > </a>
+      <a (click)="onSort('time')"> <img class="arrow" src="../../../assets/arrowDown.svg" alt="Arrow"> </a>
     </div>
 
   </div>
@@ -16,22 +16,28 @@
     <div class="question-list_content-block">
       <div class="question-list_item" *ngFor="let question of questionList; let i = index">
         <div class="question-list_item-title">
-          <p>{{question.title}}</p>
+          <p [ngClass]="{'dot': question.title.length >= 30 }" style="width: 40rem;">{{question.title}}</p>
           <p class="avg_time">{{question.maxLength}}</p>
         </div>
-        <div class="question-list_item-topics" >
+        <div class="question-list_item-topics">
           <ul>
-            <a *ngFor="let topic of question.topics" [href]="topic"><li >{{topic}}</li></a>
+              <li *ngFor="let topic of question.topics" ><a>{{topic}}</a></li>
           </ul>
         </div>
         <div class="question-list_item-description">
-          <p [ngClass]="{'dot': question.description.length >= 300 }">{{question.description}}</p>
+          <div style="width: 60rem">
+            <p [ngClass]="{'dot': question.description.length >= 50 }">{{question.description}}</p>
+          </div>
 
           <div class="question-list_item-description-links">
-            <a href="#" class="question-list_link" (click)="$event.preventDefault(); openViewQuestionModal(question._id)"><img src="../../../assets/arrowRight.svg" alt="Arrow" style="width: 15px"></a>
-            <a href="#" class="question-list_link" (click)="$event.preventDefault(); openEditModal(question._id)" ><img src="../../../assets/pencil.svg" alt="Pencil" style="width: 15px"></a>
+            <a href="#" class="question-list_link"
+               (click)="$event.preventDefault(); openViewQuestionModal(question._id)"><img
+              src="../../../assets/arrowRight.svg" alt="Arrow" style="width: 15px"></a>
+            <a href="#" class="question-list_link" (click)="$event.preventDefault(); openEditModal(question._id)"><img
+              src="../../../assets/pencil.svg" alt="Pencil" style="width: 15px"></a>
           </div>
         </div>
+
       </div>
     </div>
 

@@ -1,27 +1,35 @@
 <div class="mat-elevation-z8">
-  <table mat-table class="full-width-table" matSort aria-label="Elements">
+  <table mat-table class="full-width-table" matSort aria-label="Elements" [dataSource]="dataSource">
 
-    <ng-container matColumnDef="VACANCIES">
+    <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>VACANCY</th>
-      <td mat-cell *matCellDef="let row">{{row.vacancy}}</td>
+      <td mat-cell *matCellDef="let row">{{row.title}}</td>
     </ng-container>
 
 
-    <ng-container matColumnDef="CANDIDATE">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>CANDIDATE</th>
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>TYPE</th>
       <td mat-cell *matCellDef="let row">{{row.type}}</td>
     </ng-container>
 
-    <ng-container matColumnDef="STATUS">
+    <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>STATUS</th>
-      <td mat-cell *matCellDef="let row"> <div [ngClass]="{'cell-active': row.status === 'ACTIVE',
-                                                            'cell-closed': row.status === 'CLOSED'}">
-        {{row.status}}</div></td>
+      <td mat-cell *matCellDef="let row">
+        <div class="status"
+             [ngStyle]="{'backgroundColor': row.status === 'Active' ? '#00b2a9' : 'black' }">
+          {{row.status}}
+        </div>
+      </td>
     </ng-container>
 
-    <ng-container matColumnDef="REVIEWER">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>REVIEWER</th>
-      <td mat-cell *matCellDef="let row">{{row.number_of_applicants}}</td>
+    <ng-container matColumnDef="avg-score">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>AVG.SCORE</th>
+      <td mat-cell *matCellDef="let row">{{'% 95'}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="createdAt">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>OPENED</th>
+      <td mat-cell *matCellDef="let row">{{row.createdAt | date: 'd MMM y'}}</td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -29,9 +37,9 @@
   </table>
 
   <mat-paginator #paginator
-                 [length]="dataSource?.data?.length"
+                 [length]="dataSource?.length"
                  [pageIndex]="0"
-                 [pageSize]="10"
+                 [pageSize]="5"
                  [pageSizeOptions]="[5, 10, 20]">
   </mat-paginator>
 </div>

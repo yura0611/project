@@ -1,14 +1,17 @@
 .mat-dialog-container {
   padding: 0;
 }
+
 app-question-view-modal {
   width: 50%;
 }
 
 .view-question-header {
   background-color: #fafafa;
+
   .view-question-header_title {
     padding: 40px 0 25px 40px;
+
     p {
       font-size: 24px;
       font-weight: 800;
@@ -18,9 +21,11 @@ app-question-view-modal {
       letter-spacing: normal;
       color: #373a36;
     }
+
     a {
       display: block;
       text-align: right;
+
       img {
         margin-right: 15px;
       }
@@ -35,11 +40,14 @@ app-question-view-modal {
   .view-question-content_description,
   .view-question-content_topics {
     margin: 20px 0;
+
     div {
       padding: 10px;
       border-radius: 2px;
       border: solid 2px #dddddd;
+      word-wrap: break-word;
     }
+
     .topic-item {
       margin-right: 5px;
       margin-bottom: 5px;
@@ -53,6 +61,7 @@ app-question-view-modal {
   .edit-modal-form_edit_btn {
     text-align: right;
     margin-top: 40px;
+
     button {
       padding: 12px 20px;
       border: none;

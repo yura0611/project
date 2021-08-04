@@ -16,12 +16,21 @@ table {
   width: 100%;
 }
 
-.cdk-column-VACANCIES {
-  width: 40%;
+.cdk-column-title {
+  width: 40rem;
 }
-.cdk-column-CANDIDATE, .cdk-column-STATUS {
-  width: 20%;
+
+th.cdk-column-status, th.cdk-column-avg-score, th.cdk-column-type, th.cdk-column-createdAt {
+  width: 200px;
 }
+
 .mat-form-field-underline {
   height: 0 !important;
+}
+
+.status {
+  display: inline-block;
+  padding: 2px 4px;
+  color: #ffffff;
+  border-radius: 2px;
 }

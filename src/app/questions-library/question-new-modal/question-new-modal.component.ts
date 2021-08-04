@@ -24,7 +24,7 @@ export class QuestionNewModalComponent implements OnInit {
   @ViewChildren('element') checkBoxInput: QueryList<ElementRef>;
   @ViewChild('expandSelect') select: ElementRef;
   // This pattern validate only number
-  regexPattern = /^[0-9]*$/;
+  regexPattern = /^[1-9][0-9]*$/;
   availableTopics: string[];
   createNewModal: FormGroup;
 
@@ -35,7 +35,7 @@ export class QuestionNewModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.availableTopics = this.questionService.availableTopics;
+    this.questionService.availableTopics$.subscribe(data => this.availableTopics = data);
 
     this.createNewModal = new FormGroup({
       'title': new FormControl(null, Validators.max(250)),
@@ -62,8 +62,8 @@ export class QuestionNewModalComponent implements OnInit {
     this.modalService.showCheckboxes(this.select);
   }
 
-  onAddTopic(input, index: number, topic) {
-    this.modalService.addTopic(input, index, this.createNewModal, this.availableTopics, topic);
+  onAddTopic(input) {
+    this.modalService.addTopic(input, this.createNewModal);
   }
 
   onRemoveTopic(topic, index) {

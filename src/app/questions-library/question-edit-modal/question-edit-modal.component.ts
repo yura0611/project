@@ -23,7 +23,7 @@ export class QuestionEditModalComponent implements OnInit {
   @ViewChild('expandSelect') select: ElementRef;
   @ViewChildren('element') checkBoxInput: QueryList<ElementRef>;
   // This pattern validate only number
-  regexPattern = /^[0-9]*$/;
+  regexPattern = /^[1-9][0-9]*$/;
   availableTopics: string[];
   editModal: FormGroup;
   editedQuestion: IQuestion;
@@ -76,8 +76,8 @@ export class QuestionEditModalComponent implements OnInit {
     this.dialogRef.closeAll();
   }
 
-  onAddTopic(input, index: number, topic) {
-    this.modalService.addTopic(input, index, this.editModal, this.availableTopics, topic);
+  onAddTopic(input) {
+    this.modalService.addTopic(input, this.editModal);
 
   }
 

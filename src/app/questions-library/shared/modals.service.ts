@@ -1,22 +1,25 @@
 import {Injectable, Renderer2, RendererFactory2} from '@angular/core';
 import {FormArray, FormControl} from "@angular/forms";
+import {QuestionService} from "./question.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ModalService {
+  availableTopics: string[] = this.questionsService.availableTopics;
   expanded = false;
   renderer: Renderer2
 
-  constructor(rendererFactory: RendererFactory2) {
+  constructor(rendererFactory: RendererFactory2, private questionsService: QuestionService) {
+
     this.renderer = rendererFactory.createRenderer(null,null)
   }
 
-
-  addTopic(input, index: number, modal, availableTopics, topic) {
+  addTopic(input, modal) {
     if (!input.checked) {
-        this.removeTopics(modal, index, input, topic)
-    } else if ((modal.get('topics').value.length >= availableTopics.length) ||
+      (<FormArray> modal.controls['topics'])
+        .removeAt(modal.get('topics').value.findIndex(el => el === input.name));
+    } else if ((modal.get('topics').value.length >= this.availableTopics.length) ||
       (modal.get('topics').value.indexOf(input.value) !== -1)) {
       return;
     } else {
@@ -26,6 +29,7 @@ export class ModalService {
   }
 
   removeTopics(modal, index, checkBoxes, topic) {
+    console.log('from remove topic', checkBoxes)
     let inputs = checkBoxes.toArray().reduce((acc, prV) => {
       if (prV.nativeElement) {
         acc.push(prV)

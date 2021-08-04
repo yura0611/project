@@ -33,7 +33,7 @@
           <input [name]="topic"
                  #element
                  type="checkbox"
-                 (click)="onAddTopic(element, i, topic)"
+                 (click)="onAddTopic(element)"
                  [id]="topic + i + '_id'"
                  [value]="topic"
                  required/>
@@ -58,7 +58,6 @@
       <select name="type" id="type" formControlName="type" required>
         <option value="code">code</option>
         <option value="text">text</option>
-        <option value="video">video</option>
       </select>
     </div>
     <div class="edit-modal-form_max-length">

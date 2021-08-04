@@ -149,6 +149,7 @@ mat-checkbox {
   justify-content: space-between;
   flex-direction: row-reverse;
   margin-bottom: 10px;
+  word-break: break-all;
 
   span {
     font-size: 0.8rem;
@@ -167,7 +168,7 @@ mat-checkbox {
   p {
     padding-left: 10px;
     font-family: OpenSans, sans-serif;
-    width: 260px;
+    width: 30rem;
   }
 }
 

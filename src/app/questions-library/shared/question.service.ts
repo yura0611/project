@@ -1,5 +1,5 @@
-import { environment } from "../../../environments/environment";
-import {EventEmitter, Injectable} from '@angular/core';
+import {environment} from "../../../environments/environment";
+import {Injectable} from '@angular/core';
 import {BehaviorSubject, Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {tap} from 'rxjs/operators';
@@ -17,8 +17,9 @@ export interface IQuestion {
   providedIn: 'root'
 })
 export class QuestionService {
-  availableTopics = ['front-end', 'back-end'];
-  topicsEmitter = new EventEmitter<any>();
+  availableTopics = [];
+  private availableTopicsSubject = new BehaviorSubject<string[]>([]);
+  public availableTopics$ = this.availableTopicsSubject.asObservable();
   changedQuestion = new Subject<IQuestion>();
   private questionListSubject = new BehaviorSubject<IQuestion[]>([]);
   public questionList$ = this.questionListSubject.asObservable();
@@ -34,8 +35,8 @@ export class QuestionService {
 
   getAllTopics() {
     this.http.get<string[]>(`${environment.API_URL}question/topics`).subscribe(data => {
-      this.availableTopics = data;
-      this.topicsEmitter.emit(this.availableTopics);
+      this.availableTopics.push(...data)
+      this.availableTopicsSubject.next(data)
     });
   }
 

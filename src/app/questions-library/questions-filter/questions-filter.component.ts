@@ -10,10 +10,10 @@ import {ModalService} from '../shared/modals.service';
 })
 export class QuestionsFilterComponent implements OnInit {
 
-  @ViewChildren('element') checkBoxInput: QueryList<ElementRef>;
+  @ViewChildren('checkBox') checkBoxInput: QueryList<ElementRef>;
   @ViewChild('expandSelect') select: ElementRef;
   @ViewChild('questionBlock') questionBlock: ElementRef;
-  topics: string[];
+  topics = this.questionService.availableTopics;
   filterForm: FormGroup;
   expanded = false;
   formData: IQuestion;
@@ -24,14 +24,14 @@ export class QuestionsFilterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.questionService.topicsEmitter.subscribe(data => this.topics = data);
+    this.questionService.availableTopics$.subscribe(data => this.topics = data)
     this.filterForm = new FormGroup({
       'topics': new FormArray([])
     });
   }
 
   getControls() {
-    return (<FormArray> this.filterForm.get('topics')).getRawValue();
+    return (<FormArray>this.filterForm.get('topics')).getRawValue();
   }
 
   onSearch() {
@@ -44,13 +44,13 @@ export class QuestionsFilterComponent implements OnInit {
 
   }
 
-  onAddTopic(input, index, topic) {
-    this.modalService.addTopic(input, index, this.filterForm, this.topics, topic);
+  onAddTopic(input) {
+    this.modalService.addTopic(input, this.filterForm);
 
   }
 
   onRemoveTopic(topic, index) {
-    this.modalService.removeTopics(this.filterForm,index,this.checkBoxInput,topic)
+    this.modalService.removeTopics(this.filterForm, index, this.checkBoxInput, topic)
 
   }
 
