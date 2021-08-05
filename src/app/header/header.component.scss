@@ -9,11 +9,10 @@
     a {
       display: inline-block;
       opacity: 0.5;
-      height: 50px;
+      height: 30px;
       font-weight: 800;
       margin-right: 25px;
-      font-family: Raleway, sans-serif;
-      font-size: 1rem;
+      font-size: 0.8rem;
       font-stretch: normal;
       font-style: normal;
       line-height: normal;
@@ -28,6 +27,11 @@
     }
 
     a.active {
+      box-sizing: border-box;
+      border-bottom: 3px solid #007672;
+      opacity: 1;
+    }
+    a.active:host{
       box-sizing: border-box;
       border-bottom: 3px solid #007672;
       opacity: 1;

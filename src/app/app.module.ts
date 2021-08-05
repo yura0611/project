@@ -7,23 +7,25 @@ import {SignInComponent} from './sign-in/sign-in.component';
 import {GoogleAuthButtonComponent} from './sign-in/google-auth-button/google-auth-button.component';
 import {HeaderComponent} from './header/header.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MaterialModule} from "./material";
+import {MaterialModule} from './material';
 import {VacanciesComponent} from './vacancies/vacancies.component';
 import {VacanciesCreateComponent} from './vacancies/vacancies-create/vacancies-create.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {VacanciesTableComponent} from './vacancies/vacancies-table/vacancies-table.component';
-import {VacanciesInfoComponent} from "./vacancies/vacancies-info/vacancies-info.component";
-import {QuestionsLibraryModule} from "./questions-library/shared/questions-library.module";
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {CookieService} from "ngx-cookie-service";
+import {VacanciesInfoComponent} from './vacancies/vacancies-info/vacancies-info.component';
+import {QuestionsLibraryModule} from './questions-library/shared/questions-library.module';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {CookieService} from 'ngx-cookie-service';
 import {HomePageComponent} from './home-page/home-page.component';
-import {ApplicationsTableComponent} from "./vacancies/vacancies-info/applications-table/applications-table.component";
-import {VacanciesInviteModalComponent} from "./vacancies/vacancies-invite-modal/vacancies-invite-modal.component";
+import {ApplicationsTableComponent} from './vacancies/vacancies-info/applications-table/applications-table.component';
+import {VacanciesInviteModalComponent} from './vacancies/vacancies-invite-modal/vacancies-invite-modal.component';
 import {TokenInterceptor} from './app.interceptor';
 import {VacanciesViewModalComponent} from './vacancies/vacancies-create/vacancies-view-modal/vacancies-view-modal.component';
 import {CommonModule} from "@angular/common";
 import {VacanciesListComponent} from './home-page/vacancies-list/vacancies-list.component';
-
+import { SetReviewerModalComponent } from './vacancies/vacancies-info/set-reviewer-modal/set-reviewer-modal.component';
+import { VacanciesEditComponent } from './vacancies/vacancies-edit/vacancies-edit.component';
+import {Constants} from './constants/constants';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,8 @@ import {VacanciesListComponent} from './home-page/vacancies-list/vacancies-list.
     VacanciesInviteModalComponent,
     VacanciesViewModalComponent,
     VacanciesListComponent,
+    SetReviewerModalComponent,
+    VacanciesEditComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,9 +59,9 @@ import {VacanciesListComponent} from './home-page/vacancies-list/vacancies-list.
   providers: [
     CookieService,
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
+    Constants
   ],
   exports: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule { }
