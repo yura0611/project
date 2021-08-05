@@ -6,6 +6,7 @@ import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {VacanciesViewModalComponent} from "./vacancies-view-modal/vacancies-view-modal.component";
 import {QuestionNewModalComponent} from "../../questions-library/question-new-modal/question-new-modal.component";
 import {QuestionEditModalComponent} from "../../questions-library/question-edit-modal/question-edit-modal.component";
+import {options} from "../../inputsOptions";
 
 @Component({
   selector: 'app-vacancies-create',
@@ -20,9 +21,8 @@ export class VacanciesCreateComponent implements OnInit{
   totalTime: number = 0;
   allQuestions: IQuestion[];
   vacanciesForm: FormGroup;
-  isChecked = false;
-  checked: boolean = false;
-
+  titleLength = options.titleLength;
+  descriptionLength = options.descriptionLength;
   constructor(public dialog: MatDialog,
               public questionService: QuestionService,
               public vacanciesService: VacanciesCreateService,
@@ -60,12 +60,10 @@ export class VacanciesCreateComponent implements OnInit{
     const questionsId = [];
     questions.map(el => questionsId.push(el._id))
     this.vacanciesService.createVacancy(questionsId, newVacancy)
-    console.log(this.vacanciesForm.value)
   }
 
   onAddQuestion(question, input) {
     if (!input.checked) {
-      console.log('qes bes', question)
       this.removeQuestion(this.vacanciesForm, input, question)
     } else if ((this.vacanciesForm.get('questions').value.length >= this.allQuestions.length) ||
       (this.vacanciesForm.get('questions').value.indexOf(input.value) !== -1)) {
@@ -78,7 +76,6 @@ export class VacanciesCreateComponent implements OnInit{
   }
 
   removeQuestion(modal, input, question) {
-    console.log('qes', question)
     this.totalTime -= question.maxLength
     let questions = (<FormArray>modal.get('questions'))
     questions.removeAt(questions.value.findIndex(question => {
@@ -90,7 +87,6 @@ export class VacanciesCreateComponent implements OnInit{
   }
 
   onDelete(index, question) {
-
     let inputs = []
     this.checkbox.toArray().filter(el => el.nativeElement).map(el => inputs.push(el))
     for(let i = 0; i <= inputs.length - 1; i++) {

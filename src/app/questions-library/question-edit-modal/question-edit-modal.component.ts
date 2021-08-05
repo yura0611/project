@@ -11,7 +11,6 @@ import {
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
 import {IQuestion, QuestionService} from '../shared/question.service';
-import {ModalService} from '../shared/modals.service';
 import {options} from "../../inputsOptions";
 
 @Component({
@@ -32,8 +31,7 @@ export class QuestionEditModalComponent implements OnInit {
   descriptionLength = options.descriptionLength;
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               private dialogRef: MatDialog,
-              private questionService: QuestionService,
-              public modalService: ModalService) {
+              private questionService: QuestionService,) {
   }
 
   ngOnInit(): void {

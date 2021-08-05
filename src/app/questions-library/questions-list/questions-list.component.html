@@ -1,5 +1,5 @@
 <div class="create-new-question">
-  <p (click)="$event.preventDefault(); openCreateNewModal()">Create New</p>
+  <button mat-button (click)="openCreateNewModal()">Create New</button>
 </div>
 
 
@@ -30,8 +30,8 @@
           </div>
 
           <div class="question-list_item-description-links">
-            <mat-icon (click)="$event.preventDefault(); openViewQuestionModal(question._id)" class="question-list_link">trending_flat</mat-icon>
-            <mat-icon (click)="$event.preventDefault(); openEditModal(question._id)" class="question-list_link">create</mat-icon>
+            <mat-icon (click)="openViewQuestionModal(question._id)" class="question-list_link">trending_flat</mat-icon>
+            <mat-icon (click)="openEditModal(question._id)" class="question-list_link">create</mat-icon>
           </div>
         </div>
 

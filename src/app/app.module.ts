@@ -23,8 +23,8 @@ import {TokenInterceptor} from './app.interceptor';
 import {VacanciesViewModalComponent} from './vacancies/vacancies-create/vacancies-view-modal/vacancies-view-modal.component';
 import {CommonModule} from "@angular/common";
 import {VacanciesListComponent} from './home-page/vacancies-list/vacancies-list.component';
-import { SetReviewerModalComponent } from './vacancies/vacancies-info/set-reviewer-modal/set-reviewer-modal.component';
-import { VacanciesEditComponent } from './vacancies/vacancies-edit/vacancies-edit.component';
+import {SetReviewerModalComponent} from './vacancies/vacancies-info/set-reviewer-modal/set-reviewer-modal.component';
+import {VacanciesEditComponent} from './vacancies/vacancies-edit/vacancies-edit.component';
 import {Constants} from './constants/constants';
 
 @NgModule({
