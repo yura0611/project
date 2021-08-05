@@ -101,6 +101,7 @@
           <div class="question_library-item" *ngFor="let question of allQuestions; let i = index;">
 
             <input [name]="question.title"
+                   [disabled]="disabled"
                    #element
                    type="checkbox"
                    (click)="onAddQuestion(question, element)"

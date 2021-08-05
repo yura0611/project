@@ -23,6 +23,7 @@ import {TokenInterceptor} from './app.interceptor';
 import {VacanciesViewModalComponent} from './vacancies/vacancies-create/vacancies-view-modal/vacancies-view-modal.component';
 import {CommonModule} from "@angular/common";
 import {VacanciesListComponent} from './home-page/vacancies-list/vacancies-list.component';
+import { AnswerEvaluateProcessModalComponent } from './vacancies/answer-evaluate-process-modal/answer-evaluate-process-modal.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import {VacanciesListComponent} from './home-page/vacancies-list/vacancies-list.
     VacanciesInviteModalComponent,
     VacanciesViewModalComponent,
     VacanciesListComponent,
+    AnswerEvaluateProcessModalComponent,
   ],
   imports: [
     BrowserModule,

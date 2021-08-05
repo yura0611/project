@@ -15,6 +15,7 @@ import {QuestionEditModalComponent} from "../../questions-library/question-edit-
 })
 export class VacanciesCreateComponent implements OnInit{
   @ViewChildren('element') checkbox: QueryList<ElementRef>;
+  disabled = false;
   inputSearchValue: any = '';
   searchMode = false;
   totalTime: number = 0;
@@ -68,8 +69,11 @@ export class VacanciesCreateComponent implements OnInit{
     if (!input.checked) {
       console.log('qes bes', question)
       this.removeQuestion(this.vacanciesForm, input, question)
-    } else if ((this.vacanciesForm.get('questions').value.length >= this.allQuestions.length) ||
+    } else if ((this.vacanciesForm.get('questions').value.length > 19) ||
       (this.vacanciesForm.get('questions').value.indexOf(input.value) !== -1)) {
+      input.checked = false;
+      this.disabled = true;
+      alert('You can\'t add more than 20 questions')
       return;
     } else {
       this.totalTime += question.maxLength;
@@ -98,6 +102,7 @@ export class VacanciesCreateComponent implements OnInit{
       if (inputs[i].nativeElement.name === question.title &&
         inputs[i].nativeElement.id === question._id) {
         inputs[i].nativeElement.checked = false;
+        this.disabled = false;
       }
     }
     this.totalTime -= question.maxLength;
