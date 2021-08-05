@@ -12,7 +12,6 @@ build-develop:
   stage: build
   rules:
     - if: $CI_COMMIT_BRANCH == "develop"
-  only: [merge_requests]
   script:
     # Install dependencies
     - npm install
@@ -32,4 +31,3 @@ deploy-develop:
     - firebase deploy --only hosting -m "Pipeline $CI_PIPELINE_ID, build $CI_BUILD_ID" --non-interactive --token $FIREBASE_TOKEN
   rules:
     - if: $CI_COMMIT_BRANCH == "develop"
-  only: [merge_requests]
