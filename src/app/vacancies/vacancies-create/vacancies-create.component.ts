@@ -61,7 +61,6 @@ export class VacanciesCreateComponent implements OnInit{
     const questionsId = [];
     questions.map(el => questionsId.push(el._id))
     this.vacanciesService.createVacancy(questionsId, newVacancy)
-    this.vacanciesForm.reset()
   }
 
   onAddQuestion(question, input) {
