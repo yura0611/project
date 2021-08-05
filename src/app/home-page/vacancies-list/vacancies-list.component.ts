@@ -3,7 +3,8 @@ import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {MatTable, MatTableDataSource} from "@angular/material/table";
 import {VacanciesTableItem} from "../../vacancies/vacancies-table/vacancies-table-datasource";
-import {HomePageService, IVacancies} from "../shared/home-page.service";
+import {HomePageService} from "../shared/home-page.service";
+import {IVacancies} from "../../vacancies/shared/vacancies-interface";
 
 @Component({
   selector: 'app-vacancies-list',

@@ -9,7 +9,6 @@ export class ModalService {
   availableTopics: string[] = this.questionsService.availableTopics;
   expanded = false;
   renderer: Renderer2
-
   constructor(rendererFactory: RendererFactory2, private questionsService: QuestionService) {
 
     this.renderer = rendererFactory.createRenderer(null,null)
@@ -29,8 +28,7 @@ export class ModalService {
   }
 
   removeTopics(modal, index, checkBoxes, topic) {
-    console.log('from remove topic', checkBoxes)
-    let inputs = checkBoxes.toArray().reduce((acc, prV) => {
+    const inputs = checkBoxes.toArray().reduce((acc, prV) => {
       if (prV.nativeElement) {
         acc.push(prV)
       }

@@ -7,32 +7,11 @@
   </div>
   <div class="question-filter_content">
     <div class="question-filter_form">
-      <form (ngSubmit)="onSubmit()" [formGroup]="filterForm" #formElement>
+      <form (ngSubmit)="onSubmit()" [formGroup]="filterForm">
         <div class="question-filter_form-topics">
-          <label for="topics">Topics</label>
+          <label>Topics</label>
           <br>
-
-          <div class="multiselect" #questionBlock>
-            <div class="selectBox" (click)="onShowCheckboxes()">
-              <select>
-                <option id="topics">Select question topic</option>
-              </select>
-              <div class="overSelect"></div>
-            </div>
-            <div class="filter-component-checkboxes" #expandSelect>
-              <label [attr.for]="topic + i" *ngFor="let topic of topics; let i = index;">
-                <input [name]="topic" #checkBox type="checkbox" (click)="onAddTopic(checkBox)" [id]="topic + i"
-                       [value]="topic" formArrayName="topics"/>{{topic}}</label>
-            </div>
-          </div>
-
-          <ul class="chosen-topics_list">
-            <li #topicItem class="list-item" *ngFor="let topic of getControls(); let i = index">
-              {{topic}}
-              <img (click)="onRemoveTopic(topic,i)" class="img-cross" src="../../../assets/cross.svg" alt="Cross"
-                   style="width: 10px">
-            </li>
-          </ul>
+          <app-selected-topics-list [modal]="filterForm" formArrayName="topics"></app-selected-topics-list>
         </div>
         <div class="question-filter_form-btn">
           <button type="submit" (click)="onSearch()">Search</button>

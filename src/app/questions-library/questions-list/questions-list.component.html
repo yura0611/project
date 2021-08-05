@@ -1,5 +1,5 @@
 <div class="create-new-question">
-  <p style="cursor: pointer" (click)="$event.preventDefault(); openCreateNewModal()">Create New</p>
+  <p (click)="$event.preventDefault(); openCreateNewModal()">Create New</p>
 </div>
 
 
@@ -8,7 +8,7 @@
     <p>Questions({{questionList.length}})</p>
     <div class="question-list_title-avg_time">
       <p>time/min</p>
-      <a (click)="onSort('time')"> <img class="arrow" src="../../../assets/arrowDown.svg" alt="Arrow"> </a>
+      <mat-icon (click)="onSort('time')" class="arrow">keyboard_arrow_down</mat-icon>
     </div>
 
   </div>
@@ -30,11 +30,8 @@
           </div>
 
           <div class="question-list_item-description-links">
-            <a href="#" class="question-list_link"
-               (click)="$event.preventDefault(); openViewQuestionModal(question._id)"><img
-              src="../../../assets/arrowRight.svg" alt="Arrow" style="width: 15px"></a>
-            <a href="#" class="question-list_link" (click)="$event.preventDefault(); openEditModal(question._id)"><img
-              src="../../../assets/pencil.svg" alt="Pencil" style="width: 15px"></a>
+            <mat-icon (click)="$event.preventDefault(); openViewQuestionModal(question._id)" class="question-list_link">trending_flat</mat-icon>
+            <mat-icon (click)="$event.preventDefault(); openEditModal(question._id)" class="question-list_link">create</mat-icon>
           </div>
         </div>
 

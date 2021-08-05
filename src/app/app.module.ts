@@ -24,6 +24,7 @@ import {VacanciesViewModalComponent} from './vacancies/vacancies-create/vacancie
 import {CommonModule} from "@angular/common";
 import {VacanciesListComponent} from './home-page/vacancies-list/vacancies-list.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

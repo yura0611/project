@@ -1,21 +1,11 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
-import {IQuestion} from "../../questions-library/shared/question.service";
 import {tap} from "rxjs/operators";
 import {BehaviorSubject} from "rxjs";
+import {IVacancies} from "../../vacancies/shared/vacancies-interface";
 
-export interface IVacancies {
-  _id: string;
-  author: string;
-  createdAt: string;
-  description: string;
-  questions: IQuestion[];
-  status: string;
-  title: string;
-  type: string;
-  _v: number
-}
+
 
 @Injectable({providedIn: 'root'})
 export class HomePageService {

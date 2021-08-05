@@ -1,7 +1,8 @@
 import {
   Component,
   ElementRef,
-  Inject, OnDestroy,
+  Inject,
+  OnDestroy,
   OnInit,
   QueryList,
   ViewChild,
@@ -14,6 +15,7 @@ import {QuestionService} from '../shared/question.service';
 import {ModalService} from '../shared/modals.service';
 import {tap} from 'rxjs/operators';
 import {Subscription} from "rxjs";
+import {options} from "../../inputsOptions";
 
 @Component({
   selector: 'app-question-new-modal',
@@ -29,6 +31,8 @@ export class QuestionNewModalComponent implements OnInit, OnDestroy {
   availableTopics: string[];
   createNewModal: FormGroup;
   subscription: Subscription
+  titleLength = options.titleLength;
+  descriptionLength = options.descriptionLength;
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               private dialogRef: MatDialog,
               private questionService: QuestionService,
@@ -47,10 +51,6 @@ export class QuestionNewModalComponent implements OnInit, OnDestroy {
     });
   }
 
-  getControls() {
-    return (<FormArray> this.createNewModal.get('topics')).getRawValue();
-  }
-
   onSubmit() {
     this.dialogRef.closeAll();
   }
@@ -59,18 +59,6 @@ export class QuestionNewModalComponent implements OnInit, OnDestroy {
     this.dialogRef.closeAll();
   }
 
-  onShowCheckboxes() {
-    this.modalService.showCheckboxes(this.select);
-  }
-
-  onAddTopic(input) {
-    this.modalService.addTopic(input, this.createNewModal);
-  }
-
-  onRemoveTopic(topic, index) {
-    this.modalService.removeTopics(this.createNewModal,index,this.checkBoxInput,topic)
-
-  }
 
   onCreate() {
     this.questionService.addNewQuestion(this.createNewModal.value).pipe(

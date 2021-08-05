@@ -13,6 +13,7 @@ import {QuestionViewModalComponent} from "../question-view-modal/question-view-m
   encapsulation: ViewEncapsulation.None
 })
 export class QuestionsListComponent implements OnInit {
+
   allTopics: string[];
   questionList$ = this.questionService.questionList$;
   subscription: Subscription;
