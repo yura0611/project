@@ -16,8 +16,10 @@
             <label for="type">Type</label> <br>
             <select name="type" id="type" formControlName="type">
               <option hidden selected style="color: gray" value="">Choose your type</option>
-              <option value="code">Code</option>
-              <option value="text">Text</option>
+              <option value="web">Web</option>
+              <option value="management">Management</option>
+              <option value="ios">iOS</option>
+              <option value="android">Android</option>
             </select>
           </div>
 
@@ -114,11 +116,8 @@
 
               <p class="title">{{question.title}}</p>
             </div>
-
             <div class="topics">
-
               <div>
-                <a (click)="openEditModal(question, question._id)"><img class="pencil" src="../../../assets/pencil.svg" alt="Pencil"></a>
                 <span *ngFor="let topic of question.topics">{{topic}}</span>
               </div>
 

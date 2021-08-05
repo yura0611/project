@@ -2,7 +2,6 @@
   width: 100%;
 }
 
-
 .mat-header-cell {
   font-size: 11px;
   font-weight: bold;
@@ -12,7 +11,6 @@
   letter-spacing: normal;
   color: #101820;
 }
-
 
 
 .cell-invited {
@@ -52,11 +50,6 @@
 }
 
 
-
-
-
-
-
 .mat-cell:nth-child(3) {
   width: 31px;
   height: 13px;
@@ -71,6 +64,7 @@
 
 .link{
   color: #007672;
+  cursor: pointer;
 }
 
 
@@ -88,4 +82,29 @@
 
 .mat-column-select {
   overflow: visible;
+}
+
+
+.empty{
+  height: 60px;
+  margin-top: -5px;
+  box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.05), 0 4px 25px 0 rgba(0, 184, 178, 0.05);
+  background-color: #ffffff;
+  text-align: center;
+}
+
+.empty p{
+  padding-top: 15px;
+  font-size: 14px;
+  font-weight: 800;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.5px;
+  text-align: center;
+  color: #007672;
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background, .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background, .mat-accent .mat-pseudo-checkbox-checked, .mat-accent .mat-pseudo-checkbox-indeterminate, .mat-pseudo-checkbox-checked, .mat-pseudo-checkbox-indeterminate {
+  background-color:  #007672;
 }
