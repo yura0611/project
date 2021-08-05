@@ -23,6 +23,7 @@ export class VacanciesCreateComponent implements OnInit{
   vacanciesForm: FormGroup;
   titleLength = options.titleLength;
   descriptionLength = options.descriptionLength;
+  limitOfQuestionExceed = false;
   constructor(public dialog: MatDialog,
               public questionService: QuestionService,
               public vacanciesService: VacanciesCreateService,
@@ -60,13 +61,16 @@ export class VacanciesCreateComponent implements OnInit{
     const questionsId = [];
     questions.map(el => questionsId.push(el._id))
     this.vacanciesService.createVacancy(questionsId, newVacancy)
+    this.vacanciesForm.reset()
   }
 
   onAddQuestion(question, input) {
     if (!input.checked) {
       this.removeQuestion(this.vacanciesForm, input, question)
-    } else if ((this.vacanciesForm.get('questions').value.length >= this.allQuestions.length) ||
+    } else if ((this.vacanciesForm.get('questions').value.length > 19) ||
       (this.vacanciesForm.get('questions').value.indexOf(input.value) !== -1)) {
+      this.limitOfQuestionExceed = true;
+      input.checked = false;
       return;
     } else {
       this.totalTime += question.maxLength;
@@ -96,6 +100,7 @@ export class VacanciesCreateComponent implements OnInit{
       }
     }
     this.totalTime -= question.maxLength;
+    this.limitOfQuestionExceed = false;
     (<FormArray>this.vacanciesForm.controls['questions']).removeAt(index)
   }
 
