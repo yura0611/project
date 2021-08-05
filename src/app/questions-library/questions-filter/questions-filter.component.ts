@@ -1,7 +1,6 @@
 import {Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {FormArray, FormGroup} from '@angular/forms';
 import {IQuestion, QuestionService} from '../shared/question.service';
-import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-questions-filter',
@@ -16,7 +15,6 @@ export class QuestionsFilterComponent implements OnInit {
   topics = this.questionService.availableTopics;
   filterForm: FormGroup;
   formData: IQuestion;
-  subscription: Subscription;
   modalsMode;
   constructor(private questionService: QuestionService) {
 
