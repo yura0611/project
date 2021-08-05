@@ -1,1 +1,76 @@
-<p>vacancies-edit works!</p>
+<div class="container">
+  <div class="sub-header">
+    <h2>Create vacancy</h2>
+    <button mat-raised-button color="success"  [disabled]="!element.valid">SAVE</button>
+  </div>
+  <div class="card-center">
+    <mat-card class="example-card">
+      <mat-card-content>
+        <form  #element="ngForm">
+          <div class="vacancies-form_title">
+            <label for="title">Title</label> <br>
+            <input formControlName="title" type="text" id="title" name="title" placeholder="Type your title">
+          </div>
+
+          <div class="vacancies-form_type">
+            <label for="type">Type</label> <br>
+            <select name="type" id="type" formControlName="type">
+              <option hidden selected style="color: gray" value="">Choose your type</option>
+              <option value="code">Code</option>
+              <option value="text">Text</option>
+              <option value="video">Video</option>
+            </select>
+          </div>
+
+          <div class="vacancies-form_link">
+            <label for="Link">Link</label> <br>
+            <input formControlName="link" type="text" id="Link" name="Link" placeholder="Type your link">
+          </div>
+
+          <div class="vacancies-form_description">
+            <label for="desc">Description</label> <br>
+            <textarea id="desc" name="desc" rows="10" placeholder="Type your description"
+                      formControlName="description"></textarea>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+    <div class="question_library">
+      <div class="question_library-title">
+        Task Questions ()
+      </div>
+
+      <div class="question_library-content">
+        <div class="question_library-items">
+          <div class="question_library-item" >
+
+            <div class="question_library-title-block">
+
+              <span></span>
+
+              <p class="title" style="margin-left: 20px;"></p>
+            </div>
+
+            <div class="topics question_topics">
+
+              <div>
+
+              </div>
+
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="total_time-block">
+        <p>TOTAL TIME</p>
+        <div>
+          <span> MIN</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

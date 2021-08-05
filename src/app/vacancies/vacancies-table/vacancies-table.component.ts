@@ -46,7 +46,6 @@ export class VacanciesTableComponent implements OnInit {
     this.router.navigate(['/vacancy-info']);
     this.message = row;
     this.vacanciesService.setMessage(this.message);
-    console.log(this.message);
   }
 
 

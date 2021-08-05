@@ -1,7 +1,7 @@
 <div>
         <span class="vacancy-type">{{message['type'] | uppercase}} &#160;</span>
         <span class="vacancy-title">{{message['title'] | uppercase}}</span>
-        <button class="btn" (click)="VacancyDelete(message['_id'])" >
+        <button class="btn" (click)="vacancyDelete(message['_id'])" >
           <mat-icon><span class="material-icons-outlined">
               delete
             </span></mat-icon>
@@ -24,7 +24,7 @@
          <mat-card-content>
           <div class="container-card-content">{{message['status'] |  titlecase}}
 
-            <button class="btns">CLOSE</button>
+            <button class="btns" (click)="changeStatus(message['status'])">CLOSE</button>
                 </div>
       </mat-card-content>   </mat-card>
       <mat-card>
@@ -46,7 +46,7 @@
             <mat-card-title>Opened</mat-card-title>
           </mat-card-header>
         <mat-card-content>
-       <span> {{ this.time | date  }} </span>
+       <span> {{ time | date  }} </span>
       </mat-card-content></mat-card>
      </div>
      <div class="content-title">

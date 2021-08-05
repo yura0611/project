@@ -21,6 +21,30 @@ export class ApplicationsTableComponent implements OnInit {
     this.vacancyTableService.dataSubject.subscribe();
   }
 
+  createReviwerModal(): void{
+    this.vacancyTableService.ReviewerModal();
+  }
+
+  toggle(row): void{
+    this.vacancyTableService.selection.toggle(row);
+  }
+
+  isSelected(row): void{
+    this.vacancyTableService.selection.isSelected(row);
+  }
+
+  changeSubject(): void{
+    this.vacancyTableService.toggleSubject();
+  }
+
+  getSubjectValue(): number{
+    return this.vacancyTableService.dataSubject.getValue();
+  }
+
+  getDataSource(): void{
+    return this.vacancyTableService.dataSource;
+  }
+
 }
 
 

@@ -1,16 +1,14 @@
 <div class="example-container mat-elevation-z8">
-  <mat-table #table [dataSource]="this.vacancyTableService.dataSource"  >
+  <mat-table #table [dataSource]="getDataSource()"  >
 
     <ng-container matColumnDef="SELECT">
       <mat-header-cell *matHeaderCellDef>
       </mat-header-cell>
       <mat-cell *matCellDef="let row;">
         <mat-checkbox
-          (click)="$event.stopPropagation();this.vacancyTableService.ToggleSubject()"
-                      (change)="$event ? this.vacancyTableService.selection.toggle(row) : null"
-                              [checked]="this.vacancyTableService.selection.isSelected(row)">
-<!--               [checked]="this.vacancyTableService.ToggleSubject()">-->
-
+          (click)="$event.stopPropagation();changeSubject()"
+                      (change)="$event ? toggle(row) : null"
+                              [checked]="isSelected(row)">
         </mat-checkbox>
       </mat-cell>
     </ng-container>
@@ -42,7 +40,7 @@
 
     <ng-container matColumnDef="REVIEWER">
       <mat-header-cell *matHeaderCellDef> REVIEWER </mat-header-cell>
-      <mat-cell *matCellDef="let element"> <a class="link"  (click)="this.vacancyTableService.ReviewerModal()">{{element.reviewer}}</a> </mat-cell>
+      <mat-cell *matCellDef="let element"> <a class="link"  (click)="createReviwerModal()">{{element.reviewer}}</a> </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="INVITED">
@@ -52,9 +50,9 @@
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"
-             (click)="this.vacancyTableService.selection.toggle(row)">
+             (click)="toggle(row)">
     </mat-row>
   </mat-table>
 </div>
-<div class="empty" *ngIf="this.vacancyTableService.dataSubject.getValue() === 0"><p>NO INVITED CANDIDATES</p></div>
+<div class="empty" *ngIf="getSubjectValue() === 0"><p>NO INVITED CANDIDATES</p></div>
 

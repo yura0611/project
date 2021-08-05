@@ -5,12 +5,13 @@ import { MatTableDataSource } from '@angular/material/table';
 import {  tap } from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
+import { environment } from '../../../environments/environment';
 import {SetReviewerModalComponent} from '../vacancies-info/set-reviewer-modal/set-reviewer-modal.component';
 import {MatDialog} from '@angular/material/dialog';
-import {Environments} from '../../config/environment';
 import {Constants} from '../../constants/constants';
 import {ApplicationsTableItem} from './vacancies.models';
 import {TestVacanciesTableItem} from './vacancies.models';
+import {logger} from 'codelyzer/util/logger';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,7 @@ export class VacanciesService {
   data;
   selection;
   dataSource;
-
+  status;
   candidateSubject =  new BehaviorSubject(false);
   dataSubject = new BehaviorSubject(0);
 
@@ -42,12 +43,11 @@ export class VacanciesService {
   constructor(private http: HttpClient,
               private router: Router,
               public dialog: MatDialog,
-              private environments: Environments,
               private  constants: Constants) { }
 
 
   getAllVacancies(): void {
-    this.http.get<any>(this.environments.API_GET_VACANCIES).pipe(
+    this.http.get<any>(`${environment.API_URL}/vacancy`).pipe(
       tap(vacancies => this.vacanciesListSubject.next(vacancies))
     ).subscribe(data => {
     });
@@ -60,8 +60,8 @@ export class VacanciesService {
     this.vacancy = data;
   }
 
-  // tslint:disable-next-line:typedef
-  getMessage() {
+
+  getMessage(): string {
     return this.vacancy;
   }
 
@@ -87,7 +87,7 @@ export class VacanciesService {
 
 
 
-  ToggleSubject(): void{
+  toggleSubject(): void{
     if ( this.selection.selected.length === 0) {
       this.candidateSubject.next(true);
     }
@@ -105,15 +105,17 @@ export class VacanciesService {
 
 
 
-  // editStatus(id: string): void{
-  //   this.http.post(this.editVacancyStatus)
-  // }
+  editStatus(getStatus): void{
+    this.http.post(`${environment.API_URL}/vacancy/status`, {
+    status: getStatus}).pipe(tap(data => {
+    })).subscribe(el => this.status = el);
+  }
 
 
 
 
   deleteVacancy(id: string): void {
-    this.http.post(this.environments.API_DELETE_VACANCY, {_id: id}).subscribe((data: TestVacanciesTableItem[]) => {
+    this.http.post(`${environment.API_URL}/vacancy/delete`, {_id: id}).subscribe((data: TestVacanciesTableItem[]) => {
       this.vacanciesListSubject.next(data);
     });
     this.router.navigate(['/vacancies']);

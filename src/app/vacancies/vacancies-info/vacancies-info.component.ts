@@ -58,10 +58,10 @@ export class VacanciesInfoComponent implements OnInit {
 
 
   editVacancy(): void{
-    this.router.navigate(['/vacancy-info']);
+    this.router.navigate(['/vacancy-edit']);
   }
 
-  VacancyDelete(id): void{
+  vacancyDelete(id): void{
     this.vacanciesService.deleteVacancy(id);
   }
 
@@ -73,6 +73,9 @@ export class VacanciesInfoComponent implements OnInit {
     this.vacanciesService.removeSelectedRow();
   }
 
+  changeStatus(status): void {
+    this.vacanciesService.editStatus(status);
+  }
 
 
 
