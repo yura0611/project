@@ -13,7 +13,8 @@ import {QuestionViewModalComponent} from "../question-view-modal/question-view-m
   encapsulation: ViewEncapsulation.None
 })
 export class QuestionsListComponent implements OnInit {
-  allTopics: [];
+
+  allTopics: string[];
   questionList$ = this.questionService.questionList$;
   subscription: Subscription;
   constructor(private questionService: QuestionService, public dialog: MatDialog) { }
@@ -21,8 +22,7 @@ export class QuestionsListComponent implements OnInit {
   ngOnInit() {
     this.questionService.getAllTopics()
     this.questionService.getQuestionByFilters().subscribe();
-    this.questionService.questionList$.subscribe()
-    this.subscription = this.questionService.topicsEmitter.subscribe(data => this.allTopics = data)
+    this.subscription = this.questionService.availableTopics$.subscribe(data => this.allTopics = data)
 
   }
 

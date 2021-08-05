@@ -2,8 +2,10 @@
   padding: 0 100px;
   display: flex;
   justify-content: space-between;
+
   .header_links {
     padding: 20px 0 0 0;
+
     a {
       display: inline-block;
       opacity: 0.5;
@@ -17,7 +19,14 @@
       letter-spacing: 0.5px;
       color: #101820;
     }
-    a.active:hover {
+
+    a:hover {
+      box-sizing: border-box;
+      border-bottom: 3px solid #007672;
+      opacity: 1;
+    }
+
+    a.active {
       box-sizing: border-box;
       border-bottom: 3px solid #007672;
       opacity: 1;
@@ -28,8 +37,10 @@
       opacity: 1;
     }
   }
+
   .header_profile {
     align-self: center;
+
     img {
       width: 30px;
     }

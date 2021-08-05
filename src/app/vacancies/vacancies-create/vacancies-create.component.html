@@ -9,7 +9,7 @@
         <form [formGroup]="vacanciesForm" #element="ngForm">
           <div class="vacancies-form_title">
             <label for="title">Title</label> <br>
-            <input formControlName="title" type="text" id="title" name="title" placeholder="Type your title">
+            <input formControlName="title" type="text" id="title" name="title" placeholder="Type your title" maxlength="200">
           </div>
 
           <div class="vacancies-form_type">
@@ -26,7 +26,7 @@
           <div class="vacancies-form_description">
             <label for="desc">Description</label> <br>
             <textarea id="desc" name="desc" rows="10" placeholder="Type your description"
-                      formControlName="description"></textarea>
+                      formControlName="description" maxlength="800"></textarea>
           </div>
         </form>
       </mat-card-content>
@@ -110,8 +110,11 @@
 
               <p class="title">{{question.title}}</p>
             </div>
+
             <div class="topics">
+
               <div>
+                <a (click)="openEditModal(question, question._id)"><img class="pencil" src="../../../assets/pencil.svg" alt="Pencil"></a>
                 <span *ngFor="let topic of question.topics">{{topic}}</span>
               </div>
 

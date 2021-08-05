@@ -13,13 +13,14 @@
   </div>
   <div class="view-question-content_description">
     <span>Description</span>
-    <div>{{currentQuestion.description}}</div>
+    <div>
+      <p>{{currentQuestion.description}}</p>
+    </div>
   </div>
   <div class="view-question-content_topics">
     <span>Topics</span>
-    <div >
+    <div>
       <span class="topic-item" *ngFor="let topic of currentQuestion.topics">{{topic}}</span>
-
     </div>
   </div>
   <div class="edit-modal-form_edit_btn">

@@ -1,7 +1,7 @@
 <div class="create-modal_title">
   <div class="create-modal_close_btn">
     <a (click)="onClose()">
-      <img src="../../../assets/cross.svg" alt="Cross" style="width: 15px"/>
+      <mat-icon>clear</mat-icon>
     </a>
   </div>
   <p>Create Question</p>
@@ -10,50 +10,21 @@
   <div class="create-modal-form_title form-element_block">
     <label for="title">Title</label>
     <br>
-    <input type="text" name="title" id="title" formControlName="title" required placeholder="Type question title">
-    <!--    <span *ngIf="!createNewModal.get('title').valid && createNewModal.get('title').touched">Field is required</span>-->
+    <input type="text" name="title" id="title" formControlName="title" required placeholder="Type question title"
+           [maxlength]="titleLength">
   </div>
-  <div class="create-modal-form_description form-element_block"  >
+  <div class="create-modal-form_description form-element_block">
     <label for="description">Description</label>
     <br>
-    <textarea  name="description" id="description" rows="10" formControlName="description" required placeholder="Type text"></textarea>
-    <!--    <span *ngIf="!createNewModal.get('description').valid && createNewModal.get('description').touched">Field is required</span>-->
+    <textarea name="description" id="description" rows="10" formControlName="description" required
+              placeholder="Type text" [maxlength]="descriptionLength"></textarea>
   </div>
 
-  <div class="create-modal_form-topics form-element_block" >
+  <div class="create-modal_form-topics form-element_block">
     <label>Topics</label>
     <br>
-    <div class="multiselect-1">
-      <div class="selectBox-1" (click)="onShowCheckboxes()">
-        <select  required formArrayName="topics">
-          <option hidden selected value=" ">Select topic</option>
-        </select>
-        <div class="overSelect-1"></div>
-      </div>
-      <div id="create-new-modal-checkboxes" #expandSelect>
-        <label [attr.for]="topic + i + '_id'" *ngFor="let topic of availableTopics; let i = index;">
-          <input [name]="topic"
-                 #element
-                 type="checkbox"
-                 (click)="onAddTopic(element, i, topic)"
-                 [id]="topic + i + '_id'"
-                 [value]="topic"
-                 required/>
-          {{topic}}</label>
-
-      </div>
-
-    </div>
-    <ul class="chosen-topics_list" >
-<!--      <div class="chosen-topics_list-block"  >-->
-        <li  class="list-item" *ngFor="let topic of getControls(); let i = index">
-          {{topic}}
-          <img (click)="onRemoveTopic(topic, i)" class="img-cross" src="../../../assets/cross.svg" alt="Cross" style="width: 10px">
-        </li>
-<!--      </div>-->
-    </ul>
+    <app-selected-topics-list [modal]="createNewModal" [customHeight]="true" formArrayName="topics"></app-selected-topics-list>
   </div>
-
 
   <div class="type-maxLength_wrapper">
     <div class="create-modal-form_type form-element_block">
@@ -63,7 +34,6 @@
         <option hidden selected value="-1">Select type</option>
         <option value="code">code</option>
         <option value="text">text</option>
-        <option value="video">video</option>
       </select>
       <span *ngIf="createNewModal.get('type').errors?.defaultSelected && createNewModal.get('type').touched">Field is required</span>
     </div>

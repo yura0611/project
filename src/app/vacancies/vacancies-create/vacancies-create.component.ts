@@ -5,6 +5,7 @@ import {VacanciesCreateService} from "../shared/vacancies-create.service";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {VacanciesViewModalComponent} from "./vacancies-view-modal/vacancies-view-modal.component";
 import {QuestionNewModalComponent} from "../../questions-library/question-new-modal/question-new-modal.component";
+import {QuestionEditModalComponent} from "../../questions-library/question-edit-modal/question-edit-modal.component";
 
 @Component({
   selector: 'app-vacancies-create',
@@ -33,10 +34,9 @@ export class VacanciesCreateComponent implements OnInit{
       this.questionService.questionList$.subscribe(data => this.allQuestions = data)
 
     this.vacanciesForm = new FormGroup({
-      'title': new FormControl(null, Validators.required),
+      'title': new FormControl(null, [Validators.required, Validators.max(200)]),
       'type': new FormControl('', Validators.required),
-      'description': new FormControl(null, Validators.required),
-      'link': new FormControl(null, Validators.required),
+      'description': new FormControl(null, [Validators.required, Validators.max(800)]),
       'questions': new FormArray([], Validators.required)
     })
   }
@@ -50,6 +50,16 @@ export class VacanciesCreateComponent implements OnInit{
     if (!this.vacanciesForm.valid) {
       return;
     }
+    const questions = this.vacanciesForm.value.questions;
+    const newVacancy = {
+      title: this.vacanciesForm.value.title,
+      type: this.vacanciesForm.value.type,
+      description: this.vacanciesForm.value.description,
+      link: this.vacanciesForm.value.link
+    }
+    const questionsId = [];
+    questions.map(el => questionsId.push(el._id))
+    this.vacanciesService.createVacancy(questionsId, newVacancy)
     console.log(this.vacanciesForm.value)
   }
 
@@ -109,6 +119,15 @@ export class VacanciesCreateComponent implements OnInit{
     modalConfig.width = '496px';
     modalConfig.height = '850px';
     this.dialog.open(QuestionNewModalComponent, modalConfig)
+  }
+
+  openEditModal(question: IQuestion, id) {
+    const questionId = id;
+    const modalConfig = new MatDialogConfig();
+    modalConfig.width = '496px';
+    modalConfig.height = '850px';
+    modalConfig.data = {question:question, questionId:questionId};
+    this.dialog.open(QuestionEditModalComponent, modalConfig);
   }
 
 }
