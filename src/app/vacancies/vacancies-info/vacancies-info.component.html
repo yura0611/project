@@ -1,33 +1,21 @@
- <div class="container">
-    <div>
+<div>
         <span class="vacancy-type">{{message['type'] | uppercase}} &#160;</span>
-        <span class="vacancy-title">{{message['vacancy'] | uppercase}}</span>
-        <button class="btn" >
+        <span class="vacancy-title">{{message['title'] | uppercase}}</span>
+        <button class="btn" (click)="vacancyDelete(message['_id'])" >
           <mat-icon><span class="material-icons-outlined">
               delete
             </span></mat-icon>
           </button >
-    <button class="btn">
+    <button class="btn" (click)="editVacancy()">
     <mat-icon><span class="material-icons-outlined">
         edit
       </span></mat-icon>
     </button>
-
-
-
-
   </div>
-
-
-
-
     <p class="vacancy-description">
         {{(showMore) ? text : text | slice:0:150 }} <span *ngIf="!showMore">... &#160;</span>
-        <a href="javascript:;" *ngIf="!showMore" (click)="showMore=true">view more</a>
+        <button class="transparent" *ngIf="!showMore" (click)="showMore=true">view more</button>
         </p>
-
-
-
     <div class="mat-cards">
     <mat-card>
         <mat-card-header>
@@ -36,7 +24,7 @@
          <mat-card-content>
           <div class="container-card-content">{{message['status'] |  titlecase}}
 
-            <button class="btns">CLOSE</button>
+            <button class="btns" (click)="changeStatus(message['status'])">CLOSE</button>
                 </div>
       </mat-card-content>   </mat-card>
       <mat-card>
@@ -44,7 +32,7 @@
             <mat-card-title>Avg.score</mat-card-title>
           </mat-card-header>
         <mat-card-content>
-       {{percentage}}%
+       {{getAvgScore()}}%
       </mat-card-content></mat-card>
       <mat-card>
         <mat-card-header>
@@ -58,25 +46,36 @@
             <mat-card-title>Opened</mat-card-title>
           </mat-card-header>
         <mat-card-content>
-       <span> {{message['opened']}} </span>
+       <span> {{ time | date  }} </span>
       </mat-card-content></mat-card>
      </div>
      <div class="content-title">
       <h1>Applications</h1>
-      <a  (click)="openInviteModal()">
+      <a  (click)="openInviteModal()" *ngIf="!getCandidateSubjectValue()">
       <div class="invite">
       <mat-icon><span>
         person_add
       </span></mat-icon>
       <span class="invite-text">INVITE CANDIDATE</span>
-
     </div>
     </a>
+       <a   *ngIf="getCandidateSubjectValue()" (click)="openSetReviewerModal()">
+         <div class="mat-icon-btns">
+           <mat-icon><span>
+        person
+      </span></mat-icon>
+           <span class="invite-text">SET REVIEWER</span>
+         </div>
+       </a>
+       <a  (click)="removeCandidateRow()" *ngIf="getCandidateSubjectValue()">
+         <div class="mat-icon-btns">
+           <mat-icon><span>
+            delete
+      </span></mat-icon>
+           <span class="invite-text">REMOVE CANDIDATE</span>
+         </div>
+       </a>
      </div>
-
-
      <app-applications-table></app-applications-table>
 
-
-</div>
 
