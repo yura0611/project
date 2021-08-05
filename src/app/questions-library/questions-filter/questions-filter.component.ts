@@ -38,9 +38,4 @@ export class QuestionsFilterComponent implements OnInit {
 
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe()
-  }
-
-
 }
