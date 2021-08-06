@@ -1,0 +1,92 @@
+.material-icons {
+  line-height: 0 !important;
+  font-size: 1rem;
+}
+.mat-icon {
+  cursor: pointer;
+  vertical-align: middle;
+  width: 15px !important;
+  height: 0 !important;
+}
+
+#modal-checkboxes {
+  display: none;
+  border: 1px #dadada solid;
+  height: 100px;
+  overflow: hidden;
+  overflow-y: auto;
+  background-color: #ffffff;
+  input {
+    width: 30px;
+  }
+}
+
+#modal-checkboxes label {
+  display: block;
+}
+
+#modal-checkboxes label:hover {
+  background-color: #007672;
+}
+
+.chosen-topics_list {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  padding: 8px 9px;
+  height: 144px;
+  border-radius: 2px;
+  border: solid 2px #dddddd;
+  background-color: #ffffff;
+
+  li {
+    margin-right: 5px;
+    margin-bottom: 5px;
+    padding: 6px 9px 7px 8px;
+    border-radius: 2px;
+    background-color: #eeeeee;
+    height: 20px;
+  }
+}
+
+
+.selectBox {
+  position: relative;
+
+  select > option:first-child {
+    color: #999999;
+  }
+}
+
+.selectBox select {
+  width: 100%;
+}
+
+.overSelect {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+#topics {
+  color: #999999;
+}
+
+input, select {
+  box-sizing: border-box;
+  padding: 8px 9px 9px;
+  border-radius: 2px;
+  border: solid 2px #dddddd;
+  background-color: #ffffff;
+  width: 100%;
+}
+
+input {
+  font-size: 0.9rem;
+}
+
+.customHeight {
+  height: auto !important;
+}

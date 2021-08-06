@@ -21,10 +21,10 @@ import {ApplicationsTableComponent} from './vacancies/vacancies-info/application
 import {VacanciesInviteModalComponent} from './vacancies/vacancies-invite-modal/vacancies-invite-modal.component';
 import {TokenInterceptor} from './app.interceptor';
 import {VacanciesViewModalComponent} from './vacancies/vacancies-create/vacancies-view-modal/vacancies-view-modal.component';
-import {CommonModule} from '@angular/common';
-import { OutSideClickHandlerDirective } from './out-side-click-handler.directive';
-import { SetReviewerModalComponent } from './vacancies/vacancies-info/set-reviewer-modal/set-reviewer-modal.component';
-import { VacanciesEditComponent } from './vacancies/vacancies-edit/vacancies-edit.component';
+import {CommonModule} from "@angular/common";
+import {VacanciesListComponent} from './home-page/vacancies-list/vacancies-list.component';
+import {SetReviewerModalComponent} from './vacancies/vacancies-info/set-reviewer-modal/set-reviewer-modal.component';
+import {VacanciesEditComponent} from './vacancies/vacancies-edit/vacancies-edit.component';
 import {Constants} from './constants/constants';
 
 
@@ -44,7 +44,7 @@ import {Constants} from './constants/constants';
     ApplicationsTableComponent,
     VacanciesInviteModalComponent,
     VacanciesViewModalComponent,
-    OutSideClickHandlerDirective,
+    VacanciesListComponent,
     SetReviewerModalComponent,
     VacanciesEditComponent,
 
@@ -65,9 +65,7 @@ import {Constants} from './constants/constants';
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
     Constants,
   ],
-  exports: [
-    OutSideClickHandlerDirective,
-  ],
+  exports: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

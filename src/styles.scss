@@ -1,7 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,body{margin:0;padding:0;}
+h1,p{margin:0 0 1em}
+body { font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mat-form-field-infix  {
   border: none !important;
 }
@@ -38,3 +39,8 @@ label.ng-star-inserted {
 .mat-form-field-wrapper {
   padding: 5px !important;
 }
+textarea {
+  resize: none;
+}
+
+

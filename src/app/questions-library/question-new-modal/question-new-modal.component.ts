@@ -2,6 +2,7 @@ import {
   Component,
   ElementRef,
   Inject,
+  OnDestroy,
   OnInit,
   QueryList,
   ViewChild,
@@ -13,6 +14,8 @@ import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
 import {QuestionService} from '../shared/question.service';
 import {ModalService} from '../shared/modals.service';
 import {tap} from 'rxjs/operators';
+import {Subscription} from "rxjs";
+import {options} from "../../inputsOptions";
 
 @Component({
   selector: 'app-question-new-modal',
@@ -20,14 +23,16 @@ import {tap} from 'rxjs/operators';
   styleUrls: ['./question-new-modal.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class QuestionNewModalComponent implements OnInit {
+export class QuestionNewModalComponent implements OnInit, OnDestroy {
   @ViewChildren('element') checkBoxInput: QueryList<ElementRef>;
   @ViewChild('expandSelect') select: ElementRef;
   // This pattern validate only number
-  regexPattern = /^[0-9]*$/;
+  regexPattern = /^[1-9][0-9]*$/;
   availableTopics: string[];
   createNewModal: FormGroup;
-
+  subscription: Subscription
+  titleLength = options.titleLength;
+  descriptionLength = options.descriptionLength;
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               private dialogRef: MatDialog,
               private questionService: QuestionService,
@@ -35,7 +40,7 @@ export class QuestionNewModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.availableTopics = this.questionService.availableTopics;
+    this.subscription = this.questionService.availableTopics$.subscribe(data => this.availableTopics = data);
 
     this.createNewModal = new FormGroup({
       'title': new FormControl(null, Validators.max(250)),
@@ -46,10 +51,6 @@ export class QuestionNewModalComponent implements OnInit {
     });
   }
 
-  getControls() {
-    return (<FormArray> this.createNewModal.get('topics')).getRawValue();
-  }
-
   onSubmit() {
     this.dialogRef.closeAll();
   }
@@ -58,23 +59,15 @@ export class QuestionNewModalComponent implements OnInit {
     this.dialogRef.closeAll();
   }
 
-  onShowCheckboxes() {
-    this.modalService.showCheckboxes(this.select);
-  }
-
-  onAddTopic(input, index: number, topic) {
-    this.modalService.addTopic(input, index, this.createNewModal, this.availableTopics, topic);
-  }
-
-  onRemoveTopic(topic, index) {
-    this.modalService.removeTopics(this.createNewModal,index,this.checkBoxInput,topic)
-
-  }
 
   onCreate() {
     this.questionService.addNewQuestion(this.createNewModal.value).pipe(
       tap(newQuestion => this.questionService.updateQuestionList(newQuestion.question))
     ).subscribe();
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe()
   }
 
 }

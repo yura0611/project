@@ -10,12 +10,13 @@ import {VacanciesEditComponent} from './vacancies/vacancies-edit/vacancies-edit.
 
 const routes: Routes = [
   {path: 'sign-in', component: SignInComponent},
-  {path: 'home', component: HomePageComponent},
-  {path: 'questions', component: QuestionsComponent},
-  {path: 'vacancies', component: VacanciesComponent},
-  {path: 'vacancies-create', component: VacanciesCreateComponent},
-  {path: 'vacancy-info/:id', component: VacanciesInfoComponent},
-  {path: 'vacancy-edit', component: VacanciesEditComponent},
+  {path: 'home', canActivate:[AuthGuard], component: HomePageComponent},
+  {path: 'questions', canActivate:[AuthGuard], component: QuestionsComponent},
+  {path: 'vacancies', canActivate:[AuthGuard], component: VacanciesComponent},
+  {path: 'vacancies-create', canActivate:[AuthGuard], component: VacanciesCreateComponent},
+  {path: 'vacancy-info/:id', canActivate:[AuthGuard], component: VacanciesInfoComponent},
+  {path: 'vacancy-edit', canActivate:[AuthGuard], component: VacanciesEditComponent},
+  {path: 'system-settings', redirectTo: 'home'},
 ];
 
 @NgModule({

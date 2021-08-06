@@ -4,17 +4,23 @@ import {QuestionNewModalComponent} from "../question-new-modal/question-new-moda
 import {QuestionViewModalComponent} from "../question-view-modal/question-view-modal.component";
 import {CommonModule} from "@angular/common";
 import {ReactiveFormsModule} from "@angular/forms";
+import {MatIconModule} from "@angular/material/icon";
+import {SelectedTopicsListComponent} from "../../app-shared/selected-topics-list/selected-topics-list.component";
+
 
 @NgModule({
   declarations: [
     QuestionEditModalComponent,
     QuestionNewModalComponent,
-    QuestionViewModalComponent],
-  imports: [CommonModule, ReactiveFormsModule],
+    QuestionViewModalComponent,
+    SelectedTopicsListComponent
+  ],
+  imports: [CommonModule, ReactiveFormsModule, MatIconModule],
   exports: [
     QuestionEditModalComponent,
     QuestionNewModalComponent,
-    QuestionViewModalComponent
+    QuestionViewModalComponent,
+    SelectedTopicsListComponent
   ]
 })
 export class ModalsModule {
