@@ -12,7 +12,6 @@ import {
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
 import {QuestionService} from '../shared/question.service';
-import {ModalService} from '../shared/modals.service';
 import {tap} from 'rxjs/operators';
 import {Subscription} from "rxjs";
 import {options} from "../../inputsOptions";
@@ -35,8 +34,7 @@ export class QuestionNewModalComponent implements OnInit, OnDestroy {
   descriptionLength = options.descriptionLength;
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               private dialogRef: MatDialog,
-              private questionService: QuestionService,
-              public modalService: ModalService) {
+              private questionService: QuestionService) {
   }
 
   ngOnInit(): void {

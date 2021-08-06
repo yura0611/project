@@ -1,12 +1,13 @@
 import {Component, ElementRef, OnInit, QueryList, ViewChildren, ViewEncapsulation} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
-import {IQuestion, QuestionService} from "../../questions-library/shared/question.service";
+import {QuestionService} from "../../questions-library/shared/question.service";
 import {VacanciesCreateService} from "../shared/vacancies-create.service";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {VacanciesViewModalComponent} from "./vacancies-view-modal/vacancies-view-modal.component";
 import {QuestionNewModalComponent} from "../../questions-library/question-new-modal/question-new-modal.component";
 import {QuestionEditModalComponent} from "../../questions-library/question-edit-modal/question-edit-modal.component";
 import {options} from "../../inputsOptions";
+import {IQuestion} from "../../app-shared/interfaces/IQuestions";
 
 @Component({
   selector: 'app-vacancies-create',

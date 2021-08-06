@@ -3,15 +3,9 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject, Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {tap} from 'rxjs/operators';
+import {IQuestion} from "../../app-shared/interfaces/IQuestions";
 
-export interface IQuestion {
-  _id: string;
-  title: string;
-  type: string;
-  topics: string[];
-  description: string;
-  maxLength: number;
-}
+
 
 @Injectable({
   providedIn: 'root'

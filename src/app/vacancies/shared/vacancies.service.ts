@@ -9,8 +9,9 @@ import {environment} from '../../../environments/environment';
 import {SetReviewerModalComponent} from '../vacancies-info/set-reviewer-modal/set-reviewer-modal.component';
 import {MatDialog} from '@angular/material/dialog';
 import {Constants} from '../../constants/constants';
-import {ApplicationsTableItem, TestVacanciesTableItem} from './vacancies.models';
-import {IVacancies} from "../../home-page/shared/home-page.service";
+import {IVacancies} from "../../app-shared/interfaces/IVacancies";
+import {ApplicationsTableItem} from "../../app-shared/interfaces/IApplecationsTableItem";
+import {TestVacanciesTableItem} from "../../app-shared/interfaces/ITestVacanciesTableItem";
 
 @Injectable({
   providedIn: 'root'

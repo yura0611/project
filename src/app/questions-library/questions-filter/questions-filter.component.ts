@@ -1,6 +1,7 @@
 import {Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {FormArray, FormGroup} from '@angular/forms';
-import {IQuestion, QuestionService} from '../shared/question.service';
+import {QuestionService} from '../shared/question.service';
+import {IQuestion} from "../../app-shared/interfaces/IQuestions";
 
 @Component({
   selector: 'app-questions-filter',

@@ -2,24 +2,9 @@ import {AfterViewInit, Component, Inject, OnInit, Optional} from '@angular/core'
 import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
 import {VacanciesService} from "../shared/vacancies.service";
 import {tap} from "rxjs/operators";
-import {IVacancies} from "../../home-page/shared/home-page.service";
 import {PaginationService} from "../../pagination.service";
 
-export interface IEvaluationProcess {
-  candidate: {
-    role: string,
-    isActive: boolean,
-    _id: string,
-    email: string,
-    firstName: string,
-    lastName: string,
-  };
-  vacancy: IVacancies,
-  answers: {
-    _id: string;
-    questionId: string;
-  }
-}
+
 
 @Component({
   selector: 'app-answer-evaluate-process-modal',

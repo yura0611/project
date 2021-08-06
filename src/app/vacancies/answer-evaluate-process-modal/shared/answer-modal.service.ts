@@ -1,9 +1,10 @@
 import {Injectable} from "@angular/core";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
-import {AnswerEvaluateProcessModalComponent, IEvaluationProcess} from "../answer-evaluate-process-modal.component";
+import {AnswerEvaluateProcessModalComponent} from "../answer-evaluate-process-modal.component";
 import {environment} from "../../../../environments/environment";
 import {tap} from "rxjs/operators";
 import {HttpClient} from "@angular/common/http";
+import {IEvaluationProcess} from "../../../app-shared/interfaces/IEvaluationProcess";
 
 @Injectable({providedIn: 'root'})
 export class AnswerModalService {

@@ -10,8 +10,9 @@ import {
 } from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
-import {IQuestion, QuestionService} from '../shared/question.service';
+import {QuestionService} from '../shared/question.service';
 import {options} from "../../inputsOptions";
+import {IQuestion} from "../../app-shared/interfaces/IQuestions";
 
 @Component({
   selector: 'app-question-edit-modal',
