@@ -18,6 +18,7 @@ export interface IVacancies {
   _v: number
 }
 
+
 @Injectable({providedIn: 'root'})
 export class HomePageService {
   private activeVacancySubject = new BehaviorSubject(0);

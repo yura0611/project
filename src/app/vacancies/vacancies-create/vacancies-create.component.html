@@ -9,7 +9,7 @@
         <form [formGroup]="vacanciesForm" #element="ngForm">
           <div class="vacancies-form_title">
             <label for="title">Title</label> <br>
-            <input formControlName="title" type="text" id="title" name="title" placeholder="Type your title" maxlength="200">
+            <input formControlName="title" type="text" id="title" name="title" placeholder="Type your title" [maxlength]="titleLength">
           </div>
 
           <div class="vacancies-form_type">
@@ -23,15 +23,10 @@
             </select>
           </div>
 
-          <div class="vacancies-form_link">
-            <label for="Link">Link</label> <br>
-            <input formControlName="link" type="text" id="Link" name="Link" placeholder="Type your link">
-          </div>
-
           <div class="vacancies-form_description">
             <label for="desc">Description</label> <br>
             <textarea id="desc" name="desc" rows="10" placeholder="Type your description"
-                      formControlName="description" maxlength="800"></textarea>
+                      formControlName="description" [maxlength]="descriptionLength"></textarea>
           </div>
         </form>
       </mat-card-content>
@@ -53,9 +48,9 @@
               <p class="title" style="margin-left: 20px;">{{question.title}}</p>
             </div>
             <div class="bin">
-              <a class="vacancies-view-question_link" (click)="onDelete(i,question)"><img src="../../../assets/bin.svg"
-                                                                                          alt="Bin"
-                                                                                          style="width: 15px;"></a>
+              <a class="vacancies-view-question_link" (click)="onDelete(i,question)">
+                <mat-icon class="delete">delete</mat-icon>
+              </a>
             </div>
 
             <div class="topics question_topics">
@@ -103,7 +98,7 @@
           <div class="question_library-item" *ngFor="let question of allQuestions; let i = index;">
 
             <input [name]="question.title"
-                   [disabled]="disabled"
+                   [disabled]="limitOfQuestionExceed"
                    #element
                    type="checkbox"
                    (click)="onAddQuestion(question, element)"
@@ -118,6 +113,7 @@
             </div>
             <div class="topics">
               <div>
+                <a (click)="openEditModal(question, question._id)"><img class="pencil" src="../../../assets/pencil.svg" alt="Pencil"></a>
                 <span *ngFor="let topic of question.topics">{{topic}}</span>
               </div>
 

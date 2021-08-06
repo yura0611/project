@@ -1,7 +1,7 @@
 <div class="create-modal_title">
   <div class="create-modal_close_btn">
     <a (click)="onClose()">
-      <img src="../../../assets/cross.svg" alt="Cross" style="width: 15px"/>
+      <mat-icon>clear</mat-icon>
     </a>
   </div>
   <p>Create Question</p>
@@ -11,50 +11,20 @@
     <label for="title">Title</label>
     <br>
     <input type="text" name="title" id="title" formControlName="title" required placeholder="Type question title"
-           maxlength="200">
+           [maxlength]="titleLength">
   </div>
   <div class="create-modal-form_description form-element_block">
     <label for="description">Description</label>
     <br>
     <textarea name="description" id="description" rows="10" formControlName="description" required
-              placeholder="Type text" maxlength="800"></textarea>
+              placeholder="Type text" [maxlength]="descriptionLength"></textarea>
   </div>
 
   <div class="create-modal_form-topics form-element_block">
     <label>Topics</label>
     <br>
-    <div class="multiselect-1">
-      <div class="selectBox-1" (click)="onShowCheckboxes()">
-        <select required formArrayName="topics">
-          <option hidden selected value=" ">Select topic</option>
-        </select>
-        <div class="overSelect-1"></div>
-      </div>
-      <div id="create-new-modal-checkboxes" #expandSelect>
-        <label [attr.for]="topic + i + '_id'" *ngFor="let topic of availableTopics; let i = index;">
-          <input [name]="topic"
-                 #element
-                 type="checkbox"
-                 (click)="onAddTopic(element)"
-                 [id]="topic + i + '_id'"
-                 [value]="topic"
-                 required/>
-          {{topic}}</label>
-
-      </div>
-
-    </div>
-    <ul class="chosen-topics_list">
-
-      <li class="list-item" *ngFor="let topic of getControls(); let i = index">
-        {{topic}}
-        <img (click)="onRemoveTopic(topic, i)" class="img-cross" src="../../../assets/cross.svg" alt="Cross"
-             style="width: 10px">
-      </li>
-
-    </ul>
+    <app-selected-topics-list [modal]="createNewModal" [customHeight]="true" formArrayName="topics"></app-selected-topics-list>
   </div>
-
 
   <div class="type-maxLength_wrapper">
     <div class="create-modal-form_type form-element_block">

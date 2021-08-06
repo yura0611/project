@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   Inject,
@@ -12,7 +11,7 @@ import {
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
 import {IQuestion, QuestionService} from '../shared/question.service';
-import {ModalService} from '../shared/modals.service';
+import {options} from "../../inputsOptions";
 
 @Component({
   selector: 'app-question-edit-modal',
@@ -20,7 +19,7 @@ import {ModalService} from '../shared/modals.service';
   styleUrls: ['./question-edit-modal.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class QuestionEditModalComponent implements OnInit, AfterViewInit {
+export class QuestionEditModalComponent implements OnInit {
   @ViewChild('expandSelect') select: ElementRef;
   @ViewChildren('element') checkBoxInput: QueryList<ElementRef>;
   // This pattern validate only number
@@ -28,15 +27,14 @@ export class QuestionEditModalComponent implements OnInit, AfterViewInit {
   availableTopics: string[];
   editModal: FormGroup;
   editedQuestion: IQuestion;
-
+  titleLength = options.titleLength;
+  descriptionLength = options.descriptionLength;
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               private dialogRef: MatDialog,
-              private questionService: QuestionService,
-              public modalService: ModalService) {
+              private questionService: QuestionService,) {
   }
 
   ngOnInit(): void {
-
     this.availableTopics = this.questionService.availableTopics;
     this.editModal = new FormGroup({
       'title': new FormControl(this.data.question.title, [Validators.required, Validators.max(250)]),
@@ -46,14 +44,8 @@ export class QuestionEditModalComponent implements OnInit, AfterViewInit {
       'maxLength': new FormControl(this.data.question.maxLength, Validators.pattern(this.regexPattern))
     });
 
-    console.log((<FormArray> this.editModal.get('topics')).getRawValue())
-
-
   }
 
-  getControls() {
-    return (<FormArray> this.editModal.get('topics')).getRawValue();
-  }
 
   onSubmit() {
     this.dialogRef.closeAll();
@@ -78,32 +70,6 @@ export class QuestionEditModalComponent implements OnInit, AfterViewInit {
   onDelete() {
     this.questionService.deleteQuestion(this.data.question._id);
     this.dialogRef.closeAll();
-  }
-
-  onAddTopic(input) {
-    this.modalService.addTopic(input, this.editModal);
-
-  }
-
-  onRemoveTopic(index: number, topic) {
-    this.modalService.removeTopics(this.editModal,index,this.checkBoxInput,topic)
-  }
-
-  onShowCheckBox() {
-    this.modalService.showCheckboxes(this.select);
-  }
-
-  ngAfterViewInit() {
-    const topics = (<FormArray> this.editModal.get('topics')).getRawValue();
-    const checkboxes = this.checkBoxInput.toArray();
-    for (let i = 0; i <= checkboxes.length - 1; i++) {
-      for (let k = 0; k <= topics.length - 1; k++) {
-        if (checkboxes[i].nativeElement.name === topics[k]) {
-          checkboxes[i].nativeElement.checked = true;
-        }
-      }
-
-    }
   }
 
 }

@@ -51,6 +51,10 @@ app-questions-list {
             color: #101820;
           }
         }
+        .question-list_link {
+          font-size: 1rem !important;
+          cursor: pointer !important;
+        }
         &:hover  {
           background-color: rgba(0, 118, 114, 0.1);
         }
@@ -115,7 +119,7 @@ app-questions-list {
 .create-new-question {
   text-align: right;
   margin-bottom: 33px;
-  p {
+  .mat-button {
     padding: 12px 20px;
     border-radius: 2px;
     background-color: #007672;

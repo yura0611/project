@@ -6,6 +6,7 @@ import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {VacanciesViewModalComponent} from "./vacancies-view-modal/vacancies-view-modal.component";
 import {QuestionNewModalComponent} from "../../questions-library/question-new-modal/question-new-modal.component";
 import {QuestionEditModalComponent} from "../../questions-library/question-edit-modal/question-edit-modal.component";
+import {options} from "../../inputsOptions";
 
 @Component({
   selector: 'app-vacancies-create',
@@ -15,15 +16,14 @@ import {QuestionEditModalComponent} from "../../questions-library/question-edit-
 })
 export class VacanciesCreateComponent implements OnInit{
   @ViewChildren('element') checkbox: QueryList<ElementRef>;
-  disabled = false;
   inputSearchValue: any = '';
   searchMode = false;
   totalTime: number = 0;
   allQuestions: IQuestion[];
   vacanciesForm: FormGroup;
-  isChecked = false;
-  checked: boolean = false;
-
+  titleLength = options.titleLength;
+  descriptionLength = options.descriptionLength;
+  limitOfQuestionExceed = false;
   constructor(public dialog: MatDialog,
               public questionService: QuestionService,
               public vacanciesService: VacanciesCreateService,
@@ -38,7 +38,6 @@ export class VacanciesCreateComponent implements OnInit{
       'title': new FormControl(null, [Validators.required, Validators.max(200)]),
       'type': new FormControl('', Validators.required),
       'description': new FormControl(null, [Validators.required, Validators.max(800)]),
-      'link': new FormControl(null, Validators.required),
       'questions': new FormArray([], Validators.required)
     })
   }
@@ -62,18 +61,15 @@ export class VacanciesCreateComponent implements OnInit{
     const questionsId = [];
     questions.map(el => questionsId.push(el._id))
     this.vacanciesService.createVacancy(questionsId, newVacancy)
-    console.log(this.vacanciesForm.value)
   }
 
   onAddQuestion(question, input) {
     if (!input.checked) {
-      console.log('qes bes', question)
       this.removeQuestion(this.vacanciesForm, input, question)
     } else if ((this.vacanciesForm.get('questions').value.length > 19) ||
       (this.vacanciesForm.get('questions').value.indexOf(input.value) !== -1)) {
+      this.limitOfQuestionExceed = true;
       input.checked = false;
-      this.disabled = true;
-      alert('You can\'t add more than 20 questions')
       return;
     } else {
       this.totalTime += question.maxLength;
@@ -83,7 +79,6 @@ export class VacanciesCreateComponent implements OnInit{
   }
 
   removeQuestion(modal, input, question) {
-    console.log('qes', question)
     this.totalTime -= question.maxLength
     let questions = (<FormArray>modal.get('questions'))
     questions.removeAt(questions.value.findIndex(question => {
@@ -95,17 +90,16 @@ export class VacanciesCreateComponent implements OnInit{
   }
 
   onDelete(index, question) {
-
     let inputs = []
     this.checkbox.toArray().filter(el => el.nativeElement).map(el => inputs.push(el))
     for(let i = 0; i <= inputs.length - 1; i++) {
       if (inputs[i].nativeElement.name === question.title &&
         inputs[i].nativeElement.id === question._id) {
         inputs[i].nativeElement.checked = false;
-        this.disabled = false;
       }
     }
     this.totalTime -= question.maxLength;
+    this.limitOfQuestionExceed = false;
     (<FormArray>this.vacanciesForm.controls['questions']).removeAt(index)
   }
 

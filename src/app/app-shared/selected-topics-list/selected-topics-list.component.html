@@ -1,0 +1,29 @@
+<div class="multiselect-1">
+  <div class="selectBox-1" (click)="onShowCheckboxes()">
+    <select required >
+      <option hidden selected value=" ">Select topic</option>
+    </select>
+    <div class="overSelect-1"></div>
+  </div>
+  <div id="modal-checkboxes" #expandSelect>
+    <label *ngFor="let topic of availableTopics; let i = index;">
+      <input [name]="topic"
+             #element
+             type="checkbox"
+             (click)="onAddTopic(element)"
+             [id]="topic + i + '_id'"
+             [value]="topic"
+             required/>
+      {{topic}}</label>
+  </div>
+
+</div>
+
+<ul class="chosen-topics_list" [ngClass]="{'customHeight': customHeight === true}">
+
+  <li class="list-item" *ngFor="let topic of selectedTopics; let i = index">
+    {{topic}}
+    <mat-icon (click)="onRemoveTopic(topic, i)" >clear</mat-icon>
+  </li>
+
+</ul>
