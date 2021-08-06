@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, of} from 'rxjs';
+import {BehaviorSubject, Observable, of} from 'rxjs';
 import {SelectionModel} from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
 import {  tap } from 'rxjs/operators';
@@ -28,7 +28,7 @@ export class VacanciesService {
 
   private vacanciesListSubject = new BehaviorSubject([]);
   public vacanciesList$ = this.vacanciesListSubject.asObservable();
-
+  private vacancyListSubject = new BehaviorSubject([]);
 
   vacancy = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.';
 
@@ -38,6 +38,7 @@ export class VacanciesService {
   status;
   candidateSubject =  new BehaviorSubject(false);
   dataSubject = new BehaviorSubject(0);
+  percentage = 0;
 
 
   constructor(private http: HttpClient,
@@ -52,6 +53,15 @@ export class VacanciesService {
     ).subscribe(data => {
     });
   }
+
+  getVacancy(id): Observable<any> {
+    return this.http.post<any>(`${environment.API_URL}/vacancy/find-one`,{ _id: id}).pipe(
+      tap(vacancy => this.vacancyListSubject.next(vacancy)
+    ));
+  }
+
+
+
 
   getApplicationsTableData = () => of(this.EXAMPLE_DATA_FOR_APPLICATION_TABLE);
 
@@ -105,17 +115,29 @@ export class VacanciesService {
 
 
 
-  editStatus(getStatus): void{
-    this.http.post(`${environment.API_URL}/vacancy/status`, {
-    status: getStatus}).pipe(tap(data => {
-    })).subscribe(el => this.status = el);
+  editStatus(id: string): void{
+    this.http.post(`${environment.API_URL}vacancy/status`, {
+    _id: id}).pipe(
+      tap(el => console.log(el))
+    ).subscribe((data: TestVacanciesTableItem[]) => {
+      this.vacanciesListSubject.next(data);
+      console.log(data);
+  });
+  }
+
+  editVacancy(obj){
+    this.http.post(`${environment.API_URL}vacancy/edit`,{
+      _id: obj._id,
+      title: obj.title,
+      description: obj.description,
+      questions: obj.questions,
+      type: obj.type,
+    });
   }
 
 
-
-
   deleteVacancy(id: string): void {
-    this.http.post(`${environment.API_URL}/vacancy/delete`, {_id: id}).subscribe((data: TestVacanciesTableItem[]) => {
+    this.http.post(`${environment.API_URL}vacancy/delete`, {_id: id}).subscribe((data: TestVacanciesTableItem[]) => {
       this.vacanciesListSubject.next(data);
     });
     this.router.navigate(['/vacancies']);

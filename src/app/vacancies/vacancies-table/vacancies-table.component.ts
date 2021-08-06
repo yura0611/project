@@ -12,7 +12,7 @@ import { VacanciesService} from '../shared/vacancies.service';
 export class VacanciesTableComponent implements OnInit {
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-   displayedColumns = ['VACANCIES', 'TYPE', 'STATUS', 'NUMBER OF APPLICATIONS', 'OPENED', 'ARROW'];
+   displayedColumns = ['VACANCIES', 'TYPE', 'STATUS', 'AVG SCORE', 'OPENED', 'ARROW'];
 
 
 
@@ -22,7 +22,7 @@ export class VacanciesTableComponent implements OnInit {
     ) {
   }
 
-  message;
+  // message;
   data;
   length: number;
   pageIndex: number;
@@ -40,12 +40,21 @@ export class VacanciesTableComponent implements OnInit {
     this.length = this.data.length;
   }
 
+  getInfo(id){
+    this.router.navigate([`/vacancy-info/${id}`]);
+  }
 
 
-  edit(row): void{
-    this.router.navigate(['/vacancy-info']);
-    this.message = row;
-    this.vacanciesService.setMessage(this.message);
+
+  // edit(row): void{
+  //   console.log(row);
+  //   this.router.navigate(['/vacancy-info']);
+  //   this.message = row;
+  //   this.vacanciesService.setMessage(this.message);
+  // }
+
+  getAvgScore(): number{
+    return this.vacanciesService.percentage;
   }
 
 

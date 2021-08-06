@@ -29,7 +29,7 @@
 
 .cell-active {
   width: 39px;
-  height: 17px;
+  height: 15px;
   padding: 2px 4px;
   border-radius: 2px;
   background-color: #00b2a9;
@@ -55,4 +55,24 @@
   visibility: hidden;
 }
 
+.customWidthClass{
+  flex: 0 0 75px;
+}
 
+.center-text{
+  margin-left: 50px;
+}
+
+
+
+.pd-10{
+  padding-left: 10px;
+}
+
+.pd-20{
+  padding-left: 20px;
+}
+
+.mr-30{
+  margin-right: 30px;
+}

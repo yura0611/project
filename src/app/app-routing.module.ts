@@ -14,7 +14,7 @@ const routes: Routes = [
   {path: 'questions', component: QuestionsComponent},
   {path: 'vacancies', component: VacanciesComponent},
   {path: 'vacancies-create', component: VacanciesCreateComponent},
-  {path: 'vacancy-info', component: VacanciesInfoComponent},
+  {path: 'vacancy-info/:id', component: VacanciesInfoComponent},
   {path: 'vacancy-edit', component: VacanciesEditComponent},
 ];
 

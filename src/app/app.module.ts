@@ -27,6 +27,9 @@ import { SetReviewerModalComponent } from './vacancies/vacancies-info/set-review
 import { VacanciesEditComponent } from './vacancies/vacancies-edit/vacancies-edit.component';
 import {Constants} from './constants/constants';
 
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +47,7 @@ import {Constants} from './constants/constants';
     OutSideClickHandlerDirective,
     SetReviewerModalComponent,
     VacanciesEditComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -59,7 +63,7 @@ import {Constants} from './constants/constants';
   providers: [
     CookieService,
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
-    Constants
+    Constants,
   ],
   exports: [
     OutSideClickHandlerDirective,

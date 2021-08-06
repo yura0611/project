@@ -36,7 +36,6 @@ export class VacanciesCreateComponent implements OnInit{
       'title': new FormControl(null, Validators.required),
       'type': new FormControl('', Validators.required),
       'description': new FormControl(null, Validators.required),
-      'link': new FormControl(null, Validators.required),
       'questions': new FormArray([], Validators.required)
     })
   }

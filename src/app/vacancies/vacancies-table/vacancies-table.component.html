@@ -11,13 +11,13 @@
 
     <ng-container matColumnDef="TYPE">
       <mat-header-cell *matHeaderCellDef> TYPE </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.type}} </mat-cell>
+      <mat-cell class="pd-10" *matCellDef="let element"> {{element.type}} </mat-cell>
     </ng-container>
 
 
     <ng-container matColumnDef="STATUS">
       <mat-header-cell *matHeaderCellDef> STATUS </mat-header-cell>
-      <mat-cell *matCellDef="let element">
+      <mat-cell class="pd-20" *matCellDef="let element">
 
         <div [ngClass]="{'cell-active': element.status === 'Active',
                                                             'cell-closed': element.status === 'Closed'}">
@@ -25,21 +25,21 @@
 
     </ng-container>
 
-    <ng-container matColumnDef="NUMBER OF APPLICATIONS">
-      <mat-header-cell *matHeaderCellDef> NUMBER OF APPLICATIONS </mat-header-cell>
-      <mat-cell *matCellDef="let element"> 0 </mat-cell>
+    <ng-container matColumnDef="AVG SCORE">
+      <mat-header-cell *matHeaderCellDef> AVG.SCORE </mat-header-cell>
+      <mat-cell class="center-text"  *matCellDef="let element"> {{getAvgScore()}} </mat-cell>
     </ng-container>
 
 
     <ng-container matColumnDef="OPENED">
       <mat-header-cell *matHeaderCellDef> OPENED </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.createdAt | date}} </mat-cell>
+      <mat-cell class="mr-30"  *matCellDef="let element"> {{element.createdAt | date}} </mat-cell>
     </ng-container>
 
     <ng-container  matColumnDef="ARROW">
-      <mat-header-cell   *matHeaderCellDef></mat-header-cell>
-      <mat-cell  *matCellDef="let element">
-        <button mat-icon-button class="hidden" color="black" (click)="edit(element)" title="View Contact"><mat-icon>arrow_forward</mat-icon></button>
+      <mat-header-cell  [ngClass]="'customWidthClass'"  *matHeaderCellDef></mat-header-cell>
+      <mat-cell  [ngClass]="'customWidthClass'" *matCellDef="let element">
+        <button mat-icon-button class="hidden" color="black" (click)="getInfo(element['_id'])" title="View Contact"><mat-icon>arrow_forward</mat-icon></button>
       </mat-cell>
     </ng-container>
 

@@ -1,7 +1,7 @@
 <div>
-        <span class="vacancy-type">{{message['type'] | uppercase}} &#160;</span>
-        <span class="vacancy-title">{{message['title'] | uppercase}}</span>
-        <button class="btn" (click)="vacancyDelete(message['_id'])" >
+        <span class="vacancy-type">{{ type | uppercase}} &#160;</span>
+        <span class="vacancy-title">{{title | uppercase}}</span>
+        <button class="btn" (click)="vacancyDelete(id)" >
           <mat-icon><span class="material-icons-outlined">
               delete
             </span></mat-icon>
@@ -13,7 +13,7 @@
     </button>
   </div>
     <p class="vacancy-description">
-        {{(showMore) ? text : text | slice:0:150 }} <span *ngIf="!showMore">... &#160;</span>
+        {{(showMore) ? description : description  | slice:0:150 }} <span *ngIf="!showMore">... &#160;</span>
         <button class="transparent" *ngIf="!showMore" (click)="showMore=true">view more</button>
         </p>
     <div class="mat-cards">
@@ -22,9 +22,9 @@
             <mat-card-title>Status</mat-card-title>
           </mat-card-header>
          <mat-card-content>
-          <div class="container-card-content">{{message['status'] |  titlecase}}
+          <div class="container-card-content">{{status |  titlecase}}
 
-            <button class="btns" (click)="changeStatus(message['status'])">CLOSE</button>
+            <button class="btns" (click)="changeStatus(id)">CLOSE</button>
                 </div>
       </mat-card-content>   </mat-card>
       <mat-card>
