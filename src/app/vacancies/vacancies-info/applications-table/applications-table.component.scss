@@ -108,3 +108,15 @@
 ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background, .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background, .mat-accent .mat-pseudo-checkbox-checked, .mat-accent .mat-pseudo-checkbox-indeterminate, .mat-pseudo-checkbox-checked, .mat-pseudo-checkbox-indeterminate {
   background-color:  #007672;
 }
+
+.mat-row:hover {
+  background-color: rgba(0, 118, 114, 0.1);
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.mat-row:hover .hidden {
+  visibility: visible;
+}

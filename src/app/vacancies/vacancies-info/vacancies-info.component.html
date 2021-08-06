@@ -6,16 +6,16 @@
               delete
             </span></mat-icon>
           </button >
-    <button class="btn" (click)="editVacancy()">
+    <button class="btn" (click)="editVacancy(id)">
     <mat-icon><span class="material-icons-outlined">
         edit
       </span></mat-icon>
     </button>
   </div>
-    <p class="vacancy-description">
+    <div class="vacancy-description">
         {{(showMore) ? description : description  | slice:0:150 }} <span *ngIf="!showMore">... &#160;</span>
         <button class="transparent" *ngIf="!showMore" (click)="showMore=true">view more</button>
-        </p>
+        </div>
     <div class="mat-cards">
     <mat-card>
         <mat-card-header>

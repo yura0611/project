@@ -47,12 +47,19 @@ export class VacanciesService {
               private  constants: Constants) { }
 
 
-  getAllVacancies(): void {
-    this.http.get<any>(`${environment.API_URL}/vacancy`).pipe(
-      tap(vacancies => this.vacanciesListSubject.next(vacancies))
-    ).subscribe(data => {
-    });
+  getAllVacancies()  {
+    return this.http.get<any>(`${environment.API_URL}/vacancy`).pipe(
+      tap(el => this.vacanciesListSubject.next(el)))
   }
+
+
+
+  // getAllVacancies(): void {
+  //   this.http.get<any>(`${environment.API_URL}/vacancy`).pipe(
+  //     tap(vacancies => this.vacanciesListSubject.next(vacancies))
+  //   )};
+
+
 
   getVacancy(id): Observable<any> {
     return this.http.post<any>(`${environment.API_URL}/vacancy/find-one`,{ _id: id}).pipe(
@@ -126,6 +133,7 @@ export class VacanciesService {
   }
 
   editVacancy(obj){
+    console.log(obj);
     this.http.post(`${environment.API_URL}vacancy/edit`,{
       _id: obj._id,
       title: obj.title,

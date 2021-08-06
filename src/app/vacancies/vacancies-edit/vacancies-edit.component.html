@@ -1,7 +1,7 @@
 <div class="container">
   <div class="sub-header">
     <h2>Edit vacancy</h2>
-    <button mat-raised-button color="success"  [disabled]="!element.valid">SAVE</button>
+    <button mat-raised-button color="success"  (click)="vacancyEdit(vacancy)" [disabled]="!element.valid">SAVE</button>
   </div>
   <div class="card-center">
     <mat-card class="example-card">
@@ -9,13 +9,13 @@
         <form  #element="ngForm">
           <div class="vacancies-form_title">
             <label for="title">Title</label> <br>
-            <input formControlName="title" type="text" id="title" name="title" placeholder="Type your title">
+            <input  type="text" id="title" name="title" placeholder="Type your title" [(ngModel)]="title">
           </div>
 
           <div class="vacancies-form_type">
             <label for="type">Type</label> <br>
-            <select name="type" id="type" formControlName="type">
-              <option hidden selected  value="">Choose your type</option>
+            <select name="type" id="type" [(ngModel)]="type">
+              <option hidden selected>{{type}}</option>
               <option value="web">Web</option>
               <option value="management">Management</option>
               <option value="ios">iOS</option>
@@ -27,8 +27,7 @@
 
           <div class="vacancies-form_description">
             <label for="desc">Description</label> <br>
-            <textarea id="desc" name="desc" rows="10" placeholder="Type your description"
-                      formControlName="description"></textarea>
+            <textarea id="desc" name="desc" rows="10" placeholder="Type your description" [(ngModel)]="description"></textarea>
           </div>
         </form>
       </mat-card-content>
@@ -38,37 +37,29 @@
       <div class="question_library-title">
         Task Questions ()
       </div>
-
       <div class="question_library-content">
         <div class="question_library-items">
-          <div class="question_library-item" >
-
+          <div class="question_library-item" *ngFor="let question of questions; let i = index;" >
             <div class="question_library-title-block">
-
-              <span></span>
-
-              <p class="title" style="margin-left: 20px;"></p>
+              <span>{{question.maxLength}}</span>
+              <p class="title">{{question.title}}</p>
             </div>
-
             <div class="topics question_topics">
-
               <div>
-
+              <span *ngFor="let topic of question.topics">{{topic}}</span>
               </div>
-
-
             </div>
-
+              <div>
+              </div>
           </div>
         </div>
       </div>
       <div class="total_time-block">
         <p>TOTAL TIME</p>
         <div>
-          <span> MIN</span>
+          <span>{{totalTime}} MIN</span>
         </div>
       </div>
     </div>
-
   </div>
 </div>

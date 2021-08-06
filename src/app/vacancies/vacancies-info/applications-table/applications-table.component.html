@@ -1,26 +1,25 @@
 <div class="example-container mat-elevation-z8">
   <mat-table #table [dataSource]="getDataSource()"  >
 
-    <ng-container matColumnDef="SELECT">
-      <mat-header-cell *matHeaderCellDef>
-      </mat-header-cell>
-      <mat-cell *matCellDef="let row;">
+    <ng-container matColumnDef="select">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let element">
         <mat-checkbox
           (click)="$event.stopPropagation();changeSubject()"
-                      (change)="$event ? toggle(row) : null"
-                              [checked]="isSelected(row)">
+                      (change)="$event ? toggle(element) : null"
+                              [checked]="isSelected(element)">
         </mat-checkbox>
       </mat-cell>
     </ng-container>
 
 
-   <ng-container matColumnDef="CANDIDATE">
+   <ng-container matColumnDef="candidate">
     <mat-header-cell *matHeaderCellDef> CANDIDATE </mat-header-cell>
     <mat-cell *matCellDef="let element"> {{element.candidate}} </mat-cell>
   </ng-container>
 
 
-    <ng-container matColumnDef="STATUS">
+    <ng-container matColumnDef="status">
       <mat-header-cell *matHeaderCellDef> STATUS </mat-header-cell>
       <mat-cell *matCellDef="let element" > <div [ngClass]=
         "{'cell-invited': element.status === 'invited',
@@ -32,25 +31,34 @@
     </ng-container>
 
 
-    <ng-container matColumnDef="SCORE">
+    <ng-container matColumnDef="score">
       <mat-header-cell *matHeaderCellDef> SCORE </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.score === 0 ? '---' : element.score}} </mat-cell>
     </ng-container>
 
 
-    <ng-container matColumnDef="REVIEWER">
+    <ng-container matColumnDef="reviewer">
       <mat-header-cell *matHeaderCellDef> REVIEWER </mat-header-cell>
       <mat-cell *matCellDef="let element"> <a class="link"  (click)="createReviwerModal()">{{element.reviewer}}</a> </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="INVITED">
+    <ng-container matColumnDef="invited">
       <mat-header-cell *matHeaderCellDef> INVITED </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.invited}} </mat-cell>
     </ng-container>
 
+
+    <ng-container  matColumnDef="arrow">
+      <mat-header-cell  [ngClass]="'customWidthClass'"  *matHeaderCellDef ></mat-header-cell>
+      <mat-cell  [ngClass]="'customWidthClass'" *matCellDef="let element">
+        <button mat-icon-button class="hidden" color="black"  title="View Contact"><mat-icon>arrow_forward</mat-icon></button>
+      </mat-cell>
+    </ng-container>
+
+
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"
-             (click)="toggle(row)">
+    <mat-row *matRowDef="let element; columns: displayedColumns;"
+             (click)="toggle(element)">
     </mat-row>
   </mat-table>
 </div>

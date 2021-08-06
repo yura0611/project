@@ -20,6 +20,7 @@ export class VacanciesInfoComponent implements OnInit {
   type;
   status;
   description;
+  questions;
   name = 'Angular';
   showMore = false;
   text = '';
@@ -27,6 +28,7 @@ export class VacanciesInfoComponent implements OnInit {
   applications = 0;
   time;
   id;
+  length;
 
 
   constructor(public vacanciesService: VacanciesService,
@@ -52,8 +54,6 @@ export class VacanciesInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
-    console.log(this.id);
-    console.log('thiss');
     const desc = 'description';
     this.vacanciesService.getVacancy(this.id)
       .pipe(
@@ -63,6 +63,8 @@ export class VacanciesInfoComponent implements OnInit {
           this.type = vacancy.type;
           this.description = vacancy.description;
           this.time = vacancy.createdAt;
+          this.length = this.description.length;
+          this.questions = vacancy.questions;
           return '';
         })
       )
@@ -75,8 +77,9 @@ export class VacanciesInfoComponent implements OnInit {
 
 
 
-  editVacancy(): void{
-    this.router.navigate(['/vacancy-edit']);
+  editVacancy(id): void{
+    this.router.navigate([`/vacancy-edit/${id}`]);
+    console.log(this.id);
   }
 
   vacancyDelete(id): void{
@@ -98,6 +101,12 @@ export class VacanciesInfoComponent implements OnInit {
   getAvgScore(): number{
     return this.vacanciesService.percentage;
   }
+
+  // checkLength(length): boolean{
+  //   if ( length > 150){
+  //     return true;
+  //   }
+  // }
 
 
 }

@@ -1,10 +1,13 @@
 import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
+import { Router } from '@angular/router';
 import {MatTable, MatTableDataSource} from "@angular/material/table";
 import {VacanciesTableItem} from "../../vacancies/vacancies-table/vacancies-table-datasource";
 import {HomePageService} from "../shared/home-page.service";
 import {IVacancies} from "../../vacancies/shared/vacancies-interface";
+import {VacanciesService} from "../../vacancies/shared/vacancies.service";
+
 
 @Component({
   selector: 'app-vacancies-list',
@@ -17,10 +20,14 @@ export class VacanciesListComponent implements OnInit {
   @ViewChild(MatSort, {static: false}) sort: MatSort;
   @ViewChild(MatTable) table!: MatTable<VacanciesTableItem>;
   dataSource;
-  displayedColumns = ['title', 'type', 'status', 'avg-score', 'createdAt'];
+  displayedColumns = ['title', 'type', 'status', 'avg-score', 'createdAt','arrow'];
   allVacancies: IVacancies[] = [];
 
-  constructor(private homeService: HomePageService) {
+  constructor(
+    private homeService: HomePageService,
+    private vacancyService: VacanciesService,
+    private router: Router
+  ) {
     this.dataSource = new MatTableDataSource([]);
   }
 
@@ -33,6 +40,16 @@ export class VacanciesListComponent implements OnInit {
 
     })
   }
+
+  getAvgScore(): number{
+    return this.vacancyService.percentage;
+  }
+
+
+  getInfo(id){
+    this.router.navigate([`/vacancy-info/${id}`]);
+  }
+
 
 }
 

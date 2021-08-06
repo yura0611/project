@@ -1,3 +1,5 @@
+
+
 export interface VacanciesTableItem {
   _id: string;
   vacancy: string;
@@ -27,3 +29,8 @@ export interface TestVacanciesTableItem {
   type: string;
   questions: [];
 }
+
+
+
+
+

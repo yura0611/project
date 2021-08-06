@@ -12,7 +12,7 @@ export class ApplicationsTableComponent implements OnInit {
   constructor(
     public vacancyTableService: VacanciesService) {}
 
-  displayedColumns = ['SELECT', 'CANDIDATE', 'STATUS', 'SCORE', 'REVIEWER', 'INVITED'];
+  displayedColumns = ['select', 'candidate', 'status', 'score', 'reviewer', 'invited', 'arrow'];
 
 
   ngOnInit(): void{
