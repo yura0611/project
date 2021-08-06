@@ -27,6 +27,7 @@ import { AnswerEvaluateProcessModalComponent } from './vacancies/answer-evaluate
 import { SetReviewerModalComponent } from './vacancies/vacancies-info/set-reviewer-modal/set-reviewer-modal.component';
 import { VacanciesEditComponent } from './vacancies/vacancies-edit/vacancies-edit.component';
 import {Constants} from './constants/constants';
+import {ConvertTimePipe} from "./convertTime.pipe";
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import {Constants} from './constants/constants';
     AnswerEvaluateProcessModalComponent,
     SetReviewerModalComponent,
     VacanciesEditComponent,
+    ConvertTimePipe
   ],
   imports: [
     BrowserModule,

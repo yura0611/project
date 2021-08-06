@@ -3,6 +3,8 @@ import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
 import {VacanciesService} from "../shared/vacancies.service";
 import {tap} from "rxjs/operators";
 import {PaginationService} from "../../pagination.service";
+import {AnswerModalService} from "./shared/answer-modal.service";
+import {IEvaluationProcess} from "../../app-shared/interfaces/IEvaluationProcess";
 
 
 
@@ -13,25 +15,28 @@ import {PaginationService} from "../../pagination.service";
 })
 export class AnswerEvaluateProcessModalComponent implements OnInit, AfterViewInit {
 
-  allQuestions
-  currentQuestion = []
+  currentQuestion = [];
   currentItem = 0;
-  testData = []
+
   constructor(@Optional() @Inject(MAT_DIALOG_DATA) public data: any,
               public dialog: MatDialog,
               private vacancyService: VacanciesService,
-              private paginationService: PaginationService) { }
+              private paginationService: PaginationService,
+              private answerModalService: AnswerModalService) { }
 
   ngOnInit() {
      this.paginationService.itemSubject.pipe(
       tap(value => this.currentItem = value)
     ).subscribe()
+    this.answerModalService.getVacancy().pipe(
+      tap(el => console.log(el)),
+      tap((vacancyData: IEvaluationProcess) => this.currentQuestion = vacancyData.vacancy.questions)
+    ).subscribe()
 
-    console.log('test data',this.testData)
-    console.log(this.currentQuestion)
   }
 
   nextItem() {
+
     this.paginationService.next(this.currentQuestion)
 
   }

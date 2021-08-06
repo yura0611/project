@@ -1,35 +1,42 @@
-<!--&lt;!&ndash;<div class="block_title">&ndash;&gt;-->
-<!--&lt;!&ndash;  <p class="title">Questions 0/20</p>&ndash;&gt;-->
-<!--&lt;!&ndash;</div>&ndash;&gt;-->
 
-<!--&lt;!&ndash;<div *ngFor="let q of currQuestion; let i = index">&ndash;&gt;-->
-<!--&lt;!&ndash;  <p>{{q.title}}</p>&ndash;&gt;-->
-<!--&lt;!&ndash;  <p>{{q.description}}</p>&ndash;&gt;-->
-
-<!--&lt;!&ndash;  <button (click)="next(i)">Next</button>&ndash;&gt;-->
-<!--&lt;!&ndash;  <button (click)="previous(i)">Prev</button>&ndash;&gt;-->
-<!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-<!--<div class="list">-->
-<!--&lt;!&ndash;  <ul>&ndash;&gt;-->
-<!--&lt;!&ndash;    <li *ngFor="let item of questions | paginate: { itemsPerPage: 2, currentPage: p }">{{ item. }}</li>&ndash;&gt;-->
-<!--&lt;!&ndash;  </ul>&ndash;&gt;-->
-<!--  <div *ngFor="let item of currQuestion | paginate: { itemsPerPage: 1, currentPage: p }">-->
-<!--    <p>{{item.title}}</p>-->
-<!--    <p>{{item.description}}</p>-->
-<!--  </div>-->
-
-<!--  <pagination-controls (pageChange)="p = $event" class="test"></pagination-controls>-->
-<!--</div>-->
-
-<div class="div" >
-  <h2>{{currentItem}}</h2>
-  <p>{{currentQuestion[currentItem]?.title}} </p>
-  <p>{{currentQuestion[currentItem]?.description}}</p>
+<div class="title_block" >
+  <div class="clear-icon_block">
+    <mat-icon class="clear">clear</mat-icon>
+  </div>
+  <h1>Questions {{currentItem}}/20</h1>
+</div>
+<div class="question_block">
+  <div class="question_block-title-description">
+    <div class="title">
+      <p>{{currentQuestion[currentItem]?.title}} </p>
+      <div>
+        {{currentQuestion[currentItem]?.maxLength * 30 | convertTime}}
+      </div>
+    </div>
+    <div class="description">
+      <p>{{currentQuestion[currentItem]?.description}}</p>
+    </div>
+  </div>
   <ul>
-    <li *ngFor="let topics of currentQuestion[currentItem]?.topics">{{topics}}</li>
+    <div class="topics_block">
+      <li *ngFor="let topics of currentQuestion[currentItem]?.topics" class="topics">{{topics}}</li>
+    </div>
+
   </ul>
 </div>
 
-<button (click)="nextItem()" >Next</button>
-<button (click)="previousItem()" >Previous</button>
+<div class="answer_block">
+  <div class="answer_block-title">
+    <p class="title">Answer</p>
+  </div>
+
+  <div class="answer_block-content">
+    <textarea class="given_answer" name='answer' rows="10"></textarea>
+  </div>
+</div>
+
+<div class="buttons_block">
+  <mat-icon (click)="previousItem()" class="arrow-left">keyboard_arrow_left</mat-icon>
+  <mat-icon (click)="nextItem()" class="arrow-right">keyboard_arrow_right</mat-icon>
+</div>
+
