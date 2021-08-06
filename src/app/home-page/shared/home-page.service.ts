@@ -9,6 +9,7 @@ export interface IVacancies {
   _id: string;
   author: string;
   createdAt: string;
+  editedAt: string;
   description: string;
   questions: IQuestion[];
   status: string;

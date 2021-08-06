@@ -1,3 +1,35 @@
-<div class="block_title">
-  <p>Questions 0/20</p>
+<!--&lt;!&ndash;<div class="block_title">&ndash;&gt;-->
+<!--&lt;!&ndash;  <p class="title">Questions 0/20</p>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<div *ngFor="let q of currQuestion; let i = index">&ndash;&gt;-->
+<!--&lt;!&ndash;  <p>{{q.title}}</p>&ndash;&gt;-->
+<!--&lt;!&ndash;  <p>{{q.description}}</p>&ndash;&gt;-->
+
+<!--&lt;!&ndash;  <button (click)="next(i)">Next</button>&ndash;&gt;-->
+<!--&lt;!&ndash;  <button (click)="previous(i)">Prev</button>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--<div class="list">-->
+<!--&lt;!&ndash;  <ul>&ndash;&gt;-->
+<!--&lt;!&ndash;    <li *ngFor="let item of questions | paginate: { itemsPerPage: 2, currentPage: p }">{{ item. }}</li>&ndash;&gt;-->
+<!--&lt;!&ndash;  </ul>&ndash;&gt;-->
+<!--  <div *ngFor="let item of currQuestion | paginate: { itemsPerPage: 1, currentPage: p }">-->
+<!--    <p>{{item.title}}</p>-->
+<!--    <p>{{item.description}}</p>-->
+<!--  </div>-->
+
+<!--  <pagination-controls (pageChange)="p = $event" class="test"></pagination-controls>-->
+<!--</div>-->
+
+<div class="div" >
+  <h2>{{currentItem}}</h2>
+  <p>{{currentQuestion[currentItem]?.title}} </p>
+  <p>{{currentQuestion[currentItem]?.description}}</p>
+  <ul>
+    <li *ngFor="let topics of currentQuestion[currentItem]?.topics">{{topics}}</li>
+  </ul>
 </div>
+
+<button (click)="nextItem()" >Next</button>
+<button (click)="previousItem()" >Previous</button>

@@ -1,17 +1,16 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, of} from 'rxjs';
 import {SelectionModel} from '@angular/cdk/collections';
-import { MatTableDataSource } from '@angular/material/table';
-import {  tap } from 'rxjs/operators';
+import {MatTableDataSource} from '@angular/material/table';
+import {tap} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
-import { environment } from '../../../environments/environment';
+import {environment} from '../../../environments/environment';
 import {SetReviewerModalComponent} from '../vacancies-info/set-reviewer-modal/set-reviewer-modal.component';
 import {MatDialog} from '@angular/material/dialog';
 import {Constants} from '../../constants/constants';
-import {ApplicationsTableItem} from './vacancies.models';
-import {TestVacanciesTableItem} from './vacancies.models';
-import {logger} from 'codelyzer/util/logger';
+import {ApplicationsTableItem, TestVacanciesTableItem} from './vacancies.models';
+import {IVacancies} from "../../home-page/shared/home-page.service";
 
 @Injectable({
   providedIn: 'root'
@@ -47,10 +46,9 @@ export class VacanciesService {
 
 
   getAllVacancies(): void {
-    this.http.get<any>(`${environment.API_URL}/vacancy`).pipe(
+    this.http.get<IVacancies[]>(`${environment.API_URL}/vacancy`).pipe(
       tap(vacancies => this.vacanciesListSubject.next(vacancies))
-    ).subscribe(data => {
-    });
+    ).subscribe();
   }
 
   getApplicationsTableData = () => of(this.EXAMPLE_DATA_FOR_APPLICATION_TABLE);
@@ -107,8 +105,7 @@ export class VacanciesService {
 
   editStatus(getStatus): void{
     this.http.post(`${environment.API_URL}/vacancy/status`, {
-    status: getStatus}).pipe(tap(data => {
-    })).subscribe(el => this.status = el);
+    status: getStatus}).subscribe(el => this.status = el);
   }
 
 

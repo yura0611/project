@@ -1,3 +1,16 @@
 .block_title {
+  background-color: grey;
+}
+.title {
+  padding: 20px;
 
 }
+.mat-dialog-container {
+  padding: 0 !important;
+}
+
+.test ::ng-deep .ngx-pagination .current {
+  background-color: #007672 !important;
+}
+
+

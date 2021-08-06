@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {GoogleAuthService} from '../shared/google-auth.service';
-import {HttpClient} from '@angular/common/http';
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-google-auth-button',
@@ -10,10 +10,13 @@ import {HttpClient} from '@angular/common/http';
 export class GoogleAuthButtonComponent implements OnInit {
 
 
-  constructor(private googleAuth: GoogleAuthService, private http: HttpClient) {
+  constructor(private googleAuth: GoogleAuthService,
+              public dialog: MatDialog,
+              ) {
   }
 
   ngOnInit(): void {
+
     this.googleAuth.checkIfUserAuthenticated();
 
   }
@@ -22,5 +25,6 @@ export class GoogleAuthButtonComponent implements OnInit {
   onAuthenticate() {
     return this.googleAuth.authenticate();
   }
+
 
 }
