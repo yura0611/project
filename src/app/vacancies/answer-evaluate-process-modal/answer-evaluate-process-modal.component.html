@@ -1,7 +1,7 @@
 
 <div class="title_block" >
   <div class="clear-icon_block">
-    <mat-icon class="clear">clear</mat-icon>
+    <mat-icon class="clear" (click)="closeModal()">clear</mat-icon>
   </div>
   <h1>Questions {{currentItem}}/20</h1>
 </div>
@@ -18,25 +18,25 @@
     </div>
   </div>
   <ul>
-    <div class="topics_block">
       <li *ngFor="let topics of currentQuestion[currentItem]?.topics" class="topics">{{topics}}</li>
-    </div>
-
   </ul>
+
 </div>
 
 <div class="answer_block">
   <div class="answer_block-title">
     <p class="title">Answer</p>
   </div>
-
-  <div class="answer_block-content">
-    <textarea class="given_answer" name='answer' rows="10"></textarea>
-  </div>
+  <form [formGroup]="answerForm">
+    <div class="answer_block-content">
+      <textarea class="given_answer" name='answer' rows="10" formControlName="givenAnswer"></textarea>
+    </div>
+  </form>
 </div>
 
 <div class="buttons_block">
-  <mat-icon (click)="previousItem()" class="arrow-left">keyboard_arrow_left</mat-icon>
+  <mat-icon (click)="previousItem()" class="arrow-left" >keyboard_arrow_left</mat-icon>
   <mat-icon (click)="nextItem()" class="arrow-right">keyboard_arrow_right</mat-icon>
 </div>
+
 

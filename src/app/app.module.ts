@@ -28,6 +28,8 @@ import { SetReviewerModalComponent } from './vacancies/vacancies-info/set-review
 import { VacanciesEditComponent } from './vacancies/vacancies-edit/vacancies-edit.component';
 import {Constants} from './constants/constants';
 import {ConvertTimePipe} from "./convertTime.pipe";
+import {MatExpansionModule} from "@angular/material/expansion";
+import {MatBadgeModule} from "@angular/material/badge";
 
 @NgModule({
   declarations: [
@@ -47,7 +49,7 @@ import {ConvertTimePipe} from "./convertTime.pipe";
     AnswerEvaluateProcessModalComponent,
     SetReviewerModalComponent,
     VacanciesEditComponent,
-    ConvertTimePipe
+    ConvertTimePipe,
   ],
   imports: [
     BrowserModule,
@@ -59,13 +61,16 @@ import {ConvertTimePipe} from "./convertTime.pipe";
     HttpClientModule,
     CommonModule,
     FormsModule,
+    MatExpansionModule,
+    MatBadgeModule,
   ],
   providers: [
     CookieService,
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
     Constants
   ],
-  exports: [],
+    exports: [
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

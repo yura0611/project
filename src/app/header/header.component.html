@@ -7,9 +7,14 @@
       SETTINGS</a>
   </div>
   <div class="header_profile">
-    <a><img src="../../assets/profile.svg" alt="Profile"></a>
+      <a (click)="onShowLogOut()"><img src="../../assets/profile.svg" alt="Profile" ></a>
+    <div class="log-out" *ngIf="showLogOut">
+      <a (click)="onLogout()"><span>Logout</span></a>
+    </div>
   </div>
+
 </div>
+
 
 
 

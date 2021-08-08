@@ -19,7 +19,7 @@ export class VacanciesComponent implements OnInit {
               private answerModalService: AnswerModalService ) { }
 
   ngOnInit(): void {
-    this.questionService.questionList$.subscribe(data => console.log(data))
+    this.questionService.questionList$.subscribe()
   }
 
   navigate(){

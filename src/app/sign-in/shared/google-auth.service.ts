@@ -2,8 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {AuthService} from '../../auth.service';
 import {environment} from "../../../environments/environment";
-import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
-import {AnswerEvaluateProcessModalComponent} from "../../vacancies/answer-evaluate-process-modal/answer-evaluate-process-modal.component";
 
 export type userDataType = {
   userProfileData: {}
@@ -15,8 +13,7 @@ export type userDataType = {
 })
 export class GoogleAuthService {
   constructor(private http: HttpClient,
-              private authService: AuthService,
-              private dialog: MatDialog) {
+              private authService: AuthService) {
   }
 
   public gapiSetup = false;
@@ -53,9 +50,6 @@ export class GoogleAuthService {
         userProfileData: user.getBasicProfile()
       };
       localStorage.setItem('user-email', user.getBasicProfile().getEmail())
-      console.log(JSON.stringify(localStorage.getItem('user-email')));
-      console.log(user.getBasicProfile().getEmail())
-      this.openModal()
       return this.authService.sendToken(this.userData.userAuthData).subscribe()
     } catch (e) {
     //  TODO: Implement custom error alert(error comes from google api, for example show snackbar)
@@ -67,14 +61,6 @@ export class GoogleAuthService {
       await this.initGoogleAuth();
     }
     return this.authInstance.isSignedIn.get();
-  }
-  openModal() {
-    const modalConfig = new MatDialogConfig();
-    modalConfig.autoFocus = false;
-    modalConfig.width = '760px';
-    modalConfig.height = '850px';
-    this.dialog.open(AnswerEvaluateProcessModalComponent, modalConfig)
-    // console.log(this.allQuestions)
   }
 
 }

@@ -13,8 +13,10 @@ export class AnswerModalService {
     const modalConfig = new MatDialogConfig();
     modalConfig.autoFocus = false;
     modalConfig.width = '760px';
-    modalConfig.height = '850px';
     this.dialog.open(component, modalConfig)
+  }
+  onClose() {
+    this.dialog.closeAll();
   }
 
   getVacancy() {

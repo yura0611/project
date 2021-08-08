@@ -5,8 +5,8 @@ import {tap} from "rxjs/operators";
 import {PaginationService} from "../../pagination.service";
 import {AnswerModalService} from "./shared/answer-modal.service";
 import {IEvaluationProcess} from "../../app-shared/interfaces/IEvaluationProcess";
-
-
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {patterns} from "../../app-shared/regexPatterns/patterns";
 
 @Component({
   selector: 'app-answer-evaluate-process-modal',
@@ -17,7 +17,7 @@ export class AnswerEvaluateProcessModalComponent implements OnInit, AfterViewIni
 
   currentQuestion = [];
   currentItem = 0;
-
+  answerForm: FormGroup;
   constructor(@Optional() @Inject(MAT_DIALOG_DATA) public data: any,
               public dialog: MatDialog,
               private vacancyService: VacanciesService,
@@ -29,14 +29,21 @@ export class AnswerEvaluateProcessModalComponent implements OnInit, AfterViewIni
       tap(value => this.currentItem = value)
     ).subscribe()
     this.answerModalService.getVacancy().pipe(
-      tap(el => console.log(el)),
-      tap((vacancyData: IEvaluationProcess) => this.currentQuestion = vacancyData.vacancy.questions)
+      tap((vacancyData: IEvaluationProcess) => this.currentQuestion = vacancyData.vacancy.questions),
     ).subscribe()
+
+    this.answerForm = new FormGroup({
+      'givenAnswer': new FormControl(null,
+        [Validators.pattern(patterns.regexOnlyAlphaNumeric)])
+    })
 
   }
 
-  nextItem() {
+  closeModal() {
+    this.answerModalService.onClose()
+  }
 
+  nextItem() {
     this.paginationService.next(this.currentQuestion)
 
   }
@@ -45,6 +52,7 @@ export class AnswerEvaluateProcessModalComponent implements OnInit, AfterViewIni
     this.paginationService.previous(this.currentQuestion)
 
   }
+
   ngAfterViewInit() {
   }
 

@@ -12,6 +12,7 @@
   text-align: end;
   .clear {
     font-size: 1rem;
+    cursor: pointer;
   }
 }
 
@@ -41,8 +42,6 @@
     }
   }
 
-  .topics_block {
-    padding-left: 40px;
     .topics {
       display: inline-block;
       padding: 1px 3px;
@@ -50,7 +49,10 @@
       background-color: #eee;
       margin-right: 5px;
     }
+  .topics:first-child {
+      margin-left: 40px;
   }
+
 
 }
 
