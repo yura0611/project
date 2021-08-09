@@ -21,7 +21,6 @@ export class ApplicationsTableComponent implements OnInit {
     this.vacancyTableService.initMaterialTable();
     this.vacancyTableService.dataSubject.next(this.vacancyTableService.dataSource.data.length);
     this.vacancyTableService.dataSubject.subscribe();
-    this.getEvaluations(this.vacancyId);
   }
 
   createReviwerModal(): void{
@@ -48,9 +47,7 @@ export class ApplicationsTableComponent implements OnInit {
     return this.vacancyTableService.dataSource;
   }
 
-  getEvaluations(id): void{
-    this.evaluationService.getAllEvaluations(id);
-  }
+
 
 
 

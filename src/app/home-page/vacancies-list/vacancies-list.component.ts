@@ -33,6 +33,7 @@ export class VacanciesListComponent implements OnInit {
   ngOnInit(): void {
     this.homeService.getAllVacancies().subscribe((vacancies: IVacancies[]) => {
       this.allVacancies.push(...vacancies);
+      // @ts-ignore
       this.sortedVacancies.push(...this.getMostRecentData(this.allVacancies));
       this.dataSource = new MatTableDataSource(this.sortedVacancies);
       this.dataSource.paginator = this.paginator;
