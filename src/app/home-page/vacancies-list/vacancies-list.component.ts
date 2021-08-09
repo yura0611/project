@@ -1,12 +1,11 @@
 import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
-import {MatPaginator} from "@angular/material/paginator";
-import {MatSort} from "@angular/material/sort";
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
 import { Router } from '@angular/router';
-import {MatTable, MatTableDataSource} from "@angular/material/table";
-import {HomePageService} from "../shared/home-page.service";
-import {IVacancies} from "../../vacancies/shared/vacancies-interface";
-import {VacanciesService} from "../../vacancies/shared/vacancies.service";
-import {VacanciesTableItem} from "../../vacancies/shared/vacancies.models";
+import {MatTable, MatTableDataSource} from '@angular/material/table';
+import {HomePageService} from '../shared/home-page.service';
+import {IVacancies} from '../../app-shared/interfaces/IVacancies';
+import {VacanciesService} from '../../vacancies/shared/vacancies.service';
 
 
 @Component({
@@ -41,7 +40,7 @@ export class VacanciesListComponent implements OnInit {
     });
   }
 
-  getMostRecentData(data){
+  getMostRecentData(data): object{
     return data.sort((a, b) => {
       return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     });
@@ -54,7 +53,7 @@ export class VacanciesListComponent implements OnInit {
   }
 
 
-  getInfo(id){
+  getInfo(id): void{
     this.router.navigate([`/vacancy-info/${id}`]);
   }
 

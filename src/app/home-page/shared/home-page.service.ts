@@ -3,8 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {tap} from 'rxjs/operators';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {IVacancies} from '../../vacancies/shared/vacancies-interface';
-
+import {IVacancies} from '../../app-shared/interfaces/IVacancies';
 
 
 @Injectable({providedIn: 'root'})

@@ -4,7 +4,8 @@ import { VacanciesService} from '../shared/vacancies.service';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTable, MatTableDataSource} from '@angular/material/table';
-import {VacanciesTableItem} from '../shared/vacancies.models';
+import {VacanciesTableItem} from '../../app-shared/interfaces/IVacanciesTableItem';
+
 
 @Component({
   selector: 'app-vacancies-table',
@@ -46,7 +47,7 @@ export class VacanciesTableComponent implements OnInit {
    );
   }
 
-  getInfo(id){
+  getInfo(id): void{
     this.router.navigate([`/vacancy-info/${id}`]);
   }
 
