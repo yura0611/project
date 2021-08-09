@@ -2,7 +2,7 @@ import {AfterViewInit, Component, Inject, OnInit, Optional} from '@angular/core'
 import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
 import {VacanciesService} from "../shared/vacancies.service";
 import {tap} from "rxjs/operators";
-import {PaginationService} from "../../pagination.service";
+import {PaginationService} from "../../app-shared/pagination.service";
 import {AnswerModalService} from "./shared/answer-modal.service";
 import {IEvaluationProcess} from "../../app-shared/interfaces/IEvaluationProcess";
 import {FormControl, FormGroup, Validators} from "@angular/forms";

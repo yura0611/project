@@ -27,7 +27,7 @@ import { AnswerEvaluateProcessModalComponent } from './vacancies/answer-evaluate
 import { SetReviewerModalComponent } from './vacancies/vacancies-info/set-reviewer-modal/set-reviewer-modal.component';
 import { VacanciesEditComponent } from './vacancies/vacancies-edit/vacancies-edit.component';
 import {Constants} from './constants/constants';
-import {ConvertTimePipe} from "./convertTime.pipe";
+import {ConvertTimePipe} from "./app-shared/convertTime.pipe";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatBadgeModule} from "@angular/material/badge";
 
