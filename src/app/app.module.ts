@@ -69,7 +69,7 @@ import { AnswerPageComponent } from './answer-page/answer-page.component';
   providers: [
     CookieService,
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
-    Constants
+    Constants,
   ],
     exports: [
     ],

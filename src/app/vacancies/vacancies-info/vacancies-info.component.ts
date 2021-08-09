@@ -5,7 +5,8 @@ import {MatDialog} from '@angular/material/dialog';
 import {VacanciesInviteModalComponent} from '../vacancies-invite-modal/vacancies-invite-modal.component';
 import {Router} from '@angular/router';
 import {Constants} from '../../constants/constants';
-
+import {ActivatedRoute} from '@angular/router';
+import {tap} from 'rxjs/operators';
 
 
 @Component({
@@ -15,20 +16,25 @@ import {Constants} from '../../constants/constants';
 })
 export class VacanciesInfoComponent implements OnInit {
   @ViewChild('child') child: ApplicationsTableComponent;
-  message: string;
+  title;
+  type;
+  status;
+  description;
+  questions;
   name = 'Angular';
-  showMore = false;
   text = '';
-  percentage = 0;
   completed = 0;
   applications = 0;
   time;
+  id;
+  length;
 
 
   constructor(public vacanciesService: VacanciesService,
               public dialog: MatDialog,
               public router: Router,
-              private constants: Constants) {
+              private constants: Constants,
+              private route: ActivatedRoute) {
 
   }
 
@@ -46,19 +52,32 @@ export class VacanciesInfoComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.id = this.route.snapshot.params['id'];
     const desc = 'description';
-    const date = 'createdAt';
+    this.vacanciesService.getVacancy(this.id)
+      .pipe(
+        tap(vacancy => {
+          this.title = vacancy.title;
+          this.status = vacancy.status;
+          this.type = vacancy.type;
+          this.description = vacancy.description;
+          this.time = vacancy.createdAt;
+          this.length = this.description.length;
+          this.questions = vacancy.questions;
+          return '';
+        })
+      )
+      .subscribe();
+
     this.vacanciesService.candidateSubject.subscribe();
     this.vacanciesService.candidateSubject.next(false);
-    this.message =  this.vacanciesService.getMessage();
-    this.text = this.message[desc];
-    this.time =  Date.parse(this.message[date]);
+    this.time =  Date.parse(this.time);
   }
 
 
 
-  editVacancy(): void{
-    this.router.navigate(['/vacancy-edit']);
+  editVacancy(id): void{
+    this.router.navigate([`/vacancy-edit/${id}`]);
   }
 
   vacancyDelete(id): void{
@@ -73,8 +92,12 @@ export class VacanciesInfoComponent implements OnInit {
     this.vacanciesService.removeSelectedRow();
   }
 
-  changeStatus(status): void {
-    this.vacanciesService.editStatus(status);
+  changeStatus(id): void {
+    this.vacanciesService.editStatus(id);
+  }
+
+  getAvgScore(): number{
+    return this.vacanciesService.percentage;
   }
 
 

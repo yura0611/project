@@ -1,5 +1,4 @@
 .vacancies-list-block_title {
-  font-family: Raleway, sans-serif;
   font-size: 24px;
   font-weight: 800;
   font-stretch: normal;
@@ -33,4 +32,58 @@ th.cdk-column-status, th.cdk-column-avg-score, th.cdk-column-type, th.cdk-column
   padding: 2px 4px;
   color: #ffffff;
   border-radius: 2px;
+}
+.cell-active {
+  width: 39px;
+  height: 15px;
+  padding: 2px 4px;
+  border-radius: 2px;
+  background-color: #00b2a9;
+}
+
+.cell-closed {
+  width: 43px;
+  height: 17px;
+  padding: 2px 4px;
+  border-radius: 2px;
+  background-color: #4a4a4a;
+}
+
+.mat-header-cell {
+  font-size: 11px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #101820;
+}
+
+.mat-cell:nth-child(3) {
+  width: 31px;
+  height: 13px;
+  font-size: 11px;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+}
+
+
+.customWidthClass{
+  flex: 0 0 75px;
+}
+
+
+.mat-row:hover .hidden {
+  visibility: visible;
+}
+
+.mat-row:hover {
+  background-color: rgba(0, 118, 114, 0.1);
+}
+
+.hidden {
+  visibility: hidden;
 }
