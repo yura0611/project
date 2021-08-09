@@ -3,7 +3,8 @@ class Patterns {
   public regexOnlyNumbers
   constructor() {
     // This patter validate only numbers and letters
-  this.regexOnlyAlphaNumeric = /^[^\s].*[\w\d][^\s]$/;
+    // without white spaces on start/end of string
+  this.regexOnlyAlphaNumeric = /^[^\s]+(\s+[^\s]+)*$/;
     // This pattern validate only number
   this.regexOnlyNumbers = /^[1-9][0-9]*$/;
   }
