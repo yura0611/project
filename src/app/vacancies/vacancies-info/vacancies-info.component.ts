@@ -22,7 +22,6 @@ export class VacanciesInfoComponent implements OnInit {
   description;
   questions;
   name = 'Angular';
-  showMore = false;
   text = '';
   completed = 0;
   applications = 0;
@@ -79,7 +78,6 @@ export class VacanciesInfoComponent implements OnInit {
 
   editVacancy(id): void{
     this.router.navigate([`/vacancy-edit/${id}`]);
-    console.log(this.id);
   }
 
   vacancyDelete(id): void{
@@ -102,11 +100,6 @@ export class VacanciesInfoComponent implements OnInit {
     return this.vacanciesService.percentage;
   }
 
-  // checkLength(length): boolean{
-  //   if ( length > 150){
-  //     return true;
-  //   }
-  // }
 
 
 }

@@ -40,8 +40,11 @@ export class VacanciesEditComponent implements OnInit {
   }
 
   vacancyEdit(object): void{
-    this.editedVacancy = Object.assign({}, this.vacancy, {title: this.title, type: this.type, description: this.description});
+    this.editedVacancy = Object.assign({}, this.vacancy, {
+      title: this.title,
+      type: this.type,
+      description: this.description,
+      questions: this.questions});
     this.vacanciesService.editVacancy(this.editedVacancy);
   }
-
 }

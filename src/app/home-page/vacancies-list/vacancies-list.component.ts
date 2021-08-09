@@ -3,10 +3,10 @@ import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import { Router } from '@angular/router';
 import {MatTable, MatTableDataSource} from "@angular/material/table";
-import {VacanciesTableItem} from "../../vacancies/vacancies-table/vacancies-table-datasource";
 import {HomePageService} from "../shared/home-page.service";
 import {IVacancies} from "../../vacancies/shared/vacancies-interface";
 import {VacanciesService} from "../../vacancies/shared/vacancies.service";
+import {VacanciesTableItem} from "../../vacancies/shared/vacancies.models";
 
 
 @Component({
@@ -20,8 +20,9 @@ export class VacanciesListComponent implements OnInit {
   @ViewChild(MatSort, {static: false}) sort: MatSort;
   @ViewChild(MatTable) table!: MatTable<VacanciesTableItem>;
   dataSource;
-  displayedColumns = ['title', 'type', 'status', 'avg-score', 'createdAt','arrow'];
+  displayedColumns = ['title', 'type', 'status', 'avg-score', 'createdAt', 'arrow'];
   allVacancies: IVacancies[] = [];
+  sortedVacancies: IVacancies[] = [];
 
   constructor(
     private homeService: HomePageService,
@@ -33,13 +34,21 @@ export class VacanciesListComponent implements OnInit {
 
   ngOnInit(): void {
     this.homeService.getAllVacancies().subscribe((vacancies: IVacancies[]) => {
-      this.allVacancies.push(...vacancies)
-      this.dataSource = new MatTableDataSource(this.allVacancies)
+      this.allVacancies.push(...vacancies);
+      this.sortedVacancies.push(...this.getMostRecentData(this.allVacancies));
+      this.dataSource = new MatTableDataSource(this.sortedVacancies);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-
-    })
+    });
   }
+
+  getMostRecentData(data){
+    return data.sort((a, b) => {
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    });
+  }
+
+
 
   getAvgScore(): number{
     return this.vacancyService.percentage;

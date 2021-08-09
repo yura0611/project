@@ -1,5 +1,6 @@
-import { Component,  OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { VacanciesService } from '../../shared/vacancies.service';
+import {EvaluationService} from '../../shared/evaluation.service';
 
 @Component({
   selector: 'app-applications-table',
@@ -7,10 +8,11 @@ import { VacanciesService } from '../../shared/vacancies.service';
   styleUrls: ['./applications-table.component.scss']
 })
 export class ApplicationsTableComponent implements OnInit {
-
+  @Input() vacancyId: string;
 
   constructor(
-    public vacancyTableService: VacanciesService) {}
+    public vacancyTableService: VacanciesService,
+    public  evaluationService: EvaluationService) {}
 
   displayedColumns = ['select', 'candidate', 'status', 'score', 'reviewer', 'invited', 'arrow'];
 
@@ -19,6 +21,7 @@ export class ApplicationsTableComponent implements OnInit {
     this.vacancyTableService.initMaterialTable();
     this.vacancyTableService.dataSubject.next(this.vacancyTableService.dataSource.data.length);
     this.vacancyTableService.dataSubject.subscribe();
+    this.getEvaluations(this.vacancyId);
   }
 
   createReviwerModal(): void{
@@ -44,6 +47,12 @@ export class ApplicationsTableComponent implements OnInit {
   getDataSource(): void{
     return this.vacancyTableService.dataSource;
   }
+
+  getEvaluations(id): void{
+    this.evaluationService.getAllEvaluations(id);
+  }
+
+
 
 }
 

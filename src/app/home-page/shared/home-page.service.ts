@@ -1,9 +1,9 @@
-import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
-import {environment} from "../../../environments/environment";
-import {tap} from "rxjs/operators";
-import {BehaviorSubject} from "rxjs";
-import {IVacancies} from "../../vacancies/shared/vacancies-interface";
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../environments/environment';
+import {tap} from 'rxjs/operators';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {IVacancies} from '../../vacancies/shared/vacancies-interface';
 
 
 
@@ -14,9 +14,9 @@ export class HomePageService {
   constructor(private http: HttpClient) {
   }
 
-  getAllVacancies() {
+  getAllVacancies(): Observable<any>{
     return this.http.get<IVacancies[]>(`${environment.API_URL}vacancy`).pipe(
-      tap(el => this.activeVacancySubject.next(el.filter(el => el.status === 'Active').length))
-    )
+      tap(el => this.activeVacancySubject.next(el.filter(el => el.status === 'Active').length ))
+    );
   }
 }

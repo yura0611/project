@@ -13,8 +13,7 @@
     </button>
   </div>
     <div class="vacancy-description">
-        {{(showMore) ? description : description  | slice:0:150 }} <span *ngIf="!showMore">... &#160;</span>
-        <button class="transparent" *ngIf="!showMore" (click)="showMore=true">view more</button>
+      {{description}}
         </div>
     <div class="mat-cards">
     <mat-card>
@@ -24,7 +23,7 @@
          <mat-card-content>
           <div class="container-card-content">{{status |  titlecase}}
 
-            <button class="btns" (click)="changeStatus(id)">CLOSE</button>
+            <button class="btns" (click)="changeStatus(id)">{{ status === 'Active' ? 'CLOSE' : 'RE-OPEN'}}</button>
                 </div>
       </mat-card-content>   </mat-card>
       <mat-card>
@@ -46,7 +45,7 @@
             <mat-card-title>Opened</mat-card-title>
           </mat-card-header>
         <mat-card-content>
-       <span> {{ time | date  }} </span>
+       <span> {{ time | date: 'd MMM y'  }} </span>
       </mat-card-content></mat-card>
      </div>
      <div class="content-title">
@@ -76,6 +75,6 @@
          </div>
        </a>
      </div>
-     <app-applications-table></app-applications-table>
+     <app-applications-table [vacancyId]="id"></app-applications-table>
 
 
