@@ -29,8 +29,8 @@ export class ApplicationsTableComponent implements OnInit {
     this.vacancyTableService.selection.toggle(row);
   }
 
-  isSelected(row): void{
-    this.vacancyTableService.selection.isSelected(row);
+  isSelected(row) {
+   return !!this.vacancyTableService.selection.isSelected(row);
   }
 
   changeSubject(): void{
@@ -41,7 +41,7 @@ export class ApplicationsTableComponent implements OnInit {
     return this.vacancyTableService.dataSubject.getValue();
   }
 
-  getDataSource(): void{
+  get getDataSource() {
     return this.vacancyTableService.dataSource;
   }
 
