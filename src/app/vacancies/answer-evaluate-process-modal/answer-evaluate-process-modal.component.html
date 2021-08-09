@@ -3,22 +3,22 @@
   <div class="clear-icon_block">
     <mat-icon class="clear" (click)="closeModal()">clear</mat-icon>
   </div>
-  <h1>Questions {{currentItem}}/20</h1>
+  <h1>Questions {{currentPosition$ | async}}/20</h1>
 </div>
-<div class="question_block">
+<div class="question_block" *ngIf="(currentQuestion$ | async) as currentQuestion ">
   <div class="question_block-title-description">
     <div class="title">
-      <p>{{currentQuestion[currentItem]?.title}} </p>
+      <p>{{currentQuestion.title}} </p>
       <div>
-        {{currentQuestion[currentItem]?.maxLength * 30 | convertTime}}
+        {{currentQuestion.maxLength | convertTime}}
       </div>
     </div>
     <div class="description">
-      <p>{{currentQuestion[currentItem]?.description}}</p>
+      <p>{{currentQuestion.description}}</p>
     </div>
   </div>
   <ul>
-      <li *ngFor="let topics of currentQuestion[currentItem]?.topics" class="topics">{{topics}}</li>
+      <li *ngFor="let topics of currentQuestion.topics" class="topics">{{topics}}</li>
   </ul>
 
 </div>
@@ -27,9 +27,15 @@
   <div class="answer_block-title">
     <p class="title">Answer</p>
   </div>
-  <form [formGroup]="answerForm">
+  <form>
     <div class="answer_block-content">
-      <textarea class="given_answer" name='answer' rows="10" formControlName="givenAnswer"></textarea>
+      <textarea
+                #answer
+                [value]="(currentAnswerValue$ | async)"
+                class="given_answer"
+                name='answer'
+                rows="10"
+                ></textarea>
     </div>
   </form>
 </div>

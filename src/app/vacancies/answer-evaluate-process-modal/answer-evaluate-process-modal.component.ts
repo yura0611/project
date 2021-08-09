@@ -1,59 +1,88 @@
-import {AfterViewInit, Component, Inject, OnInit, Optional} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit, Optional, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
 import {VacanciesService} from "../shared/vacancies.service";
-import {tap} from "rxjs/operators";
-import {PaginationService} from "../../app-shared/pagination.service";
-import {AnswerModalService} from "./shared/answer-modal.service";
-import {IEvaluationProcess} from "../../app-shared/interfaces/IEvaluationProcess";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {patterns} from "../../app-shared/regexPatterns/patterns";
+import {debounceTime, distinctUntilChanged, filter, map, takeWhile, tap} from "rxjs/operators";
+import {AnswerProcessService} from "./shared/answer-process.service";
+import {combineLatest, fromEvent} from "rxjs";
 
 @Component({
   selector: 'app-answer-evaluate-process-modal',
   templateUrl: './answer-evaluate-process-modal.component.html',
   styleUrls: ['./answer-evaluate-process-modal.component.scss']
 })
-export class AnswerEvaluateProcessModalComponent implements OnInit, AfterViewInit {
-
-  currentQuestion = [];
-  currentItem = 0;
-  answerForm: FormGroup;
+export class AnswerEvaluateProcessModalComponent implements
+  OnInit,
+  AfterViewInit,
+  OnDestroy
+{
+  @ViewChild('answer') answer: ElementRef;
+  questionList$ = this.answerProcessService.questionList$;
+  currentQuestion$ = this.answerProcessService.currentQuestion$;
+  currentPosition$ = this.initCurrentPosition();
+  currentAnswer$ = this.answerProcessService.currentAnswer$;
+  currentAnswerValue$ = this.currentAnswer$.pipe(
+    filter(data => !!data),
+    map(answer => {
+      if (answer.answer) {
+        return answer.answer
+      } else {
+        this.answer.nativeElement.value = ''
+        return ''
+      }
+    })
+  )
+  aliveSubscription = true;
   constructor(@Optional() @Inject(MAT_DIALOG_DATA) public data: any,
               public dialog: MatDialog,
               private vacancyService: VacanciesService,
-              private paginationService: PaginationService,
-              private answerModalService: AnswerModalService) { }
+              private answerProcessService: AnswerProcessService) { }
 
   ngOnInit() {
-     this.paginationService.itemSubject.pipe(
-      tap(value => this.currentItem = value)
+    this.answerProcessService.getVacancy().pipe(
     ).subscribe()
-    this.answerModalService.getVacancy().pipe(
-      tap((vacancyData: IEvaluationProcess) => this.currentQuestion = vacancyData.vacancy.questions),
-    ).subscribe()
-
-    this.answerForm = new FormGroup({
-      'givenAnswer': new FormControl(null,
-        [Validators.pattern(patterns.regexOnlyAlphaNumeric)])
-    })
-
   }
 
   closeModal() {
-    this.answerModalService.onClose()
+    this.answerProcessService.onClose()
   }
 
   nextItem() {
-    this.paginationService.next(this.currentQuestion)
-
+    this.answerProcessService.nextQuestion()
   }
 
   previousItem() {
-    this.paginationService.previous(this.currentQuestion)
+    this.answerProcessService.previousQuestion()
 
   }
 
+  initCurrentPosition() {
+    return combineLatest(this.questionList$, this.currentQuestion$).pipe(
+      filter(obs => obs[0] && obs[1]),
+      map(value => {
+        const questionList = value[0];
+        const currentQuestion = value[1];
+        const index = questionList.findIndex(el => el.questionId === currentQuestion.questionId);
+        return index + 1;
+      })
+    )
+  }
+
+  initTextArea() {
+    fromEvent(this.answer.nativeElement, 'input').pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(() => this.answer.nativeElement.value),
+      tap(value => this.answerProcessService.updateAnswer(value)),
+      takeWhile(() => this.aliveSubscription)
+    ).subscribe()
+  }
+
+  ngOnDestroy() {
+    this.aliveSubscription = false;
+  }
+
   ngAfterViewInit() {
+    this.initTextArea()
   }
 
 

@@ -30,6 +30,7 @@ import {Constants} from './constants/constants';
 import {ConvertTimePipe} from "./app-shared/convertTime.pipe";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatBadgeModule} from "@angular/material/badge";
+import { AnswerPageComponent } from './answer-page/answer-page.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import {MatBadgeModule} from "@angular/material/badge";
     SetReviewerModalComponent,
     VacanciesEditComponent,
     ConvertTimePipe,
+    AnswerPageComponent,
   ],
   imports: [
     BrowserModule,

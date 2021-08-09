@@ -1,5 +1,5 @@
 <div class="example-container mat-elevation-z8">
-  <mat-table #table [dataSource]="getDataSource()"  >
+  <mat-table #table [dataSource]="getDataSource"  >
 
     <ng-container matColumnDef="SELECT">
       <mat-header-cell *matHeaderCellDef>
@@ -45,9 +45,11 @@
 
     <ng-container matColumnDef="INVITED">
       <mat-header-cell *matHeaderCellDef> INVITED </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.invited}} </mat-cell>
+      <mat-cell *matCellDef="let element" class="arrow_right">
+        {{element.invited}}
+        <mat-icon class="arrow" [routerLink]="['/answer']" [queryParams]="{candidate: element.candidate}">arrow_forward</mat-icon>
+      </mat-cell>
     </ng-container>
-
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"
              (click)="toggle(row)">
