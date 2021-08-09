@@ -33,7 +33,6 @@ export class VacanciesListComponent implements OnInit {
   ngOnInit(): void {
     this.homeService.getAllVacancies().subscribe((vacancies: IVacancies[]) => {
       this.allVacancies.push(...vacancies);
-      // @ts-ignore
       this.sortedVacancies.push(...this.getMostRecentData(this.allVacancies));
       this.dataSource = new MatTableDataSource(this.sortedVacancies);
       this.dataSource.paginator = this.paginator;
@@ -41,7 +40,7 @@ export class VacanciesListComponent implements OnInit {
     });
   }
 
-  getMostRecentData(data): object{
+  getMostRecentData(data){
     return data.sort((a, b) => {
       return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     });
