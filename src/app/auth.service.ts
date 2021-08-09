@@ -40,7 +40,6 @@ export class AuthService {
   public sendToken(userData) {
     return this.http.post<any>(`${environment.API_URL}user/login`, {token: userData.id_token})
       .pipe(
-        tap(data => console.log(data)),
         map(resp => resp.token),
         tap(token => this.setToken((token))),
       )

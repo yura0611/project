@@ -19,7 +19,7 @@
           <p [ngClass]="{'dot': question.title.length >= 30 }" style="width: 40rem;">{{question.title}}</p>
           <p class="avg_time">{{question.maxLength}}</p>
         </div>
-        <div class="question-list_item-topics" style="display: inline;">
+        <div class="question-list_item-topics">
           <ul>
               <li *ngFor="let topic of question.topics" ><a>{{topic}}</a></li>
           </ul>

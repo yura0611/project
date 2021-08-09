@@ -9,23 +9,19 @@ export class PaginationService {
   next(currentQuestion) {
     if (this.currentItem >= currentQuestion.length - 1) {
       this.currentItem = 0
-      this.itemSubject.next(this.currentItem)
     } else {
       this.currentItem++
-      this.itemSubject.next(this.currentItem)
     }
-
+    this.itemSubject.next(this.currentItem)
   }
 
   previous(currentQuestion) {
     if (this.currentItem < 1) {
       this.currentItem = currentQuestion.length - 1
-     this.itemSubject.next(this.currentItem)
     } else {
       this.currentItem--
-      this.itemSubject.next(this.currentItem)
     }
-
+    this.itemSubject.next(this.currentItem)
   }
 
 }

@@ -75,8 +75,6 @@ app-questions-list {
           justify-content: space-between;
         }
         .question-list_item-description {
-          //display: flex;
-          //justify-content: space-between;
           width: 40rem;
           float: left;
           p {
@@ -102,6 +100,7 @@ app-questions-list {
 
     .question-list_item-topics {
       margin: 10px 0;
+      display: inline;
       ul {
         list-style-type: none;
         padding-left: 0;
