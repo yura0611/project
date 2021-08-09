@@ -1,5 +1,5 @@
 app-questions-list {
-  width: 100%;
+  width: 70%;
 }
 .question-list_block {
   box-sizing: border-box;
@@ -33,12 +33,13 @@ app-questions-list {
     .question-list_content-block {
       width: 100%;
       .question-list_item {
-        padding: 20px 15px 0 15px;
+        padding: 20px 15px 20px 15px;
         font-family: OpenSans, serif;
+        position: relative;
         .question-list_item-title,
         .question-list_item-description,
         .question-list_item-topics {
-          margin-right: 10px;
+          margin-right: 5px;
         }
         .question-list_item-title {
           p {
@@ -54,6 +55,14 @@ app-questions-list {
         .question-list_link {
           font-size: 1rem !important;
           cursor: pointer !important;
+          margin-bottom: 5px;
+          position: absolute;
+          right: 8px;
+          top: 80px;
+          display: inline;
+        }
+        .question-list_link:last-child {
+          margin-top: 20px;
         }
         &:hover  {
           background-color: rgba(0, 118, 114, 0.1);
@@ -66,8 +75,8 @@ app-questions-list {
           justify-content: space-between;
         }
         .question-list_item-description {
-          display: flex;
-          justify-content: space-between;
+          width: 40rem;
+          float: left;
           p {
             font-size: 0.9rem;
             font-weight: normal;
@@ -91,6 +100,7 @@ app-questions-list {
 
     .question-list_item-topics {
       margin: 10px 0;
+      display: inline;
       ul {
         list-style-type: none;
         padding-left: 0;
@@ -110,10 +120,11 @@ app-questions-list {
 }
 
 .dot {
-  text-overflow: ellipsis;
-  overflow: hidden;
+  display: inline-block;
+  width: 40rem;
   white-space: nowrap;
-  width: 90%;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
 }
 
 .create-new-question {

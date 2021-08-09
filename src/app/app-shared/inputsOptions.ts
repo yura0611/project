@@ -5,4 +5,4 @@
   }
 }
 
-export const options = new InputsOptions('200', '800');
+export const options = new InputsOptions(200, 800);

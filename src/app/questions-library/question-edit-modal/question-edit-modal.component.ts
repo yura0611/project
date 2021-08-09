@@ -10,8 +10,10 @@ import {
 } from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
-import {IQuestion, QuestionService} from '../shared/question.service';
-import {options} from "../../inputsOptions";
+import {QuestionService} from '../shared/question.service';
+import {options} from "../../app-shared/inputsOptions";
+import {IQuestion} from "../../app-shared/interfaces/IQuestions";
+import {patterns} from "../../app-shared/regexPatterns/patterns";
 
 @Component({
   selector: 'app-question-edit-modal',
@@ -22,8 +24,6 @@ import {options} from "../../inputsOptions";
 export class QuestionEditModalComponent implements OnInit {
   @ViewChild('expandSelect') select: ElementRef;
   @ViewChildren('element') checkBoxInput: QueryList<ElementRef>;
-  // This pattern validate only number
-  regexPattern = /^[1-9][0-9]*$/;
   availableTopics: string[];
   editModal: FormGroup;
   editedQuestion: IQuestion;
@@ -38,10 +38,12 @@ export class QuestionEditModalComponent implements OnInit {
     this.availableTopics = this.questionService.availableTopics;
     this.editModal = new FormGroup({
       'title': new FormControl(this.data.question.title, [Validators.required, Validators.max(250)]),
-      'description': new FormControl(this.data.question.description, [Validators.required, Validators.max(800)]),
+      'description': new FormControl(this.data.question.description,
+        [Validators.required, Validators.max(800), Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
       'topics': new FormArray(this.data.question.topics.map(el => new FormControl(el)), Validators.required),
       'type': new FormControl(this.data.question.type, Validators.required),
-      'maxLength': new FormControl(this.data.question.maxLength, Validators.pattern(this.regexPattern))
+      'maxLength': new FormControl(this.data.question.maxLength,
+        [Validators.max(1000), Validators.pattern(patterns.regexOnlyNumbers)])
     });
 
   }

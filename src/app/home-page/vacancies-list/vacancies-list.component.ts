@@ -1,10 +1,10 @@
 import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
-import {MatTable, MatTableDataSource} from "@angular/material/table";
-import {VacanciesTableItem} from "../../vacancies/vacancies-table/vacancies-table-datasource";
+import {MatTableDataSource} from "@angular/material/table";
 import {HomePageService} from "../shared/home-page.service";
-import {IVacancies} from "../../vacancies/shared/vacancies-interface";
+import {IVacancies} from "../../app-shared/interfaces/IVacancies";
+
 
 @Component({
   selector: 'app-vacancies-list',
@@ -15,7 +15,6 @@ import {IVacancies} from "../../vacancies/shared/vacancies-interface";
 export class VacanciesListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
-  @ViewChild(MatTable) table!: MatTable<VacanciesTableItem>;
   dataSource;
   displayedColumns = ['title', 'type', 'status', 'avg-score', 'createdAt'];
   allVacancies: IVacancies[] = [];

@@ -21,11 +21,15 @@ import {ApplicationsTableComponent} from './vacancies/vacancies-info/application
 import {VacanciesInviteModalComponent} from './vacancies/vacancies-invite-modal/vacancies-invite-modal.component';
 import {TokenInterceptor} from './app.interceptor';
 import {VacanciesViewModalComponent} from './vacancies/vacancies-create/vacancies-view-modal/vacancies-view-modal.component';
-import {CommonModule} from "@angular/common";
+import {CommonModule} from '@angular/common';
 import {VacanciesListComponent} from './home-page/vacancies-list/vacancies-list.component';
-import {SetReviewerModalComponent} from './vacancies/vacancies-info/set-reviewer-modal/set-reviewer-modal.component';
-import {VacanciesEditComponent} from './vacancies/vacancies-edit/vacancies-edit.component';
+import { AnswerEvaluateProcessModalComponent } from './vacancies/answer-evaluate-process-modal/answer-evaluate-process-modal.component';
+import { SetReviewerModalComponent } from './vacancies/vacancies-info/set-reviewer-modal/set-reviewer-modal.component';
+import { VacanciesEditComponent } from './vacancies/vacancies-edit/vacancies-edit.component';
 import {Constants} from './constants/constants';
+import {ConvertTimePipe} from "./app-shared/convertTime.pipe";
+import {MatExpansionModule} from "@angular/material/expansion";
+import {MatBadgeModule} from "@angular/material/badge";
 
 @NgModule({
   declarations: [
@@ -42,8 +46,10 @@ import {Constants} from './constants/constants';
     VacanciesInviteModalComponent,
     VacanciesViewModalComponent,
     VacanciesListComponent,
+    AnswerEvaluateProcessModalComponent,
     SetReviewerModalComponent,
     VacanciesEditComponent,
+    ConvertTimePipe,
   ],
   imports: [
     BrowserModule,
@@ -55,13 +61,16 @@ import {Constants} from './constants/constants';
     HttpClientModule,
     CommonModule,
     FormsModule,
+    MatExpansionModule,
+    MatBadgeModule,
   ],
   providers: [
     CookieService,
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
     Constants
   ],
-  exports: [],
+    exports: [
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

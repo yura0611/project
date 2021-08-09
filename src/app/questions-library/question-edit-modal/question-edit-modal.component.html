@@ -37,7 +37,9 @@
     <div class="edit-modal-form_max-length">
       <label for="maxlength">Max length</label>
       <br>
-      <input type="number" id="maxlength" name="maxLength" formControlName="maxLength" required min="0">
+      <input #maxLength type="number" id="maxlength" name="maxLength" formControlName="maxLength" required>
+      <span *ngIf="maxLength.value > 1000">Max value is 1000</span>
+      <span *ngIf="maxLength.value < 1 && editModal.get('maxLength').touched">Please enter value greater then 1</span>
     </div>
   </div>
 

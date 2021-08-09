@@ -25,15 +25,12 @@
           </ul>
         </div>
         <div class="question-list_item-description">
-          <div style="width: 60rem">
+          <div class="description">
             <p [ngClass]="{'dot': question.description.length >= 50 }">{{question.description}}</p>
           </div>
-
-          <div class="question-list_item-description-links">
-            <mat-icon (click)="openViewQuestionModal(question._id)" class="question-list_link">trending_flat</mat-icon>
-            <mat-icon (click)="openEditModal(question._id)" class="question-list_link">create</mat-icon>
-          </div>
         </div>
+          <mat-icon (click)="openViewQuestionModal(question._id)" class="question-list_link">trending_flat</mat-icon>
+          <mat-icon (click)="openEditModal(question._id)" class="question-list_link">create</mat-icon>
 
       </div>
     </div>

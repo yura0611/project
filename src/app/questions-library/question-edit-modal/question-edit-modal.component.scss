@@ -123,3 +123,10 @@
   height: 0 !important;
 }
 
+input.ng-dirty.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+input, textarea, select {
+  outline: none;
+}

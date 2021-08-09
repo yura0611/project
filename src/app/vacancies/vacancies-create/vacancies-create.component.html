@@ -15,7 +15,7 @@
           <div class="vacancies-form_type">
             <label for="type">Type</label> <br>
             <select name="type" id="type" formControlName="type">
-              <option hidden selected style="color: gray" value="">Choose your type</option>
+              <option hidden selected value="">Choose your type</option>
               <option value="web">Web</option>
               <option value="management">Management</option>
               <option value="ios">iOS</option>
@@ -34,37 +34,28 @@
 
     <div class="question_library">
       <div class="question_library-title">
-        Task Questions ({{getQuestionsArray().length}})
+        Task Questions ({{getQuestionsArray.length}})
       </div>
 
       <div class="question_library-content">
         <div class="question_library-items">
-          <div class="question_library-item" *ngFor="let question of getQuestionsArray(); let i = index;">
+          <div class="question_library-item" *ngFor="let question of getQuestionsArray; let i = index;">
 
             <div class="question_library-title-block">
 
               <span>{{question.maxLength}}</span>
 
-              <p class="title" style="margin-left: 20px;">{{question.title}}</p>
+              <p class="title">{{question.title}}</p>
             </div>
             <div class="bin">
-              <a class="vacancies-view-question_link" (click)="onDelete(i,question)">
-                <mat-icon class="delete">delete</mat-icon>
-              </a>
+                <mat-icon (click)="onDelete(i,question)" class="delete">delete</mat-icon>
             </div>
-
-            <div class="topics question_topics">
-
+            <div class="topics">
               <div>
-                <span *ngFor="let topic of question.topics">{{topic}}</span>
+                <span class="question_topics" *ngFor="let topic of question.topics">{{topic}}</span>
               </div>
-
-              <a class="vacancies-view-question_link" (click)="openViewQuestionModal(question)">
-                <img src="../../../assets/arrowRight.svg" alt="Arrow"
-                     style="width: 15px;">
-              </a>
             </div>
-
+              <mat-icon (click)="openViewQuestionModal(question)" class="vacancies-view-question_link">trending_flat</mat-icon>
           </div>
         </div>
       </div>
@@ -82,8 +73,8 @@
         <p *ngIf="!searchMode">Library questions ({{allQuestions.length}})</p>
         <input [(ngModel)]="inputSearchValue" class="search-input" *ngIf="searchMode" type="text" name="search">
         <div>
-          <a><img src="../../../assets/search.svg" alt="Search"></a>
-          <a (click)=" openCreateNewModal()"><img src="../../../assets/plus.svg" alt="Search"></a>
+          <mat-icon class="search">search</mat-icon>
+          <mat-icon (click)=" openCreateNewModal()" class="plus">add</mat-icon>
         </div>
       </div>
 
@@ -111,24 +102,19 @@
 
               <p class="title">{{question.title}}</p>
             </div>
-
             <div class="topics">
-
-              <div>
-                <a (click)="openEditModal(question, question._id)"><img class="pencil" src="../../../assets/pencil.svg" alt="Pencil"></a>
-                <span *ngFor="let topic of question.topics">{{topic}}</span>
+              <mat-icon (click)="openEditModal(question, question._id)" class="pencil">create</mat-icon>
+              <div class="topics_container">
+                <p *ngFor="let topic of question.topics">{{topic}}</p>
               </div>
 
-              <a class="vacancies-view-question_link" (click)="openViewQuestionModal(question)">
-                <img src="../../../assets/arrowRight.svg" alt="Arrow" style="width: 15px;">
-              </a>
+              <div>
+                <mat-icon (click)="openViewQuestionModal(question)" class="vacancies-view-question_link">trending_flat</mat-icon>
+              </div>
             </div>
-
           </div>
         </div>
       </div>
-
-
     </div>
   </div>
 </div>
