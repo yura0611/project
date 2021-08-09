@@ -50,6 +50,7 @@ import {MatBadgeModule} from "@angular/material/badge";
     SetReviewerModalComponent,
     VacanciesEditComponent,
     ConvertTimePipe,
+
   ],
   imports: [
     BrowserModule,
@@ -67,7 +68,7 @@ import {MatBadgeModule} from "@angular/material/badge";
   providers: [
     CookieService,
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
-    Constants
+    Constants,
   ],
     exports: [
     ],
