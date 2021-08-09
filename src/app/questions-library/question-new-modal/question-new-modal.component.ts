@@ -12,10 +12,10 @@ import {
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
 import {QuestionService} from '../shared/question.service';
-import {ModalService} from '../shared/modals.service';
 import {tap} from 'rxjs/operators';
 import {Subscription} from "rxjs";
-import {options} from "../../inputsOptions";
+import {options} from "../../app-shared/inputsOptions";
+import {patterns} from "../../app-shared/regexPatterns/patterns";
 
 @Component({
   selector: 'app-question-new-modal',
@@ -26,8 +26,6 @@ import {options} from "../../inputsOptions";
 export class QuestionNewModalComponent implements OnInit, OnDestroy {
   @ViewChildren('element') checkBoxInput: QueryList<ElementRef>;
   @ViewChild('expandSelect') select: ElementRef;
-  // This pattern validate only number
-  regexPattern = /^[1-9][0-9]*$/;
   availableTopics: string[];
   createNewModal: FormGroup;
   subscription: Subscription
@@ -35,19 +33,20 @@ export class QuestionNewModalComponent implements OnInit, OnDestroy {
   descriptionLength = options.descriptionLength;
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               private dialogRef: MatDialog,
-              private questionService: QuestionService,
-              public modalService: ModalService) {
+              private questionService: QuestionService) {
   }
 
   ngOnInit(): void {
     this.subscription = this.questionService.availableTopics$.subscribe(data => this.availableTopics = data);
 
     this.createNewModal = new FormGroup({
-      'title': new FormControl(null, Validators.max(250)),
-      'description': new FormControl(null, [Validators.max(800), Validators.required]),
+      'title': new FormControl(null,
+        [Validators.max(250), Validators.required, Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
+      'description': new FormControl(null,
+        [Validators.max(800), Validators.required, Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
       'topics': new FormArray([], [Validators.min(0), Validators.required]),
       'type': new FormControl(),
-      'maxLength': new FormControl(null, Validators.pattern(this.regexPattern))
+      'maxLength': new FormControl(null, [Validators.min(1),Validators.max(1000),Validators.pattern(patterns.regexOnlyNumbers)])
     });
   }
 

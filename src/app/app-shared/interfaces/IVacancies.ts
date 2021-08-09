@@ -1,9 +1,10 @@
-import {IQuestion} from "../../questions-library/shared/question.service";
+import {IQuestion} from "./IQuestions";
 
 export interface IVacancies {
   _id: string;
   author: string;
   createdAt: string;
+  editedAt: string;
   description: string;
   questions: IQuestion[];
   status: string;

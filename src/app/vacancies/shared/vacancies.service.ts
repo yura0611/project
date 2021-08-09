@@ -1,17 +1,20 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, of} from 'rxjs';
 import {SelectionModel} from '@angular/cdk/collections';
-import { MatTableDataSource } from '@angular/material/table';
-import {  tap } from 'rxjs/operators';
+import {MatTableDataSource} from '@angular/material/table';
+import {tap} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
-import { environment } from '../../../environments/environment';
+import {environment} from '../../../environments/environment';
 import {SetReviewerModalComponent} from '../vacancies-info/set-reviewer-modal/set-reviewer-modal.component';
 import {MatDialog} from '@angular/material/dialog';
 import {Constants} from '../../constants/constants';
 import {ApplicationsTableItem} from './vacancies.models';
 import {TestVacanciesTableItem} from './vacancies.models';
 
+import {IVacancies} from "../../app-shared/interfaces/IVacancies";
+import {ApplicationsTableItem} from "../../app-shared/interfaces/IApplecationsTableItem";
+import {TestVacanciesTableItem} from "../../app-shared/interfaces/ITestVacanciesTableItem";
 
 @Injectable({
   providedIn: 'root'
@@ -28,8 +31,7 @@ export class VacanciesService {
 
   private vacanciesListSubject = new BehaviorSubject([]);
   public vacanciesList$ = this.vacanciesListSubject.asObservable();
-  private vacancyListSubject = new BehaviorSubject([]);
-  private hasSelectedRow = new BehaviorSubject(false);
+
 
   vacancy = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.';
 
@@ -48,9 +50,10 @@ export class VacanciesService {
               private  constants: Constants) { }
 
 
-  getAllVacancies()  {
-    return this.http.get<any>(`${environment.API_URL}vacancy`).pipe(
-      tap(el => this.vacanciesListSubject.next(el)))
+  getAllVacancies(): void {
+    this.http.get<IVacancies[]>(`${environment.API_URL}/vacancy`).pipe(
+      tap(vacancies => this.vacanciesListSubject.next(vacancies))
+    ).subscribe();
   }
 
 

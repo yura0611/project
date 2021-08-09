@@ -50,8 +50,6 @@ export class GoogleAuthService {
         userProfileData: user.getBasicProfile()
       };
       localStorage.setItem('user-email', user.getBasicProfile().getEmail())
-      console.log(JSON.stringify(localStorage.getItem('user-email')));
-      console.log(user.getBasicProfile().getEmail())
       return this.authService.sendToken(this.userData.userAuthData).subscribe()
     } catch (e) {
     //  TODO: Implement custom error alert(error comes from google api, for example show snackbar)

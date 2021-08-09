@@ -1,8 +1,5 @@
-import { Injectable } from '@angular/core';
-import { from, Observable, of } from 'rxjs';
-import {SelectionModel} from '@angular/cdk/collections';
-import { MatTableDataSource } from '@angular/material/table';
-import {  tap } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {of} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

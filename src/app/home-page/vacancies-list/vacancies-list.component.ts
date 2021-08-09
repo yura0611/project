@@ -18,7 +18,6 @@ import {VacanciesTableItem} from "../../vacancies/shared/vacancies.models";
 export class VacanciesListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
-  @ViewChild(MatTable) table!: MatTable<VacanciesTableItem>;
   dataSource;
   displayedColumns = ['title', 'type', 'status', 'avg-score', 'createdAt', 'arrow'];
   allVacancies: IVacancies[] = [];

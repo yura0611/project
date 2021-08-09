@@ -1,25 +1,24 @@
 <div class="view-question-header">
   <div class="view-question-header_title">
-    <a (click)="onClose()">
-      <img src="../../../../assets/cross.svg" alt="Cross" style="width: 15px"/>
-    </a>
+      <div class="close">
+        <mat-icon (click)="onClose()">clear</mat-icon>
+      </div>
     <p>View question</p>
   </div>
 </div>
 <div class="view-question-content">
   <div class="view-question-content_title">
     <span>Title</span>
-    <div>{{currentQuestion.title}}</div>
+    <div class="title">{{currentQuestion.title}}</div>
   </div>
   <div class="view-question-content_description">
     <span>Description</span>
-    <div>{{currentQuestion.description}}</div>
+    <div class="description">{{currentQuestion.description}}</div>
   </div>
   <div class="view-question-content_topics">
-    <span>Topics</span>
-    <div>
-      <span class="topic-item" *ngFor="let topic of currentQuestion.topics">{{topic}}</span>
-
+    <span >Topics</span>
+    <div class="view-question-content_topics-container">
+      <p class="topic-item" *ngFor="let topic of currentQuestion.topics">{{topic}}</p>
     </div>
   </div>
   <div class="edit-modal-form_edit_btn">

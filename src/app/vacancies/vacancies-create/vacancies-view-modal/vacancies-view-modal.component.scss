@@ -35,17 +35,35 @@ app-question-view-modal {
 
 .view-question-content {
   padding: 25px 40px;
+  .view-question-content_title {
+    .title {
+      padding: 10px;
+      border-radius: 2px;
+      border: solid 2px #dddddd;
+      word-wrap: break-word;
+    }
+  }
+  .view-question-content_description {
+    .description {
+      padding: 10px;
+      border-radius: 2px;
+      border: solid 2px #dddddd;
+      word-wrap: break-word;
+    }
+  }
 
   .view-question-content_title,
   .view-question-content_description,
   .view-question-content_topics {
     margin: 20px 0;
 
-    div {
+    .view-question-content_topics-container {
       padding: 10px;
       border-radius: 2px;
       border: solid 2px #dddddd;
       word-wrap: break-word;
+      display: flex;
+      flex-wrap: wrap;
     }
 
     .topic-item {
@@ -76,4 +94,9 @@ app-question-view-modal {
       color: #ffffff;
     }
   }
+}
+
+.close {
+  cursor: pointer;
+  text-align: end;
 }
