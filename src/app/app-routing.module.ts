@@ -9,6 +9,7 @@ import {HomePageComponent} from './home-page/home-page.component';
 import {VacanciesEditComponent} from './vacancies/vacancies-edit/vacancies-edit.component';
 import {AnswerEvaluateProcessModalComponent} from "./vacancies/answer-evaluate-process-modal/answer-evaluate-process-modal.component";
 import {AnswerPageComponent} from "./answer-page/answer-page.component";
+import {AuthGuard} from "./auth.guard";
 
 const routes: Routes = [
   {path: 'sign-in', component: SignInComponent},
