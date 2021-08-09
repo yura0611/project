@@ -1,5 +1,6 @@
-import { Component,  OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { VacanciesService } from '../../shared/vacancies.service';
+import {EvaluationService} from '../../shared/evaluation.service';
 
 @Component({
   selector: 'app-applications-table',
@@ -7,12 +8,13 @@ import { VacanciesService } from '../../shared/vacancies.service';
   styleUrls: ['./applications-table.component.scss']
 })
 export class ApplicationsTableComponent implements OnInit {
-
+  @Input() vacancyId: string;
 
   constructor(
-    public vacancyTableService: VacanciesService) {}
+    public vacancyTableService: VacanciesService,
+    public  evaluationService: EvaluationService) {}
 
-  displayedColumns = ['SELECT', 'CANDIDATE', 'STATUS', 'SCORE', 'REVIEWER', 'INVITED'];
+  displayedColumns = ['select', 'candidate', 'status', 'score', 'reviewer', 'invited', 'arrow'];
 
 
   ngOnInit(): void{
@@ -44,6 +46,10 @@ export class ApplicationsTableComponent implements OnInit {
   get getDataSource() {
     return this.vacancyTableService.dataSource;
   }
+
+
+
+
 
 }
 

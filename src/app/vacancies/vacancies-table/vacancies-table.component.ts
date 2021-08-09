@@ -1,7 +1,10 @@
-import { Component, OnInit} from '@angular/core';
-
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import { VacanciesService} from '../shared/vacancies.service';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {MatTable, MatTableDataSource} from '@angular/material/table';
+import {VacanciesTableItem} from '../../app-shared/interfaces/IVacanciesTableItem';
 
 
 @Component({
@@ -10,23 +13,23 @@ import { VacanciesService} from '../shared/vacancies.service';
   styleUrls: ['./vacancies-table.component.scss']
 })
 export class VacanciesTableComponent implements OnInit {
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
+  @ViewChild(MatTable) table!: MatTable<VacanciesTableItem>;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-   displayedColumns = ['VACANCIES', 'TYPE', 'STATUS', 'NUMBER OF APPLICATIONS', 'OPENED', 'ARROW'];
-
-
-
+   displayedColumns = ['title', 'type', 'status', 'avg.score', 'createdAt', 'arrow'];
+   dataSource;
+   data;
+   length: number;
+   createdAt = 'createdAt';
+   value;
 
   constructor(private router: Router,
               private vacanciesService: VacanciesService
     ) {
+    this.dataSource = new MatTableDataSource([]);
   }
-
-  message;
-  data;
-  length: number;
-  pageIndex: number;
-  createdAt = 'createdAt';
 
 
 
@@ -36,16 +39,21 @@ export class VacanciesTableComponent implements OnInit {
   }
 
   initMaterialTable = () => {
-    this.data = this.vacanciesService.vacanciesList$;
-    this.length = this.data.length;
+   this.vacanciesService.getAllVacancies().subscribe(vacancies => {
+       this.data = new MatTableDataSource(vacancies);
+       this.data.paginator = this.paginator;
+       this.data.sort = this.sort;
+     }
+   );
+  }
+
+  getInfo(id): void{
+    this.router.navigate([`/vacancy-info/${id}`]);
   }
 
 
-
-  edit(row): void{
-    this.router.navigate(['/vacancy-info']);
-    this.message = row;
-    this.vacanciesService.setMessage(this.message);
+  getAvgScore(): number{
+    return this.vacanciesService.percentage;
   }
 
 
