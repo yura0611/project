@@ -109,14 +109,9 @@
   background-color:  #007672;
 }
 
-.mat-row:hover {
-  background-color: rgba(0, 118, 114, 0.1);
-}
-
-.hidden {
-  visibility: hidden;
-}
-
-.mat-row:hover .hidden {
-  visibility: visible;
+.arrow_right {
+  justify-content: space-between;
+  .arrow {
+    cursor: pointer;
+  }
 }

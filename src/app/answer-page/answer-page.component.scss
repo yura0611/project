@@ -1,0 +1,51 @@
+.answer_card {
+  display: flex;
+  justify-content: space-between;
+  .answer_card_content {
+    display: flex;
+    justify-content: space-between;
+    background-color: #ffffff;
+    padding: 21px 25px 22px;
+    box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.05), 0 4px 25px 0 rgba(0, 184, 178, 0.05);
+    width: 33%;
+    .answer_card_content-button button {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 2px;
+      background-color: #007672;
+      font-size: 14px;
+      font-weight: 800;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: 0.5px;
+      text-align: center;
+      color: #ffffff;
+      cursor: pointer;
+    }
+    .answer_card_content-text {
+      .number {
+        font-family: Nexa, sans-serif;
+        font-size: 24px;
+        font-weight: bold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #e0004d;
+      }
+      .text {
+        font-size: 15px;
+        font-weight: bold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #101820;
+      }
+    }
+  }
+  .answer_card_content:not(:last-child) {
+    margin-right: 10px;
+  }
+}

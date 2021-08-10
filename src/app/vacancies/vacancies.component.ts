@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {MatDialog} from "@angular/material/dialog";
 import {QuestionService} from "../questions-library/shared/question.service";
-import {AnswerModalService} from "./answer-evaluate-process-modal/shared/answer-modal.service";
+import {AnswerProcessService} from "./answer-evaluate-process-modal/shared/answer-process.service";
 import {AnswerEvaluateProcessModalComponent} from "./answer-evaluate-process-modal/answer-evaluate-process-modal.component";
 
 
@@ -16,7 +16,7 @@ export class VacanciesComponent implements OnInit {
   constructor(private router: Router,
               public dialog: MatDialog,
               private questionService: QuestionService,
-              private answerModalService: AnswerModalService ) { }
+              private answerModalService: AnswerProcessService ) { }
 
   ngOnInit(): void {
     this.questionService.questionList$.subscribe()

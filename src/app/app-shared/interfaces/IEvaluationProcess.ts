@@ -11,7 +11,9 @@ export interface IEvaluationProcess {
   };
   vacancy: IVacancies,
   answers: {
-    _id: string;
-    questionId: string;
-  }
+    questionId: string,
+    _id: string
+  },
+  _id: string,
+  status: string
 }

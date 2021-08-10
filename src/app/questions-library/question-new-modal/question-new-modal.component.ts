@@ -46,7 +46,7 @@ export class QuestionNewModalComponent implements OnInit, OnDestroy {
         [Validators.max(800), Validators.required, Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
       'topics': new FormArray([], [Validators.min(0), Validators.required]),
       'type': new FormControl(),
-      'maxLength': new FormControl(null, [Validators.min(1),Validators.max(1000),Validators.pattern(patterns.regexOnlyNumbers)])
+      'maxLength': new FormControl(null, [Validators.min(1),Validators.max(120),Validators.pattern(patterns.regexOnlyNumbers)])
     });
   }
 

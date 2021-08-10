@@ -14,14 +14,13 @@ export class ApplicationsTableComponent implements OnInit {
     public vacancyTableService: VacanciesService,
     public  evaluationService: EvaluationService) {}
 
-  displayedColumns = ['select', 'candidate', 'status', 'score', 'reviewer', 'invited', 'arrow'];
+  displayedColumns = ['select', 'candidate', 'status', 'score', 'reviewer', 'invited'];
 
 
   ngOnInit(): void{
     this.vacancyTableService.initMaterialTable();
     this.vacancyTableService.dataSubject.next(this.vacancyTableService.dataSource.data.length);
     this.vacancyTableService.dataSubject.subscribe();
-    this.getEvaluations(this.vacancyId);
   }
 
   createReviwerModal(): void{
@@ -32,8 +31,8 @@ export class ApplicationsTableComponent implements OnInit {
     this.vacancyTableService.selection.toggle(row);
   }
 
-  isSelected(row): void{
-    this.vacancyTableService.selection.isSelected(row);
+  isSelected(row) {
+   return !!this.vacancyTableService.selection.isSelected(row);
   }
 
   changeSubject(): void{
@@ -44,13 +43,11 @@ export class ApplicationsTableComponent implements OnInit {
     return this.vacancyTableService.dataSubject.getValue();
   }
 
-  getDataSource(): void{
+  getDataSource() {
     return this.vacancyTableService.dataSource;
   }
 
-  getEvaluations(id): void{
-    this.evaluationService.getAllEvaluations(id);
-  }
+
 
 
 

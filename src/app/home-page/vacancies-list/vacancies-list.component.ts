@@ -40,7 +40,7 @@ export class VacanciesListComponent implements OnInit {
     });
   }
 
-  getMostRecentData(data): object{
+  getMostRecentData(data){
     return data.sort((a, b) => {
       return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     });

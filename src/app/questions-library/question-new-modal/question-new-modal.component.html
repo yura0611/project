@@ -41,7 +41,7 @@
       <label for="maxlength">Max length</label>
       <br>
       <input #maxLength type="number" id="maxlength" name="maxLength" formControlName="maxLength" required placeholder="min" >
-      <span *ngIf="maxLength.value > 1000">Max value is 1000</span>
+      <span *ngIf="maxLength.value > 120">Max value is 120</span>
       <span *ngIf="maxLength.value < 1 && createNewModal.get('maxLength').touched">Please enter value greater then 1</span>
     </div>
   </div>

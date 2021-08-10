@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {tap} from "rxjs/operators";
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {HttpClient} from '@angular/common/http';
 
 @Injectable({
@@ -19,10 +19,6 @@ export class EvaluationService {
 
 
 
-  getAllEvaluations(id){
-      return this.http.get<any>(`${environment.API_URL}vacancy/:${id}/evaluations`).pipe()
-        .subscribe();
-  }
 
 
 

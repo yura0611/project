@@ -43,7 +43,7 @@ export class QuestionEditModalComponent implements OnInit {
       'topics': new FormArray(this.data.question.topics.map(el => new FormControl(el)), Validators.required),
       'type': new FormControl(this.data.question.type, Validators.required),
       'maxLength': new FormControl(this.data.question.maxLength,
-        [Validators.max(1000), Validators.pattern(patterns.regexOnlyNumbers)])
+        [Validators.max(120), Validators.pattern(patterns.regexOnlyNumbers)])
     });
 
   }
