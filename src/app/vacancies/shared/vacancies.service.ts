@@ -9,7 +9,7 @@ import {environment} from '../../../environments/environment';
 import {SetReviewerModalComponent} from '../vacancies-info/set-reviewer-modal/set-reviewer-modal.component';
 import {MatDialog} from '@angular/material/dialog';
 import {Constants} from '../../constants/constants';
-import {IVacancies} from '../../app-shared/interfaces/IVacancies';
+import {IVacancy} from '../../app-shared/interfaces/IVacancy';
 import {ApplicationsTableItem} from '../../app-shared/interfaces/IApplecationsTableItem';
 import {TestVacanciesTableItem} from '../../app-shared/interfaces/ITestVacanciesTableItem';
 
@@ -49,7 +49,7 @@ export class VacanciesService {
 
 
   getAllVacancies(): Observable<any>{
-    return this.http.get<IVacancies[]>(`${environment.API_URL}/vacancy`).pipe(
+    return this.http.get<IVacancy[]>(`${environment.API_URL}/vacancy`).pipe(
       tap(vacancies => this.vacanciesListSubject.next(vacancies))
     );
   }

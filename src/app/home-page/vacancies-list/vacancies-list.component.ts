@@ -4,7 +4,7 @@ import {MatSort} from '@angular/material/sort';
 import { Router } from '@angular/router';
 import {MatTable, MatTableDataSource} from '@angular/material/table';
 import {HomePageService} from '../shared/home-page.service';
-import {IVacancies} from '../../app-shared/interfaces/IVacancies';
+import {IVacancy} from '../../app-shared/interfaces/IVacancy';
 import {VacanciesService} from '../../vacancies/shared/vacancies.service';
 
 
@@ -19,8 +19,8 @@ export class VacanciesListComponent implements OnInit {
   @ViewChild(MatSort, {static: false}) sort: MatSort;
   dataSource;
   displayedColumns = ['title', 'type', 'status', 'avg-score', 'createdAt', 'arrow'];
-  allVacancies: IVacancies[] = [];
-  sortedVacancies: IVacancies[] = [];
+  allVacancies: IVacancy[] = [];
+  sortedVacancies: IVacancy[] = [];
 
   constructor(
     private homeService: HomePageService,
@@ -31,7 +31,7 @@ export class VacanciesListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.homeService.getAllVacancies().subscribe((vacancies: IVacancies[]) => {
+    this.homeService.getAllVacancies().subscribe((vacancies: IVacancy[]) => {
       this.allVacancies.push(...vacancies);
       this.sortedVacancies.push(...this.getMostRecentData(this.allVacancies));
       this.dataSource = new MatTableDataSource(this.sortedVacancies);

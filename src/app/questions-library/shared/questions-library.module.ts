@@ -9,6 +9,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
+import {QuestionModalFormComponent} from "../question-modal-form/question-modal-form.component";
 
 @NgModule({
   declarations: [QuestionsComponent, QuestionsListComponent, QuestionsFilterComponent, QuestionsListComponent],
