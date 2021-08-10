@@ -44,18 +44,11 @@
 
     <ng-container matColumnDef="invited">
       <mat-header-cell *matHeaderCellDef> INVITED </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.invited}} </mat-cell>
-    </ng-container>
-
-
-    <ng-container  matColumnDef="arrow">
-      <mat-header-cell  [ngClass]="'customWidthClass'"  *matHeaderCellDef ></mat-header-cell>
-      <mat-cell  [ngClass]="'customWidthClass'" *matCellDef="let element">
-        <button mat-icon-button class="hidden" color="black"  title="View Contact"><mat-icon>arrow_forward</mat-icon></button>
+      <mat-cell *matCellDef="let element" class="arrow_right">
+        {{element.invited}}
+        <mat-icon class="arrow" [routerLink]="['/answer']" [queryParams]="{candidate: element.candidate}">arrow_forward</mat-icon>
       </mat-cell>
     </ng-container>
-
-
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let element; columns: displayedColumns;"
              (click)="toggle(element)">

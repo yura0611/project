@@ -8,8 +8,8 @@ import {QuestionsComponent} from './questions-library/questions/questions.compon
 import {HomePageComponent} from './home-page/home-page.component';
 import {VacanciesEditComponent} from './vacancies/vacancies-edit/vacancies-edit.component';
 import {AnswerEvaluateProcessModalComponent} from "./vacancies/answer-evaluate-process-modal/answer-evaluate-process-modal.component";
-import {AuthGuard} from './auth.guard';
-
+import {AnswerPageComponent} from "./answer-page/answer-page.component";
+import {AuthGuard} from "./auth.guard";
 
 const routes: Routes = [
   {path: 'sign-in', component: SignInComponent},
@@ -22,6 +22,7 @@ const routes: Routes = [
   {path: 'vacancy-info', canActivate:[AuthGuard], component: VacanciesInfoComponent},
   {path: 'vacancy-edit', canActivate:[AuthGuard], component: VacanciesEditComponent},
   {path: 'evaluate', canActivate:[AuthGuard], component: AnswerEvaluateProcessModalComponent},
+  {path: 'answer', canActivate:[AuthGuard], component: AnswerPageComponent},
   {path: 'system-settings', redirectTo: 'home'},
 ];
 
