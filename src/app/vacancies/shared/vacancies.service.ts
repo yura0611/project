@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, of} from 'rxjs';
+import {BehaviorSubject, Observable, Subject, of} from 'rxjs';
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatTableDataSource} from '@angular/material/table';
 import {tap} from 'rxjs/operators';
@@ -26,9 +26,10 @@ export class VacanciesService {
   ];
 
 
-  private vacanciesListSubject = new BehaviorSubject([]);
+  public  vacanciesListSubject = new BehaviorSubject([]);
   public vacanciesList$ = this.vacanciesListSubject.asObservable();
-  private vacancyListSubject = new BehaviorSubject([]);
+  public  vacancyListSubject = new BehaviorSubject([]);
+  public  changedList = new Subject();
 
 
   vacancy = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.';
@@ -56,8 +57,10 @@ export class VacanciesService {
 
 
   getVacancy(id): Observable<any> {
-    return this.http.post<any>(`${environment.API_URL}vacancy/find-one`, { _id: id}).pipe(
-      tap(vacancy => this.vacancyListSubject.next(vacancy)
+    return this.http.post<IVacancies[]>(`${environment.API_URL}vacancy/find-one`, { _id: id}).pipe(
+      tap(vacancy => {
+        this.vacancyListSubject.next(vacancy);
+      }
     ));
   }
 
@@ -109,32 +112,43 @@ export class VacanciesService {
 
   ReviewerModal(): void{
     this.dialog.open(SetReviewerModalComponent, {
-      width: this.constants.modalWidth,
-      height: this.constants.modalHeight,
+      width: this.constants.modalWidhtForReviewer,
+      height: this.constants.modalHeigthForReviewer,
     });
   }
 
 
+
+
   editStatus(id: string): void{
-    this.http.post(`${environment.API_URL}vacancy/status`, {
+    this.http.post<IVacancies[]>(`${environment.API_URL}vacancy/status`, {
     _id: id}).pipe(
       tap(el => console.log(el))
-    ).subscribe((data: TestVacanciesTableItem[]) => {
+    ).subscribe((data: IVacancies[]) => {
       this.vacanciesListSubject.next(data);
   });
   }
 
-  editVacancy(obj): void{
-    this.http.put(`${environment.API_URL}vacancy/edit`, {
+  editVacancy(obj: TestVacanciesTableItem){
+    return this.http.put<IVacancies[]>(`${environment.API_URL}vacancy/edit`, {
       _id: obj._id,
       title: obj.title,
       description: obj.description,
       type: obj.type,
     }).pipe(
       tap(data => {
-        this.vacanciesListSubject.next(obj);
+        const editedVacancy = data;
+        const vacanciesList = this.vacanciesListSubject.value;
+        this.vacancyListSubject.next(editedVacancy);
+        vacanciesList.map(vacancy => {
+          if(vacancy._id === editedVacancy['_id']){
+            return editedVacancy;
+          }
+          return vacancy;
+        })
+     this.vacanciesListSubject.next(vacanciesList);
       })
-    ).subscribe();
+    )
   }
 
 

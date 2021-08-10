@@ -1,14 +1,15 @@
 import {Component, ElementRef, OnInit, QueryList, ViewChildren, ViewEncapsulation} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
-import {QuestionService} from "../../questions-library/shared/question.service";
+import {QuestionService} from '../../questions-library/shared/question.service';
 import {VacanciesCreateService} from "../shared/vacancies-create.service";
-import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
-import {VacanciesViewModalComponent} from "./vacancies-view-modal/vacancies-view-modal.component";
-import {QuestionNewModalComponent} from "../../questions-library/question-new-modal/question-new-modal.component";
-import {QuestionEditModalComponent} from "../../questions-library/question-edit-modal/question-edit-modal.component";
-import {options} from "../../app-shared/inputsOptions";
-import {IQuestion} from "../../app-shared/interfaces/IQuestions";
-import {patterns} from "../../app-shared/regexPatterns/patterns";
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import {VacanciesViewModalComponent} from './vacancies-view-modal/vacancies-view-modal.component';
+import {QuestionNewModalComponent} from '../../questions-library/question-new-modal/question-new-modal.component';
+import {QuestionEditModalComponent} from '../../questions-library/question-edit-modal/question-edit-modal.component';
+import {options} from '../../app-shared/inputsOptions';
+import {IQuestion} from '../../app-shared/interfaces/IQuestions';
+import {patterns} from '../../app-shared/regexPatterns/patterns';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-vacancies-create',
@@ -29,6 +30,7 @@ export class VacanciesCreateComponent implements OnInit{
   constructor(public dialog: MatDialog,
               public questionService: QuestionService,
               public vacanciesService: VacanciesCreateService,
+              public router: Router,
               ) { }
 
   ngOnInit() {
@@ -65,6 +67,7 @@ export class VacanciesCreateComponent implements OnInit{
     const questionsId = [];
     questions.map(el => questionsId.push(el._id))
     this.vacanciesService.createVacancy(questionsId, newVacancy)
+    this.router.navigate(['/vacancies'])
   }
 
   onAddQuestion(question, input) {

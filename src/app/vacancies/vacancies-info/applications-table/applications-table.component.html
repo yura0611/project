@@ -1,13 +1,13 @@
 <div class="example-container mat-elevation-z8">
-  <mat-table #table [dataSource]="getDataSource()"  >
+  <mat-table #table [dataSource]="evaluationData"  >
 
     <ng-container matColumnDef="select">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <mat-checkbox
-          (click)="$event.stopPropagation();changeSubject()"
-                      (change)="$event ? toggle(element) : null"
-                              [checked]="isSelected(element)">
+        <mat-checkbox>
+<!--          (click)="$event.stopPropagation();changeSubject()"-->
+<!--                      (change)="$event ? toggle(element) : null"-->
+<!--                              [checked]="isSelected(element)">-->
         </mat-checkbox>
       </mat-cell>
     </ng-container>
@@ -15,7 +15,7 @@
 
    <ng-container matColumnDef="candidate">
     <mat-header-cell *matHeaderCellDef> CANDIDATE </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.candidate}} </mat-cell>
+    <mat-cell *matCellDef="let element"> {{element.candidate.firstName + '' + element.candidate.lastName}} </mat-cell>
   </ng-container>
 
 
@@ -33,27 +33,26 @@
 
     <ng-container matColumnDef="score">
       <mat-header-cell *matHeaderCellDef> SCORE </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.score === 0 ? '---' : element.score}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.score === undefined ? '---' : element.score}} </mat-cell>
     </ng-container>
 
 
     <ng-container matColumnDef="reviewer">
       <mat-header-cell *matHeaderCellDef> REVIEWER </mat-header-cell>
-      <mat-cell *matCellDef="let element"> <a class="link"  (click)="createReviwerModal()">{{element.reviewer}}</a> </mat-cell>
+      <mat-cell *matCellDef="let element"> <a class="link"  (click)="createReviwerModal()">Set Reviewer</a> </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="invited">
       <mat-header-cell *matHeaderCellDef> INVITED </mat-header-cell>
       <mat-cell *matCellDef="let element" class="arrow_right">
-        {{element.invited}}
+        {{element['created_at'] | date: 'd MMM y'}}
         <mat-icon class="arrow" [routerLink]="['/answer']" [queryParams]="{candidate: element.candidate}">arrow_forward</mat-icon>
       </mat-cell>
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let element; columns: displayedColumns;"
-             (click)="toggle(element)">
+    <mat-row *matRowDef="let element; columns: displayedColumns;">
     </mat-row>
   </mat-table>
 </div>
-<div class="empty" *ngIf="getSubjectValue() === 0"><p>NO INVITED CANDIDATES</p></div>
+<div class="empty" *ngIf="show"><p>NO INVITED CANDIDATES</p></div>
 

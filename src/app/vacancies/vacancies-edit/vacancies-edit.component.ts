@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {VacanciesService} from '../shared/vacancies.service';
 import {tap} from 'rxjs/operators';
 
@@ -18,8 +18,10 @@ export class VacanciesEditComponent implements OnInit {
   totalTime = 0;
   vacancy;
   editedVacancy;
+  numOfQuestions = 0;
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private vacanciesService: VacanciesService) { }
 
   ngOnInit(): void {
@@ -33,6 +35,7 @@ export class VacanciesEditComponent implements OnInit {
           this.vacancy = vacancy;
           this.questions.forEach(el => {
             this.totalTime += el.maxLength;
+            this.numOfQuestions += 1;
           });
           return '';
       })
@@ -45,6 +48,9 @@ export class VacanciesEditComponent implements OnInit {
       type: this.type,
       description: this.description,
       questions: this.questions});
-    this.vacanciesService.editVacancy(this.editedVacancy);
+    this.vacanciesService.editVacancy(this.editedVacancy).subscribe();
+    this.router.navigate([`/vacancy-info/${this.id}`]);
+
+
   }
 }

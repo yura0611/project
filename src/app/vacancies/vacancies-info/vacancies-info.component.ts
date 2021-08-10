@@ -50,7 +50,6 @@ export class VacanciesInfoComponent implements OnInit {
   }
 
 
-
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
     const desc = 'description';
@@ -99,7 +98,6 @@ export class VacanciesInfoComponent implements OnInit {
   getAvgScore(): number{
     return this.vacanciesService.percentage;
   }
-
 
 
 }

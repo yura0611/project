@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { VacanciesService } from '../../shared/vacancies.service';
 import {EvaluationService} from '../../shared/evaluation.service';
+import {MatTableDataSource} from "@angular/material/table";
 
 @Component({
   selector: 'app-applications-table',
@@ -10,41 +11,46 @@ import {EvaluationService} from '../../shared/evaluation.service';
 export class ApplicationsTableComponent implements OnInit {
   @Input() vacancyId: string;
 
+  evaluationData;
+  show = false;
+
   constructor(
     public vacancyTableService: VacanciesService,
-    public  evaluationService: EvaluationService) {}
+    public  evaluationService: EvaluationService) {
+  }
 
   displayedColumns = ['select', 'candidate', 'status', 'score', 'reviewer', 'invited'];
 
 
   ngOnInit(): void{
-    this.vacancyTableService.initMaterialTable();
-    this.vacancyTableService.dataSubject.next(this.vacancyTableService.dataSource.data.length);
-    this.vacancyTableService.dataSubject.subscribe();
+    this.initMaterialTable()
   }
+
+  initMaterialTable(){
+    this.evaluationService.getEvaluations(this.vacancyId).subscribe(data => {
+      if (data.length === undefined){
+        this.show = true;
+      }
+      this.evaluationData = new MatTableDataSource(data);
+      }
+    )
+  }
+
+
+
 
   createReviwerModal(): void{
     this.vacancyTableService.ReviewerModal();
   }
 
-  toggle(row): void{
-    this.vacancyTableService.selection.toggle(row);
-  }
 
-  isSelected(row) {
-   return !!this.vacancyTableService.selection.isSelected(row);
-  }
-
-  changeSubject(): void{
-    this.vacancyTableService.toggleSubject();
-  }
-
-  getSubjectValue(): number{
-    return this.vacancyTableService.dataSubject.getValue();
-  }
 
   getDataSource() {
     return this.vacancyTableService.dataSource;
+  }
+
+  getAllEvaluations(id) {
+    return this.evaluationService.getEvaluations(id);
   }
 
 

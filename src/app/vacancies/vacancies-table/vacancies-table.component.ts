@@ -24,6 +24,7 @@ export class VacanciesTableComponent implements OnInit {
    length: number;
    createdAt = 'createdAt';
    value;
+   sortedData;
 
   constructor(private router: Router,
               private vacanciesService: VacanciesService
@@ -40,7 +41,8 @@ export class VacanciesTableComponent implements OnInit {
 
   initMaterialTable = () => {
    this.vacanciesService.getAllVacancies().subscribe(vacancies => {
-       this.data = new MatTableDataSource(vacancies);
+       this.sortedData = this.getMostRecentData(vacancies);
+       this.data = new MatTableDataSource(this.sortedData);
        this.data.paginator = this.paginator;
        this.data.sort = this.sort;
      }
@@ -54,6 +56,13 @@ export class VacanciesTableComponent implements OnInit {
 
   getAvgScore(): number{
     return this.vacanciesService.percentage;
+  }
+
+
+  getMostRecentData(data){
+    return data.sort((a, b) => {
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    });
   }
 
 
