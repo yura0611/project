@@ -72,11 +72,6 @@ export class ApplicationsTableComponent implements OnInit {
       })
     ).subscribe()
   }
-
-
-
-
-
 }
 
 
