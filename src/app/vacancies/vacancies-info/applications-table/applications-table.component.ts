@@ -14,7 +14,7 @@ export class ApplicationsTableComponent implements OnInit {
     public vacancyTableService: VacanciesService,
     public  evaluationService: EvaluationService) {}
 
-  displayedColumns = ['select', 'candidate', 'status', 'score', 'reviewer', 'invited', 'arrow'];
+  displayedColumns = ['select', 'candidate', 'status', 'score', 'reviewer', 'invited'];
 
 
   ngOnInit(): void{
@@ -43,7 +43,7 @@ export class ApplicationsTableComponent implements OnInit {
     return this.vacancyTableService.dataSubject.getValue();
   }
 
-  get getDataSource() {
+  getDataSource() {
     return this.vacancyTableService.dataSource;
   }
 
