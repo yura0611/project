@@ -71,13 +71,5 @@ export class ApplicationsTableComponent implements OnInit {
           {relativeTo: this.route, queryParams: data})
       })
     ).subscribe()
-  }
-
-
-
-
 
 }
-
-
-

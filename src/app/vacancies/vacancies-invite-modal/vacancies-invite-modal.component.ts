@@ -1,5 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {VacanciesService} from "../shared/vacancies.service";
 
 @Component({
   selector: 'app-vacancies-invite-modal',
@@ -12,7 +14,9 @@ export class VacanciesInviteModalComponent implements OnInit {
   email = '';
   invitationForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+              private vacancyService: VacanciesService,
+              @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
   ngOnInit(): void {
@@ -23,5 +27,14 @@ export class VacanciesInviteModalComponent implements OnInit {
     });
   }
 
+  public onInvite(): void {
+    const candidate = this.invitationForm.value
+    const vacancyId = this.data.vacancyId
+    const payload = {
+      candidate,
+      vacancyId
+    }
+    this.vacancyService.inviteCandidate(payload).subscribe(value => console.log(value))
+  }
 
 }
