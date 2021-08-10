@@ -16,36 +16,37 @@ export class ApplicationsTableComponent implements OnInit {
   constructor(
     public vacancyService: VacanciesService,
     private vacancyTableService: VacancyTableService,
-    public  evaluationService: EvaluationService,
+    public evaluationService: EvaluationService,
     private router: Router,
-    private route: ActivatedRoute) {}
+    private route: ActivatedRoute) {
+  }
 
   displayedColumns = ['select', 'candidate', 'status', 'score', 'reviewer', 'invited'];
 
 
-  ngOnInit(): void{
+  ngOnInit(): void {
     this.vacancyService.initMaterialTable();
     this.vacancyService.dataSubject.next(this.vacancyService.dataSource.data.length);
     this.vacancyService.dataSubject.subscribe();
   }
 
-  createReviwerModal(): void{
+  createReviwerModal(): void {
     this.vacancyService.ReviewerModal();
   }
 
-  toggle(row): void{
+  toggle(row): void {
     this.vacancyService.selection.toggle(row);
   }
 
   isSelected(row) {
-   return !!this.vacancyService.selection.isSelected(row);
+    return !!this.vacancyService.selection.isSelected(row);
   }
 
-  changeSubject(): void{
+  changeSubject(): void {
     this.vacancyService.toggleSubject();
   }
 
-  getSubjectValue(): number{
+  getSubjectValue(): number {
     return this.vacancyService.dataSubject.getValue();
   }
 
@@ -72,4 +73,5 @@ export class ApplicationsTableComponent implements OnInit {
       })
     ).subscribe()
 
+  }
 }
