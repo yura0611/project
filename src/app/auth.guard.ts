@@ -6,19 +6,28 @@ import {CookieService} from "ngx-cookie-service";
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthGuard implements CanActivate {
   constructor(private cookieService: CookieService, private router: Router) {
   }
   canActivate(
-    route: ActivatedRouteSnapshot,
+  route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (this.cookieService.get('auth-token')) {
-      return true
+    if (route.routeConfig.path === "evaluation/:id"){
+      if (this.cookieService.get('auth-token')) {
+        return true
+      } else {
+        const {id} = route.params
+        this.router.navigate(['sign-in'], {queryParams:{evaluation:id}})
+        return false
+      }
     } else {
-      this.router.navigate(['sign-in'])
-      return false;
+      if (this.cookieService.get('auth-token')) {
+        return true
+      } else {
+        this.router.navigate(['sign-in'])
+        return false;
+      }
     }
-
   }
-
 }

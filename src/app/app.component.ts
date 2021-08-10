@@ -16,7 +16,6 @@ export class AppComponent implements OnInit {
         if (event['url'] == '/sign-in') {
           this.showHead = false;
         } else {
-          // console.log("NU")
           this.showHead = true;
         }
       }
