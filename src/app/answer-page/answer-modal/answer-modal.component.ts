@@ -1,6 +1,4 @@
 import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
-import {combineLatest, fromEvent} from "rxjs";
-import {debounceTime, distinctUntilChanged, filter, map, takeWhile, tap} from "rxjs/operators";
 import {AnswerPageService} from "../shared/answerPage.service";
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 
