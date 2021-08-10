@@ -1,9 +1,10 @@
 import {AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit, Optional, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
 import {VacanciesService} from "../shared/vacancies.service";
-import {debounceTime, distinctUntilChanged, filter, map, takeWhile, tap} from "rxjs/operators";
+import {debounceTime, distinctUntilChanged, filter, map, switchMap, takeWhile, tap} from "rxjs/operators";
 import {AnswerProcessService} from "./shared/answer-process.service";
 import {combineLatest, fromEvent} from "rxjs";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-answer-evaluate-process-modal',
@@ -34,12 +35,16 @@ export class AnswerEvaluateProcessModalComponent implements
   aliveSubscription = true;
   constructor(@Optional() @Inject(MAT_DIALOG_DATA) public data: any,
               public dialog: MatDialog,
+              private route: ActivatedRoute,
               private vacancyService: VacanciesService,
               private answerProcessService: AnswerProcessService) { }
 
   ngOnInit() {
-    this.answerProcessService.getVacancy().pipe(
-    ).subscribe()
+
+    this.route.params.pipe(
+      map(value => value.id),
+      switchMap(value => this.answerProcessService.getVacancy(value))
+    ).subscribe();
   }
 
   closeModal() {
@@ -84,8 +89,5 @@ export class AnswerEvaluateProcessModalComponent implements
   ngAfterViewInit() {
     this.initTextArea()
   }
-
-
-
 
 }
