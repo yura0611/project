@@ -1,3 +1,26 @@
+// Candidate block style
+.candidate_block {
+  padding-left: 25px;
+  padding-bottom: 20px;
+  .candidate {
+    font-family: Raleway, serif;
+    font-size: 24px;
+    font-weight: 800;
+  }
+  .vacancy_desc {
+    font-family: OpenSans, sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #007672;
+  }
+}
+
+
+
+
+
+//Answer block style
 .answer_card {
   display: flex;
   justify-content: space-between;
@@ -48,4 +71,48 @@
   .answer_card_content:not(:last-child) {
     margin-right: 10px;
   }
+}
+
+.answers-title {
+  padding-left: 25px;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  p {
+    font-family: Raleway, serif;
+    font-size: 24px;
+    font-weight: 800;
+    color: #373a36;
+  }
+}
+.mat-elevation-z8 {
+  width: 100%;
+}
+.questions_block {
+  height: 50vh;
+  overflow: auto;
+  box-shadow: 0 4px 25px 0 rgb(0 0 0 / 5%), 0 4px 25px 0 rgb(0 184 178 / 5%);
+  .column_title {
+    font-family: OpenSans, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+
+    color: #101820;
+  }
+  .status {
+    font-size: 0.7rem;
+    padding: 2px 4px;
+    border-radius: 2px;
+    background-color: #4a4a4a;
+    color: #ffffff;
+    font-family: OpenSans, sans-serif;
+  }
+}
+
+.column_title.status_header {
+  width: 10%;
+  padding-right: 150px;
+}
+.column_title.mark {
+  width: 10%;
+  padding-right: 100px;
 }

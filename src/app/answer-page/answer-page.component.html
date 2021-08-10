@@ -1,4 +1,7 @@
-<h1>{{candidate}}</h1>
+<div class="candidate_block">
+  <h1 class="candidate">{{candidate}}</h1>
+  <p class="vacancy_desc">{{vacancy.type | uppercase}} {{vacancy.title | uppercase}}</p>
+</div>
 
 <div class="answer_card">
   <div class="answer_card_content">
@@ -29,12 +32,35 @@
     </div>
   </div>
 </div>
-
-
-
-<div class="Answers-list">
-  <div class="Answers-list-block_title">
+<div class="answers-title">
     <p>Answers</p>
-  </div>
-
 </div>
+<div class="questions_block">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="question">
+      <th mat-header-cell *matHeaderCellDef class="column_title question"> Question </th>
+      <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef class="column_title status_header"> Status </th>
+      <td mat-cell *matCellDef="let element" >
+        <span class="status">{{'not answered' | uppercase}}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="mark">
+      <th mat-header-cell *matHeaderCellDef class="column_title mark"> Mark </th>
+      <td mat-cell *matCellDef="let element"> -- </td>
+    </ng-container>
+
+    <ng-container matColumnDef="timeSpent">
+      <th mat-header-cell *matHeaderCellDef class="column_title time-spent"> Time Spent </th>
+      <td mat-cell *matCellDef="let element"> -- </td>
+    </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+
