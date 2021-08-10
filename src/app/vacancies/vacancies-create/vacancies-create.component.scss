@@ -371,3 +371,7 @@ form {
   border-radius: 2px;
   background-color: #eeeeee;
 }
+
+input.ng-touched.ng-invalid, textarea.ng-touched.ng-invalid, {
+  border: 1px solid red;
+}

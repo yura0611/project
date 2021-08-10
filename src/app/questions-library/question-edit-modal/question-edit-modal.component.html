@@ -10,13 +10,21 @@
   <div class="edit-modal-form_title form-element_block">
     <label for="title">Title</label>
     <br>
-    <input type="text" name="title" id="title" formControlName="title" required [maxlength]="titleLength">
+    <input #titleInp type="text" name="title" id="title" formControlName="title" required>
+    <span *ngIf="titleInp.value.length > 250 &&
+            !editModal.get('title').valid && editModal.get('title').touched">Max amount of characters is 250</span>
+    <span *ngIf="titleInp.value.length <= 0 &&
+             !editModal.get('title').valid && editModal.get('title').touched">This field is required</span>
   </div>
   <div class="edit-modal-form_description form-element_block">
     <label for="description">Description</label>
     <br>
-    <textarea name="description" id="description" rows="10" formControlName="description" required
+    <textarea #descInp name="description" id="description" rows="10" formControlName="description" required
               [maxlength]="descriptionLength"></textarea>
+    <span *ngIf="descInp.value.length > 800 &&
+            !editModal.get('description').valid && editModal.get('description').touched">Max amount of characters is 800</span>
+    <span *ngIf="descInp.value.length <= 0 &&
+             !editModal.get('description').valid && editModal.get('description').touched">This field is required</span>
   </div>
 
   <div class="edit-modal_form-topics form-element_block">

@@ -9,7 +9,11 @@
         <form [formGroup]="vacanciesForm" #element="ngForm">
           <div class="vacancies-form_title">
             <label for="title">Title</label> <br>
-            <input formControlName="title" type="text" id="title" name="title" placeholder="Type your title" [maxlength]="titleLength">
+            <input #titleInp formControlName="title" type="text" id="title" name="title" placeholder="Type your title" >
+            <span *ngIf="titleInp.value.length > 200 &&
+            !vacanciesForm.get('title').valid && vacanciesForm.get('title').touched">Max amount of characters is 200</span>
+            <span *ngIf="titleInp.value.length <= 0 &&
+             !vacanciesForm.get('title').valid && vacanciesForm.get('title').touched">This field is required</span>
           </div>
 
           <div class="vacancies-form_type">
@@ -25,8 +29,12 @@
 
           <div class="vacancies-form_description">
             <label for="desc">Description</label> <br>
-            <textarea id="desc" name="desc" rows="10" placeholder="Type your description"
+            <textarea #descInp id="desc" name="desc" rows="10" placeholder="Type your description"
                       formControlName="description" [maxlength]="descriptionLength"></textarea>
+            <span *ngIf="descInp.value.length > 800 &&
+            !vacanciesForm.get('description').valid && vacanciesForm.get('description').touched">Max amount of characters is 800</span>
+            <span *ngIf="descInp.value.length <= 0 &&
+             !vacanciesForm.get('description').valid && vacanciesForm.get('description').touched">This field is required</span>
           </div>
         </form>
       </mat-card-content>

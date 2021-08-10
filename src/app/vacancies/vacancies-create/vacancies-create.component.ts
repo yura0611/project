@@ -38,10 +38,10 @@ export class VacanciesCreateComponent implements OnInit{
 
     this.vacanciesForm = new FormGroup({
       'title': new FormControl(null,
-        [Validators.required, Validators.max(200), Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
+        [Validators.required, Validators.maxLength(200), Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
       'type': new FormControl('', Validators.required),
       'description': new FormControl(null,
-        [Validators.required, Validators.max(800), Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
+        [Validators.required, Validators.maxLength(800), Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
       'questions': new FormArray([], Validators.required)
     })
   }

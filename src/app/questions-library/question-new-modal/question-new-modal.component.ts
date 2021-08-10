@@ -41,9 +41,9 @@ export class QuestionNewModalComponent implements OnInit, OnDestroy {
 
     this.createNewModal = new FormGroup({
       'title': new FormControl(null,
-        [Validators.max(250), Validators.required, Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
+        [Validators.maxLength(250), Validators.required, Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
       'description': new FormControl(null,
-        [Validators.max(800), Validators.required, Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
+        [Validators.maxLength(800), Validators.required, Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
       'topics': new FormArray([], [Validators.min(0), Validators.required]),
       'type': new FormControl(),
       'maxLength': new FormControl(null, [Validators.min(1),Validators.max(120),Validators.pattern(patterns.regexOnlyNumbers)])

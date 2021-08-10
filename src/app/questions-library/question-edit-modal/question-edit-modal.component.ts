@@ -37,9 +37,9 @@ export class QuestionEditModalComponent implements OnInit {
   ngOnInit(): void {
     this.availableTopics = this.questionService.availableTopics;
     this.editModal = new FormGroup({
-      'title': new FormControl(this.data.question.title, [Validators.required, Validators.max(250)]),
+      'title': new FormControl(this.data.question.title, [Validators.required, Validators.maxLength(250)]),
       'description': new FormControl(this.data.question.description,
-        [Validators.required, Validators.max(800), Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
+        [Validators.required, Validators.maxLength(800), Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
       'topics': new FormArray(this.data.question.topics.map(el => new FormControl(el)), Validators.required),
       'type': new FormControl(this.data.question.type, Validators.required),
       'maxLength': new FormControl(this.data.question.maxLength,

@@ -32,6 +32,7 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {MatBadgeModule} from "@angular/material/badge";
 import { AnswerPageComponent } from './answer-page/answer-page.component';
 import { AnswerModalComponent } from './answer-page/answer-modal/answer-modal.component';
+import { RedirectToAdministratorComponent } from './redirect-to-administrator/redirect-to-administrator.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { AnswerModalComponent } from './answer-page/answer-modal/answer-modal.co
     ConvertTimePipe,
     AnswerPageComponent,
     AnswerModalComponent,
+    RedirectToAdministratorComponent,
   ],
   imports: [
     BrowserModule,

@@ -10,14 +10,22 @@
   <div class="create-modal-form_title form-element_block">
     <label for="title">Title</label>
     <br>
-    <input type="text" name="title" id="title" formControlName="title" required placeholder="Type question title"
-           [maxlength]="titleLength">
+    <input #titleInp type="text" name="title" id="title" formControlName="title" required placeholder="Type question title"
+           >
+    <span *ngIf="titleInp.value.length > 250 &&
+            !createNewModal.get('title').valid && createNewModal.get('title').touched">Max amount of characters is 250</span>
+    <span *ngIf="titleInp.value.length <= 0 &&
+             !createNewModal.get('title').valid && createNewModal.get('title').touched">This field is required</span>
   </div>
   <div class="create-modal-form_description form-element_block">
     <label for="description">Description</label>
     <br>
-    <textarea name="description" id="description" rows="10" formControlName="description" required
-              placeholder="Type text" [maxlength]="descriptionLength"></textarea>
+    <textarea #descInp name="description" id="description" rows="10" formControlName="description" required
+              placeholder="Type text" ></textarea>
+    <span *ngIf="descInp.value.length > 800 &&
+            !createNewModal.get('description').valid && createNewModal.get('description').touched">Max amount of characters is 800</span>
+    <span *ngIf="descInp.value.length <= 0 &&
+             !createNewModal.get('description').valid && createNewModal.get('description').touched">This field is required</span>
   </div>
 
   <div class="create-modal_form-topics form-element_block">
