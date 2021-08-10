@@ -1,0 +1,127 @@
+::ng-deep .mat-dialog-container {
+  padding: 0 !important;
+}
+
+.title_block {
+  background-color: #fafafa;
+  padding: 20px;
+}
+
+.clear-icon_block {
+  text-align: end;
+  .clear {
+    font-size: 1rem;
+    cursor: pointer;
+  }
+}
+
+.question_block {
+  .question_block-title-description {
+    .title {
+      border-bottom: 1px solid #eee;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row-reverse;
+      p {
+        font-family: OpenSans, sans-serif;
+        font-size: 1rem;
+        font-weight: bold;
+        color: #101820;
+      }
+    }
+    .description {
+      padding: 20px 40px 0 40px;
+      p {
+        font-family: OpenSans, sans-serif;
+        font-size: 0.9rem;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #101820;
+      }
+    }
+  }
+
+  .topics {
+    display: inline-block;
+    padding: 1px 3px;
+    border-radius: 2px;
+    background-color: #eee;
+    margin-right: 5px;
+  }
+
+
+
+}
+
+.answer_block {
+  margin-bottom: 20px;
+  .answer_block-title {
+    border-bottom: 1px solid #eee;
+    border-top: 1px solid #eee;
+    .title {
+      padding: 20px 40px;
+      font-family: OpenSans, sans-serif;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #101820;
+    }
+  }
+  .answer_block-content {
+    padding-right: 40px;
+    padding-left: 40px;
+    max-height: 50vh;
+    overflow: auto;
+    .given_answer {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 20px 40px;
+      outline: none;
+      margin-top: 20px;
+      border: 1px solid #eee;
+      height: 30vh;
+    }
+  }
+}
+
+.buttons_block {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  .arrow-left,.arrow-right {
+    cursor: pointer;
+  }
+  .arrow-right {
+    float: right;
+    padding-right: 40px;
+  }
+  .arrow-left {
+    padding-left: 40px;
+  }
+
+}
+.mark_block {
+  display: flex;
+  width: 100%;
+  span {
+    font-size: 24px;
+    font-weight: 800;
+    color: #373a36;
+  }
+  .marks {
+    padding-left: 100px;
+    span {
+      padding: 12px 14px;
+      border: solid 1px #007672;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: #007672;
+    }
+     span:hover {
+      color: #ffffff;
+      background-color: #007672;
+       cursor: pointer;
+    }
+  }
+}

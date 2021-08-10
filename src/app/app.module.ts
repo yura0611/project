@@ -31,6 +31,7 @@ import {ConvertTimePipe} from "./app-shared/convertTime.pipe";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatBadgeModule} from "@angular/material/badge";
 import { AnswerPageComponent } from './answer-page/answer-page.component';
+import { AnswerModalComponent } from './answer-page/answer-modal/answer-modal.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { AnswerPageComponent } from './answer-page/answer-page.component';
     VacanciesEditComponent,
     ConvertTimePipe,
     AnswerPageComponent,
+    AnswerModalComponent,
   ],
   imports: [
     BrowserModule,
