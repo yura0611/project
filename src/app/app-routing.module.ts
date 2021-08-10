@@ -21,7 +21,7 @@ const routes: Routes = [
   {path: 'vacancy-edit/:id', canActivate:[AuthGuard], component: VacanciesEditComponent},
   {path: 'vacancy-info', canActivate:[AuthGuard], component: VacanciesInfoComponent},
   {path: 'vacancy-edit', canActivate:[AuthGuard], component: VacanciesEditComponent},
-  {path: 'evaluate', canActivate:[AuthGuard], component: AnswerEvaluateProcessModalComponent},
+  {path: 'evaluation/:id', canActivate:[AuthGuard], component: AnswerEvaluateProcessModalComponent},
   {path: 'answer', canActivate:[AuthGuard], component: AnswerPageComponent},
   {path: 'system-settings', redirectTo: 'home'},
 ];

@@ -17,8 +17,13 @@
       <mat-form-field appearance="outline">
         <input  matInput  formControlName="lastName" [(ngModel)]="lastName" placeholder="Read only text" >
       </mat-form-field>
+      <button
+        class="btn"
+        [ngClass]="{'btn-disabled': firstName === ''}"
+        (click)="onInvite()">
+        INVITE
+      </button>
     </form>
-    <button class="btn " [ngClass]="{'btn-disabled': firstName === ''}" >INVITE</button>
   </div>
 
 </div>

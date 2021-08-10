@@ -54,23 +54,17 @@ export class VacanciesService {
     );
   }
 
-
   getVacancy(id): Observable<any> {
     return this.http.post<any>(`${environment.API_URL}vacancy/find-one`, { _id: id}).pipe(
       tap(vacancy => this.vacancyListSubject.next(vacancy)
     ));
   }
 
-
-
-
   getApplicationsTableData = () => of(this.EXAMPLE_DATA_FOR_APPLICATION_TABLE);
-
 
   setMessage(data): void{
     this.vacancy = data;
   }
-
 
   getMessage(): string {
     return this.vacancy;
@@ -85,7 +79,6 @@ export class VacanciesService {
     this.dataSource = new MatTableDataSource<Element>(this.data);
   }
 
-
   removeSelectedRow(): void {
     this.selection.selected.forEach(item => {
       const index: number = this.data.findIndex(d => d === item);
@@ -95,8 +88,6 @@ export class VacanciesService {
     this.selection = new SelectionModel<Element>(false, []);
     this.candidateSubject.next(false);
   }
-
-
 
   toggleSubject(): void{
     if ( this.selection.selected.length === 0) {
@@ -113,7 +104,6 @@ export class VacanciesService {
       height: this.constants.modalHeight,
     });
   }
-
 
   editStatus(id: string): void{
     this.http.post(`${environment.API_URL}vacancy/status`, {
@@ -137,7 +127,6 @@ export class VacanciesService {
     ).subscribe();
   }
 
-
   deleteVacancy(id: string): void {
     this.http.post(`${environment.API_URL}vacancy/delete`, {_id: id}).subscribe((data: TestVacanciesTableItem[]) => {
       this.vacanciesListSubject.next(data);
@@ -145,6 +134,12 @@ export class VacanciesService {
     this.router.navigate(['/vacancies']);
   }
 
+  public inviteCandidate(invitePayload) {
+    return this.http.post(`${environment.API_URL}vacancy/invite`, invitePayload)
+      .pipe(
+
+      )
+  }
 }
 
 
