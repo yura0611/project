@@ -3,9 +3,11 @@
     <label for="title">Title</label>
     <br>
     <input #titleInp type="text" name="title" id="title" formControlName="title" required placeholder="Type question title"
+           [maxlength]="titleLength"
     >
-    <span *ngIf="titleInp.value.length > 250 &&
-            !modal.get('title').valid && modal.get('title').touched">Max amount of characters is 250</span>
+    <span *ngIf="titleInp.value.length === 200 ">
+      You have exceeded the maximum number of 200 characters in this field
+    </span>
     <span *ngIf="titleInp.value.length <= 0 &&
              !modal.get('title').valid && modal.get('title').touched">This field is required</span>
   </div>
@@ -13,9 +15,10 @@
     <label for="description">Description</label>
     <br>
     <textarea #descInp name="description" id="description" rows="10" formControlName="description" required
-              placeholder="Type text" ></textarea>
-    <span *ngIf="descInp.value.length > 800 &&
-            !modal.get('description').valid && modal.get('description').touched">Max amount of characters is 800</span>
+              placeholder="Type text" [maxlength]="descriptionLength"></textarea>
+    <span *ngIf="descInp.value.length === 800">
+      You have exceeded the maximum number of 800 characters in this field
+    </span>
     <span *ngIf="descInp.value.length <= 0 &&
              !modal.get('description').valid && modal.get('description').touched">This field is required</span>
   </div>

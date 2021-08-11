@@ -30,6 +30,7 @@ export class QuestionModalFormComponent implements OnInit {
   availableTopics: string[];
   subscription: Subscription
   titleLength = options.titleLength;
+  descriptionLength = options.descriptionLength;
 
   constructor(@Optional() @Inject(MAT_DIALOG_DATA) public data: any,
               private dialogRef: MatDialog,
@@ -41,7 +42,7 @@ export class QuestionModalFormComponent implements OnInit {
     if (!this.editMode) {
       this.modal = new FormGroup({
         'title': new FormControl(null,
-          [Validators.maxLength(250), Validators.required, Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
+          [Validators.maxLength(200), Validators.required, Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
         'description': new FormControl(null,
           [Validators.maxLength(800), Validators.required, Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
         'topics': new FormArray([], [Validators.min(0), Validators.required]),
@@ -51,7 +52,7 @@ export class QuestionModalFormComponent implements OnInit {
 
     } else {
       this.modal = new FormGroup({
-        'title': new FormControl(this.data.question.title, [Validators.required, Validators.maxLength(250)]),
+        'title': new FormControl(this.data.question.title, [Validators.required, Validators.maxLength(200)]),
         'description': new FormControl(this.data.question.description,
           [Validators.required, Validators.maxLength(800), Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
         'topics': new FormArray(this.data.question.topics.map(el => new FormControl(el)), Validators.required),
