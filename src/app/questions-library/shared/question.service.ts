@@ -55,9 +55,9 @@ export class QuestionService {
 
 
   editQuestion(editedQuestion: IQuestion, id) {
-    this.http.put(`${environment.API_URL}question/edit`, {question: editedQuestion, _id: id}).pipe(
+    this.http.put(`${environment.API_URL}question/edit/${id}`, {question: editedQuestion}).pipe(
       tap(data => {
-        const editedQuestion = data['question'];
+        const editedQuestion = data['updatedQuestion'];
         const questionList = this.questionListSubject.value;
         const newQuestionList = questionList.map(question => {
           if (question._id === editedQuestion._id) {
@@ -75,8 +75,8 @@ export class QuestionService {
   }
 
   deleteQuestion(id: string) {
-    this.http.post(`${environment.API_URL}question/delete`, {_id: id}).subscribe((data: IQuestion[]) => {
-      this.questionListSubject.next(data);
+    this.http.delete(`${environment.API_URL}question/delete/${id}`).subscribe((data: {message: string, updatedList: IQuestion[]}) => {
+      this.questionListSubject.next(data.updatedList);
     });
   }
 

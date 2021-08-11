@@ -70,7 +70,7 @@ export class VacanciesService {
 
 
   getVacancy(id): Observable<any> {
-    return this.http.post<IVacancy[]>(`${environment.API_URL}vacancy/find-one`, { _id: id}).pipe(
+    return this.http.get<IVacancy[]>(`${environment.API_URL}vacancy/find-one/${id}`).pipe(
       tap(vacancy => {
         this.vacancyItemSubject.next(vacancy);
       }
@@ -135,8 +135,7 @@ export class VacanciesService {
   }
 
   editVacancy(obj: TestVacanciesTableItem) {
-    return this.http.put<IVacancy[]>(`${environment.API_URL}vacancy/edit`, {
-      _id: obj._id,
+    return this.http.put<IVacancy[]>(`${environment.API_URL}vacancy/edit/${obj._id}`, {
       title: obj.title,
       description: obj.description,
       type: obj.type,
@@ -148,17 +147,16 @@ export class VacanciesService {
   }
 
   deleteVacancy(id: string): void {
-    this.http.post(`${environment.API_URL}vacancy/delete`, {_id: id}).subscribe((data: TestVacanciesTableItem[]) => {
+    this.http.delete(`${environment.API_URL}vacancy/delete/${id}`).subscribe((data: TestVacanciesTableItem[]) => {
       this.vacanciesListSubject.next(data);
     });
     this.router.navigate(['/vacancies']);
   }
 
   public inviteCandidate(invitePayload) {
-    return this.http.post(`${environment.API_URL}vacancy/invite`, invitePayload)
-      .pipe(
-
-      )
+    return this.http
+      .post(`${environment.API_URL}vacancy/invite/${invitePayload.vacancyId}`, invitePayload.candidate)
+      .subscribe(data => console.log(data))
   }
 }
 

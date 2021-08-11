@@ -43,8 +43,8 @@ export class ApplicationsTableComponent implements OnInit {
     );
   }
 
-  openReviwerModal(): void {
-    this.vacancyTableService.ReviewerModal();
+  openReviewerModal(): void {
+    this.vacancyService.ReviewerModal();
   }
 
   showCandidate(candidate) {

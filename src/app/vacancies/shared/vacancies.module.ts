@@ -26,6 +26,7 @@ import {EvaluationService} from "./evaluation.service";
 import {VacanciesCreateService} from "./vacancies-create.service";
 import {VacancyTableService} from "./vacancy-table.service";
 import {ModalsModule} from "../../questions-library/shared/modals.module";
+import {RouterModule} from "@angular/router";
 
 
 @NgModule({
@@ -42,24 +43,25 @@ import {ModalsModule} from "../../questions-library/shared/modals.module";
     ApplicationsTableComponent,
 
   ],
-  imports: [
-    CommonModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatTableModule,
-    MatIconModule,
-    MatCheckboxModule,
-    MatSortModule,
-    MatButtonModule,
-    MatPaginatorModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCardModule,
-    ModalsModule,
+    imports: [
+        CommonModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatTableModule,
+        MatIconModule,
+        MatCheckboxModule,
+        MatSortModule,
+        MatButtonModule,
+        MatPaginatorModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatCardModule,
+        ModalsModule,
+        RouterModule,
 
 
-  ],
+    ],
   exports: [
     VacanciesTableComponent,
     VacanciesInfoComponent,

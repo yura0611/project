@@ -67,7 +67,6 @@ export class VacanciesCreateComponent implements OnInit {
       title: this.vacanciesForm.value.title,
       type: this.vacanciesForm.value.type,
       description: this.vacanciesForm.value.description,
-      link: this.vacanciesForm.value.link
     }
     const questionsId = [];
     questions.map(el => questionsId.push(el._id))
