@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {tap} from 'rxjs/operators';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {IVacancies} from '../../app-shared/interfaces/IVacancies';
+import {IVacancy} from '../../app-shared/interfaces/IVacancy';
 
 
 @Injectable({providedIn: 'root'})
@@ -14,7 +14,7 @@ export class HomePageService {
   }
 
   getAllVacancies(): Observable<any>{
-    return this.http.get<IVacancies[]>(`${environment.API_URL}vacancy`).pipe(
+    return this.http.get<IVacancy[]>(`${environment.API_URL}vacancy`).pipe(
       tap(el => this.activeVacancySubject.next(el.filter(el => el.status === 'Active').length ))
     );
   }

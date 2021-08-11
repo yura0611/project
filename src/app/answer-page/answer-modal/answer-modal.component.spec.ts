@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VacanciesCreateComponent } from './vacancies-create.component';
+import { AnswerModalComponent } from './answer-modal.component';
 
-describe('VacanciesCreateComponent', () => {
-  let component: VacanciesCreateComponent;
-  let fixture: ComponentFixture<VacanciesCreateComponent>;
+describe('AnswerModalComponent', () => {
+  let component: AnswerModalComponent;
+  let fixture: ComponentFixture<AnswerModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ VacanciesCreateComponent ],
+      declarations: [ AnswerModalComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VacanciesCreateComponent);
+    fixture = TestBed.createComponent(AnswerModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

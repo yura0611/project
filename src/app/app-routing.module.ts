@@ -10,6 +10,7 @@ import {VacanciesEditComponent} from './vacancies/vacancies-edit/vacancies-edit.
 import {AnswerEvaluateProcessModalComponent} from "./vacancies/answer-evaluate-process-modal/answer-evaluate-process-modal.component";
 import {AnswerPageComponent} from "./answer-page/answer-page.component";
 import {AuthGuard} from "./auth.guard";
+import {RedirectToAdministratorComponent} from "./redirect-to-administrator/redirect-to-administrator.component";
 
 const routes: Routes = [
   {path: 'sign-in', component: SignInComponent},
@@ -23,7 +24,8 @@ const routes: Routes = [
   {path: 'vacancy-edit', canActivate:[AuthGuard], component: VacanciesEditComponent},
   {path: 'evaluation/:id', canActivate:[AuthGuard], component: AnswerEvaluateProcessModalComponent},
   {path: 'answer', canActivate:[AuthGuard], component: AnswerPageComponent},
-  {path: 'system-settings', redirectTo: 'home'},
+  {path: 'page-not-found', canActivate:[AuthGuard], component: RedirectToAdministratorComponent},
+  {path: 'system-settings', redirectTo: 'page-not-found'},
 ];
 
 @NgModule({

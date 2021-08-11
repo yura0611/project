@@ -1,6 +1,16 @@
-import { Injectable } from '@angular/core';
-@Injectable()
+import {Injectable} from '@angular/core';
+
+@Injectable({providedIn: 'root'})
 export class Constants {
-  public  modalWidth = '510px';
-  public  modalHeight = '500px';
+  public modalWidth = {
+    xs: '490px',
+    s: '510px',
+    m: '760px'
+  };
+  public modalHeight = {
+    m: '500px',
+    l: '850px'
+  };
+
 }
+

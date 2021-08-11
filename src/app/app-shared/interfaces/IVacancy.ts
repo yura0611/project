@@ -1,6 +1,6 @@
-import {IQuestion} from "./IQuestions";
+import {IQuestion} from "./IQuestion";
 
-export interface IVacancies {
+export interface IVacancy {
   _id: string;
   author: string;
   createdAt: string;
