@@ -87,5 +87,13 @@
 .mat-cell:nth-child(1),
 .mat-header-cell:nth-child(1),
 {
-  flex: 0 0 33%;
+  flex: 0 0 36%;
+}
+
+
+mat-cell{
+  overflow: hidden;
+  width:auto;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

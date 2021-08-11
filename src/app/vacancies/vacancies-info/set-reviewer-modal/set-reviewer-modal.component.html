@@ -1,1 +1,17 @@
-<p>set-reviewer-modal works!</p>
+<div class="header">
+  <h2>Set Reviewer</h2>
+  <a class="hover" (click)="closeModal()">
+    <mat-icon class="icon">close</mat-icon>
+  </a>
+</div>
+<div>
+  <div class="content">
+    <p class="subheader">Please, write email to find reviewer</p>
+    <form [formGroup]="reviewerForm">
+      <mat-form-field appearance="outline">
+        <input matInput type="email" [(ngModel)]="email" formControlName="email" placeholder="Read only text">
+      </mat-form-field>
+    </form>
+    <button class="btn" (click)="setUp()" [ngClass]="{'btn-disabled': email === ''}">SET UP</button>
+  </div>
+</div>

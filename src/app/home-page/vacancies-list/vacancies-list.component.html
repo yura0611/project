@@ -1,58 +1,62 @@
-<div class="mat-elevation-z8">
-  <table mat-table class="full-width-table" matSort aria-label="Elements" [dataSource]="dataSource">
+<div class="example-container mat-elevation-z8">
+
+  <mat-table #table [dataSource]="dataSource" matSort aria-label="Elements" >
 
     <ng-container matColumnDef="title">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>VACANCY</th>
-      <td mat-cell *matCellDef="let row">{{row.title}}</td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> VACANCY </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.title}} </mat-cell>
     </ng-container>
+
 
 
     <ng-container matColumnDef="type">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>TYPE</th>
-      <td mat-cell *matCellDef="let row">{{row.type}}</td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> TYPE </mat-header-cell>
+      <mat-cell class="element-padding" *matCellDef="let element"> {{element.type}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>STATUS</th>
-      <td mat-cell class="pd-20" *matCellDef="let row">
 
-        <div [ngClass]="{'cell-active': row.status === 'Active',
-                                                            'cell-closed': row.status === 'Closed'}">
-          {{row.status | uppercase}}
-        </div>
-      </td>
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> STATUS </mat-header-cell>
+      <mat-cell class="element-padding" *matCellDef="let element">
+
+        <div [ngClass]="{'cell-active': element.status === 'Active',
+                                                            'cell-closed': element.status === 'Closed'}">
+          {{element.status | uppercase}} </div></mat-cell>
+
     </ng-container>
 
     <ng-container matColumnDef="avg-score">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>AVG.SCORE</th>
-      <td mat-cell *matCellDef="let row">{{ getAvgScore() }}</td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> AVG.SCORE </mat-header-cell>
+      <mat-cell class="center-text"  *matCellDef="let element"> {{avgScore}}% </mat-cell>
     </ng-container>
+
 
     <ng-container matColumnDef="createdAt">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>OPENED</th>
-      <td mat-cell *matCellDef="let row">{{row.createdAt | date: 'd MMM y'}}</td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>OPENED</mat-header-cell>
+      <mat-cell class="element-margin"  *matCellDef="let element"> {{element.createdAt | date: 'd MMM y'}} </mat-cell>
     </ng-container>
-
-
 
     <ng-container  matColumnDef="arrow">
-      <th mat-header-cell  [ngClass]="'customWidthClass'"  *matHeaderCellDef></th>
-      <td mat-cell  [ngClass]="'customWidthClass'" *matCellDef="let element">
+      <mat-header-cell  class="customWidthClass" *matHeaderCellDef ></mat-header-cell>
+      <mat-cell   class="customWidthClass" *matCellDef="let element">
         <button mat-icon-button class="hidden" color="black" (click)="getInfo(element['_id'])" title="View Contact"><mat-icon>arrow_forward</mat-icon></button>
-      </td>
+      </mat-cell>
     </ng-container>
 
 
-
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>
+  </mat-table>
   <mat-paginator #paginator
-                 [length]="dataSource?.length"
                  [pageIndex]="0"
                  [pageSize]="5"
                  [pageSizeOptions]="[5, 10, 20]">
   </mat-paginator>
 </div>
+
+
+
+
+
+

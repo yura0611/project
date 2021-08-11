@@ -1,52 +1,9 @@
-.vacancies-list-block_title {
-  font-size: 24px;
-  font-weight: 800;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #373a36;
-  margin-top: 30px;
-  margin-bottom: 20px;
-  margin-left: 20px;
-}
-
-table {
+.full-width-table {
   width: 100%;
 }
 
-.cdk-column-title {
-  width: 40rem;
-}
-
-th.cdk-column-status, th.cdk-column-avg-score, th.cdk-column-type, th.cdk-column-createdAt {
-  width: 200px;
-}
-
-.mat-form-field-underline {
-  height: 0 !important;
-}
-
-.status {
-  display: inline-block;
-  padding: 2px 4px;
-  color: #ffffff;
-  border-radius: 2px;
-}
-.cell-active {
-  width: 39px;
-  height: 15px;
-  padding: 2px 4px;
-  border-radius: 2px;
-  background-color: #00b2a9;
-}
-
-.cell-closed {
-  width: 43px;
-  height: 17px;
-  padding: 2px 4px;
-  border-radius: 2px;
-  background-color: #4a4a4a;
+.mat-elevation-z8 {
+  margin-top: 30px;
 }
 
 .mat-header-cell {
@@ -70,11 +27,21 @@ th.cdk-column-status, th.cdk-column-avg-score, th.cdk-column-type, th.cdk-column
   color: #ffffff;
 }
 
-
-.customWidthClass{
-  flex: 0 0 75px;
+.cell-active {
+  width: 39px;
+  height: 15px;
+  padding: 2px 4px;
+  border-radius: 2px;
+  background-color: #00b2a9;
 }
 
+.cell-closed {
+  width: 43px;
+  height: 17px;
+  padding: 2px 4px;
+  border-radius: 2px;
+  background-color: #4a4a4a;
+}
 
 .mat-row:hover .hidden {
   visibility: visible;
@@ -86,4 +53,46 @@ th.cdk-column-status, th.cdk-column-avg-score, th.cdk-column-type, th.cdk-column
 
 .hidden {
   visibility: hidden;
+}
+
+.customWidthClass{
+  flex: 0 0 75px;
+}
+
+.center-text{
+  margin-left: 50px;
+}
+
+.element-padding{
+  padding-left: 10px;
+}
+
+.element-margin{
+  margin-right: 30px;
+}
+
+.mat-column-title {
+  width: 300px;
+  max-width: 300px;
+}
+
+.mat-cell:nth-child(1),
+.mat-header-cell:nth-child(1),
+{
+  flex: 0 0 36%;
+}
+
+mat-cell{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.vacancies-list-block_title {
+  font-size: 24px;
+  font-weight: 750;
+  color: #373a36;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  margin-left: 20px;
 }

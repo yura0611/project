@@ -1,10 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {VacanciesService} from '../../shared/vacancies.service';
 import {EvaluationService} from '../../shared/evaluation.service';
-import {ActivatedRoute, Router} from "@angular/router";
-import {VacancyTableService} from "../../shared/vacancy-table.service";
-import {map, tap} from "rxjs/operators";
-
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-applications-table',
@@ -14,66 +11,36 @@ import {map, tap} from "rxjs/operators";
 export class ApplicationsTableComponent implements OnInit {
   @Input() vacancyId: string;
 
+  evaluationData;
+  show = false;
+
   constructor(
-    public vacancyService: VacanciesService,
-    private vacancyTableService: VacancyTableService,
-    public evaluationService: EvaluationService,
-    private router: Router,
-    private route: ActivatedRoute) {
+    public vacancyTableService: VacanciesService,
+    public evaluationService: EvaluationService) {
   }
 
   displayedColumns = ['select', 'candidate', 'status', 'score', 'reviewer', 'invited'];
 
 
   ngOnInit(): void {
-    this.vacancyService.initMaterialTable();
-    this.vacancyService.dataSubject.next(this.vacancyService.dataSource.data.length);
-    this.vacancyService.dataSubject.subscribe();
+    this.initMaterialTable()
   }
 
-  createReviwerModal(): void {
-    this.vacancyService.ReviewerModal();
-  }
-
-  toggle(row): void {
-    this.vacancyService.selection.toggle(row);
-  }
-
-  isSelected(row) {
-    return !!this.vacancyService.selection.isSelected(row);
-  }
-
-  changeSubject(): void {
-    this.vacancyService.toggleSubject();
-  }
-
-  getSubjectValue(): number {
-    return this.vacancyService.dataSubject.getValue();
-  }
-
-  getDataSource() {
-    return this.vacancyService.dataSource;
-  }
-
-  showCandidate(candidate) {
-    const id = this.route.snapshot.params['id']
-    this.vacancyTableService.getVacancy(id).pipe(
-      map(el => {
-        if (el.title !== null && el.questions !== null && el.type !== null) {
-          return {
-            title: el.title,
-            questions: JSON.stringify(el.questions),
-            type: el.type,
-            candidate: candidate
-          }
+  initMaterialTable() {
+    this.evaluationService.getEvaluations(this.vacancyId).subscribe(data => {
+        if (!data.length) {
+          this.show = true;
         }
-      }),
-      tap(data => {
-        this.router.navigate(['/answer'],
-          {relativeTo: this.route, queryParams: data})
-      })
-    ).subscribe()
+        this.evaluationData = new MatTableDataSource(data);
+      }
+    );
   }
+
+  openReviwerModal(): void {
+    this.vacancyTableService.ReviewerModal();
+  }
+
+
 }
 
 
