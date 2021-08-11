@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, QueryList, ViewChildren, ViewEncapsulation} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
-import {QuestionService} from "../../questions-library/shared/question.service";
+import {QuestionService} from '../../questions-library/shared/question.service';
 import {VacanciesCreateService} from "../shared/vacancies-create.service";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {VacanciesViewModalComponent} from "./vacancies-view-modal/vacancies-view-modal.component";

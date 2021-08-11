@@ -17,12 +17,14 @@ export class VacanciesTableComponent implements OnInit {
   @ViewChild(MatTable) table!: MatTable<VacanciesTableItem>;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['title', 'type', 'status', 'avg.score', 'createdAt', 'arrow'];
-  dataSource;
-  data;
-  length: number;
-  createdAt = 'createdAt';
-  value;
+   displayedColumns = ['title', 'type', 'status', 'avg.score', 'createdAt', 'arrow'];
+   dataSource;
+   data;
+   length: number;
+   createdAt = 'createdAt';
+   value;
+   sortedData;
+   avgScore;
 
   constructor(private router: Router,
               private vacanciesService: VacanciesService
@@ -37,12 +39,14 @@ export class VacanciesTableComponent implements OnInit {
   }
 
   initMaterialTable = () => {
-    this.vacanciesService.getAllVacancies().subscribe(vacancies => {
-        this.data = new MatTableDataSource(vacancies);
-        this.data.paginator = this.paginator;
-        this.data.sort = this.sort;
-      }
-    );
+   this.vacanciesService.getAllVacancies().subscribe(vacancies => {
+       this.sortedData = this.getMostRecentData(vacancies);
+       this.data = new MatTableDataSource(this.sortedData);
+       this.data.paginator = this.paginator;
+       this.data.sort = this.sort;
+     }
+   );
+   this.getAvgScore();
   }
 
   getInfo(id): void {
@@ -50,8 +54,15 @@ export class VacanciesTableComponent implements OnInit {
   }
 
 
-  getAvgScore(): number {
-    return this.vacanciesService.percentage;
+  getAvgScore(): void{
+   this.avgScore = this.vacanciesService.percentage;
+  }
+
+
+  getMostRecentData(data){
+    return data.sort((a, b) => {
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    });
   }
 
 

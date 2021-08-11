@@ -4,5 +4,4 @@ export interface TestVacanciesTableItem {
   description: string;
   status: string;
   type: string;
-  questions: [];
 }
