@@ -10,7 +10,7 @@
         <form [formGroup]="vacanciesForm" #element="ngForm">
           <div class="vacancies-form_title">
             <label for="title">Title</label> <br>
-            <input #titleInpformControlName="title" type="text" id="title" name="title" placeholder="Type your title"
+            <input #titleInp formControlName="title" type="text" id="title" name="title" placeholder="Type your title"
                    >
             <span *ngIf="titleInp.value.length > 200 &&
             !vacanciesForm.get('title').valid && vacanciesForm.get('title').touched">Max amount of characters is 200</span>

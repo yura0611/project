@@ -96,10 +96,7 @@
 .empty p{
   padding-top: 15px;
   font-size: 14px;
-  font-weight: 800;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
+  font-weight: 700;
   letter-spacing: 0.5px;
   text-align: center;
   color: #007672;
@@ -121,12 +118,9 @@
   background-color: rgb(0, 118, 114,0.1);
 }
 
-
 .mat-row:hover .arrow {
   opacity: 1;
 }
-
-
 
 .mat-cell:nth-child(1),
 .mat-header-cell:nth-child(1),

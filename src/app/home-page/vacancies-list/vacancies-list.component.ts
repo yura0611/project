@@ -21,6 +21,8 @@ export class VacanciesListComponent implements OnInit {
   displayedColumns = ['title', 'type', 'status', 'avg-score', 'createdAt', 'arrow'];
   allVacancies: IVacancy[] = [];
   sortedVacancies: IVacancy[] = [];
+  avgScore;
+
 
   constructor(
     private homeService: HomePageService,

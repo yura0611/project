@@ -11,14 +11,6 @@ import {IQuestion} from "../../app-shared/interfaces/IQuestion";
 import {patterns} from "../../app-shared/regexPatterns/patterns";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Constants} from "../../constants/constants";
-import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
-import {VacanciesViewModalComponent} from './vacancies-view-modal/vacancies-view-modal.component';
-import {QuestionNewModalComponent} from '../../questions-library/question-new-modal/question-new-modal.component';
-import {QuestionEditModalComponent} from '../../questions-library/question-edit-modal/question-edit-modal.component';
-import {options} from '../../app-shared/inputsOptions';
-import {IQuestion} from '../../app-shared/interfaces/IQuestions';
-import {patterns} from '../../app-shared/regexPatterns/patterns';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-vacancies-create',
