@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject, Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {tap} from 'rxjs/operators';
-import {IQuestion} from "../../app-shared/interfaces/IQuestions";
+import {IQuestions} from "../../app-shared/interfaces/IQuestions";
 
 
 
@@ -14,8 +14,8 @@ export class QuestionService {
   availableTopics = [];
   private availableTopicsSubject = new BehaviorSubject<string[]>([]);
   public availableTopics$ = this.availableTopicsSubject.asObservable();
-  changedQuestion = new Subject<IQuestion>();
-  private questionListSubject = new BehaviorSubject<IQuestion[]>([]);
+  changedQuestion = new Subject<IQuestions>();
+  private questionListSubject = new BehaviorSubject<IQuestions[]>([]);
   public questionList$ = this.questionListSubject.asObservable();
   isSorted = false;
 
@@ -23,8 +23,8 @@ export class QuestionService {
   }
 
 
-  addNewQuestion(question: IQuestion) {
-    return this.http.post<{email: string, question: IQuestion}>(`${environment.API_URL}question`, {question, email: 'vasilishin08@gmail.com'});
+  addNewQuestion(question: IQuestions) {
+    return this.http.post<{email: string, question: IQuestions}>(`${environment.API_URL}question`, {question, email: 'vasilishin08@gmail.com'});
   }
 
   getAllTopics() {
@@ -35,7 +35,7 @@ export class QuestionService {
   }
 
   getQuestionByFilters(value = []) {
-    return this.http.post<IQuestion[]>(`${environment.API_URL}question/filtered`, value)
+    return this.http.post<IQuestions[]>(`${environment.API_URL}question/filtered`, value)
       .pipe(
         tap(data => {
           this.questionListSubject.next(data);
@@ -54,7 +54,7 @@ export class QuestionService {
   }
 
 
-  editQuestion(editedQuestion: IQuestion, id) {
+  editQuestion(editedQuestion: IQuestions, id) {
     this.http.put(`${environment.API_URL}question/edit`, {question: editedQuestion, _id: id}).pipe(
       tap(data => {
         const editedQuestion = data['question'];
@@ -75,12 +75,12 @@ export class QuestionService {
   }
 
   deleteQuestion(id: string) {
-    this.http.post(`${environment.API_URL}question/delete`, {_id: id}).subscribe((data: IQuestion[]) => {
+    this.http.post(`${environment.API_URL}question/delete`, {_id: id}).subscribe((data: IQuestions[]) => {
       this.questionListSubject.next(data);
     });
   }
 
-  updateQuestionList(question: IQuestion) {
+  updateQuestionList(question: IQuestions) {
     this.questionListSubject.next([...this.questionListSubject.value, question]);
   }
 

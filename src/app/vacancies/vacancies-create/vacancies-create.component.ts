@@ -7,9 +7,10 @@ import {VacanciesViewModalComponent} from "./vacancies-view-modal/vacancies-view
 import {QuestionNewModalComponent} from "../../questions-library/question-new-modal/question-new-modal.component";
 import {QuestionEditModalComponent} from "../../questions-library/question-edit-modal/question-edit-modal.component";
 import {options} from "../../app-shared/inputsOptions";
-import {IQuestion} from "../../app-shared/interfaces/IQuestions";
+import {IQuestions} from "../../app-shared/interfaces/IQuestions";
 import {patterns} from "../../app-shared/regexPatterns/patterns";
 import {ActivatedRoute, Router} from "@angular/router";
+import {Constants} from "../../constants/constants";
 
 @Component({
   selector: 'app-vacancies-create',
@@ -22,7 +23,7 @@ export class VacanciesCreateComponent implements OnInit {
   inputSearchValue: any = '';
   searchMode = false;
   totalTime: number = 0;
-  allQuestions: IQuestion[];
+  allQuestions: IQuestions[];
   vacanciesForm: FormGroup;
   titleLength = options.titleLength;
   descriptionLength = options.descriptionLength;
@@ -32,7 +33,8 @@ export class VacanciesCreateComponent implements OnInit {
               public questionService: QuestionService,
               public vacanciesService: VacanciesCreateService,
               private router: Router,
-              private route: ActivatedRoute
+              private route: ActivatedRoute,
+              private constants: Constants
   ) {
   }
 
@@ -113,11 +115,11 @@ export class VacanciesCreateComponent implements OnInit {
     (<FormArray>this.vacanciesForm.controls['questions']).removeAt(index)
   }
 
-  openViewQuestionModal(question: IQuestion) {
+  openViewQuestionModal(question: IQuestions) {
     const modalConfig = new MatDialogConfig();
     modalConfig.autoFocus = false;
-    modalConfig.width = '496px';
-    modalConfig.height = '850px';
+    modalConfig.width = this.constants.width.xs;
+    modalConfig.height = this.constants.height.l;
     modalConfig.data = question;
 
     this.dialog.open(VacanciesViewModalComponent, modalConfig)
@@ -126,16 +128,16 @@ export class VacanciesCreateComponent implements OnInit {
   openCreateNewModal() {
     const modalConfig = new MatDialogConfig();
     modalConfig.autoFocus = false;
-    modalConfig.width = '496px';
-    modalConfig.height = '850px';
+    modalConfig.width = this.constants.width.xs;
+    modalConfig.height = this.constants.height.l;
     this.dialog.open(QuestionNewModalComponent, modalConfig)
   }
 
-  openEditModal(question: IQuestion, id) {
+  openEditModal(question: IQuestions, id) {
     const questionId = id;
     const modalConfig = new MatDialogConfig();
-    modalConfig.width = '496px';
-    modalConfig.height = '850px';
+    modalConfig.width = this.constants.width.xs;
+    modalConfig.height = this.constants.height.l;
     modalConfig.data = {question: question, questionId: questionId};
     this.dialog.open(QuestionEditModalComponent, modalConfig);
   }

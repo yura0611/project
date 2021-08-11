@@ -22,7 +22,7 @@ export class QuestionsListComponent implements OnInit {
 
   constructor(private questionService: QuestionService,
               public dialog: MatDialog,
-              private modalsHeightAndWidth: Constants) {
+              private constants: Constants) {
   }
 
   ngOnInit() {
@@ -40,8 +40,8 @@ export class QuestionsListComponent implements OnInit {
     const question = this.questionService.getQuestionById(id)
     const questionId = id;
     const modalConfig = new MatDialogConfig();
-    modalConfig.width = this.modalsHeightAndWidth.questionModalWidth;
-    modalConfig.height = this.modalsHeightAndWidth.questionModalHeight;
+    modalConfig.width = this.constants.width.xs;
+    modalConfig.height = this.constants.height.l;
     modalConfig.data = {question: question, questionId: questionId};
     this.dialog.open(QuestionEditModalComponent, modalConfig);
   }
@@ -49,8 +49,8 @@ export class QuestionsListComponent implements OnInit {
   openCreateNewModal() {
     const modalConfig = new MatDialogConfig();
     modalConfig.autoFocus = false;
-    modalConfig.width = this.modalsHeightAndWidth.questionModalWidth;
-    modalConfig.height = this.modalsHeightAndWidth.questionModalHeight;
+    modalConfig.width = this.constants.width.xs;
+    modalConfig.height = this.constants.height.l;
     this.dialog.open(QuestionNewModalComponent, modalConfig)
   }
 
@@ -58,8 +58,8 @@ export class QuestionsListComponent implements OnInit {
     const modalConfig = new MatDialogConfig();
     const questionId = id;
     modalConfig.autoFocus = false;
-    modalConfig.width = this.modalsHeightAndWidth.questionModalWidth;
-    modalConfig.height = this.modalsHeightAndWidth.questionModalHeight;
+    modalConfig.width = this.constants.width.xs;
+    modalConfig.height = this.constants.height.l;
     modalConfig.data = {id: questionId};
 
     this.dialog.open(QuestionViewModalComponent, modalConfig)

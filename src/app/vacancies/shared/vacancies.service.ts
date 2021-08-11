@@ -115,8 +115,8 @@ export class VacanciesService {
 
   ReviewerModal(): void {
     this.dialog.open(SetReviewerModalComponent, {
-      width: this.constants.modalWidth,
-      height: this.constants.modalHeight,
+      width: this.constants.width.s,
+      height: this.constants.height.m,
     });
   }
 

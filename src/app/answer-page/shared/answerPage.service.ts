@@ -12,7 +12,7 @@ export class AnswerPageService {
   openModal(component, question, questions) {
     const modalConfig = new MatDialogConfig();
     modalConfig.autoFocus = false;
-    modalConfig.width = this.constants.answerModalWidth;
+    modalConfig.width = this.constants.width.m;
     modalConfig.data = {question: question, allQuestions: questions};
     this.dialog.open(component, modalConfig)
   }

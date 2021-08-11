@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {IQuestion} from "../app-shared/interfaces/IQuestions";
+import {IQuestions} from "../app-shared/interfaces/IQuestions";
 import {AnswerPageService} from "./shared/answerPage.service";
 import {AnswerModalComponent} from "./answer-modal/answer-modal.component";
 
@@ -12,7 +12,7 @@ import {AnswerModalComponent} from "./answer-modal/answer-modal.component";
 export class AnswerPageComponent implements OnInit {
   candidate: string;
   vacancy: {title: string, type: string}
-  questions: IQuestion[]
+  questions: IQuestions[]
   displayedColumns: string[] = ['question', 'status', 'mark'];
   dataSource
   constructor(private router: Router,

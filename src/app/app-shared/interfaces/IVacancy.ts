@@ -1,4 +1,4 @@
-import {IQuestion} from "./IQuestions";
+import {IQuestions} from "./IQuestions";
 
 export interface IVacancy {
   _id: string;
@@ -6,7 +6,7 @@ export interface IVacancy {
   createdAt: string;
   editedAt: string;
   description: string;
-  questions: IQuestion[];
+  questions: IQuestions[];
   status: string;
   title: string;
   type: string;

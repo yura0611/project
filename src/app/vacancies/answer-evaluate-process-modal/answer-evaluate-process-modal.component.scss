@@ -24,7 +24,6 @@
       display: flex;
       justify-content: space-between;
       p {
-        font-family: OpenSans, sans-serif;
         font-size: 1rem;
         font-weight: bold;
         color: #101820;
@@ -33,7 +32,6 @@
     .description {
       padding: 20px 40px 0 40px;
       p {
-        font-family: OpenSans, sans-serif;
         font-size: 0.9rem;
         line-height: normal;
         letter-spacing: normal;
@@ -52,7 +50,6 @@
   .topics:first-child {
       margin-left: 40px;
   }
-
 
 }
 

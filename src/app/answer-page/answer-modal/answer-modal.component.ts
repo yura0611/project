@@ -1,7 +1,7 @@
 import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {AnswerPageService} from "../shared/answerPage.service";
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
-import {IQuestion} from "../../app-shared/interfaces/IQuestions";
+import {IQuestions} from "../../app-shared/interfaces/IQuestions";
 
 @Component({
   selector: 'app-answer-modal',
@@ -13,7 +13,7 @@ export class AnswerModalComponent implements OnInit {
   allQuestions
   @ViewChild('answer') answer: ElementRef;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: { question: IQuestion, allQuestions: IQuestion[] },
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { question: IQuestions, allQuestions: IQuestions[] },
               private answerPage: AnswerPageService) {
   }
 

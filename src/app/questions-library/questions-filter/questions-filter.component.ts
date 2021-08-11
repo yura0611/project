@@ -1,7 +1,7 @@
 import {Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {FormArray, FormGroup} from '@angular/forms';
 import {QuestionService} from '../shared/question.service';
-import {IQuestion} from "../../app-shared/interfaces/IQuestions";
+import {IQuestions} from "../../app-shared/interfaces/IQuestions";
 
 @Component({
   selector: 'app-questions-filter',
@@ -15,7 +15,7 @@ export class QuestionsFilterComponent implements OnInit {
   @ViewChild('questionBlock') questionBlock: ElementRef;
   topics = this.questionService.availableTopics;
   filterForm: FormGroup;
-  formData: IQuestion;
+  formData: IQuestions;
   modalsMode;
   constructor(private questionService: QuestionService) {
 
