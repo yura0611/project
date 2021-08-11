@@ -32,8 +32,6 @@ export class VacanciesInviteModalComponent implements OnInit {
       candidate,
       vacancyId
     }
-    console.log(vacancyId)
-    console.log(candidate)
     this.vacancyService.inviteCandidate(payload)
   }
 

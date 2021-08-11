@@ -22,7 +22,6 @@ export class AnswerPageComponent implements OnInit {
   ngOnInit(): void {
 
     this.route.queryParams.subscribe(data => {
-      console.log(JSON.parse(data.questions))
       this.questions = JSON.parse(data.questions);
       this.dataSource = JSON.parse(data.questions);
       this.vacancy = {

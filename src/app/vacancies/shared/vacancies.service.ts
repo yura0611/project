@@ -128,7 +128,6 @@ export class VacanciesService {
     this.http.post<IVacancy[]>(`${environment.API_URL}vacancy/status`, {
       _id: id
     }).pipe(
-      tap(el => console.log(el))
     ).subscribe((data: IVacancy[]) => {
       this.vacanciesListSubject.next(data);
     });
@@ -155,7 +154,8 @@ export class VacanciesService {
 
   public inviteCandidate(invitePayload) {
     return this.http
-      .post(`${environment.API_URL}vacancy/invite/${invitePayload.vacancyId}`, invitePayload.candidate)
+      .post(`${environment.API_URL}vacancy/invite/${invitePayload.vacancyId}`, {candidate: invitePayload.candidate})
+      // I need this console.log
       .subscribe(data => console.log(data))
   }
 }
