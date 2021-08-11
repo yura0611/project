@@ -2,6 +2,15 @@ import {Component, ElementRef, OnInit, QueryList, ViewChildren, ViewEncapsulatio
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {QuestionService} from '../../questions-library/shared/question.service';
 import {VacanciesCreateService} from "../shared/vacancies-create.service";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import {VacanciesViewModalComponent} from "./vacancies-view-modal/vacancies-view-modal.component";
+import {QuestionNewModalComponent} from "../../questions-library/question-new-modal/question-new-modal.component";
+import {QuestionEditModalComponent} from "../../questions-library/question-edit-modal/question-edit-modal.component";
+import {options} from "../../app-shared/inputsOptions";
+import {IQuestion} from "../../app-shared/interfaces/IQuestion";
+import {patterns} from "../../app-shared/regexPatterns/patterns";
+import {ActivatedRoute, Router} from "@angular/router";
+import {Constants} from "../../constants/constants";
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {VacanciesViewModalComponent} from './vacancies-view-modal/vacancies-view-modal.component';
 import {QuestionNewModalComponent} from '../../questions-library/question-new-modal/question-new-modal.component';
@@ -17,7 +26,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./vacancies-create.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class VacanciesCreateComponent implements OnInit{
+export class VacanciesCreateComponent implements OnInit {
   @ViewChildren('element') checkbox: QueryList<ElementRef>;
   inputSearchValue: any = '';
   searchMode = false;
@@ -27,23 +36,27 @@ export class VacanciesCreateComponent implements OnInit{
   titleLength = options.titleLength;
   descriptionLength = options.descriptionLength;
   limitOfQuestionExceed = false;
+
   constructor(public dialog: MatDialog,
               public questionService: QuestionService,
               public vacanciesService: VacanciesCreateService,
-              public router: Router,
-              ) { }
+              private router: Router,
+              private route: ActivatedRoute,
+              private constants: Constants
+  ) {
+  }
 
   ngOnInit() {
-      this.questionService.getAllTopics()
-      this.vacanciesService.getAllQuestions().subscribe(data => this.allQuestions = data)
-      this.questionService.questionList$.subscribe(data => this.allQuestions = data)
+    this.questionService.getAllTopics()
+    this.vacanciesService.getAllQuestions().subscribe(data => this.allQuestions = data)
+    this.questionService.questionList$.subscribe(data => this.allQuestions = data)
 
     this.vacanciesForm = new FormGroup({
       'title': new FormControl(null,
-        [Validators.required, Validators.max(200), Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
+        [Validators.required, Validators.maxLength(200), Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
       'type': new FormControl('', Validators.required),
       'description': new FormControl(null,
-        [Validators.required, Validators.max(800), Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
+        [Validators.required, Validators.maxLength(800), Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
       'questions': new FormArray([], Validators.required)
     })
   }
@@ -67,7 +80,7 @@ export class VacanciesCreateComponent implements OnInit{
     const questionsId = [];
     questions.map(el => questionsId.push(el._id))
     this.vacanciesService.createVacancy(questionsId, newVacancy)
-    this.router.navigate(['/vacancies'])
+    this.router.navigate(['/vacancies'], {relativeTo: this.route})
   }
 
   onAddQuestion(question, input) {
@@ -99,7 +112,7 @@ export class VacanciesCreateComponent implements OnInit{
   onDelete(index, question) {
     let inputs = []
     this.checkbox.toArray().filter(el => el.nativeElement).map(el => inputs.push(el))
-    for(let i = 0; i <= inputs.length - 1; i++) {
+    for (let i = 0; i <= inputs.length - 1; i++) {
       if (inputs[i].nativeElement.name === question.title &&
         inputs[i].nativeElement.id === question._id) {
         inputs[i].nativeElement.checked = false;
@@ -113,8 +126,8 @@ export class VacanciesCreateComponent implements OnInit{
   openViewQuestionModal(question: IQuestion) {
     const modalConfig = new MatDialogConfig();
     modalConfig.autoFocus = false;
-    modalConfig.width = '496px';
-    modalConfig.height = '850px';
+    modalConfig.width = this.constants.modalWidth.xs;
+    modalConfig.height = this.constants.modalHeight.l;
     modalConfig.data = question;
 
     this.dialog.open(VacanciesViewModalComponent, modalConfig)
@@ -123,17 +136,17 @@ export class VacanciesCreateComponent implements OnInit{
   openCreateNewModal() {
     const modalConfig = new MatDialogConfig();
     modalConfig.autoFocus = false;
-    modalConfig.width = '496px';
-    modalConfig.height = '850px';
+    modalConfig.width = this.constants.modalWidth.xs;
+    modalConfig.height = this.constants.modalHeight.l;
     this.dialog.open(QuestionNewModalComponent, modalConfig)
   }
 
   openEditModal(question: IQuestion, id) {
     const questionId = id;
     const modalConfig = new MatDialogConfig();
-    modalConfig.width = '496px';
-    modalConfig.height = '850px';
-    modalConfig.data = {question:question, questionId:questionId};
+    modalConfig.width = this.constants.modalWidth.xs;
+    modalConfig.height = this.constants.modalHeight.l;
+    modalConfig.data = {question: question, questionId: questionId};
     this.dialog.open(QuestionEditModalComponent, modalConfig);
   }
 

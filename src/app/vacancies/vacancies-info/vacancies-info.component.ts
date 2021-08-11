@@ -41,8 +41,11 @@ export class VacanciesInfoComponent implements OnInit {
 
   openInviteModal(): void {
     this.dialog.open(VacanciesInviteModalComponent, {
-      width: this.constants.modalWidth,
-      height: this.constants.modalHeight
+      data:{
+        vacancyId: this.id
+      },
+      width: this.constants.modalWidth.s,
+      height: this.constants.modalHeight.m
     });
   }
 

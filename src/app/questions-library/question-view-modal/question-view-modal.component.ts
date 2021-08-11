@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
 import {QuestionService} from "../shared/question.service";
-import {IQuestion} from "../../app-shared/interfaces/IQuestions";
+import {IQuestion} from "../../app-shared/interfaces/IQuestion";
 
 @Component({
   selector: 'app-question-view-modal',
