@@ -52,7 +52,8 @@ export class QuestionModalFormComponent implements OnInit {
 
     } else {
       this.modal = new FormGroup({
-        'title': new FormControl(this.data.question.title, [Validators.required, Validators.maxLength(200)]),
+        'title': new FormControl(this.data.question.title,
+          [Validators.required, Validators.maxLength(200), Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
         'description': new FormControl(this.data.question.description,
           [Validators.required, Validators.maxLength(800), Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
         'topics': new FormArray(this.data.question.topics.map(el => new FormControl(el)), Validators.required),
@@ -71,7 +72,6 @@ export class QuestionModalFormComponent implements OnInit {
   onClose() {
     this.dialogRef.closeAll();
   }
-
 
   onCreate() {
     this.questionService.addNewQuestion(this.modal.value).pipe(
