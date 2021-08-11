@@ -43,8 +43,8 @@ export class VacanciesInfoComponent implements OnInit {
       data:{
         vacancyId: this.id
       },
-      width: this.constants.width.s,
-      height: this.constants.height.m
+      width: this.constants.modalWidth.s,
+      height: this.constants.modalHeight.m
     });
   }
 

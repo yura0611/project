@@ -7,7 +7,7 @@ import {VacanciesViewModalComponent} from "./vacancies-view-modal/vacancies-view
 import {QuestionNewModalComponent} from "../../questions-library/question-new-modal/question-new-modal.component";
 import {QuestionEditModalComponent} from "../../questions-library/question-edit-modal/question-edit-modal.component";
 import {options} from "../../app-shared/inputsOptions";
-import {IQuestions} from "../../app-shared/interfaces/IQuestions";
+import {IQuestion} from "../../app-shared/interfaces/IQuestion";
 import {patterns} from "../../app-shared/regexPatterns/patterns";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Constants} from "../../constants/constants";
@@ -23,7 +23,7 @@ export class VacanciesCreateComponent implements OnInit {
   inputSearchValue: any = '';
   searchMode = false;
   totalTime: number = 0;
-  allQuestions: IQuestions[];
+  allQuestions: IQuestion[];
   vacanciesForm: FormGroup;
   titleLength = options.titleLength;
   descriptionLength = options.descriptionLength;
@@ -115,11 +115,11 @@ export class VacanciesCreateComponent implements OnInit {
     (<FormArray>this.vacanciesForm.controls['questions']).removeAt(index)
   }
 
-  openViewQuestionModal(question: IQuestions) {
+  openViewQuestionModal(question: IQuestion) {
     const modalConfig = new MatDialogConfig();
     modalConfig.autoFocus = false;
-    modalConfig.width = this.constants.width.xs;
-    modalConfig.height = this.constants.height.l;
+    modalConfig.width = this.constants.modalWidth.xs;
+    modalConfig.height = this.constants.modalHeight.l;
     modalConfig.data = question;
 
     this.dialog.open(VacanciesViewModalComponent, modalConfig)
@@ -128,16 +128,16 @@ export class VacanciesCreateComponent implements OnInit {
   openCreateNewModal() {
     const modalConfig = new MatDialogConfig();
     modalConfig.autoFocus = false;
-    modalConfig.width = this.constants.width.xs;
-    modalConfig.height = this.constants.height.l;
+    modalConfig.width = this.constants.modalWidth.xs;
+    modalConfig.height = this.constants.modalHeight.l;
     this.dialog.open(QuestionNewModalComponent, modalConfig)
   }
 
-  openEditModal(question: IQuestions, id) {
+  openEditModal(question: IQuestion, id) {
     const questionId = id;
     const modalConfig = new MatDialogConfig();
-    modalConfig.width = this.constants.width.xs;
-    modalConfig.height = this.constants.height.l;
+    modalConfig.width = this.constants.modalWidth.xs;
+    modalConfig.height = this.constants.modalHeight.l;
     modalConfig.data = {question: question, questionId: questionId};
     this.dialog.open(QuestionEditModalComponent, modalConfig);
   }

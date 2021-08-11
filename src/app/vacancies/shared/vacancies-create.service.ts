@@ -2,13 +2,13 @@ import {Injectable} from '@angular/core';
 import {QuestionService} from "../../questions-library/shared/question.service";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
-import {IQuestions} from "../../app-shared/interfaces/IQuestions";
+import {IQuestion} from "../../app-shared/interfaces/IQuestion";
 
 
 @Injectable()
 export class VacanciesCreateService {
 
-  allQuestions: IQuestions[]
+  allQuestions: IQuestion[]
 
   constructor(public questionService: QuestionService, private http: HttpClient) {
   }

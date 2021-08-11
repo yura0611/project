@@ -11,7 +11,7 @@ import {
 import {FormGroup} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
 import {options} from "../../app-shared/inputsOptions";
-import {IQuestions} from "../../app-shared/interfaces/IQuestions";
+import {IQuestion} from "../../app-shared/interfaces/IQuestion";
 
 @Component({
   selector: 'app-question-edit-modal',
@@ -23,7 +23,7 @@ export class QuestionEditModalComponent implements OnInit {
   @ViewChild('expandSelect') select: ElementRef;
   @ViewChildren('element') checkBoxInput: QueryList<ElementRef>;
   editModal: FormGroup;
-  editedQuestion: IQuestions;
+  editedQuestion: IQuestion;
   titleLength = options.titleLength;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,

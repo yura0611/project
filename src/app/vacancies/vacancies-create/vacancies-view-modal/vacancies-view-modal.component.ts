@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
-import {IQuestions} from "../../../app-shared/interfaces/IQuestions";
+import {IQuestion} from "../../../app-shared/interfaces/IQuestion";
 
 
 @Component({
@@ -10,7 +10,7 @@ import {IQuestions} from "../../../app-shared/interfaces/IQuestions";
   encapsulation: ViewEncapsulation.None
 })
 export class VacanciesViewModalComponent implements OnInit {
-  currentQuestion: IQuestions
+  currentQuestion: IQuestion
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               private dialogRef: MatDialog,) {

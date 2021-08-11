@@ -1,4 +1,4 @@
-export interface IQuestions {
+export interface IQuestion {
   _id: string;
   title: string;
   type: string;
