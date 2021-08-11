@@ -1,25 +1,15 @@
-import { Injectable } from '@angular/core';
-import {environment} from "../../../environments/environment";
-import {tap} from "rxjs/operators";
-import {BehaviorSubject, Observable} from "rxjs";
-import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from "rxjs";
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class EvaluationService {
 
 
-  constructor(private http: HttpClient) { }
+  constructor() {
+  }
 
   private evaluationListSubject = new BehaviorSubject([]);
   public evaluationList$ = this.evaluationListSubject.asObservable();
-
-
-
-
-
-
 
 
 }

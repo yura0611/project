@@ -8,7 +8,7 @@ describe('VacanciesCreateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ VacanciesCreateComponent ]
+      declarations: [ VacanciesCreateComponent ],
     })
     .compileComponents();
   });

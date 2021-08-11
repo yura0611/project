@@ -2,11 +2,13 @@
 .candidate_block {
   padding-left: 25px;
   padding-bottom: 20px;
+
   .candidate {
     font-family: Raleway, serif;
     font-size: 24px;
     font-weight: 800;
   }
+
   .vacancy_desc {
     font-family: OpenSans, sans-serif;
     font-size: 13px;
@@ -17,13 +19,11 @@
 }
 
 
-
-
-
 //Answer block style
 .answer_card {
   display: flex;
   justify-content: space-between;
+
   .answer_card_content {
     display: flex;
     justify-content: space-between;
@@ -31,6 +31,7 @@
     padding: 21px 25px 22px;
     box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.05), 0 4px 25px 0 rgba(0, 184, 178, 0.05);
     width: 33%;
+
     .answer_card_content-button button {
       padding: 12px 20px;
       border: none;
@@ -46,7 +47,9 @@
       color: #ffffff;
       cursor: pointer;
     }
+
     .answer_card_content-text {
+
       .number {
         font-family: Nexa, sans-serif;
         font-size: 24px;
@@ -57,6 +60,7 @@
         letter-spacing: normal;
         color: #e0004d;
       }
+
       .text {
         font-size: 15px;
         font-weight: bold;
@@ -68,6 +72,7 @@
       }
     }
   }
+
   .answer_card_content:not(:last-child) {
     margin-right: 10px;
   }
@@ -77,6 +82,7 @@
   padding-left: 25px;
   padding-bottom: 20px;
   padding-top: 20px;
+
   p {
     font-family: Raleway, serif;
     font-size: 24px;
@@ -84,13 +90,16 @@
     color: #373a36;
   }
 }
+
 .mat-elevation-z8 {
   width: 100%;
 }
+
 .questions_block {
   max-height: 50vh;
   overflow: auto;
   box-shadow: 0 4px 25px 0 rgb(0 0 0 / 5%), 0 4px 25px 0 rgb(0 184 178 / 5%);
+
   .column_title {
     font-family: OpenSans, sans-serif;
     font-size: 14px;
@@ -98,6 +107,7 @@
 
     color: #101820;
   }
+
   .status {
     font-size: 0.7rem;
     padding: 2px 4px;
@@ -112,6 +122,7 @@
   width: 10%;
   padding-right: 350px;
 }
+
 .column_title.mark {
   width: 10%;
   padding-right: 100px;
@@ -121,21 +132,26 @@
   visibility: hidden;
   float: right;
 }
+
 .mat-row.mat-column-mark:hover {
   display: inline-block;
 }
+
 .questions_block-header {
   display: flex;
   justify-content: space-between;
 }
+
 .question_item {
   display: flex;
   justify-content: space-between;
 }
+
 .mat-row:hover {
   background-color: rgba(0, 118, 114, 0.1);
   cursor: pointer;
 }
+
 .mat-row:hover .arrow {
   visibility: visible;
 

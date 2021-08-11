@@ -4,9 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {IVacancy} from "../../app-shared/interfaces/IVacancy";
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class VacancyTableService {
 
   private EXAMPLE_DATA: ApplicationsTableItem[] = [
@@ -17,7 +15,8 @@ export class VacancyTableService {
   ];
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
 
   getApplicationsTableData = () => of(this.EXAMPLE_DATA);
@@ -26,8 +25,6 @@ export class VacancyTableService {
     return this.http.post<IVacancy>(`${environment.API_URL}vacancy/find-one`, {_id: id})
 
   }
-
-
 
 
 }

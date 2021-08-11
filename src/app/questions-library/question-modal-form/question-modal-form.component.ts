@@ -1,4 +1,14 @@
-import {Component, ElementRef, Inject, Input, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Inject,
+  Input,
+  OnInit,
+  Optional,
+  QueryList,
+  ViewChild,
+  ViewChildren
+} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import {patterns} from "../../app-shared/regexPatterns/patterns";
 import {tap} from "rxjs/operators";
@@ -18,18 +28,15 @@ export class QuestionModalFormComponent implements OnInit {
   @Input() modal
   @Input() editMode = false;
   availableTopics: string[];
-  createNewModal: FormGroup;
   subscription: Subscription
   titleLength = options.titleLength;
-  descriptionLength = options.descriptionLength;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+  constructor(@Optional() @Inject(MAT_DIALOG_DATA) public data: any,
               private dialogRef: MatDialog,
-              private questionService: QuestionService) { }
+              private questionService: QuestionService) {
+  }
 
   ngOnInit(): void {
-    console.log(this.editMode)
-    console.log(this.modal)
     this.subscription = this.questionService.availableTopics$.subscribe(data => this.availableTopics = data);
     if (!this.editMode) {
       this.modal = new FormGroup({
@@ -39,8 +46,9 @@ export class QuestionModalFormComponent implements OnInit {
           [Validators.maxLength(800), Validators.required, Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
         'topics': new FormArray([], [Validators.min(0), Validators.required]),
         'type': new FormControl(),
-        'maxLength': new FormControl(null, [Validators.min(1),Validators.max(120),Validators.pattern(patterns.regexOnlyNumbers)])
+        'maxLength': new FormControl(null, [Validators.min(1), Validators.max(120), Validators.pattern(patterns.regexOnlyNumbers)])
       });
+
     } else {
       this.modal = new FormGroup({
         'title': new FormControl(this.data.question.title, [Validators.required, Validators.maxLength(250)]),

@@ -13,15 +13,27 @@ import {IVacancy} from '../../app-shared/interfaces/IVacancy';
 import {ApplicationsTableItem} from '../../app-shared/interfaces/IApplecationsTableItem';
 import {TestVacanciesTableItem} from '../../app-shared/interfaces/ITestVacanciesTableItem';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class VacanciesService {
 
   private EXAMPLE_DATA_FOR_APPLICATION_TABLE: ApplicationsTableItem[] = [
     {_id: '1', candidate: 'Abhoy Latif', status: 'invited', score: 0, reviewer: 'Set Up', invited: '15 Sep, 2018'},
-    {_id: '1', candidate: 'Chinaza Akachi', status: 'evaluated', score: 75, reviewer: 'Set Up', invited: '15 Sep, 2018'},
-    {_id: '1', candidate: 'Justine Marshall', status: 'completed', score: 0, reviewer: 'Set Up', invited: '15 Sep, 2019'},
+    {
+      _id: '1',
+      candidate: 'Chinaza Akachi',
+      status: 'evaluated',
+      score: 75,
+      reviewer: 'Set Up',
+      invited: '15 Sep, 2018'
+    },
+    {
+      _id: '1',
+      candidate: 'Justine Marshall',
+      status: 'completed',
+      score: 0,
+      reviewer: 'Set Up',
+      invited: '15 Sep, 2019'
+    },
     {_id: '1', candidate: 'Lu Zhou', status: 'in progress', score: 0, reviewer: 'Set Up', invited: '15 Sep, 2018'},
   ];
 
@@ -37,7 +49,7 @@ export class VacanciesService {
   selection;
   dataSource;
   status;
-  candidateSubject =  new BehaviorSubject(false);
+  candidateSubject = new BehaviorSubject(false);
   dataSubject = new BehaviorSubject(0);
   percentage = 0;
 
@@ -45,24 +57,25 @@ export class VacanciesService {
   constructor(private http: HttpClient,
               private router: Router,
               public dialog: MatDialog,
-              private  constants: Constants) { }
+              private constants: Constants) {
+  }
 
 
-  getAllVacancies(): Observable<any>{
+  getAllVacancies(): Observable<any> {
     return this.http.get<IVacancy[]>(`${environment.API_URL}/vacancy`).pipe(
       tap(vacancies => this.vacanciesListSubject.next(vacancies))
     );
   }
 
   getVacancy(id): Observable<any> {
-    return this.http.post<any>(`${environment.API_URL}vacancy/find-one`, { _id: id}).pipe(
+    return this.http.post<any>(`${environment.API_URL}vacancy/find-one`, {_id: id}).pipe(
       tap(vacancy => this.vacancyListSubject.next(vacancy)
-    ));
+      ));
   }
 
   getApplicationsTableData = () => of(this.EXAMPLE_DATA_FOR_APPLICATION_TABLE);
 
-  setMessage(data): void{
+  setMessage(data): void {
     this.vacancy = data;
   }
 
@@ -72,7 +85,9 @@ export class VacanciesService {
 
   initMaterialTable = () => {
     this.getApplicationsTableData().pipe(
-      tap(val => {this.data = val; })
+      tap(val => {
+        this.data = val;
+      })
     ).subscribe();
 
     this.selection = new SelectionModel<Element>(false, []);
@@ -89,39 +104,40 @@ export class VacanciesService {
     this.candidateSubject.next(false);
   }
 
-  toggleSubject(): void{
-    if ( this.selection.selected.length === 0) {
+  toggleSubject(): void {
+    if (this.selection.selected.length === 0) {
       this.candidateSubject.next(true);
     }
-    if ( this.selection.selected.length === 1){
+    if (this.selection.selected.length === 1) {
       this.candidateSubject.next(false);
     }
   }
 
-  ReviewerModal(): void{
+  ReviewerModal(): void {
     this.dialog.open(SetReviewerModalComponent, {
       width: this.constants.modalWidth,
       height: this.constants.modalHeight,
     });
   }
 
-  editStatus(id: string): void{
+  editStatus(id: string): void {
     this.http.post(`${environment.API_URL}vacancy/status`, {
-    _id: id}).pipe(
+      _id: id
+    }).pipe(
       tap(el => console.log(el))
     ).subscribe((data: TestVacanciesTableItem[]) => {
       this.vacanciesListSubject.next(data);
-  });
+    });
   }
 
-  editVacancy(obj): void{
+  editVacancy(obj): void {
     this.http.put(`${environment.API_URL}vacancy/edit`, {
       _id: obj._id,
       title: obj.title,
       description: obj.description,
       type: obj.type,
     }).pipe(
-      tap(data => {
+      tap(() => {
         this.vacanciesListSubject.next(obj);
       })
     ).subscribe();

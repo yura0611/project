@@ -1,11 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import { Router } from '@angular/router';
-import { VacanciesService} from '../shared/vacancies.service';
+import {Router} from '@angular/router';
+import {VacanciesService} from '../shared/vacancies.service';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTable, MatTableDataSource} from '@angular/material/table';
 import {VacanciesTableItem} from '../../app-shared/interfaces/IVacanciesTableItem';
-
 
 @Component({
   selector: 'app-vacancies-table',
@@ -18,19 +17,18 @@ export class VacanciesTableComponent implements OnInit {
   @ViewChild(MatTable) table!: MatTable<VacanciesTableItem>;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-   displayedColumns = ['title', 'type', 'status', 'avg.score', 'createdAt', 'arrow'];
-   dataSource;
-   data;
-   length: number;
-   createdAt = 'createdAt';
-   value;
+  displayedColumns = ['title', 'type', 'status', 'avg.score', 'createdAt', 'arrow'];
+  dataSource;
+  data;
+  length: number;
+  createdAt = 'createdAt';
+  value;
 
   constructor(private router: Router,
               private vacanciesService: VacanciesService
-    ) {
+  ) {
     this.dataSource = new MatTableDataSource([]);
   }
-
 
 
   ngOnInit(): void {
@@ -39,20 +37,20 @@ export class VacanciesTableComponent implements OnInit {
   }
 
   initMaterialTable = () => {
-   this.vacanciesService.getAllVacancies().subscribe(vacancies => {
-       this.data = new MatTableDataSource(vacancies);
-       this.data.paginator = this.paginator;
-       this.data.sort = this.sort;
-     }
-   );
+    this.vacanciesService.getAllVacancies().subscribe(vacancies => {
+        this.data = new MatTableDataSource(vacancies);
+        this.data.paginator = this.paginator;
+        this.data.sort = this.sort;
+      }
+    );
   }
 
-  getInfo(id): void{
+  getInfo(id): void {
     this.router.navigate([`/vacancy-info/${id}`]);
   }
 
 
-  getAvgScore(): number{
+  getAvgScore(): number {
     return this.vacanciesService.percentage;
   }
 
