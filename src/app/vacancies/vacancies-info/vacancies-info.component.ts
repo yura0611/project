@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild,  } from '@angular/core';
-import { VacanciesService} from '../shared/vacancies.service';
-import { ApplicationsTableComponent } from './applications-table/applications-table.component';
+import {Component, OnInit, ViewChild,} from '@angular/core';
+import {VacanciesService} from '../shared/vacancies.service';
+import {ApplicationsTableComponent} from './applications-table/applications-table.component';
 import {MatDialog} from '@angular/material/dialog';
 import {VacanciesInviteModalComponent} from '../vacancies-invite-modal/vacancies-invite-modal.component';
 import {Router} from '@angular/router';
@@ -28,6 +28,7 @@ export class VacanciesInfoComponent implements OnInit {
   time;
   id;
   length;
+  vacancy$;
 
 
   constructor(public vacanciesService: VacanciesService,
@@ -38,14 +39,14 @@ export class VacanciesInfoComponent implements OnInit {
 
   }
 
-  openInviteModal(): void{
+  openInviteModal(): void {
     this.dialog.open(VacanciesInviteModalComponent, {
       width: this.constants.modalWidth,
       height: this.constants.modalHeight
     });
   }
 
-  openSetReviewerModal(): void{
+  openSetReviewerModal(): void {
     this.vacanciesService.ReviewerModal();
   }
 
@@ -53,41 +54,27 @@ export class VacanciesInfoComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
     const desc = 'description';
-    this.vacanciesService.getVacancy(this.id)
-      .pipe(
-        tap(vacancy => {
-          this.title = vacancy.title;
-          this.status = vacancy.status;
-          this.type = vacancy.type;
-          this.description = vacancy.description;
-          this.time = vacancy.createdAt;
-          this.length = this.description.length;
-          this.questions = vacancy.questions;
-          return '';
-        })
-      )
-      .subscribe();
-
+    this.vacanciesService.getVacancy(this.id).subscribe();
+    this.vacancy$ = this.vacanciesService.vacancyItem$;
     this.vacanciesService.candidateSubject.subscribe();
     this.vacanciesService.candidateSubject.next(false);
-    this.time =  Date.parse(this.time);
+    this.time = Date.parse(this.time);
   }
 
 
-
-  editVacancy(id): void{
+  editVacancy(id): void {
     this.router.navigate([`/vacancy-edit/${id}`]);
   }
 
-  vacancyDelete(id): void{
+  vacancyDelete(id): void {
     this.vacanciesService.deleteVacancy(id);
   }
 
-  getCandidateSubjectValue(): boolean{
+  getCandidateSubjectValue(): boolean {
     return this.vacanciesService.candidateSubject.getValue();
   }
 
-  removeCandidateRow(): void{
+  removeCandidateRow(): void {
     this.vacanciesService.removeSelectedRow();
   }
 
@@ -95,7 +82,7 @@ export class VacanciesInfoComponent implements OnInit {
     this.vacanciesService.editStatus(id);
   }
 
-  getAvgScore(): number{
+  getAvgScore(): number {
     return this.vacanciesService.percentage;
   }
 

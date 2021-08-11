@@ -26,11 +26,11 @@ export class VacanciesService {
   ];
 
 
-  public  vacanciesListSubject = new BehaviorSubject([]);
+  private vacanciesListSubject = new BehaviorSubject([]);
   public vacanciesList$ = this.vacanciesListSubject.asObservable();
-  public  vacancyListSubject = new BehaviorSubject([]);
-  public  changedList = new Subject();
-
+  private vacancyItemSubject = new BehaviorSubject(null);
+  public vacancyItem$ = this.vacancyItemSubject.asObservable();
+  public changedList = new Subject();
 
   vacancy = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.';
 
@@ -59,7 +59,7 @@ export class VacanciesService {
   getVacancy(id): Observable<any> {
     return this.http.post<IVacancies[]>(`${environment.API_URL}vacancy/find-one`, { _id: id}).pipe(
       tap(vacancy => {
-        this.vacancyListSubject.next(vacancy);
+        this.vacancyItemSubject.next(vacancy);
       }
     ));
   }
@@ -112,7 +112,7 @@ export class VacanciesService {
 
   ReviewerModal(): void{
     this.dialog.open(SetReviewerModalComponent, {
-      width: this.constants.modalWidhtForReviewer,
+      width: this.constants.modalWidth,
       height: this.constants.modalHeigthForReviewer,
     });
   }
@@ -137,16 +137,8 @@ export class VacanciesService {
       type: obj.type,
     }).pipe(
       tap(data => {
-        const editedVacancy = data;
-        const vacanciesList = this.vacanciesListSubject.value;
-        this.vacancyListSubject.next(editedVacancy);
-        vacanciesList.map(vacancy => {
-          if(vacancy._id === editedVacancy['_id']){
-            return editedVacancy;
-          }
-          return vacancy;
-        })
-     this.vacanciesListSubject.next(vacanciesList);
+        console.log(data);
+        this.vacancyItemSubject.next(data);
       })
     )
   }

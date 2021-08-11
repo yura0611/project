@@ -1,6 +1,7 @@
+<ng-container *ngIf="(vacancy$ | async) as vacancy">
 <div>
-        <span class="vacancy-type">{{ type | uppercase}} &#160;</span>
-        <span class="vacancy-title">{{title | uppercase}}</span>
+        <span class="vacancy-type">{{ vacancy.type | uppercase}} &#160;</span>
+        <span class="vacancy-title">{{vacancy.title | uppercase}}</span>
         <button class="btn" (click)="vacancyDelete(id)" >
           <mat-icon><span class="material-icons-outlined">
               delete
@@ -13,7 +14,7 @@
     </button>
   </div>
     <div class="vacancy-description">
-      {{description}}
+      {{vacancy.description}}
         </div>
     <div class="mat-cards">
     <mat-card>
@@ -21,9 +22,9 @@
             <mat-card-title>Status</mat-card-title>
           </mat-card-header>
          <mat-card-content>
-          <div class="container-card-content">{{status |  titlecase}}
+          <div class="container-card-content">{{vacancy.status |  titlecase}}
 
-            <button class="btns" (click)="changeStatus(id)">{{ status === 'Active' ? 'CLOSE' : 'RE-OPEN'}}</button>
+            <button class="btns" (click)="changeStatus(id)">{{ vacancy.status === 'Active' ? 'CLOSE' : 'RE-OPEN'}}</button>
                 </div>
       </mat-card-content>   </mat-card>
       <mat-card>
@@ -45,7 +46,7 @@
             <mat-card-title>Opened</mat-card-title>
           </mat-card-header>
         <mat-card-content>
-       <span> {{ time | date: 'd MMM y'  }} </span>
+       <span> {{ vacancy.createdAt | date: 'd MMM y'  }} </span>
       </mat-card-content></mat-card>
      </div>
      <div class="content-title">
@@ -76,5 +77,5 @@
        </a>
      </div>
      <app-applications-table [vacancyId]="id"></app-applications-table>
-
+</ng-container>
 

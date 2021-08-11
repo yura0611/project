@@ -1,16 +1,17 @@
 <div class="header">
   <h2>Set Reviewer</h2>
-  <a class="hover" (click)="closeModal()"><mat-icon class="icon">close</mat-icon></a>
+  <a class="hover" (click)="closeModal()">
+    <mat-icon class="icon">close</mat-icon>
+  </a>
 </div>
 <div>
   <div class="content">
     <p class="subheader">Please, write email to find reviewer</p>
     <form [formGroup]="reviewerForm">
       <mat-form-field appearance="outline">
-        <input  matInput type="email" [(ngModel)]="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" formControlName="email" placeholder="Read only text" >
+        <input matInput type="email" [(ngModel)]="email" formControlName="email" placeholder="Read only text">
       </mat-form-field>
     </form>
-    <button class="btn " [ngClass]="{'btn-disabled': email === ''}" >SUT UP</button>
+    <button class="btn" (click)="setUp()" [ngClass]="{'btn-disabled': email === ''}">SET UP</button>
   </div>
-
 </div>

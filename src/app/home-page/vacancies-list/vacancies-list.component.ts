@@ -21,6 +21,7 @@ export class VacanciesListComponent implements OnInit {
   displayedColumns = ['title', 'type', 'status', 'avg-score', 'createdAt', 'arrow'];
   allVacancies: IVacancies[] = [];
   sortedVacancies: IVacancies[] = [];
+  avgScore;
 
   constructor(
     private homeService: HomePageService,
@@ -38,6 +39,7 @@ export class VacanciesListComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
+    this.getAvgScore();
   }
 
   getMostRecentData(data){
@@ -48,8 +50,8 @@ export class VacanciesListComponent implements OnInit {
 
 
 
-  getAvgScore(): number{
-    return this.vacancyService.percentage;
+  getAvgScore(): void{
+    this.avgScore = this.vacancyService.percentage;
   }
 
 

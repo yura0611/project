@@ -63,21 +63,13 @@
   margin-left: 50px;
 }
 
-
-
-.pd-10{
+.element-padding{
   padding-left: 10px;
 }
 
-.pd-20{
-  padding-left: 20px;
-}
-
-.mr-30{
+.element-margin{
   margin-right: 30px;
 }
-
-
 
 .mat-column-title {
   width: 300px;
@@ -90,23 +82,15 @@
   flex: 0 0 36%;
 }
 
-
 mat-cell{
   overflow: hidden;
-  width:auto;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-
-
 .vacancies-list-block_title {
   font-size: 24px;
   font-weight: 800;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
   color: #373a36;
   margin-top: 30px;
   margin-bottom: 20px;

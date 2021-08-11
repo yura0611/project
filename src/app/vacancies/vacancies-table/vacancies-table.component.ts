@@ -25,6 +25,7 @@ export class VacanciesTableComponent implements OnInit {
    createdAt = 'createdAt';
    value;
    sortedData;
+   avgScore;
 
   constructor(private router: Router,
               private vacanciesService: VacanciesService
@@ -47,6 +48,7 @@ export class VacanciesTableComponent implements OnInit {
        this.data.sort = this.sort;
      }
    );
+   this.getAvgScore();
   }
 
   getInfo(id): void{
@@ -54,8 +56,8 @@ export class VacanciesTableComponent implements OnInit {
   }
 
 
-  getAvgScore(): number{
-    return this.vacanciesService.percentage;
+  getAvgScore(): void{
+   this.avgScore = this.vacanciesService.percentage;
   }
 
 

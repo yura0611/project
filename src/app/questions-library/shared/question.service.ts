@@ -1,9 +1,9 @@
-import {environment} from "../../../environments/environment";
+import {environment} from '../../../environments/environment';
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {tap} from 'rxjs/operators';
-import {IQuestion} from "../../app-shared/interfaces/IQuestions";
+import {IQuestion} from '../../app-shared/interfaces/IQuestions';
 
 
 
@@ -29,8 +29,8 @@ export class QuestionService {
 
   getAllTopics() {
     this.http.get<string[]>(`${environment.API_URL}question/topics`).subscribe(data => {
-      this.availableTopics.push(...data)
-      this.availableTopicsSubject.next(data)
+      this.availableTopics.push(...data);
+      this.availableTopicsSubject.next(data);
     });
   }
 
@@ -65,7 +65,6 @@ export class QuestionService {
           }
           return question
         })
-        console.log(newQuestionList);
         this.questionListSubject.next(newQuestionList)
       })
     )
