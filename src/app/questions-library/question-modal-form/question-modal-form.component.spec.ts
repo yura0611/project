@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VacanciesCreateComponent } from './vacancies-create.component';
+import { QuestionModalFormComponent } from './question-modal-form.component';
 
-describe('VacanciesCreateComponent', () => {
-  let component: VacanciesCreateComponent;
-  let fixture: ComponentFixture<VacanciesCreateComponent>;
+describe('QuestionModalFormComponent', () => {
+  let component: QuestionModalFormComponent;
+  let fixture: ComponentFixture<QuestionModalFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ VacanciesCreateComponent ],
+      declarations: [ QuestionModalFormComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VacanciesCreateComponent);
+    fixture = TestBed.createComponent(QuestionModalFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

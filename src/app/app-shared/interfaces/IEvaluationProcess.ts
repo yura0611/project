@@ -1,4 +1,4 @@
-import {IVacancies} from "./IVacancies";
+import {IVacancy} from "./IVacancy";
 
 export interface IEvaluationProcess {
   candidate: {
@@ -9,7 +9,7 @@ export interface IEvaluationProcess {
     firstName: string,
     lastName: string,
   };
-  vacancy: IVacancies,
+  vacancy: IVacancy,
   answers: {
     questionId: string,
     _id: string

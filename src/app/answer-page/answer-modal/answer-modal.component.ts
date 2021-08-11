@@ -1,8 +1,7 @@
 import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
-import {combineLatest, fromEvent} from "rxjs";
-import {debounceTime, distinctUntilChanged, filter, map, takeWhile, tap} from "rxjs/operators";
 import {AnswerPageService} from "../shared/answerPage.service";
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
+import {IQuestion} from "../../app-shared/interfaces/IQuestion";
 
 @Component({
   selector: 'app-answer-modal',
@@ -13,8 +12,11 @@ export class AnswerModalComponent implements OnInit {
   question
   allQuestions
   @ViewChild('answer') answer: ElementRef;
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
-              private answerPage: AnswerPageService) { }
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { question: IQuestion, allQuestions: IQuestion[] },
+              private answerPage: AnswerPageService) {
+  }
+
   ngOnInit() {
     this.question = this.data.question
     this.allQuestions = this.data.allQuestions
@@ -30,7 +32,7 @@ export class AnswerModalComponent implements OnInit {
     const index = questionList.findIndex(el => el.questionId === currentQuestion.questionId);
     return index + 1;
   }
-  //
+
   nextQuestion() {
     const currentQuestionId = this.question.questionId;
     const allQuestions = this.allQuestions;

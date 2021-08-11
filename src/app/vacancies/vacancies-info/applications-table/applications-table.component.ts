@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {VacancyTableService} from "../../shared/vacancy-table.service";
 import {map, tap} from "rxjs/operators";
 
+
 @Component({
   selector: 'app-applications-table',
   templateUrl: './applications-table.component.html',
@@ -24,7 +25,7 @@ export class ApplicationsTableComponent implements OnInit {
   displayedColumns = ['select', 'candidate', 'status', 'score', 'reviewer', 'invited'];
 
 
-  ngOnInit(): void {
+  ngOnInit(): void{
     this.vacancyService.initMaterialTable();
     this.vacancyService.dataSubject.next(this.vacancyService.dataSource.data.length);
     this.vacancyService.dataSubject.subscribe();
@@ -72,6 +73,8 @@ export class ApplicationsTableComponent implements OnInit {
           {relativeTo: this.route, queryParams: data})
       })
     ).subscribe()
-
   }
 }
+
+
+

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {IQuestion} from "../app-shared/interfaces/IQuestions";
+import {IQuestion} from "../app-shared/interfaces/IQuestion";
 import {AnswerPageService} from "./shared/answerPage.service";
 import {AnswerModalComponent} from "./answer-modal/answer-modal.component";
 

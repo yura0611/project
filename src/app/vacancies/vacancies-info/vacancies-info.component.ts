@@ -43,8 +43,8 @@ export class VacanciesInfoComponent implements OnInit {
       data:{
         vacancyId: this.id
       },
-      width: this.constants.modalWidth,
-      height: this.constants.modalHeight
+      width: this.constants.modalWidth.s,
+      height: this.constants.modalHeight.m
     });
   }
 
@@ -56,7 +56,6 @@ export class VacanciesInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
-    const desc = 'description';
     this.vacanciesService.getVacancy(this.id)
       .pipe(
         tap(vacancy => {
