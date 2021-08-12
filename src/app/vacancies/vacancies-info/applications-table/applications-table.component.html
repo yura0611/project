@@ -43,7 +43,7 @@
       <mat-header-cell *matHeaderCellDef> INVITED</mat-header-cell>
       <mat-cell *matCellDef="let element" class="arrow_right">
         {{element['created_at'] | date: 'd MMM y'}}
-        <mat-icon class="arrow" [routerLink]="['/answer']">
+        <mat-icon class="arrow" (click)="showCandidate(element.candidate)">
           arrow_forward
         </mat-icon>
       </mat-cell>

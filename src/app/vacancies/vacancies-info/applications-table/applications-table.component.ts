@@ -1,10 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {VacanciesService} from '../../shared/vacancies.service';
 import {EvaluationService} from '../../shared/evaluation.service';
-import {ActivatedRoute, Router} from "@angular/router";
 import {VacancyTableService} from "../../shared/vacancy-table.service";
-import {map, tap} from "rxjs/operators";
 import {MatTableDataSource} from '@angular/material/table';
+import {AnswerPageService} from "../../../answer-page/shared/answerPage.service";
 
 
 @Component({
@@ -22,8 +21,7 @@ export class ApplicationsTableComponent implements OnInit {
     public vacancyService: VacanciesService,
     private vacancyTableService: VacancyTableService,
     public evaluationService: EvaluationService,
-    private router: Router,
-    private route: ActivatedRoute) {
+    private answerPageService: AnswerPageService) {
   }
 
   displayedColumns = ['select', 'candidate', 'status', 'score', 'reviewer', 'invited'];
@@ -48,23 +46,15 @@ export class ApplicationsTableComponent implements OnInit {
   }
 
   showCandidate(candidate) {
-    const id = this.route.snapshot.params['id']
-    this.vacancyTableService.getVacancy(id).pipe(
-      map(el => {
-        if (el.title !== null && el.questions !== null && el.type !== null) {
-          return {
-            title: el.title,
-            questions: JSON.stringify(el.questions),
-            type: el.type,
-            candidate: candidate
-          }
-        }
-      }),
-      tap(data => {
-        this.router.navigate(['/answer'],
-          {relativeTo: this.route, queryParams: data})
-      })
-    ).subscribe()
+    const candidateData = candidate;
+    const vacancy = this.getCurrentVacancy;
+    this.answerPageService.getUserAndVacancy(candidateData, vacancy)
+  }
+  get getCurrentVacancy() {
+    let vacancy;
+    this.vacancyService.vacancyItem$.subscribe(data => vacancy = data)
+    return vacancy
+
   }
 }
 

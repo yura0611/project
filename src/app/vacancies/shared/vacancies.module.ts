@@ -60,7 +60,6 @@ import {RouterModule} from "@angular/router";
         ModalsModule,
         RouterModule,
 
-
     ],
   exports: [
     VacanciesTableComponent,

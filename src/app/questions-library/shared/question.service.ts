@@ -4,8 +4,7 @@ import {BehaviorSubject, Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {tap} from 'rxjs/operators';
 import {IQuestion} from "../../app-shared/interfaces/IQuestion";
-
-
+import {MatDialog} from "@angular/material/dialog";
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +18,8 @@ export class QuestionService {
   public questionList$ = this.questionListSubject.asObservable();
   isSorted = false;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              public dialog: MatDialog,) {
   }
 
 
@@ -53,7 +53,6 @@ export class QuestionService {
 
   }
 
-
   editQuestion(editedQuestion: IQuestion, id) {
     this.http.put(`${environment.API_URL}question/edit/${id}`, {question: editedQuestion}).pipe(
       tap(data => {
@@ -70,9 +69,9 @@ export class QuestionService {
     )
       .subscribe(data => {
         this.changedQuestion.next(data['question']);
-
       });
   }
+
 
   deleteQuestion(id: string) {
     this.http.delete(`${environment.API_URL}question/delete/${id}`).subscribe((data: {message: string, updatedList: IQuestion[]}) => {
@@ -97,7 +96,6 @@ export class QuestionService {
     }
 
   }
-
 
   sortByTimeASC(a, b) {
     return a.maxLength - b.maxLength;
