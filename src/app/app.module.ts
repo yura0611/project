@@ -57,7 +57,9 @@ import {VacanciesModule} from "./vacancies/shared/vacancies.module";
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
     Constants,
   ],
-  exports: [],
+    exports: [
+        ConvertTimePipe
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

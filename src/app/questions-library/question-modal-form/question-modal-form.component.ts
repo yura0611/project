@@ -11,11 +11,11 @@ import {
 } from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import {patterns} from "../../app-shared/regexPatterns/patterns";
-import {tap} from "rxjs/operators";
 import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
 import {QuestionService} from "../shared/question.service";
 import {Subscription} from "rxjs";
 import {options} from "../../app-shared/inputsOptions";
+import {ModalService} from "../shared/modals.service";
 
 @Component({
   selector: 'app-question-modal-form',
@@ -26,22 +26,26 @@ export class QuestionModalFormComponent implements OnInit {
   @ViewChildren('element') checkBoxInput: QueryList<ElementRef>;
   @ViewChild('expandSelect') select: ElementRef;
   @Input() modal
-  @Input() editMode = false;
+  editMode = false;
   availableTopics: string[];
   subscription: Subscription
   titleLength = options.titleLength;
+  descriptionLength = options.descriptionLength;
 
   constructor(@Optional() @Inject(MAT_DIALOG_DATA) public data: any,
               private dialogRef: MatDialog,
-              private questionService: QuestionService) {
+              private questionService: QuestionService,
+              private modalService: ModalService
+  ) {
   }
 
   ngOnInit(): void {
+    this.editMode = this.data.editMode;
     this.subscription = this.questionService.availableTopics$.subscribe(data => this.availableTopics = data);
-    if (!this.editMode) {
+    if (!this.data.editMode) {
       this.modal = new FormGroup({
         'title': new FormControl(null,
-          [Validators.maxLength(250), Validators.required, Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
+          [Validators.maxLength(200), Validators.required, Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
         'description': new FormControl(null,
           [Validators.maxLength(800), Validators.required, Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
         'topics': new FormArray([], [Validators.min(0), Validators.required]),
@@ -51,7 +55,8 @@ export class QuestionModalFormComponent implements OnInit {
 
     } else {
       this.modal = new FormGroup({
-        'title': new FormControl(this.data.question.title, [Validators.required, Validators.maxLength(250)]),
+        'title': new FormControl(this.data.question.title,
+          [Validators.required, Validators.maxLength(200), Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
         'description': new FormControl(this.data.question.description,
           [Validators.required, Validators.maxLength(800), Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
         'topics': new FormArray(this.data.question.topics.map(el => new FormControl(el)), Validators.required),
@@ -64,35 +69,24 @@ export class QuestionModalFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.dialogRef.closeAll();
+    this.modalService.onSubmit()
   }
 
   onClose() {
-    this.dialogRef.closeAll();
+    this.modalService.onClose()
   }
 
-
   onCreate() {
-    this.questionService.addNewQuestion(this.modal.value).pipe(
-      tap(newQuestion => this.questionService.updateQuestionList(newQuestion.question))
-    ).subscribe();
+    this.modalService.onCreate(this.modal)
   }
 
   onEdit() {
-    const editedQuestion = {
-      '_id': this.data.question._id,
-      'title': this.modal.value.title,
-      'description': this.modal.value.description,
-      'topics': this.modal.value.topics,
-      'type': this.modal.value.type,
-      'maxLength': this.modal.value.maxLength
-    };
-    this.questionService.editQuestion(editedQuestion, editedQuestion._id);
+    this.modalService.onEdit(this.data, this.modal)
   }
 
   onDelete() {
-    this.questionService.deleteQuestion(this.data.question._id);
-    this.dialogRef.closeAll();
+    this.modalService.onDelete(this.data)
+
   }
 
 }

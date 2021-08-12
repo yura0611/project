@@ -1,7 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {VacanciesService} from '../../shared/vacancies.service';
 import {EvaluationService} from '../../shared/evaluation.service';
+import {VacancyTableService} from "../../shared/vacancy-table.service";
 import {MatTableDataSource} from '@angular/material/table';
+import {AnswerPageService} from "../../../answer-page/shared/answerPage.service";
+
 
 @Component({
   selector: 'app-applications-table',
@@ -15,8 +18,10 @@ export class ApplicationsTableComponent implements OnInit {
   show = false;
 
   constructor(
-    public vacancyTableService: VacanciesService,
-    public evaluationService: EvaluationService) {
+    public vacancyService: VacanciesService,
+    private vacancyTableService: VacancyTableService,
+    public evaluationService: EvaluationService,
+    private answerPageService: AnswerPageService) {
   }
 
   displayedColumns = ['select', 'candidate', 'status', 'score', 'reviewer', 'invited'];
@@ -36,11 +41,21 @@ export class ApplicationsTableComponent implements OnInit {
     );
   }
 
-  openReviwerModal(): void {
-    this.vacancyTableService.ReviewerModal();
+  openReviewerModal(): void {
+    this.vacancyService.ReviewerModal();
   }
 
+  showCandidate(candidate) {
+    const candidateData = candidate;
+    const vacancy = this.getCurrentVacancy;
+    this.answerPageService.getUserAndVacancy(candidateData, vacancy)
+  }
+  get getCurrentVacancy() {
+    let vacancy;
+    this.vacancyService.vacancyItem$.subscribe(data => vacancy = data)
+    return vacancy
 
+  }
 }
 
 

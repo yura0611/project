@@ -7,19 +7,19 @@
     <form [formGroup]="invitationForm">
       <p>Email</p>
       <mat-form-field appearance="outline">
-        <input  matInput type="email" [(ngModel)]="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" formControlName="email" placeholder="Read only text" >
+        <input  matInput type="email" formControlName="email" placeholder="Read only text" >
       </mat-form-field>
       <p>First Name</p>
       <mat-form-field appearance="outline">
-        <input  matInput  formControlName="firstName" [(ngModel)]="firstName"   placeholder="Read only text" >
+        <input  matInput  formControlName="firstName"  placeholder="Read only text" >
       </mat-form-field>
       <p>Last Name</p>
       <mat-form-field appearance="outline">
-        <input  matInput  formControlName="lastName" [(ngModel)]="lastName" placeholder="Read only text" >
+        <input  matInput  formControlName="lastName"  placeholder="Read only text" >
       </mat-form-field>
       <button
         class="btn"
-        [ngClass]="{'btn-disabled': firstName === ''}"
+        [ngClass]="{'btn-disabled': !invitationForm.valid}"
         (click)="onInvite()">
         INVITE
       </button>

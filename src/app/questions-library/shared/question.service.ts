@@ -4,8 +4,7 @@ import {BehaviorSubject, Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {tap} from 'rxjs/operators';
 import {IQuestion} from "../../app-shared/interfaces/IQuestion";
-
-
+import {MatDialog} from "@angular/material/dialog";
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +18,8 @@ export class QuestionService {
   public questionList$ = this.questionListSubject.asObservable();
   isSorted = false;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              public dialog: MatDialog,) {
   }
 
 
@@ -53,11 +53,10 @@ export class QuestionService {
 
   }
 
-
   editQuestion(editedQuestion: IQuestion, id) {
-    this.http.put(`${environment.API_URL}question/edit`, {question: editedQuestion, _id: id}).pipe(
+    this.http.put(`${environment.API_URL}question/edit/${id}`, {question: editedQuestion}).pipe(
       tap(data => {
-        const editedQuestion = data['question'];
+        const editedQuestion = data['updatedQuestion'];
         const questionList = this.questionListSubject.value;
         const newQuestionList = questionList.map(question => {
           if (question._id === editedQuestion._id) {
@@ -70,13 +69,13 @@ export class QuestionService {
     )
       .subscribe(data => {
         this.changedQuestion.next(data['question']);
-
       });
   }
 
+
   deleteQuestion(id: string) {
-    this.http.post(`${environment.API_URL}question/delete`, {_id: id}).subscribe((data: IQuestion[]) => {
-      this.questionListSubject.next(data);
+    this.http.delete(`${environment.API_URL}question/delete/${id}`).subscribe((data: {message: string, updatedList: IQuestion[]}) => {
+      this.questionListSubject.next(data.updatedList);
     });
   }
 
@@ -97,7 +96,6 @@ export class QuestionService {
     }
 
   }
-
 
   sortByTimeASC(a, b) {
     return a.maxLength - b.maxLength;

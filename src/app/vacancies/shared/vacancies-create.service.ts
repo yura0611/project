@@ -18,7 +18,7 @@ export class VacanciesCreateService {
   }
 
   createVacancy(id, vacancy) {
-    return this.http.post(`${environment.API_URL}vacancy`, {id, vacancy})
+    return this.http.post(`${environment.API_URL}vacancy`, {id:id, vacancy:vacancy})
       .subscribe()
   }
 

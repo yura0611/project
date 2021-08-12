@@ -35,7 +35,7 @@ export class VacanciesTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.initMaterialTable();
-    this.vacanciesService.getAllVacancies();
+    // this.vacanciesService.getAllVacancies();
   }
 
   initMaterialTable = () => {
