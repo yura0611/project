@@ -16,26 +16,7 @@ import {TestVacanciesTableItem} from '../../app-shared/interfaces/ITestVacancies
 @Injectable()
 export class VacanciesService {
 
-  private EXAMPLE_DATA_FOR_APPLICATION_TABLE: ApplicationsTableItem[] = [
-    {_id: '1', candidate: 'Abhoy Latif', status: 'invited', score: 0, reviewer: 'Set Up', invited: '15 Sep, 2018'},
-    {
-      _id: '1',
-      candidate: 'Chinaza Akachi',
-      status: 'evaluated',
-      score: 75,
-      reviewer: 'Set Up',
-      invited: '15 Sep, 2018'
-    },
-    {
-      _id: '1',
-      candidate: 'Justine Marshall',
-      status: 'completed',
-      score: 0,
-      reviewer: 'Set Up',
-      invited: '15 Sep, 2019'
-    },
-    {_id: '1', candidate: 'Lu Zhou', status: 'in progress', score: 0, reviewer: 'Set Up', invited: '15 Sep, 2018'},
-  ];
+
 
 
   private vacanciesListSubject = new BehaviorSubject([]);
@@ -70,14 +51,14 @@ export class VacanciesService {
 
 
   getVacancy(id): Observable<any> {
-    return this.http.post<IVacancy[]>(`${environment.API_URL}vacancy/find-one`, {_id: id}).pipe(
+    return this.http.post<IVacancy>(`${environment.API_URL}vacancy/find-one`, {_id: id}).pipe(
       tap(vacancy => {
           this.vacancyItemSubject.next(vacancy);
         }
       ));
   }
 
-  getApplicationsTableData = () => of(this.EXAMPLE_DATA_FOR_APPLICATION_TABLE);
+
 
   setMessage(data): void {
     this.vacancy = data;
@@ -87,16 +68,7 @@ export class VacanciesService {
     return this.vacancy;
   }
 
-  initMaterialTable = () => {
-    this.getApplicationsTableData().pipe(
-      tap(val => {
-        this.data = val;
-      })
-    ).subscribe();
 
-    this.selection = new SelectionModel<Element>(false, []);
-    this.dataSource = new MatTableDataSource<Element>(this.data);
-  }
 
   removeSelectedRow(): void {
     this.selection.selected.forEach(item => {
@@ -124,17 +96,10 @@ export class VacanciesService {
     });
   }
 
-  editStatus(id: string) {
-    return this.http.post<IVacancy[]>(`${environment.API_URL}vacancy/status`, {
+  public editStatus(id: string): Observable<any> {
+    return this.http.post<IVacancy>(`${environment.API_URL}vacancy/status`, {
       _id: id
-    }).pipe(
-      tap(data => {
-          console.log(data);
-          this.vacancyItemSubject.next(data);
-          console.log(this.vacancyItemSubject);
-        }
-      )
-  );
+    });
   }
 
   editVacancy(obj: TestVacanciesTableItem) {

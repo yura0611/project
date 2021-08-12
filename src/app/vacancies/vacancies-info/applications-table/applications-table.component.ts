@@ -41,10 +41,12 @@ export class ApplicationsTableComponent implements OnInit {
         if (!data.length) {
           this.show = true;
         }
-        this.evaluationData = new MatTableDataSource(data);
-        this.evaluationData.sort = this.sort;
-        this.evaluationData.paginator = this.paginator;
-        this.evaluationData.selectionList = new SelectionModel(false);
+        else{
+          this.evaluationData = new MatTableDataSource(data);
+          this.evaluationData.sort = this.sort;
+          this.evaluationData.paginator = this.paginator;
+          this.evaluationData.selectionList = new SelectionModel(false);
+        }
       }
     );
   }

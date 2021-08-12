@@ -6,7 +6,7 @@ import {VacanciesInviteModalComponent} from '../vacancies-invite-modal/vacancies
 import {Router} from '@angular/router';
 import {Constants} from '../../constants/constants';
 import {ActivatedRoute} from '@angular/router';
-import {tap} from 'rxjs/operators';
+
 
 
 @Component({
@@ -41,7 +41,7 @@ export class VacanciesInfoComponent implements OnInit {
 
   openInviteModal(): void {
     this.dialog.open(VacanciesInviteModalComponent, {
-      data:{
+      data: {
         vacancyId: this.id
       },
       width: this.constants.modalWidth.s,
@@ -81,8 +81,14 @@ export class VacanciesInfoComponent implements OnInit {
   }
 
   changeStatus(id): void {
+    this.vacanciesService.vacancyItem$.subscribe(data => {
+      if (data.status === 'Closed') {
+        data.status = 'Active';
+      } else {
+        data.status = 'Closed';
+      }
+    });
     this.vacanciesService.editStatus(id).subscribe();
-    this.vacancy$ = this.vacanciesService.vacancyItem$;
   }
 
   getAvgScore(): number {
