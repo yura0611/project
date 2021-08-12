@@ -22,10 +22,8 @@
             <mat-card-title>Status</mat-card-title>
           </mat-card-header>
          <mat-card-content>
-          <div class="container-card-content">{{vacancy.status |  titlecase}}
-
-            <button class="btns" (click)="changeStatus(id)">{{ vacancy.status === 'Active' ? 'CLOSE' : 'RE-OPEN'}}</button>
-                </div>
+           {{vacancy.status |  titlecase}}
+           <div class="element-direction"><button class="btns" (click)="changeStatus(id)">{{ vacancy.status === 'Active' ? 'CLOSE' : 'RE-OPEN'}}</button></div>
       </mat-card-content>   </mat-card>
       <mat-card>
         <mat-card-header>

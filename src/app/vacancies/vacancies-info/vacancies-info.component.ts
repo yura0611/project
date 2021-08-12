@@ -56,7 +56,6 @@ export class VacanciesInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
-    const desc = 'description';
     this.vacanciesService.getVacancy(this.id).subscribe();
     this.vacancy$ = this.vacanciesService.vacancyItem$;
     this.vacanciesService.candidateSubject.subscribe();
@@ -82,7 +81,8 @@ export class VacanciesInfoComponent implements OnInit {
   }
 
   changeStatus(id): void {
-    this.vacanciesService.editStatus(id);
+    this.vacanciesService.editStatus(id).subscribe();
+    this.vacancy$ = this.vacanciesService.vacancyItem$;
   }
 
   getAvgScore(): number {

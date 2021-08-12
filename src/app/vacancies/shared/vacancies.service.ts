@@ -70,11 +70,11 @@ export class VacanciesService {
 
 
   getVacancy(id): Observable<any> {
-    return this.http.post<IVacancy[]>(`${environment.API_URL}vacancy/find-one`, { _id: id}).pipe(
+    return this.http.post<IVacancy[]>(`${environment.API_URL}vacancy/find-one`, {_id: id}).pipe(
       tap(vacancy => {
-        this.vacancyItemSubject.next(vacancy);
-      }
-    ));
+          this.vacancyItemSubject.next(vacancy);
+        }
+      ));
   }
 
   getApplicationsTableData = () => of(this.EXAMPLE_DATA_FOR_APPLICATION_TABLE);
@@ -124,14 +124,17 @@ export class VacanciesService {
     });
   }
 
-  editStatus(id: string): void {
-    this.http.post<IVacancy[]>(`${environment.API_URL}vacancy/status`, {
+  editStatus(id: string) {
+    return this.http.post<IVacancy[]>(`${environment.API_URL}vacancy/status`, {
       _id: id
     }).pipe(
-      tap(el => console.log(el))
-    ).subscribe((data: IVacancy[]) => {
-      this.vacanciesListSubject.next(data);
-    });
+      tap(data => {
+          console.log(data);
+          this.vacancyItemSubject.next(data);
+          console.log(this.vacancyItemSubject);
+        }
+      )
+  );
   }
 
   editVacancy(obj: TestVacanciesTableItem) {
@@ -141,7 +144,7 @@ export class VacanciesService {
       description: obj.description,
       type: obj.type,
     }).pipe(
-      tap( data => {
+      tap(data => {
         this.vacancyItemSubject.next(data);
       })
     )

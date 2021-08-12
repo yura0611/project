@@ -5,13 +5,13 @@
   font-weight: bold;
 }
 
-.vacancy-title{
+.vacancy-title {
   font-size: 20px;
   font-weight: bold;
   color: #373a36;
 }
 
-.vacancy-description{
+.vacancy-description {
   margin-top: 20px;
   margin-bottom: 20px;
   margin-left: 10px;
@@ -20,18 +20,18 @@
 }
 
 
-.mat-cards{
+.mat-cards {
   display: flex;
-  gap:10px;
+  gap: 10px;
   margin-bottom: 30px;
 }
 
-mat-card{
+mat-card {
   width: 500px;
   height: 80px;
 }
 
-mat-card-content{
+mat-card-content {
   width: 73px;
   height: 29px;
   font-size: 24px;
@@ -51,56 +51,61 @@ mat-card-content{
 }
 
 
-a{
+a {
   color: #007672;
   text-decoration: none;
   cursor: pointer;
 }
 
-h1{
+h1 {
   font-weight: bold;
   color: #373a36;
   margin-left: 15px;
 }
 
 
-.mat-card-title{
+.mat-card-title {
   font-size: 15px;
-  margin-left: -10px!important;
+  margin-left: -10px !important;
 }
 
 
-.container-card-content{
+.container-card-content {
   display: flex;
   flex-direction: row;
   gap: 90px;
 }
 
-.mat-stroked-button{
+.mat-stroked-button {
   color: #007672;
-  border:  solid 2px #007672;
+  border: solid 2px #007672;
   border-radius: 2px;
 }
 
-.mat-button{
+.mat-button {
   margin-left: 10px;
   float: right;
-  border:  solid 2px #007672;
+  border: solid 2px #007672;
   color: #007672;
   height: 40px;
 }
 
-p > span{
+p > span {
   color: gray;
 }
 
-.mat-card-content{
+.mat-card-content {
   display: inline-block;
   white-space: nowrap;
 }
 
+.element-direction{
+  display: inline;
+  margin-left: 60px;
+}
 
-.btn{
+
+.btn {
   width: 40px;
   height: 40px;
   margin-left: 10px;
@@ -112,15 +117,15 @@ p > span{
   color: #007672;
 }
 
-.btn:hover{
+.btn:hover {
   cursor: pointer;
 }
 
 
-.btns{
-  width: 100px;
+.btns {
   height: 40px;
   padding: 12px 19.5px;
+  box-sizing: border-box;
   border-radius: 2px;
   border: solid 2px #007672;
   background-color: transparent;
@@ -130,18 +135,18 @@ p > span{
 }
 
 
-.btns:hover{
-  cursor:pointer;
+.btns:hover {
+  cursor: pointer;
 }
 
-.content-title{
+.content-title {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
 
-.invite-text{
+.invite-text {
   width: 191px;
   height: 16px;
   font-size: 14px;
@@ -153,21 +158,21 @@ p > span{
   color: #101820;
 }
 
-.invite{
-  gap:5px;
+.invite {
+  gap: 5px;
   display: flex;
   align-items: center;
   color: #101820;
 }
 
-.mat-icon-btns{
+.mat-icon-btns {
   color: #101820;
-  gap:5px;
+  gap: 5px;
   display: flex;
   align-items: center;
 }
 
-.transparent{
+.transparent {
   border-style: none;
   border-color: transparent;
   background: transparent;
