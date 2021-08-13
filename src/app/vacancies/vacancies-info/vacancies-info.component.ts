@@ -3,10 +3,8 @@ import {VacanciesService} from '../shared/vacancies.service';
 import {ApplicationsTableComponent} from './applications-table/applications-table.component';
 import {MatDialog} from '@angular/material/dialog';
 import {VacanciesInviteModalComponent} from '../vacancies-invite-modal/vacancies-invite-modal.component';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Constants} from '../../constants/constants';
-import {ActivatedRoute} from '@angular/router';
-import {tap} from 'rxjs/operators';
 
 
 @Component({
@@ -56,14 +54,12 @@ export class VacanciesInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
-    const desc = 'description';
     this.vacanciesService.getVacancy(this.id).subscribe();
     this.vacancy$ = this.vacanciesService.vacancyItem$;
     this.vacanciesService.candidateSubject.subscribe();
     this.vacanciesService.candidateSubject.next(false);
     this.time = Date.parse(this.time);
   }
-
 
   editVacancy(id): void {
     this.router.navigate([`/vacancy-edit/${id}`]);

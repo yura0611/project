@@ -112,6 +112,7 @@ export class ModalService {
       modalConfig.data = {question: question, questionId: questionId, editMode: true};
       this.dialog.open(component, modalConfig);
     }
+
   }
 
 }

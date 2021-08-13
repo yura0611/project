@@ -31,7 +31,7 @@ export class VacanciesCreateComponent implements OnInit {
 
   constructor(public dialog: MatDialog,
               public questionService: QuestionService,
-              public vacanciesService: VacanciesCreateService,
+              public vacanciesCreateService: VacanciesCreateService,
               private router: Router,
               private route: ActivatedRoute,
               private constants: Constants,
@@ -41,7 +41,7 @@ export class VacanciesCreateComponent implements OnInit {
 
   ngOnInit() {
     this.questionService.getAllTopics()
-    this.vacanciesService.getAllQuestions().subscribe(data => this.allQuestions = data)
+    this.vacanciesCreateService.getAllQuestions().subscribe(data => this.allQuestions = data)
     this.questionService.questionList$.subscribe(data => this.allQuestions = data)
 
     this.vacanciesForm = new FormGroup({
@@ -71,7 +71,7 @@ export class VacanciesCreateComponent implements OnInit {
     }
     const questionsId = [];
     questions.map(el => questionsId.push(el._id))
-    this.vacanciesService.createVacancy(questionsId, newVacancy)
+    this.vacanciesCreateService.createVacancy(questionsId, newVacancy).subscribe()
     this.router.navigate(['/vacancies'], {relativeTo: this.route})
   }
 

@@ -33,10 +33,12 @@ export class ApplicationsTableComponent implements OnInit {
 
   initMaterialTable() {
     this.evaluationService.getEvaluations(this.vacancyId).subscribe(data => {
-        if (!data.length) {
+        if (!data) {
           this.show = true;
+        } else {
+          this.evaluationData = new MatTableDataSource(data);
         }
-        this.evaluationData = new MatTableDataSource(data);
+
       }
     );
   }

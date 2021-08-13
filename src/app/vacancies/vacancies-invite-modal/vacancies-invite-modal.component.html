@@ -1,7 +1,7 @@
 <div class="header">
   <h2>Invite Candidate</h2>
 </div>
-<div>
+<div class="invite-modal_container">
   <div class="content">
     <p class="subheader">Please, write email to find candidate</p>
     <form [formGroup]="invitationForm">
@@ -17,13 +17,30 @@
       <mat-form-field appearance="outline">
         <input  matInput  formControlName="lastName"  placeholder="Read only text" >
       </mat-form-field>
-      <button
+      <ng-container  *ngIf="(invitationalLink | async) as link" >
+        <p>Link for evaluation</p>
+        <mat-form-field appearance="outline">
+          <input  matInput  [value]="link">
+        </mat-form-field>
+      </ng-container>
+      <button *ngIf="!showClose"
         class="btn"
         [ngClass]="{'btn-disabled': !invitationForm.valid}"
         (click)="onInvite()">
         INVITE
       </button>
+      <button *ngIf="showClose"
+        class="btn"
+        [ngClass]="{'btn-disabled': !invitationForm.valid}"
+        (click)="onClose()">
+        CLOSE
+      </button>
     </form>
+
   </div>
 
+<!--  <div class="invitational_link">-->
+<!--    <p>Link for evaluation:</p>-->
+<!--    <span *ngIf="(invitationalLink | async) as link">{{link}}</span>-->
+<!--  </div>-->
 </div>

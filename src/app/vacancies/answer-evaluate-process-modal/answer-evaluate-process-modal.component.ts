@@ -5,6 +5,7 @@ import {debounceTime, distinctUntilChanged, filter, map, switchMap, takeWhile, t
 import {AnswerProcessService} from "./shared/answer-process.service";
 import {combineLatest, fromEvent} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
+import {FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-answer-evaluate-process-modal',
@@ -17,13 +18,20 @@ export class AnswerEvaluateProcessModalComponent implements
   OnDestroy
 {
   @ViewChild('answer') answer: ElementRef;
-  questionList$ = this.answerProcessService.questionList$;
+  questionsListLength
+  questionList$ = this.answerProcessService.questionList$.pipe(
+    tap(questions => this.questionsListLength = questions.length)
+  )
   currentQuestion$ = this.answerProcessService.currentQuestion$;
   currentPosition$ = this.initCurrentPosition();
   currentAnswer$ = this.answerProcessService.currentAnswer$;
+  showButton = false;
+  answerForm: FormGroup;
   currentAnswerValue$ = this.currentAnswer$.pipe(
+    tap(data => console.log(data)),
     filter(data => !!data),
     map(answer => {
+      console.log(answer.answer)
       if (answer.answer) {
         return answer.answer
       } else {
@@ -67,6 +75,11 @@ export class AnswerEvaluateProcessModalComponent implements
         const questionList = value[0];
         const currentQuestion = value[1];
         const index = questionList.findIndex(el => el.questionId === currentQuestion.questionId);
+        if (index === questionList.length - 1) {
+          this.showButton = true;
+        } else {
+          this.showButton = false;
+        }
         return index + 1;
       })
     )
@@ -80,6 +93,10 @@ export class AnswerEvaluateProcessModalComponent implements
       tap(value => this.answerProcessService.updateAnswer(value)),
       takeWhile(() => this.aliveSubscription)
     ).subscribe()
+  }
+
+  onSubmitAnswer() {
+    this.answerProcessService.answerList$.subscribe(data => console.log(data))
   }
 
   ngOnDestroy() {

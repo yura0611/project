@@ -17,7 +17,6 @@ import {TokenInterceptor} from './app.interceptor';
 import {CommonModule} from '@angular/common';
 import {VacanciesListComponent} from './home-page/vacancies-list/vacancies-list.component';
 import {Constants} from './constants/constants';
-import {ConvertTimePipe} from "./app-shared/convertTime.pipe";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatBadgeModule} from "@angular/material/badge";
 import {AnswerPageComponent} from './answer-page/answer-page.component';
@@ -33,7 +32,7 @@ import {VacanciesModule} from "./vacancies/shared/vacancies.module";
     HeaderComponent,
     HomePageComponent,
     VacanciesListComponent,
-    ConvertTimePipe,
+    // ConvertTimePipe,
     AnswerPageComponent,
     AnswerModalComponent,
     RedirectToAdministratorComponent,
@@ -58,7 +57,7 @@ import {VacanciesModule} from "./vacancies/shared/vacancies.module";
     Constants,
   ],
     exports: [
-        ConvertTimePipe
+        // ConvertTimePipe
     ],
   bootstrap: [AppComponent]
 })

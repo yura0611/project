@@ -5,6 +5,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTable, MatTableDataSource} from '@angular/material/table';
 import {VacanciesTableItem} from '../../app-shared/interfaces/IVacanciesTableItem';
+import {tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-vacancies-table',
@@ -34,19 +35,14 @@ export class VacanciesTableComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.initMaterialTable();
-    // this.vacanciesService.getAllVacancies();
-  }
-
-  initMaterialTable = () => {
-   this.vacanciesService.getAllVacancies().subscribe(vacancies => {
-       this.sortedData = this.getMostRecentData(vacancies);
-       this.data = new MatTableDataSource(this.sortedData);
-       this.data.paginator = this.paginator;
-       this.data.sort = this.sort;
-     }
-   );
-   this.getAvgScore();
+    this.vacanciesService.getAllVacancies().pipe(
+        tap(vacancies => {
+          this.sortedData = this.getMostRecentData(vacancies);
+          this.data = new MatTableDataSource(this.sortedData);
+          this.data.paginator = this.paginator;
+          this.data.sort = this.sort;
+        })
+    ).subscribe()
   }
 
   getInfo(id): void {

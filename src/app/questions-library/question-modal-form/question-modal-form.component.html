@@ -1,20 +1,12 @@
-<div class="modal_title" *ngIf="editMode">
+<div class="modal_title">
   <div class="modal_close_btn">
     <a (click)="onClose()">
       <mat-icon>clear</mat-icon>
     </a>
   </div>
-  <p>Edit Question</p>
+  <p>{{editMode ? 'Edit ' : ' Create ' + 'Question'}}</p>
 </div>
 
-<div class="modal_title" *ngIf="!editMode">
-  <div class="modal_close_btn">
-    <a (click)="onClose()">
-      <mat-icon>clear</mat-icon>
-    </a>
-  </div>
-  <p>Create Question</p>
-</div>
 
 <form class="modal-form" [formGroup]="modal" (ngSubmit)="onSubmit()" #formElement='ngForm'>
   <div class="modal-form_title form-element_block">
