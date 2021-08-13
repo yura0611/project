@@ -17,15 +17,7 @@ mat-card {
 
 }
 
-h2 {
-  font-size: 24px;
-  font-weight: 800;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #373a36;
-}
+
 
 .card-center {
   margin-top: 10px;
@@ -42,6 +34,9 @@ textarea {
 .sub-header {
   display: flex;
   justify-content: space-between;
+  font-size: 24px;
+  color: #373a36;
+  font-weight: 700;
 }
 
 .mat-success {
@@ -375,3 +370,4 @@ form {
 input.ng-touched.ng-invalid, textarea.ng-touched.ng-invalid, {
   border: 1px solid red;
 }
+

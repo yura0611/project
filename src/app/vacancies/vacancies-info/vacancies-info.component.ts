@@ -81,14 +81,8 @@ export class VacanciesInfoComponent implements OnInit {
   }
 
   changeStatus(id): void {
-    this.vacanciesService.vacancyItem$.subscribe(data => {
-      if (data.status === 'Closed') {
-        data.status = 'Active';
-      } else {
-        data.status = 'Closed';
-      }
-    });
     this.vacanciesService.editStatus(id).subscribe();
+    this.vacancy$ = this.vacanciesService.vacancyItem$;
   }
 
   getAvgScore(): number {

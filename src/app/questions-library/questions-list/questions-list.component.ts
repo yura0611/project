@@ -19,6 +19,7 @@ export class QuestionsListComponent implements OnInit {
   allTopics: string[];
   questionList$ = this.questionService.questionList$;
   subscription: Subscription;
+  isSorted;
 
   constructor(private questionService: QuestionService,
               public dialog: MatDialog,
@@ -29,11 +30,13 @@ export class QuestionsListComponent implements OnInit {
     this.questionService.getAllTopics()
     this.questionService.getQuestionByFilters().subscribe();
     this.subscription = this.questionService.availableTopics$.subscribe(data => this.allTopics = data)
-
+    console.log( this.questionService.isSorted)
   }
 
   onSort(type: string) {
     this.questionService.sortType(type)
+    this.isSorted = this.questionService.isSorted;
+    console.log( this.questionService.isSorted)
   }
 
   openEditModal(id: string) {

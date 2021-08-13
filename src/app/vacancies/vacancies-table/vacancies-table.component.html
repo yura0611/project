@@ -2,6 +2,7 @@
 
   <mat-table #table [dataSource]="data" matSort aria-label="Elements" >
 
+
     <ng-container matColumnDef="title">
       <mat-header-cell *matHeaderCellDef mat-sort-header> VACANCY </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.title}} </mat-cell>
@@ -11,14 +12,14 @@
 
     <ng-container matColumnDef="type">
       <mat-header-cell *matHeaderCellDef mat-sort-header> TYPE </mat-header-cell>
-      <mat-cell class="pd-10" *matCellDef="let element"> {{element.type}} </mat-cell>
+      <mat-cell  *matCellDef="let element"> {{element.type}} </mat-cell>
     </ng-container>
 
 
     <ng-container matColumnDef="status">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> STATUS </mat-header-cell>
-      <mat-cell class="pd-20" *matCellDef="let element">
-
+      <mat-header-cell *matHeaderCellDef mat-sort-header>STATUS</mat-header-cell>
+      <mat-cell  *matCellDef="let element">
+        &#160;&#160;&#160;&#160;
         <div [ngClass]="{'cell-active': element.status === 'Active',
                                                             'cell-closed': element.status === 'Closed'}">
           {{element.status | uppercase}} </div></mat-cell>
@@ -33,7 +34,7 @@
 
     <ng-container matColumnDef="createdAt">
       <mat-header-cell *matHeaderCellDef mat-sort-header>OPENED</mat-header-cell>
-      <mat-cell class="mr-30"  *matCellDef="let element"> {{element.createdAt | date: 'd MMM y'}} </mat-cell>
+      <mat-cell class="opened" *matCellDef="let element"> {{element.createdAt | date: 'd MMM y'}} </mat-cell>
     </ng-container>
 
     <ng-container  matColumnDef="arrow">
@@ -45,7 +46,7 @@
 
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    <mat-row class="pointer"  *matRowDef="let element; columns: displayedColumns;" (click)="getInfo(element['_id'])">
     </mat-row>
   </mat-table>
   <mat-paginator #paginator

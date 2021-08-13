@@ -99,7 +99,13 @@ export class VacanciesService {
   public editStatus(id: string): Observable<any> {
     return this.http.post<IVacancy>(`${environment.API_URL}vacancy/status`, {
       _id: id
-    });
+    }).pipe(
+      tap(
+        data => {
+          this.vacancyItemSubject.next(data);
+        }
+      )
+    )
   }
 
   editVacancy(obj: TestVacanciesTableItem) {

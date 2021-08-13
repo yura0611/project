@@ -4,10 +4,7 @@
     <ng-container matColumnDef="select">
         <mat-header-cell *matHeaderCellDef ></mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <mat-selection-list>
-          <mat-list-option>
-
-          </mat-list-option>
+        <mat-selection-list [multiple]="false">
         </mat-selection-list>
       </mat-cell>
     </ng-container>
@@ -44,7 +41,7 @@
     <ng-container matColumnDef="created_at">
       <mat-header-cell *matHeaderCellDef mat-sort-header>INVITED</mat-header-cell>
       <mat-cell *matCellDef="let element" class="arrow_right">
-        {{element['created_at'] | date: 'd MMM y'}}
+        {{element['createdAt'] | date: 'd MMM y'}}
         <mat-icon class="arrow" [routerLink]="['/answer']">arrow_forward</mat-icon>
       </mat-cell>
     </ng-container>

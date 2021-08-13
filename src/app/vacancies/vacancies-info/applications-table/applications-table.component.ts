@@ -14,6 +14,7 @@ import {VacanciesTableItem} from '../../../app-shared/interfaces/IVacanciesTable
   styleUrls: ['./applications-table.component.scss']
 })
 export class ApplicationsTableComponent implements OnInit {
+  @ViewChild(MatSelectionList, {static: true}) selectionList: MatSelectionList;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
   @ViewChild(MatTable) table!: MatTable<VacanciesTableItem>;
@@ -21,7 +22,6 @@ export class ApplicationsTableComponent implements OnInit {
 
   evaluationData;
   show = false;
-  private selectionList: MatSelectionList;
 
 
   constructor(
@@ -45,7 +45,7 @@ export class ApplicationsTableComponent implements OnInit {
           this.evaluationData = new MatTableDataSource(data);
           this.evaluationData.sort = this.sort;
           this.evaluationData.paginator = this.paginator;
-          this.evaluationData.selectionList = new SelectionModel(false);
+          this.evaluationData.selectionList.selectedOptions = new SelectionModel<MatListOption>(false);
         }
       }
     );

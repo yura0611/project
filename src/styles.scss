@@ -1,5 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 
+@font-face {
+  font-family: 'blueHighway';
+  src: url('assets/fonts/Blue Highway D Type Regular.ttf');
+}
+
+
+
 html,body{margin:0;padding:0;}
 h1,p{margin:0 0 1em}
 body { font-family: Roboto, "Helvetica Neue", sans-serif; }
@@ -50,4 +57,8 @@ ul {
 
 p {
   font-family: OpenSans, sans-serif;
+}
+
+.mat-paginator .mat-form-field-underline {
+  display: none;
 }

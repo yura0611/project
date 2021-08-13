@@ -1,3 +1,4 @@
+
 .container {
   margin-top: 192px;
 }
@@ -8,6 +9,7 @@
   font-family: 'OpenSans', sans-serif;
   width: 684px;
   margin: 0 auto;
+  font-size: 16px;
   a {
     text-decoration: none;
   }
@@ -25,11 +27,28 @@
 
 .sign-in-content_logo {
   text-align: center;
-  font-family: 'Raleway', sans-serif;
+  font-family:  blueHighway;
   font-size: 32px;
-  font-weight: 800;
+  font-weight: 700;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
   margin-bottom: 40px;
   .text {
     color: #007672;
   }
+}
+
+
+.footer{
+
+  width: 133px;
+  height: 15px;
+  margin-left: 500px;
+  margin-top: 30px;
+  font-family: OpenSans;
+  font-size: 11px;
+  font-weight: 600;
+  color: #aaa;
 }
