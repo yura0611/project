@@ -1,5 +1,5 @@
 <div class="create-new-question">
-  <button mat-button (click)="openCreateNewModal()">Create New</button>
+  <button mat-button (click)="onOpenModal(null, false)">Create New</button>
 </div>
 
 
@@ -30,7 +30,7 @@
           </div>
         </div>
           <mat-icon (click)="openViewQuestionModal(question._id)" class="question-list_link">trending_flat</mat-icon>
-          <mat-icon (click)="openEditModal(question._id)" class="question-list_link">create</mat-icon>
+          <mat-icon (click)="onOpenModal(question._id, true)" class="question-list_link">create</mat-icon>
 
       </div>
     </div>

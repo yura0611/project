@@ -1,5 +1,22 @@
-.mat-dialog-container {
-  padding: 0;
+::ng-deep .mat-dialog-container {
+  padding: 0 !important;
+}
+
+.modal_title {
+  background-color: #fafafa;
+  padding: 20px 0 20px 40px;
+  margin-bottom: 20px;
+  height: 60px;
+
+  p {
+    font-size: 24px;
+    font-weight: 800;
+  }
+
+  .modal_close_btn {
+    text-align: right;
+    margin-right: 15px;
+  }
 }
 
 .selectBox-1 {
@@ -182,5 +199,7 @@ input, textarea, select {
   padding: 0;
 }
 
-
+.notification {
+  color: red;
+}
 

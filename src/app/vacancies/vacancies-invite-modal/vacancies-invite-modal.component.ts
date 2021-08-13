@@ -1,7 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {VacanciesService} from "../shared/vacancies.service";
+import {patterns} from "../../app-shared/regexPatterns/patterns";
 
 @Component({
   selector: 'app-vacancies-invite-modal',
@@ -9,9 +10,6 @@ import {VacanciesService} from "../shared/vacancies.service";
   styleUrls: ['./vacancies-invite-modal.component.scss']
 })
 export class VacanciesInviteModalComponent implements OnInit {
-  firstName = '';
-  lastName = '';
-  email = '';
   invitationForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
@@ -20,10 +18,10 @@ export class VacanciesInviteModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.invitationForm = this.formBuilder.group({
-      email: [this.email, [Validators.maxLength(200), Validators.required]],
-      firstName: [this.firstName, [Validators.required]],
-      lastName: [this.lastName, [Validators.required, Validators.maxLength(800)]],
+    this.invitationForm = new FormGroup({
+      email: new FormControl(null, [Validators.pattern(patterns.regexEmail),Validators.maxLength(200), Validators.required]),
+      firstName: new FormControl(null, Validators.required),
+      lastName: new FormControl(null, [Validators.required, Validators.maxLength(800)]),
     });
   }
 
@@ -34,7 +32,7 @@ export class VacanciesInviteModalComponent implements OnInit {
       candidate,
       vacancyId
     }
-    this.vacancyService.inviteCandidate(payload).subscribe(value => console.log(value))
+    this.vacancyService.inviteCandidate(payload)
   }
 
 }

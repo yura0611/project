@@ -59,10 +59,8 @@ import {RouterModule} from "@angular/router";
         MatInputModule,
         MatCardModule,
         ModalsModule,
-        MatListModule,
         RouterModule,
-
-
+        MatListModule,
     ],
   exports: [
     VacanciesTableComponent,

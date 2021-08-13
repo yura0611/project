@@ -1,15 +1,23 @@
-import {Injectable, Renderer2, RendererFactory2} from '@angular/core';
+import {Inject, Injectable, Optional, Renderer2, RendererFactory2} from '@angular/core';
 import {FormArray, FormControl} from "@angular/forms";
 import {QuestionService} from "./question.service";
+import {tap} from "rxjs/operators";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import {Constants} from "../../constants/constants";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ModalService {
-  availableTopics: string[] = this.questionsService.availableTopics;
+  availableTopics: string[] = this.questionService.availableTopics;
   expanded = false;
   renderer: Renderer2
-  constructor(rendererFactory: RendererFactory2, private questionsService: QuestionService) {
+  constructor(rendererFactory: RendererFactory2,
+              private questionService: QuestionService,
+              @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
+              private dialogRef: MatDialog,
+              private constants: Constants,
+              public dialog: MatDialog,) {
 
     this.renderer = rendererFactory.createRenderer(null,null)
   }
@@ -54,6 +62,56 @@ export class ModalService {
 
     }
 
+  }
+
+  onSubmit() {
+    this.dialogRef.closeAll();
+  }
+
+  onClose() {
+    this.dialogRef.closeAll();
+  }
+
+  onCreate(modal) {
+    this.questionService.addNewQuestion(modal.value).pipe(
+      tap(newQuestion => this.questionService.updateQuestionList(newQuestion.question))
+    ).subscribe();
+  }
+
+  onEdit(data, modal) {
+    const editedQuestion = {
+      '_id': data.question._id,
+      'title': modal.value.title,
+      'description': modal.value.description,
+      'topics': modal.value.topics,
+      'type': modal.value.type,
+      'maxLength': modal.value.maxLength
+    };
+    this.questionService.editQuestion(editedQuestion, editedQuestion._id);
+  }
+
+  onDelete(data) {
+    this.questionService.deleteQuestion(data.question._id);
+    this.dialogRef.closeAll();
+  }
+
+  openModal(id, editMode, component) {
+    if (!editMode) {
+      const modalConfig = new MatDialogConfig();
+      modalConfig.autoFocus = false;
+      modalConfig.width = this.constants.modalWidth.xs;
+      modalConfig.height = this.constants.modalHeight.l;
+      modalConfig.data = {editMode: false};
+      this.dialog.open(component, modalConfig)
+    } else {
+      const question = this.questionService.getQuestionById(id)
+      const questionId = id;
+      const modalConfig = new MatDialogConfig();
+      modalConfig.width = this.constants.modalWidth.xs;
+      modalConfig.height = this.constants.modalHeight.l;
+      modalConfig.data = {question: question, questionId: questionId, editMode: true};
+      this.dialog.open(component, modalConfig);
+    }
   }
 
 }

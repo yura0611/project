@@ -2,10 +2,10 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {QuestionService} from "../shared/question.service";
 import {Subscription} from "rxjs";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
-import {QuestionNewModalComponent} from "../question-new-modal/question-new-modal.component";
-import {QuestionEditModalComponent} from "../question-edit-modal/question-edit-modal.component";
 import {QuestionViewModalComponent} from "../question-view-modal/question-view-modal.component";
 import {Constants} from "../../constants/constants";
+import {QuestionModalFormComponent} from "../question-modal-form/question-modal-form.component";
+import {ModalService} from "../shared/modals.service";
 
 
 @Component({
@@ -23,7 +23,8 @@ export class QuestionsListComponent implements OnInit {
 
   constructor(private questionService: QuestionService,
               public dialog: MatDialog,
-              private constants: Constants) {
+              private constants: Constants,
+              private modalService: ModalService) {
   }
 
   ngOnInit() {
@@ -39,22 +40,8 @@ export class QuestionsListComponent implements OnInit {
     console.log( this.questionService.isSorted)
   }
 
-  openEditModal(id: string) {
-    const question = this.questionService.getQuestionById(id)
-    const questionId = id;
-    const modalConfig = new MatDialogConfig();
-    modalConfig.width = this.constants.modalWidth.xs;
-    modalConfig.height = this.constants.modalHeight.l;
-    modalConfig.data = {question: question, questionId: questionId};
-    this.dialog.open(QuestionEditModalComponent, modalConfig);
-  }
-
-  openCreateNewModal() {
-    const modalConfig = new MatDialogConfig();
-    modalConfig.autoFocus = false;
-    modalConfig.width = this.constants.modalWidth.xs;
-    modalConfig.height = this.constants.modalHeight.l;
-    this.dialog.open(QuestionNewModalComponent, modalConfig)
+  onOpenModal(id, editMode) {
+      this.modalService.openModal(id, editMode, QuestionModalFormComponent)
   }
 
   openViewQuestionModal(id: string) {

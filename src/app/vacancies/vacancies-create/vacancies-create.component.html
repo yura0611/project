@@ -9,11 +9,13 @@
       <mat-card-content>
         <form [formGroup]="vacanciesForm" #element="ngForm">
           <div class="vacancies-form_title">
-            <label for="title">Title</label> <br>
-            <input #titleInp formControlName="title" type="text" id="title" name="title" placeholder="Type your title"
+            <label for="titleInput">Title</label> <br>
+            <input #titleInp formControlName="title" type="text" id="titleInput" name="title" placeholder="Type your title"
+                   [maxLength]="titleLength"
                    >
-            <span *ngIf="titleInp.value.length > 200 &&
-            !vacanciesForm.get('title').valid && vacanciesForm.get('title').touched">Max amount of characters is 200</span>
+            <span *ngIf="titleInp.value.length === 200" class="notification">
+              You have exceeded the maximum number of 200 characters in this field
+            </span>
             <span *ngIf="titleInp.value.length <= 0 &&
              !vacanciesForm.get('title').valid && vacanciesForm.get('title').touched">This field is required</span>
           </div>
@@ -33,8 +35,9 @@
             <label for="desc">Description</label> <br>
             <textarea #descInp id="desc" name="desc" rows="10" placeholder="Type your description"
                       formControlName="description" [maxlength]="descriptionLength"></textarea>
-            <span *ngIf="descInp.value.length > 800 &&
-            !vacanciesForm.get('description').valid && vacanciesForm.get('description').touched">Max amount of characters is 800</span>
+            <span *ngIf="descInp.value.length === 800" class="notification">
+              You have exceeded the maximum number of 800 characters in this field
+            </span>
             <span *ngIf="descInp.value.length <= 0 &&
              !vacanciesForm.get('description').valid && vacanciesForm.get('description').touched">This field is required</span>
           </div>
@@ -83,7 +86,7 @@
         <input [(ngModel)]="inputSearchValue" class="search-input" *ngIf="searchMode" type="text" name="search">
         <div>
           <mat-icon class="search">search</mat-icon>
-          <mat-icon (click)=" openCreateNewModal()" class="plus">add</mat-icon>
+          <mat-icon (click)=" onOpenModal(null,false)" class="plus">add</mat-icon>
         </div>
       </div>
 
@@ -112,7 +115,7 @@
               <p class="title">{{question.title}}</p>
             </div>
             <div class="topics">
-              <mat-icon (click)="openEditModal(question, question._id)" class="pencil">create</mat-icon>
+              <mat-icon (click)="onOpenModal(question._id, true)" class="pencil">create</mat-icon>
               <div class="topics_container">
                 <p *ngFor="let topic of question.topics">{{topic}}</p>
               </div>

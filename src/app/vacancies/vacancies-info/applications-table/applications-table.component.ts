@@ -7,6 +7,10 @@ import {SelectionModel} from '@angular/cdk/collections';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {VacanciesTableItem} from '../../../app-shared/interfaces/IVacanciesTableItem';
+import {VacancyTableService} from "../../shared/vacancy-table.service";
+import {MatTableDataSource} from '@angular/material/table';
+import {AnswerPageService} from "../../../answer-page/shared/answerPage.service";
+
 
 @Component({
   selector: 'app-applications-table',
@@ -25,8 +29,10 @@ export class ApplicationsTableComponent implements OnInit {
 
 
   constructor(
-    public vacancyTableService: VacanciesService,
-    public evaluationService: EvaluationService) {
+    public vacancyService: VacanciesService,
+    private vacancyTableService: VacancyTableService,
+    public evaluationService: EvaluationService,
+    private answerPageService: AnswerPageService) {
   }
 
   displayedColumns = ['select', 'candidate', 'status', 'score', 'reviewer', 'created_at'];
@@ -51,11 +57,21 @@ export class ApplicationsTableComponent implements OnInit {
     );
   }
 
-  openReviwerModal(): void {
-    this.vacancyTableService.ReviewerModal();
+  openReviewerModal(): void {
+    this.vacancyService.ReviewerModal();
   }
 
+  showCandidate(candidate) {
+    const candidateData = candidate;
+    const vacancy = this.getCurrentVacancy;
+    this.answerPageService.getUserAndVacancy(candidateData, vacancy)
+  }
+  get getCurrentVacancy() {
+    let vacancy;
+    this.vacancyService.vacancyItem$.subscribe(data => vacancy = data)
+    return vacancy
 
+  }
 }
 
 

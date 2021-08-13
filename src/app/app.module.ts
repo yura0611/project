@@ -61,7 +61,9 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
     Constants,
   ],
-  exports: [],
+    exports: [
+        ConvertTimePipe
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

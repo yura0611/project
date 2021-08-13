@@ -24,6 +24,8 @@ export class VacanciesService {
   private vacancyItemSubject = new BehaviorSubject(null);
   public vacancyItem$ = this.vacancyItemSubject.asObservable();
   public changedList = new Subject();
+  private userAndVacancyDataSubject = new BehaviorSubject({})
+  public userAndVacancyData$ = this.userAndVacancyDataSubject.asObservable()
 
   vacancy = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.';
 
@@ -51,7 +53,7 @@ export class VacanciesService {
 
 
   getVacancy(id): Observable<any> {
-    return this.http.post<IVacancy>(`${environment.API_URL}vacancy/find-one`, {_id: id}).pipe(
+    return this.http.get<IVacancy>(`${environment.API_URL}vacancy/find-one/$ {id}`).pipe(
       tap(vacancy => {
           this.vacancyItemSubject.next(vacancy);
         }
@@ -109,8 +111,7 @@ export class VacanciesService {
   }
 
   editVacancy(obj: TestVacanciesTableItem) {
-    return this.http.put<IVacancy[]>(`${environment.API_URL}vacancy/edit`, {
-      _id: obj._id,
+    return this.http.put<IVacancy[]>(`${environment.API_URL}vacancy/edit/${obj._id}`, {
       title: obj.title,
       description: obj.description,
       type: obj.type,
@@ -122,17 +123,17 @@ export class VacanciesService {
   }
 
   deleteVacancy(id: string): void {
-    this.http.post(`${environment.API_URL}vacancy/delete`, {_id: id}).subscribe((data: TestVacanciesTableItem[]) => {
+    this.http.delete(`${environment.API_URL}vacancy/delete/${id}`).subscribe((data: TestVacanciesTableItem[]) => {
       this.vacanciesListSubject.next(data);
     });
     this.router.navigate(['/vacancies']);
   }
 
   public inviteCandidate(invitePayload) {
-    return this.http.post(`${environment.API_URL}vacancy/invite`, invitePayload)
-      .pipe(
-
-      )
+    return this.http
+      .post(`${environment.API_URL}vacancy/invite/${invitePayload.vacancyId}`, {candidate: invitePayload.candidate})
+      // I need this console.log
+      .subscribe(data => console.log(data))
   }
 }
 
