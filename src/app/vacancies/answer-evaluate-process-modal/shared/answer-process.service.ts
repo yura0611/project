@@ -1,4 +1,4 @@
-import {Injectable} from "@angular/core";
+import {Injectable, EventEmitter} from "@angular/core";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {environment} from "../../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
@@ -7,8 +7,13 @@ import {tap} from "rxjs/operators";
 import {IEvaluationProcess} from "../../../app-shared/interfaces/IEvaluationProcess";
 
 
+
 @Injectable({providedIn: 'root'})
 export class AnswerProcessService {
+  public disabled = false;
+  disabledValueEmitter = new EventEmitter();
+  private oneAnswerSubject: BehaviorSubject<any> = new BehaviorSubject({})
+  public oneAnswer$ = this.oneAnswerSubject.asObservable();
   private answerListSubject: BehaviorSubject<any> = new BehaviorSubject([]);
   public answerList$ = this.answerListSubject.asObservable();
   private questionListSubject: BehaviorSubject<any[]> = new BehaviorSubject([]);
@@ -17,6 +22,7 @@ export class AnswerProcessService {
   public currentQuestion$ = this.currentQuestionSubject.asObservable();
   private currentAnswerSubject: BehaviorSubject<any> = new BehaviorSubject(undefined);
   public currentAnswer$ = this.currentAnswerSubject.asObservable();
+
   constructor(private dialog: MatDialog, private http: HttpClient) {
   }
 
@@ -35,7 +41,6 @@ export class AnswerProcessService {
   getVacancy(id) {
     return this.http.get<IEvaluationProcess>(`${environment.API_URL}vacancy/evaluations/${id}`).pipe(
       tap(data => {
-        console.log(data)
         this.answerListSubject.next(data.answers)
         this.questionListSubject.next(data.vacancy.questions)
         this.currentQuestionSubject.next(data.vacancy.questions[0])
@@ -51,10 +56,16 @@ export class AnswerProcessService {
     const currentAnswer = answerList.find(el => el.questionId === currentQuestionId);
     const updatedAnswer = {
       ...currentAnswer,
+      currentQuestionId,
       answer
     };
-    console.log(updatedAnswer)
-    answerList[answerIndex] = updatedAnswer;
+    answerList.map(el => {
+      if (el.question === currentQuestionId) {
+        el.answer = answer;
+      }
+    })
+
+    this.oneAnswerSubject.next(updatedAnswer)
     this.answerListSubject.next(answerList);
   }
 
@@ -85,6 +96,19 @@ export class AnswerProcessService {
       this.currentQuestionSubject.next(questionList[index - 1])
       this.currentAnswerSubject.next(answerList[index - 1])
     }
+  }
+
+  sendAnswer(evaluationId) {
+    let answerFromReq;
+    this.oneAnswer$.subscribe(data => answerFromReq = data)
+    this.http.put(`${environment.API_URL}vacancy/update-answer/${evaluationId}`, {answerFromReq})
+      .subscribe()
+
+  }
+
+  sendLastAnswer(evaluationId, answerFromReq) {
+    this.http.put(`${environment.API_URL}vacancy/submit-answers/${evaluationId}`, {answerFromReq})
+      .subscribe()
   }
 
 }

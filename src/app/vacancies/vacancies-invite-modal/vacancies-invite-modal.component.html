@@ -17,7 +17,7 @@
       <mat-form-field appearance="outline">
         <input  matInput  formControlName="lastName"  placeholder="Read only text" >
       </mat-form-field>
-      <ng-container  *ngIf="(invitationalLink | async) as link" >
+      <ng-container  *ngIf="(invitationalLink | async) as link" #linkField>
         <p>Link for evaluation</p>
         <mat-form-field appearance="outline">
           <input  matInput  [value]="link">

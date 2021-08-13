@@ -28,7 +28,7 @@ export class QuestionModalFormComponent implements OnInit {
   @Input() modal
   editMode = false;
   availableTopics: string[];
-  subscription: Subscription
+  subscription: Subscription;
   titleLength = options.titleLength;
   descriptionLength = options.descriptionLength;
 
@@ -40,6 +40,7 @@ export class QuestionModalFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.editMode = this.data.editMode;
     this.subscription = this.questionService.availableTopics$.subscribe(data => this.availableTopics = data);
     if (!this.data.editMode) {
@@ -55,9 +56,9 @@ export class QuestionModalFormComponent implements OnInit {
 
     } else {
       this.modal = new FormGroup({
-        'title': new FormControl(this.data.question.title,
+        'title': new FormControl(this.data.question.title.trim(),
           [Validators.required, Validators.maxLength(200), Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
-        'description': new FormControl(this.data.question.description,
+        'description': new FormControl(this.data.question.description.trim(),
           [Validators.required, Validators.maxLength(800), Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
         'topics': new FormArray(this.data.question.topics.map(el => new FormControl(el)), Validators.required),
         'type': new FormControl(this.data.question.type, Validators.required),
@@ -77,11 +78,19 @@ export class QuestionModalFormComponent implements OnInit {
   }
 
   onCreate() {
-    this.modalService.onCreate(this.modal)
+    const newQuestion = {
+      title: this.modal.value.title.trim(),
+      description: this.modal.value.description.trim(),
+      topics: [...this.modal.value.topics],
+      type: this.modal.value.type,
+      maxLength: this.modal.value.maxLength
+    }
+    this.modalService.onCreate(newQuestion)
   }
 
   onEdit() {
     this.modalService.onEdit(this.data, this.modal)
+
   }
 
   onDelete() {

@@ -18,6 +18,7 @@ export class AnswerEvaluateProcessModalComponent implements
   OnDestroy
 {
   @ViewChild('answer') answer: ElementRef;
+  evaluationId;
   questionsListLength
   questionList$ = this.answerProcessService.questionList$.pipe(
     tap(questions => this.questionsListLength = questions.length)
@@ -28,10 +29,8 @@ export class AnswerEvaluateProcessModalComponent implements
   showButton = false;
   answerForm: FormGroup;
   currentAnswerValue$ = this.currentAnswer$.pipe(
-    tap(data => console.log(data)),
     filter(data => !!data),
     map(answer => {
-      console.log(answer.answer)
       if (answer.answer) {
         return answer.answer
       } else {
@@ -48,23 +47,35 @@ export class AnswerEvaluateProcessModalComponent implements
               private answerProcessService: AnswerProcessService) { }
 
   ngOnInit() {
-
+    this.answerProcessService.disabledValueEmitter.subscribe(data => this.showButton = data)
+    this.evaluationId = this.route.snapshot.params['id'];
+    this.answerProcessService.answerList$
+      .pipe(
+        map(el => {
+          if (!el.answer) {
+            return;
+          } else {
+            this.showButton = true;
+          }
+        })
+      )
+      .subscribe()
     this.route.params.pipe(
       map(value => value.id),
       switchMap(value => this.answerProcessService.getVacancy(value))
     ).subscribe();
   }
 
-  closeModal() {
-    this.answerProcessService.onClose()
-  }
-
   nextItem() {
     this.answerProcessService.nextQuestion()
+    this.answerProcessService.sendAnswer(this.evaluationId)
+
+
   }
 
   previousItem() {
     this.answerProcessService.previousQuestion()
+    this.answerProcessService.sendAnswer(this.evaluationId)
 
   }
 
@@ -76,9 +87,9 @@ export class AnswerEvaluateProcessModalComponent implements
         const currentQuestion = value[1];
         const index = questionList.findIndex(el => el.questionId === currentQuestion.questionId);
         if (index === questionList.length - 1) {
-          this.showButton = true;
-        } else {
           this.showButton = false;
+        } else {
+          this.showButton = true;
         }
         return index + 1;
       })
@@ -87,7 +98,7 @@ export class AnswerEvaluateProcessModalComponent implements
 
   initTextArea() {
     fromEvent(this.answer.nativeElement, 'input').pipe(
-      debounceTime(200),
+      debounceTime(700),
       distinctUntilChanged(),
       map(() => this.answer.nativeElement.value),
       tap(value => this.answerProcessService.updateAnswer(value)),
@@ -95,8 +106,17 @@ export class AnswerEvaluateProcessModalComponent implements
     ).subscribe()
   }
 
-  onSubmitAnswer() {
-    this.answerProcessService.answerList$.subscribe(data => console.log(data))
+  onSubmitLastAnswer() {
+    let lastAnswer: {question: string, answer: string};
+    this.answerProcessService.answerList$.pipe(
+      tap(value => {
+        lastAnswer = {
+          question: value[value.length - 1].question,
+          answer: value[value.length - 1].answer
+        }
+      })
+    ).subscribe()
+    this.answerProcessService.sendLastAnswer(this.evaluationId, lastAnswer)
   }
 
   ngOnDestroy() {

@@ -73,7 +73,7 @@ export class ModalService {
   }
 
   onCreate(modal) {
-    this.questionService.addNewQuestion(modal.value).pipe(
+    this.questionService.addNewQuestion(modal).pipe(
       tap(newQuestion => this.questionService.updateQuestionList(newQuestion.question))
     ).subscribe();
   }

@@ -3,6 +3,7 @@ class Patterns {
   public regexOnlyNumbers;
   public regexEmail;
   constructor() {
+    // /^[^\s]+^[\w ]*[^\W_][\w ]*$/
     // This patter validate only numbers and letters
     // without white spaces on start/end of string
   this.regexOnlyAlphaNumeric = /^[^\s]+(\s+[^\s]+)*$/;

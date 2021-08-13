@@ -1,22 +1,30 @@
-import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
 import {VacanciesService} from "../shared/vacancies.service";
 import {patterns} from "../../app-shared/regexPatterns/patterns";
 import {filter, tap} from "rxjs/operators";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-vacancies-invite-modal',
   templateUrl: './vacancies-invite-modal.component.html',
   styleUrls: ['./vacancies-invite-modal.component.scss']
 })
-export class VacanciesInviteModalComponent implements OnInit {
+export class VacanciesInviteModalComponent implements OnInit, OnDestroy {
   @ViewChild('linkField') linkField: ElementRef;
   invitationForm: FormGroup;
   showClose = false;
+  subscription: Subscription;
   invitationalLink = this.vacancyService.evaluationLink$.pipe(
+    tap(data => console.log(data)),
     filter(val => !!val),
-    tap(() => this.showClose = true)
+    tap((data) => {
+      if (!!data) {
+        this.showClose = true
+      }
+
+    })
   )
   constructor(private formBuilder: FormBuilder,
               private vacancyService: VacanciesService,
@@ -39,12 +47,15 @@ export class VacanciesInviteModalComponent implements OnInit {
       candidate,
       vacancyId
     }
-    this.vacancyService.inviteCandidate(payload)
+    this.subscription = this.vacancyService.inviteCandidate(payload)
   }
 
   onClose() {
     this.dialog.closeAll()
   }
 
+  ngOnDestroy() {
+      this.subscription.unsubscribe()
+  }
 
 }

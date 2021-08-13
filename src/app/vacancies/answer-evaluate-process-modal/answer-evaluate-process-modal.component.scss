@@ -8,14 +8,6 @@
   padding: 20px;
 }
 
-.clear-icon_block {
-  text-align: end;
-  .clear {
-    font-size: 1rem;
-    cursor: pointer;
-  }
-}
-
 .question_block {
   .question_block-title-description {
     .title {
@@ -90,4 +82,22 @@
     padding-left: 40px;
   }
 
+}
+
+.submit_btn-container {
+  margin-top: 10px;
+  text-align: end;
+  .submit_btn {
+    border-radius: 2px;
+    background-color: #007672;
+    font-size: 1rem;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.5px;
+    text-align: center;
+    color: #ffffff;
+    padding: 10px 20px;
+  }
 }

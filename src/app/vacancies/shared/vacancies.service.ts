@@ -43,7 +43,7 @@ export class VacanciesService {
 
 
   getAllVacancies(): Observable<any> {
-    return this.http.get<IVacancy[]>(`${environment.API_URL}/vacancy`)
+    return this.http.get<IVacancy[]>(`${environment.API_URL}vacancy`)
   }
 
 
@@ -115,10 +115,10 @@ export class VacanciesService {
       .post<string>(`${environment.API_URL}vacancy/invite/${invitePayload.vacancyId}`, {candidate: invitePayload.candidate})
       .pipe(
         tap(link => {
-          this.evaluationLinkSubject.next(link.replace('s',''))
+          this.evaluationLinkSubject.next(link)
         })
       )
-      .subscribe(data => console.log(data))
+      .subscribe()
   }
 }
 
