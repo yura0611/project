@@ -19,9 +19,10 @@ export class EvaluationService {
 
 
   getEvaluations(id): Observable<any>{
-      return this.http.get<IEvaluation>(`${environment.API_URL}vacancy/${id}/evaluations`).pipe(
-        tap(el => this.evaluationListSubject.next(el))
-      )
+    return this.http.get<IEvaluation>(`${environment.API_URL}vacancy/evaluations/${id}`).pipe(
+      tap(el => console.log(el)),
+      tap(el => this.evaluationListSubject.next(el))
+    )
   }
 
 

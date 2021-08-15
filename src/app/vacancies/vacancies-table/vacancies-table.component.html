@@ -19,7 +19,7 @@
     <ng-container matColumnDef="status">
       <mat-header-cell *matHeaderCellDef mat-sort-header>STATUS</mat-header-cell>
       <mat-cell  *matCellDef="let element">
-        &#160;&#160;&#160;&#160;
+
         <div [ngClass]="{'cell-active': element.status === 'Active',
                                                             'cell-closed': element.status === 'Closed'}">
           {{element.status | uppercase}} </div></mat-cell>
@@ -28,7 +28,7 @@
 
     <ng-container matColumnDef="avg.score">
       <mat-header-cell *matHeaderCellDef mat-sort-header> AVG.SCORE </mat-header-cell>
-      <mat-cell class="center-text"  *matCellDef="let element"> {{avgScore}}% </mat-cell>
+      <mat-cell class="center-text"  *matCellDef="let element">  &#160;&#160;&#160;&#160;&#160; {{avgScore}}% </mat-cell>
     </ng-container>
 
 
@@ -38,8 +38,8 @@
     </ng-container>
 
     <ng-container  matColumnDef="arrow">
-      <mat-header-cell  [ngClass]="'customWidthClass'"  *matHeaderCellDef ></mat-header-cell>
-      <mat-cell  [ngClass]="'customWidthClass'" *matCellDef="let element">
+      <mat-header-cell  class="customWidthClass"  *matHeaderCellDef ></mat-header-cell>
+      <mat-cell  class="customWidthClass"  *matCellDef="let element">
         <button mat-icon-button class="hidden" color="black" (click)="getInfo(element['_id'])" title="View Contact"><mat-icon>arrow_forward</mat-icon></button>
       </mat-cell>
     </ng-container>

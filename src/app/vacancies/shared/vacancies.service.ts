@@ -53,7 +53,7 @@ export class VacanciesService {
 
 
   getVacancy(id): Observable<any> {
-    return this.http.get<IVacancy>(`${environment.API_URL}vacancy/find-one/$ {id}`).pipe(
+    return this.http.get<IVacancy>(`${environment.API_URL}vacancy/find-one/${id}`).pipe(
       tap(vacancy => {
           this.vacancyItemSubject.next(vacancy);
         }

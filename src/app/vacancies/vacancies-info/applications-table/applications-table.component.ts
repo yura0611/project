@@ -8,7 +8,6 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {VacanciesTableItem} from '../../../app-shared/interfaces/IVacanciesTableItem';
 import {VacancyTableService} from "../../shared/vacancy-table.service";
-import {MatTableDataSource} from '@angular/material/table';
 import {AnswerPageService} from "../../../answer-page/shared/answerPage.service";
 
 
@@ -51,7 +50,6 @@ export class ApplicationsTableComponent implements OnInit {
           this.evaluationData = new MatTableDataSource(data);
           this.evaluationData.sort = this.sort;
           this.evaluationData.paginator = this.paginator;
-          this.evaluationData.selectionList.selectedOptions = new SelectionModel<MatListOption>(false);
         }
       }
     );
@@ -66,6 +64,8 @@ export class ApplicationsTableComponent implements OnInit {
     const vacancy = this.getCurrentVacancy;
     this.answerPageService.getUserAndVacancy(candidateData, vacancy)
   }
+
+
   get getCurrentVacancy() {
     let vacancy;
     this.vacancyService.vacancyItem$.subscribe(data => vacancy = data)
