@@ -2,8 +2,7 @@ import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {VacanciesService} from '../../shared/vacancies.service';
 import {EvaluationService} from '../../shared/evaluation.service';
 import {MatTable, MatTableDataSource} from '@angular/material/table';
-import {MatListOption, MatSelectionList} from '@angular/material/list';
-import {SelectionModel} from '@angular/cdk/collections';
+import {MatSelectionList} from '@angular/material/list';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {VacanciesTableItem} from '../../../app-shared/interfaces/IVacanciesTableItem';
@@ -51,7 +50,6 @@ export class ApplicationsTableComponent implements OnInit {
   initMaterialTable() {
     this.evaluationService.getEvaluations(this.vacancyId).subscribe();
     this.evaluationService.evaluationList$.subscribe(data => {
-      console.log(data.length);
       if (data.length !== 0) {
         this.show = false;
         this.evaluationData = new MatTableDataSource(data);
@@ -67,7 +65,7 @@ export class ApplicationsTableComponent implements OnInit {
   openReviewerModal(id): void {
     const dialogRef = this.dialog.open(SetReviewerModalComponent, {
       width: this.constants.modalWidth.s,
-      height: this.constants.modalHeight.m,
+      height: this.constants.modalHeight.s,
     });
     this.evaluationService.evalId = id;
 

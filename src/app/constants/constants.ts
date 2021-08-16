@@ -9,7 +9,8 @@ export class Constants {
   };
   public modalHeight = {
     m: '500px',
-    l: '850px'
+    l: '850px',
+    s: '305px'
   };
 
 }

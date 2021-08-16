@@ -46,7 +46,7 @@
       </mat-cell>
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row class="pointer" *matRowDef="let element; columns: displayedColumns;" [routerLink]="['/answer']">
+    <mat-row class="pointer" *matRowDef="let element; columns: displayedColumns;">
     </mat-row>
   </mat-table>
   <mat-paginator #paginator *ngIf="!show"

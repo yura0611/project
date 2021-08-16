@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {MatDialogRef} from "@angular/material/dialog";
 import {EvaluationService} from "../../shared/evaluation.service";
-import {logger} from "codelyzer/util/logger";
 import {VacanciesService} from "../../shared/vacancies.service";
 
 
@@ -40,7 +39,6 @@ export class SetReviewerModalComponent implements OnInit {
     this.evaluationService.setReviewer(id, email).subscribe(res => {
       this.dialog.close(res);
     });
-
   }
 
 

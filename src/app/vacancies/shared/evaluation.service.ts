@@ -4,8 +4,6 @@ import {tap} from 'rxjs/operators';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {IEvaluation} from "../../app-shared/interfaces/IEvaluation";
-import {SetReviewerModalComponent} from "../vacancies-info/set-reviewer-modal/set-reviewer-modal.component";
-import {Constants} from "../../constants/constants";
 import {MatDialog} from "@angular/material/dialog";
 
 
@@ -16,7 +14,6 @@ export class EvaluationService {
 
 
   constructor(private http: HttpClient,
-              private constants: Constants,
               public dialog: MatDialog) {
   }
 
@@ -26,7 +23,6 @@ export class EvaluationService {
 
   getEvaluations(id): Observable<any> {
     return this.http.get<IEvaluation>(`${environment.API_URL}vacancy/evaluations/${id}`).pipe(
-      tap(el => console.log(el)),
       tap(el => this.evaluationListSubject.next(el))
     )
   }
@@ -34,7 +30,7 @@ export class EvaluationService {
 
   setReviewer(id, email): Observable<any> {
     return this.http.put<IEvaluation>(`${environment.API_URL}vacancy/invite-reviewer/${id}`, {
-      email: email
+      email
     }).pipe(tap(data => {
       const editedEvaluation = data;
       const evaluationList = this.evaluationListSubject.value;
