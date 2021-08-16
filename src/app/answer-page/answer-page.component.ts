@@ -13,6 +13,7 @@ import {ICandidate} from "../app-shared/interfaces/ICandidate";
   styleUrls: ['./answer-page.component.scss']
 })
 export class AnswerPageComponent implements OnInit {
+  evaluationId;
   user: ICandidate;
   vacancy: IVacancy;
   questions: IQuestion[];
@@ -23,17 +24,21 @@ export class AnswerPageComponent implements OnInit {
               private answerPage: AnswerPageService) { }
 
   ngOnInit(): void {
-    this.answerPage.userAndVacancy$.pipe(
-      tap(userData => this.user = userData.user),
+    this.evaluationId = this.route.snapshot.params['evaluationId'];
+    this.answerPage.getEvaluation(this.evaluationId).pipe(
+      tap(val => console.log('ert',val)),
+      tap(val => console.log(val.answers)),
+      tap(userData => this.user = userData.candidate),
       tap(vacancyData => this.vacancy = vacancyData.vacancy),
-      tap(vacancyData => this.dataSource = vacancyData.vacancy.questions),
-      tap(vacancyData => this.questions = vacancyData.vacancy.questions),
+      tap(questionData => this.dataSource = questionData.answers)
 
     ).subscribe()
+
   }
 
+
   openModal(question) {
-    this.answerPage.openModal(AnswerModalComponent, question, this.questions)
+    this.answerPage.openModal(AnswerModalComponent, question.question, this.dataSource, this.evaluationId)
   }
 
 

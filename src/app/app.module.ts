@@ -23,6 +23,7 @@ import {AnswerPageComponent} from './answer-page/answer-page.component';
 import {AnswerModalComponent} from './answer-page/answer-modal/answer-modal.component';
 import {RedirectToAdministratorComponent} from './redirect-to-administrator/redirect-to-administrator.component';
 import {VacanciesModule} from "./vacancies/shared/vacancies.module";
+import {ChangeColorStatusDirective} from "./app-shared/changeColorStatus.directive";
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import {VacanciesModule} from "./vacancies/shared/vacancies.module";
     AnswerPageComponent,
     AnswerModalComponent,
     RedirectToAdministratorComponent,
+    ChangeColorStatusDirective
   ],
   imports: [
     BrowserModule,

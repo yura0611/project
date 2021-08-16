@@ -1,4 +1,4 @@
-import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {AnswerPageService} from "../shared/answerPage.service";
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {IQuestion} from "../../app-shared/interfaces/IQuestion";
@@ -9,15 +9,21 @@ import {IQuestion} from "../../app-shared/interfaces/IQuestion";
   styleUrls: ['./answer-modal.component.scss']
 })
 export class AnswerModalComponent implements OnInit {
+  private mark = 10;
+  marks = [];
   question
+  answer
   allQuestions
-  @ViewChild('answer') answer: ElementRef;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: { question: IQuestion, allQuestions: IQuestion[] },
+  constructor(@Inject(MAT_DIALOG_DATA) public data: {
+                question: IQuestion,
+                allQuestions: IQuestion[],
+                evaluationId: string},
               private answerPage: AnswerPageService) {
   }
 
   ngOnInit() {
+    this.setScaleOfMarks()
     this.question = this.data.question
     this.allQuestions = this.data.allQuestions
   }
@@ -27,36 +33,50 @@ export class AnswerModalComponent implements OnInit {
   }
 
   currentNumberOfQuestion() {
-    const questionList = this.allQuestions;
+    const allQuestions = this.allQuestions;
     const currentQuestion = this.question;
-    const index = questionList.findIndex(el => el.questionId === currentQuestion.questionId);
+    const index = allQuestions.findIndex(el => el.question._id === currentQuestion._id);
+    const currentAnswer = allQuestions[index].answer
+    this.answer = currentAnswer
     return index + 1;
   }
 
   nextQuestion() {
-    const currentQuestionId = this.question.questionId;
+    const currentQuestionId = this.question._id;
     const allQuestions = this.allQuestions;
-    const index = allQuestions.findIndex(el => el.questionId === currentQuestionId);
-
+    const index = allQuestions.findIndex(el => el.question._id === currentQuestionId);
+    const currentAnswer = allQuestions[index].answer
+    this.answer = currentAnswer
     if (allQuestions.length - 1 <= index) {
-      this.question = allQuestions[0]
+      this.question = allQuestions[0].question
 
     } else {
-      this.question = allQuestions[index + 1]
+      this.question = allQuestions[index + 1].question
 
     }
   }
 
   previousQuestion() {
-    const currentQuestionId = this.question.questionId;
+    const currentQuestionId = this.question._id;
     const allQuestions = this.allQuestions;
-    const index = allQuestions.findIndex(el => el.questionId === currentQuestionId);
+    const index = allQuestions.findIndex(el => el.question._id === currentQuestionId);
+    const currentAnswer = allQuestions[index].answer
+    this.answer = currentAnswer
     if (index === 0) {
-      this.question = allQuestions[allQuestions.length - 1]
-    } else {
-      this.question = allQuestions[index - 1]
-    }
+      this.question = allQuestions[allQuestions.length - 1].question
 
+    } else {
+      this.question = allQuestions[index - 1].question
+    }
+  }
+
+  setScaleOfMarks() {
+    for (let i = 0; i <= this.mark; i++) {
+      this.marks.push(i)
+    }
+  }
+  setMark(mark, questionId) {
+    this.answerPage.setScore(questionId, mark, this.data.evaluationId)
   }
 
 

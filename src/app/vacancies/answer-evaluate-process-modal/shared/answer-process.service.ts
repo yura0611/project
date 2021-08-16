@@ -39,8 +39,9 @@ export class AnswerProcessService {
   }
 
   getVacancy(id) {
-    return this.http.get<IEvaluationProcess>(`${environment.API_URL}vacancy/evaluations/${id}`).pipe(
+    return this.http.get<IEvaluationProcess>(`${environment.API_URL}vacancy/evaluation/${id}`).pipe(
       tap(data => {
+        console.log(data)
         this.answerListSubject.next(data.answers)
         this.questionListSubject.next(data.vacancy.questions)
         this.currentQuestionSubject.next(data.vacancy.questions[0])

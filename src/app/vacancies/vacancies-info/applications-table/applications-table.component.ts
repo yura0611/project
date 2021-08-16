@@ -4,6 +4,7 @@ import {EvaluationService} from '../../shared/evaluation.service';
 import {VacancyTableService} from "../../shared/vacancy-table.service";
 import {MatTableDataSource} from '@angular/material/table';
 import {AnswerPageService} from "../../../answer-page/shared/answerPage.service";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -13,7 +14,8 @@ import {AnswerPageService} from "../../../answer-page/shared/answerPage.service"
 })
 export class ApplicationsTableComponent implements OnInit {
   @Input() vacancyId: string;
-
+  candidate
+  vacancy
   evaluationData;
   show = false;
 
@@ -21,13 +23,15 @@ export class ApplicationsTableComponent implements OnInit {
     public vacancyService: VacanciesService,
     private vacancyTableService: VacancyTableService,
     public evaluationService: EvaluationService,
-    private answerPageService: AnswerPageService) {
+    private answerPageService: AnswerPageService,
+    private router: Router) {
   }
 
   displayedColumns = ['select', 'candidate', 'status', 'score', 'reviewer', 'invited'];
 
 
   ngOnInit(): void {
+    this.vacancyService.vacancyItem$.subscribe(data =>  this.vacancy = data)
     this.initMaterialTable()
   }
 
@@ -47,18 +51,8 @@ export class ApplicationsTableComponent implements OnInit {
     this.vacancyService.ReviewerModal();
   }
 
-  showCandidate(candidate) {
-    const candidateData = candidate;
-    const vacancy = this.getCurrentVacancy;
-    this.answerPageService.getUserAndVacancy(candidateData, vacancy)
+  showCandidate(evaluationData) {
+    this.router.navigate(['/answer', evaluationData._id])
   }
-  get getCurrentVacancy() {
-    let vacancy;
-    this.vacancyService.vacancyItem$.subscribe(data => vacancy = data)
-    return vacancy
 
-  }
 }
-
-
-
