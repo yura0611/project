@@ -24,6 +24,7 @@ import {AnswerModalComponent} from './answer-page/answer-modal/answer-modal.comp
 import {RedirectToAdministratorComponent} from './redirect-to-administrator/redirect-to-administrator.component';
 import {VacanciesModule} from "./vacancies/shared/vacancies.module";
 import {ChangeColorStatusDirective} from "./app-shared/changeColorStatus.directive";
+import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -52,9 +53,14 @@ import {ChangeColorStatusDirective} from "./app-shared/changeColorStatus.directi
     MatExpansionModule,
     MatBadgeModule,
     VacanciesModule,
+    MatDialogModule
   ],
   providers: [
     CookieService,
+    {
+      provide: MatDialogRef,
+      useValue: {}
+    },
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
     Constants,
   ],

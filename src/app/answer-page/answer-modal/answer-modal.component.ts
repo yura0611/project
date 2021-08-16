@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {AnswerPageService} from "../shared/answerPage.service";
-import {MAT_DIALOG_DATA} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {IQuestion} from "../../app-shared/interfaces/IQuestion";
 
 @Component({
@@ -11,6 +11,7 @@ import {IQuestion} from "../../app-shared/interfaces/IQuestion";
 export class AnswerModalComponent implements OnInit {
   private mark = 10;
   marks = [];
+  currentMark = 1;
   question
   answer
   allQuestions
@@ -18,8 +19,10 @@ export class AnswerModalComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: {
                 question: IQuestion,
                 allQuestions: IQuestion[],
-                evaluationId: string},
-              private answerPage: AnswerPageService) {
+                evaluationId: string,
+              },
+              private answerPage: AnswerPageService,
+              private dialogRef: MatDialogRef<any>) {
   }
 
   ngOnInit() {
@@ -36,8 +39,8 @@ export class AnswerModalComponent implements OnInit {
     const allQuestions = this.allQuestions;
     const currentQuestion = this.question;
     const index = allQuestions.findIndex(el => el.question._id === currentQuestion._id);
-    const currentAnswer = allQuestions[index].answer
-    this.answer = currentAnswer
+    const currentAnswer = allQuestions[index].answer;
+    this.answer = currentAnswer;
     return index + 1;
   }
 
@@ -71,12 +74,15 @@ export class AnswerModalComponent implements OnInit {
   }
 
   setScaleOfMarks() {
-    for (let i = 0; i <= this.mark; i++) {
+    for (let i = 1; i <= this.mark; i++) {
       this.marks.push(i)
     }
   }
   setMark(mark, questionId) {
+    this.currentMark = mark
     this.answerPage.setScore(questionId, mark, this.data.evaluationId)
+    this.answerPage.onClose()
+    this.dialogRef.close({mark, questionId})
   }
 
 

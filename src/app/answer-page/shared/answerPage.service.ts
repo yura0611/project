@@ -8,11 +8,10 @@ import {IEvaluationProcess} from "../../app-shared/interfaces/IEvaluationProcess
 
 @Injectable({providedIn: 'root'})
 export class AnswerPageService {
-
   constructor(private dialog: MatDialog,
               private constants: Constants,
               private router: Router,
-              private http: HttpClient) {
+              private http: HttpClient,) {
   }
 
   openModal(component, question, questions, evaluationId) {
@@ -20,7 +19,7 @@ export class AnswerPageService {
     modalConfig.autoFocus = false;
     modalConfig.width = this.constants.modalWidth.m;
     modalConfig.data = {question: question, allQuestions: questions, evaluationId: evaluationId};
-    this.dialog.open(component, modalConfig)
+    return this.dialog.open(component, modalConfig)
   }
 
   onClose() {
@@ -36,6 +35,6 @@ export class AnswerPageService {
         questionId: questionId,
         score: mark
       }})
-      .subscribe(data => console.log(data))
+      .subscribe()
   }
 }

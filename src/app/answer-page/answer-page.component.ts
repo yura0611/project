@@ -19,28 +19,63 @@ export class AnswerPageComponent implements OnInit {
   questions: IQuestion[];
   displayedColumns: string[] = ['question', 'status', 'mark'];
   dataSource;
+  score = 0;
+  answers = []
   constructor(private router: Router,
               private route: ActivatedRoute,
               private answerPage: AnswerPageService) { }
 
   ngOnInit(): void {
+
     this.evaluationId = this.route.snapshot.params['evaluationId'];
+
     this.answerPage.getEvaluation(this.evaluationId).pipe(
-      tap(val => console.log('ert',val)),
-      tap(val => console.log(val.answers)),
+      tap(val => {
+        let amountOfAnswers = 0;
+        for (let key in val.answers) {
+          amountOfAnswers++
+          if (val.answers[key].score) {
+            this.score += val.answers[key].score
+          }
+        }
+        this.score = (this.score * 100) / (amountOfAnswers*10)
+      }),
+      tap(val => this.answers.push(val.answers)),
       tap(userData => this.user = userData.candidate),
       tap(vacancyData => this.vacancy = vacancyData.vacancy),
-      tap(questionData => this.dataSource = questionData.answers)
-
+      tap(questionData => this.dataSource = questionData.answers),
     ).subscribe()
-
   }
-
 
   openModal(question) {
-    this.answerPage.openModal(AnswerModalComponent, question.question, this.dataSource, this.evaluationId)
+    const dialogRef = this.answerPage.openModal(AnswerModalComponent, question.question, this.dataSource, this.evaluationId)
+    dialogRef.afterClosed().subscribe(data => {
+      if (data) {
+        const answer = this.dataSource.find(item => item.question._id === data.questionId);
+        if (answer) {
+          answer.score = data.mark
+        }
+        this.calculateScore(data, this.dataSource.length)
+
+      }
+    })
   }
 
-
+  calculateScore(data, amountOfAnswers) {
+    let currentScore = this.dataSource.map(item => {
+      if (item.question._id !== data.questionId) {
+        if (item.score) {
+          return item.score
+        } else{
+          return 0;
+        }
+      } else{
+        return 0;
+      }
+    });
+    currentScore = currentScore.reduce((acc,curr) => acc + curr);
+    currentScore += data.mark
+    this.score = (currentScore * 100)/ (10 * amountOfAnswers)
+  }
 
 }
