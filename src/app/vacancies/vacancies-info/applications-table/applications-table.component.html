@@ -35,7 +35,7 @@
 
     <ng-container matColumnDef="reviewer">
       <mat-header-cell *matHeaderCellDef > REVIEWER</mat-header-cell>
-      <mat-cell *matCellDef="let element"><a class="link" (click)="openReviewerModal()">Set Reviewer</a></mat-cell>
+      <mat-cell *matCellDef="let element"><a class="link" (click)="openReviewerModal(element._id)">{{element.reviewer.firstName + ' ' +  element.reviewer.lastName}}</a></mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="created_at">
@@ -46,7 +46,7 @@
       </mat-cell>
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let element; columns: displayedColumns;">
+    <mat-row class="pointer" *matRowDef="let element; columns: displayedColumns;" [routerLink]="['/answer']">
     </mat-row>
   </mat-table>
   <mat-paginator #paginator *ngIf="!show"

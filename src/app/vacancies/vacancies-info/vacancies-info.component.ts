@@ -49,18 +49,12 @@ export class VacanciesInfoComponent implements OnInit {
     });
   }
 
-  openSetReviewerModal(): void {
-    this.vacanciesService.ReviewerModal();
-  }
 
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
     this.vacanciesService.getVacancy(this.id).subscribe();
     this.vacancy$ = this.vacanciesService.vacancyItem$;
-    this.vacanciesService.candidateSubject.subscribe();
-    this.vacanciesService.candidateSubject.next(false);
-    this.time = Date.parse(this.time);
   }
 
 
@@ -72,13 +66,6 @@ export class VacanciesInfoComponent implements OnInit {
     this.vacanciesService.deleteVacancy(id);
   }
 
-  getCandidateSubjectValue(): boolean {
-    return this.vacanciesService.candidateSubject.getValue();
-  }
-
-  removeCandidateRow(): void {
-    this.vacanciesService.removeSelectedRow();
-  }
 
   changeStatus(id): void {
     this.vacanciesService.editStatus(id).subscribe();

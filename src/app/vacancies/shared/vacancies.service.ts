@@ -1,17 +1,13 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, Subject, of} from 'rxjs';
-import {SelectionModel} from '@angular/cdk/collections';
-import {MatTableDataSource} from '@angular/material/table';
 import {tap} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {environment} from '../../../environments/environment';
-import {SetReviewerModalComponent} from '../vacancies-info/set-reviewer-modal/set-reviewer-modal.component';
 import {MatDialog} from '@angular/material/dialog';
 import {Constants} from '../../constants/constants';
-import {IVacancy} from '../../app-shared/interfaces/IVacancy';
-import {ApplicationsTableItem} from '../../app-shared/interfaces/IApplecationsTableItem';
 import {TestVacanciesTableItem} from '../../app-shared/interfaces/ITestVacanciesTableItem';
+import {IVacancy} from "../../app-shared/interfaces/IVacancy";
 
 @Injectable()
 export class VacanciesService {
@@ -36,6 +32,7 @@ export class VacanciesService {
   candidateSubject = new BehaviorSubject(false);
   dataSubject = new BehaviorSubject(0);
   percentage = 0;
+
 
 
   constructor(private http: HttpClient,
@@ -71,32 +68,6 @@ export class VacanciesService {
   }
 
 
-
-  removeSelectedRow(): void {
-    this.selection.selected.forEach(item => {
-      const index: number = this.data.findIndex(d => d === item);
-      this.data.splice(index, 1);
-      this.dataSource = new MatTableDataSource<Element>(this.data);
-    });
-    this.selection = new SelectionModel<Element>(false, []);
-    this.candidateSubject.next(false);
-  }
-
-  toggleSubject(): void {
-    if (this.selection.selected.length === 0) {
-      this.candidateSubject.next(true);
-    }
-    if (this.selection.selected.length === 1) {
-      this.candidateSubject.next(false);
-    }
-  }
-
-  ReviewerModal(): void {
-    this.dialog.open(SetReviewerModalComponent, {
-      width: this.constants.modalWidth.s,
-      height: this.constants.modalHeight.m,
-    });
-  }
 
   public editStatus(id: string): Observable<any> {
     return this.http.post<IVacancy>(`${environment.API_URL}vacancy/status`, {
@@ -135,6 +106,14 @@ export class VacanciesService {
       // I need this console.log
       .subscribe(data => console.log(data))
   }
+
+  getReviewer(email) {
+    return this.http.get(`${environment.API_URL}`)
+  }
+
+
+
+
 }
 
 

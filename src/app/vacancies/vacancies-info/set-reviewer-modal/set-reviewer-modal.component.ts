@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {EvaluationService} from "../../shared/evaluation.service";
+import {logger} from "codelyzer/util/logger";
+import {VacanciesService} from "../../shared/vacancies.service";
 
 
 @Component({
@@ -12,26 +15,33 @@ export class SetReviewerModalComponent implements OnInit {
 
   email = '';
   reviewerForm: FormGroup;
-
+  evaluationId;
 
   constructor(private formBuilder: FormBuilder,
-              public dialog: MatDialog) {
+              public evaluationService: EvaluationService,
+              public vacanciesService: VacanciesService,
+              public dialog: MatDialogRef<SetReviewerModalComponent>,
+              ) {
   }
 
   ngOnInit(): void {
     this.reviewerForm = this.formBuilder.group({
       email: [this.email, [Validators.maxLength(200), Validators.required, Validators.email]],
     });
+    this.evaluationId = this.evaluationService.evalId;
   }
 
 
-  closeModal(){
-    this.dialog.closeAll();
+  closeModal(): void{
+    this.dialog.close();
   }
 
-  setUp(){
-    // TODO: - link with backend reviewers
-    this.dialog.closeAll();
+  setUp(id, email): void{
+    this.evaluationService.setReviewer(id, email).subscribe(res => {
+      this.dialog.close(res);
+    });
+
   }
+
 
 }

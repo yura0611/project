@@ -9,6 +9,9 @@ import {MatSort} from '@angular/material/sort';
 import {VacanciesTableItem} from '../../../app-shared/interfaces/IVacanciesTableItem';
 import {VacancyTableService} from "../../shared/vacancy-table.service";
 import {AnswerPageService} from "../../../answer-page/shared/answerPage.service";
+import {SetReviewerModalComponent} from "../set-reviewer-modal/set-reviewer-modal.component";
+import {MatDialog} from "@angular/material/dialog";
+import {Constants} from "../../../constants/constants";
 
 
 @Component({
@@ -25,13 +28,16 @@ export class ApplicationsTableComponent implements OnInit {
 
   evaluationData;
   show = false;
-
+  evalId;
+  reviewer
 
   constructor(
     public vacancyService: VacanciesService,
     private vacancyTableService: VacancyTableService,
     public evaluationService: EvaluationService,
-    private answerPageService: AnswerPageService) {
+    public dialog: MatDialog,
+    private answerPageService: AnswerPageService,
+    public constants: Constants) {
   }
 
   displayedColumns = ['select', 'candidate', 'status', 'score', 'reviewer', 'created_at'];
@@ -39,25 +45,35 @@ export class ApplicationsTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.initMaterialTable()
+
   }
 
   initMaterialTable() {
-    this.evaluationService.getEvaluations(this.vacancyId).subscribe(data => {
-        if (!data.length) {
-          this.show = true;
-        }
-        else{
-          this.evaluationData = new MatTableDataSource(data);
-          this.evaluationData.sort = this.sort;
-          this.evaluationData.paginator = this.paginator;
-        }
+    this.evaluationService.getEvaluations(this.vacancyId).subscribe();
+    this.evaluationService.evaluationList$.subscribe(data => {
+      console.log(data.length);
+      if (data.length !== 0) {
+        this.show = false;
+        this.evaluationData = new MatTableDataSource(data);
+        this.evaluationData.sort = this.sort;
+        this.evaluationData.paginator = this.paginator;
       }
-    );
+      else {
+        this.show = true;
+      }
+    })
   }
 
-  openReviewerModal(): void {
-    this.vacancyService.ReviewerModal();
+  openReviewerModal(id): void {
+    const dialogRef = this.dialog.open(SetReviewerModalComponent, {
+      width: this.constants.modalWidth.s,
+      height: this.constants.modalHeight.m,
+    });
+    this.evaluationService.evalId = id;
+
+    dialogRef.afterClosed().subscribe();
   }
+
 
   showCandidate(candidate) {
     const candidateData = candidate;
@@ -70,7 +86,6 @@ export class ApplicationsTableComponent implements OnInit {
     let vacancy;
     this.vacancyService.vacancyItem$.subscribe(data => vacancy = data)
     return vacancy
-
   }
 }
 

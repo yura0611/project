@@ -12,6 +12,6 @@
         <input matInput type="email" [(ngModel)]="email" formControlName="email" placeholder="Read only text">
       </mat-form-field>
     </form>
-    <button class="btn" (click)="setUp()" [ngClass]="{'btn-disabled': email === ''}">SET UP</button>
+    <button class="btn" (click)="setUp(evaluationId,email)" [ngClass]="{'btn-disabled': email === ''}">SET UP</button>
   </div>
 </div>
