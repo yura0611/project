@@ -6,6 +6,7 @@ import {AnswerModalComponent} from "./answer-modal/answer-modal.component";
 import {tap} from "rxjs/operators";
 import {IVacancy} from "../app-shared/interfaces/IVacancy";
 import {ICandidate} from "../app-shared/interfaces/ICandidate";
+import {VacancyTableService} from "../vacancies/shared/vacancy-table.service";
 
 @Component({
   selector: 'app-answer-page',
@@ -23,28 +24,23 @@ export class AnswerPageComponent implements OnInit {
   answers = []
   constructor(private router: Router,
               private route: ActivatedRoute,
-              private answerPage: AnswerPageService) { }
+              private answerPage: AnswerPageService,
+              private vacancyTableService: VacancyTableService) { }
 
   ngOnInit(): void {
 
     this.evaluationId = this.route.snapshot.params['evaluationId'];
-
+    this.answerPage.getEvaluation(this.evaluationId).subscribe(data => console.log('fdf',data))
     this.answerPage.getEvaluation(this.evaluationId).pipe(
-      tap(val => {
-        let amountOfAnswers = 0;
-        for (let key in val.answers) {
-          amountOfAnswers++
-          if (val.answers[key].score) {
-            this.score += val.answers[key].score
-          }
-        }
-        this.score = (this.score * 100) / (amountOfAnswers*10)
+      tap(data => {
+          this.initCurrentScore(data)
       }),
       tap(val => this.answers.push(val.answers)),
       tap(userData => this.user = userData.candidate),
       tap(vacancyData => this.vacancy = vacancyData.vacancy),
       tap(questionData => this.dataSource = questionData.answers),
     ).subscribe()
+
   }
 
   openModal(question) {
@@ -53,6 +49,7 @@ export class AnswerPageComponent implements OnInit {
       if (data) {
         const answer = this.dataSource.find(item => item.question._id === data.questionId);
         if (answer) {
+          answer.status = data.status
           answer.score = data.mark
         }
         this.calculateScore(data, this.dataSource.length)
@@ -76,6 +73,19 @@ export class AnswerPageComponent implements OnInit {
     currentScore = currentScore.reduce((acc,curr) => acc + curr);
     currentScore += data.mark
     this.score = (currentScore * 100)/ (10 * amountOfAnswers)
+
+  }
+
+  initCurrentScore(data) {
+    let amountOfAnswers = 0;
+    for (let key in data.answers) {
+      amountOfAnswers++
+      if (data.answers[key].score) {
+        this.score += data.answers[key].score
+      }
+    }
+    this.score = (this.score * 100) / (amountOfAnswers*10)
+    this.vacancyTableService.scoreSubject.next({score: this.score, evalId: this.evaluationId})
   }
 
 }

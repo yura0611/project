@@ -78,11 +78,13 @@ export class AnswerModalComponent implements OnInit {
       this.marks.push(i)
     }
   }
+
   setMark(mark, questionId) {
     this.currentMark = mark
     this.answerPage.setScore(questionId, mark, this.data.evaluationId)
     this.answerPage.onClose()
-    this.dialogRef.close({mark, questionId})
+
+    this.dialogRef.close({mark, questionId, status: 'evaluated'})
   }
 
 

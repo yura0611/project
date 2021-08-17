@@ -31,11 +31,13 @@ export class ApplicationsTableComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.vacancyTableService.scoreSubject.subscribe(data => console.log(data))
     this.vacancyService.vacancyItem$.subscribe(data =>  this.vacancy = data)
     this.initMaterialTable()
   }
 
   initMaterialTable() {
+    // this.answerPageService.scoreUpdateSubject.subscribe(data => console.log(data))
     this.evaluationService.getEvaluations(this.vacancyId).subscribe(data => {
         if (!data) {
           this.show = true;
@@ -54,5 +56,7 @@ export class ApplicationsTableComponent implements OnInit {
   showCandidate(evaluationData) {
     this.router.navigate(['/answer', evaluationData._id])
   }
+
+
 
 }

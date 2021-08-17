@@ -3,7 +3,7 @@ import {AfterViewInit, Directive, ElementRef} from "@angular/core";
 @Directive({
   selector: '[appChangeColor]'
 })
-export class ChangeColorStatusDirective implements AfterViewInit{
+export class ChangeColorStatusDirective implements AfterViewInit {
   constructor(private el: ElementRef) {}
 
   ngAfterViewInit() {

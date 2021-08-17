@@ -12,6 +12,7 @@ export interface IEvaluationProcess {
   };
   vacancy: IVacancy,
   answers: {
+    status: string,
     question: IQuestion,
     answer: string,
     score: number,
