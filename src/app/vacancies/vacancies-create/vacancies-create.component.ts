@@ -71,7 +71,8 @@ export class VacanciesCreateComponent implements OnInit {
     }
     const questionsId = [];
     questions.map(el => questionsId.push(el._id))
-    this.vacanciesCreateService.createVacancy(questionsId, newVacancy).subscribe()
+    this.vacanciesCreateService.createVacancy(questionsId, newVacancy)
+
     this.router.navigate(['/vacancies'], {relativeTo: this.route})
   }
 

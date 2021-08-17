@@ -6,6 +6,8 @@ import {VacanciesInviteModalComponent} from '../vacancies-invite-modal/vacancies
 import {Router} from '@angular/router';
 import {Constants} from '../../constants/constants';
 import {ActivatedRoute} from '@angular/router';
+import {EvaluationService} from "../shared/evaluation.service";
+import {tap} from "rxjs/operators";
 
 
 
@@ -29,13 +31,14 @@ export class VacanciesInfoComponent implements OnInit {
   id;
   length;
   vacancy$;
-
+  avgScore = 0;
 
   constructor(public vacanciesService: VacanciesService,
               public dialog: MatDialog,
               public router: Router,
               private constants: Constants,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private evaluationService: EvaluationService) {
 
   }
 
@@ -52,7 +55,7 @@ export class VacanciesInfoComponent implements OnInit {
 
 
   ngOnInit(): void {
-
+    this.getAvgScore()
     this.id = this.route.snapshot.params['id'];
     this.vacanciesService.getVacancy(this.id).subscribe();
     this.vacancy$ = this.vacanciesService.vacancyItem$;
@@ -73,8 +76,18 @@ export class VacanciesInfoComponent implements OnInit {
     this.vacancy$ = this.vacanciesService.vacancyItem$;
   }
 
-  getAvgScore(): number {
-    return this.vacanciesService.percentage;
+  getAvgScore(): void {
+    this.evaluationService.getEvaluations(this.route.snapshot.params['id']).pipe(
+      tap(evaluation => {
+        let score = 0;
+        evaluation.map(el => {
+          if (el.averageScore && el.status === 'evaluated') {
+            score += el.averageScore
+          }
+        })
+        this.avgScore = score / evaluation.length
+      })
+    ).subscribe()
   }
 
 

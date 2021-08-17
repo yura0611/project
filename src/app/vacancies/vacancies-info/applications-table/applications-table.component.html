@@ -23,7 +23,7 @@
 
     <ng-container matColumnDef="score">
       <mat-header-cell *matHeaderCellDef mat-sort-header> SCORE</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{'---'}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.averageScore || 0 | number: '1.2-2' }}  % </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="reviewer">

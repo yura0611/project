@@ -11,7 +11,7 @@ import {AnswerPageService} from "../../../answer-page/shared/answerPage.service"
 import {SetReviewerModalComponent} from "../set-reviewer-modal/set-reviewer-modal.component";
 import {MatDialog} from "@angular/material/dialog";
 import {Constants} from "../../../constants/constants";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 
 @Component({
@@ -39,7 +39,8 @@ export class ApplicationsTableComponent implements OnInit {
     public dialog: MatDialog,
     private answerPageService: AnswerPageService,
     public constants: Constants,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
     ) {
   }
 
@@ -47,8 +48,9 @@ export class ApplicationsTableComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.vacancyTableService.scoreSubject.subscribe(data => console.log(data))
-    this.vacancyService.vacancyItem$.subscribe(data =>  this.vacancy = data)
+    this.vacancyService.vacancyItem$.subscribe(data =>  {
+      this.vacancy = data
+    })
     this.initMaterialTable()
   }
 
@@ -62,18 +64,9 @@ export class ApplicationsTableComponent implements OnInit {
         this.evaluationData.paginator = this.paginator;
       } else {
         this.show = true;
-        // this.answerPageService.scoreUpdateSubject.subscribe(data => console.log(data))
-        this.evaluationService.getEvaluations(this.vacancyId).subscribe(data => {
-            if (!data) {
-              this.show = true;
-            } else {
-              this.evaluationData = new MatTableDataSource(data);
-            }
-
-          }
-        );
       }
     })
+
   }
 
 
@@ -90,14 +83,7 @@ export class ApplicationsTableComponent implements OnInit {
 
   showCandidate(evaluationData) {
     this.router.navigate(['/answer', evaluationData._id])
+
   }
-
-  // get getCurrentVacancy() {
-  //   let vacancy;
-  //   this.vacancyService.vacancyItem$.subscribe(data => vacancy = data)
-  //   return vacancy
-  // }
-
-
 
 }
