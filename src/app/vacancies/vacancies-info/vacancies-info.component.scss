@@ -70,8 +70,8 @@ h1{
 
 .container-card-content{
   display: flex;
-  flex-direction: row;
-  gap: 90px;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .mat-stroked-button{
@@ -93,7 +93,6 @@ p > span{
 }
 
 .mat-card-content{
-  display: inline-block;
   white-space: nowrap;
 }
 
@@ -140,7 +139,6 @@ p > span{
 
 .content-title{
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
 }
 
