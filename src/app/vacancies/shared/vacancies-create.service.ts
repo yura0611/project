@@ -27,7 +27,6 @@ export class VacanciesCreateService {
           this.updateVacancyListSubject.next(data)
         })
       )
-      .subscribe()
   }
 
 

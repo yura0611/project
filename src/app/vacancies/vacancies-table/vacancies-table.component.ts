@@ -38,6 +38,7 @@ export class VacanciesTableComponent implements OnInit {
 
     this.vacanciesService.getAllVacancies().pipe(
         tap(vacancies => {
+          console.log(vacancies)
           this.sortedData = this.getMostRecentData(vacancies);
             this.data = new MatTableDataSource(this.sortedData);
             this.data.paginator = this.paginator;
