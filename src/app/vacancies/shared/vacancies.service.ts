@@ -7,6 +7,7 @@ import {environment} from '../../../environments/environment';
 import {MatDialog} from '@angular/material/dialog';
 import {TestVacanciesTableItem} from '../../app-shared/interfaces/ITestVacanciesTableItem';
 import {IVacancy} from "../../app-shared/interfaces/IVacancy";
+import {EvaluationService} from "./evaluation.service";
 
 @Injectable()
 export class VacanciesService {
@@ -14,15 +15,14 @@ export class VacanciesService {
 
 
 
-  private vacanciesListSubject = new BehaviorSubject([]);
+ private vacanciesListSubject = new BehaviorSubject([]);
   public vacanciesList$ = this.vacanciesListSubject.asObservable();
   private vacancyItemSubject = new BehaviorSubject(null);
   public vacancyItem$ = this.vacancyItemSubject.asObservable();
   public changedList = new Subject();
   private userAndVacancyDataSubject = new BehaviorSubject({})
   public userAndVacancyData$ = this.userAndVacancyDataSubject.asObservable()
-  private evaluationLinkSubject = new BehaviorSubject('')
-  public evaluationLink$ = this.evaluationLinkSubject.asObservable()
+
   vacancy = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.';
 
   data;
@@ -34,10 +34,10 @@ export class VacanciesService {
   percentage = 0;
 
 
-
   constructor(private http: HttpClient,
               private router: Router,
-              public dialog: MatDialog) {
+              public dialog: MatDialog,
+              public evaluationService: EvaluationService) {
   }
 
 
@@ -97,16 +97,7 @@ export class VacanciesService {
     this.router.navigate(['/vacancies']);
   }
 
-  public inviteCandidate(invitePayload) {
-    return this.http
-      .post<string>(`${environment.API_URL}vacancy/invite/${invitePayload.vacancyId}`, {candidate: invitePayload.candidate})
-      .pipe(
-        tap(link => {
-          this.evaluationLinkSubject.next(link)
-        })
-      )
-      .subscribe()
-  }
+
 }
 
 

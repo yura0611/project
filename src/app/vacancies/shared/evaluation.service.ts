@@ -17,8 +17,10 @@ export class EvaluationService {
               public dialog: MatDialog) {
   }
 
-  private evaluationListSubject = new BehaviorSubject([]);
+ private evaluationListSubject = new BehaviorSubject([]);
   public evaluationList$ = this.evaluationListSubject.asObservable();
+  private evaluationLinkSubject = new BehaviorSubject('')
+  public evaluationLink$ = this.evaluationLinkSubject.asObservable()
   evalId;
 
   getEvaluations(id): Observable<any> {
@@ -43,6 +45,26 @@ export class EvaluationService {
       this.evaluationListSubject.next(newEvaluationList);
     }))
   }
+
+
+  public inviteCandidate(invitePayload) {
+    return this.http
+      .post<string>(`${environment.API_URL}vacancy/invite/${invitePayload.vacancyId}`, {candidate: invitePayload.candidate})
+      .pipe(
+        tap(link => {
+          const  evalList = this.evaluationListSubject.value;
+          this.evaluationLinkSubject.next(link['evalLink']);
+          evalList.push(link['eval']);
+          this.evaluationListSubject.next(evalList);
+        })
+      )
+
+  }
+
+
+
+
+
 
 
 

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild, OnChanges} from '@angular/core';
 import {VacanciesService} from '../../shared/vacancies.service';
 import {EvaluationService} from '../../shared/evaluation.service';
 import {MatTable, MatTableDataSource} from '@angular/material/table';
@@ -62,12 +62,14 @@ export class ApplicationsTableComponent implements OnInit {
         this.evaluationData = new MatTableDataSource(data);
         this.evaluationData.sort = this.sort;
         this.evaluationData.paginator = this.paginator;
-      } else {
+      }
+      else {
         this.show = true;
       }
     })
 
   }
+
 
 
   openReviewerModal(id): void {
@@ -83,7 +85,9 @@ export class ApplicationsTableComponent implements OnInit {
 
   showCandidate(evaluationData) {
     this.router.navigate(['/answer', evaluationData._id])
-
   }
+
+
+
 
 }
