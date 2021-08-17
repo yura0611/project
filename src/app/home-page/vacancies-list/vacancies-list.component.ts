@@ -1,13 +1,11 @@
 import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
-import {MatSort, Sort} from '@angular/material/sort';
-import {MatSortModule} from '@angular/material/sort';
-import { Router } from '@angular/router';
-import {MatTable, MatTableDataSource} from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
+import {Router} from '@angular/router';
+import {MatTableDataSource} from '@angular/material/table';
 import {HomePageService} from '../shared/home-page.service';
 import {IVacancy} from '../../app-shared/interfaces/IVacancy';
 import {VacanciesService} from '../../vacancies/shared/vacancies.service';
-
 
 @Component({
   selector: 'app-vacancies-list',
@@ -24,7 +22,6 @@ export class VacanciesListComponent implements OnInit {
   allVacancies: IVacancy[] = [];
   sortedVacancies: IVacancy[] = [];
   avgScore;
-
 
   constructor(
     private homeService: HomePageService,
@@ -51,36 +48,13 @@ export class VacanciesListComponent implements OnInit {
     });
   }
 
-
-
   getAvgScore(): void{
     this.avgScore = this.vacancyService.percentage;
   }
 
-
   getInfo(id): void{
     this.router.navigate([`/vacancy-info/${id}`]);
   }
-
-
-  // onSortData(sort: Sort) {
-  //   let data = this.dataSource.slice();
-  //   if (sort.active && sort.direction !== '') {
-  //     data = data.sort((a: Element, b: Element) => {
-  //       const isAsc = sort.direction === 'asc';
-  //       switch (sort.active) {
-  //         case 'title': return this.compare(a.title, b.title, isAsc);
-  //         default: return 0;
-  //       }
-  //     });
-  //   }
-  //   this.dataSource.next(data);
-  // }
-  //
-  // private compare(a, b, isAsc) {
-  //   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-  // }
-
 
 }
 

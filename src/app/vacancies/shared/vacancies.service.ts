@@ -1,11 +1,10 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, Subject, of} from 'rxjs';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {environment} from '../../../environments/environment';
 import {MatDialog} from '@angular/material/dialog';
-import {Constants} from '../../constants/constants';
 import {TestVacanciesTableItem} from '../../app-shared/interfaces/ITestVacanciesTableItem';
 import {IVacancy} from "../../app-shared/interfaces/IVacancy";
 
@@ -37,8 +36,7 @@ export class VacanciesService {
 
   constructor(private http: HttpClient,
               private router: Router,
-              public dialog: MatDialog,
-              private constants: Constants) {
+              public dialog: MatDialog) {
   }
 
 
@@ -106,14 +104,6 @@ export class VacanciesService {
       // I need this console.log
       .subscribe(data => console.log(data))
   }
-
-  getReviewer(email) {
-    return this.http.get(`${environment.API_URL}`)
-  }
-
-
-
-
 }
 
 
