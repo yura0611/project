@@ -17,13 +17,14 @@ import {TokenInterceptor} from './app.interceptor';
 import {CommonModule} from '@angular/common';
 import {VacanciesListComponent} from './home-page/vacancies-list/vacancies-list.component';
 import {Constants} from './constants/constants';
-import {ConvertTimePipe} from "./app-shared/convertTime.pipe";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatBadgeModule} from "@angular/material/badge";
 import {AnswerPageComponent} from './answer-page/answer-page.component';
 import {AnswerModalComponent} from './answer-page/answer-modal/answer-modal.component';
 import {RedirectToAdministratorComponent} from './redirect-to-administrator/redirect-to-administrator.component';
 import {VacanciesModule} from "./vacancies/shared/vacancies.module";
+import {ChangeColorStatusDirective} from "./app-shared/changeColorStatus.directive";
+import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import { CongratulationsPageComponent } from './answer-page/app-shared/congratulations-page/congratulations-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
@@ -35,10 +36,11 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     HeaderComponent,
     HomePageComponent,
     VacanciesListComponent,
-    ConvertTimePipe,
+    // ConvertTimePipe,
     AnswerPageComponent,
     AnswerModalComponent,
     RedirectToAdministratorComponent,
+    ChangeColorStatusDirective,
     CongratulationsPageComponent,
     PageNotFoundComponent,
   ],
@@ -55,14 +57,19 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     MatExpansionModule,
     MatBadgeModule,
     VacanciesModule,
+    MatDialogModule
   ],
   providers: [
     CookieService,
+    {
+      provide: MatDialogRef,
+      useValue: {}
+    },
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
     Constants,
   ],
     exports: [
-        ConvertTimePipe
+        // ConvertTimePipe
     ],
   bootstrap: [AppComponent]
 })

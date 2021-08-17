@@ -52,6 +52,7 @@ export class VacanciesInfoComponent implements OnInit {
 
 
   ngOnInit(): void {
+
     this.id = this.route.snapshot.params['id'];
     this.vacanciesService.getVacancy(this.id).subscribe();
     this.vacancy$ = this.vacanciesService.vacancyItem$;

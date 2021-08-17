@@ -2,8 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {MatDialog} from "@angular/material/dialog";
 import {QuestionService} from "../questions-library/shared/question.service";
-import {AnswerProcessService} from "./answer-evaluate-process-modal/shared/answer-process.service";
-import {AnswerEvaluateProcessModalComponent} from "./answer-evaluate-process-modal/answer-evaluate-process-modal.component";
 
 
 @Component({
@@ -15,8 +13,7 @@ export class VacanciesComponent implements OnInit {
   allQuestions;
   constructor(private router: Router,
               public dialog: MatDialog,
-              private questionService: QuestionService,
-              private answerModalService: AnswerProcessService ) { }
+              private questionService: QuestionService) { }
 
   ngOnInit(): void {
     this.questionService.questionList$.subscribe()
@@ -25,10 +22,5 @@ export class VacanciesComponent implements OnInit {
   navigate(){
     this.router.navigate(['/vacancies-create'])
   }
-
-  openModal() {
-    this.answerModalService.openModal(AnswerEvaluateProcessModalComponent)
-  }
-
 
 }

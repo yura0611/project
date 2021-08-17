@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
-import {of} from 'rxjs';
+import {of, Subject} from 'rxjs';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {IVacancy} from "../../app-shared/interfaces/IVacancy";
 
 @Injectable()
 export class VacancyTableService {
-
+  scoreSubject = new Subject()
   private EXAMPLE_DATA: ApplicationsTableItem[] = [
     {candidate: 'Abhoy Latif', status: 'invited', score: 0, reviewer: 'Set Up', invited: '15 Sep, 2018'},
     {candidate: 'Chinaza Akachi', status: 'evaluated', score: 75, reviewer: 'Set Up', invited: '15 Sep, 2018'},

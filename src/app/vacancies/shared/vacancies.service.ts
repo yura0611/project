@@ -21,7 +21,8 @@ export class VacanciesService {
   public changedList = new Subject();
   private userAndVacancyDataSubject = new BehaviorSubject({})
   public userAndVacancyData$ = this.userAndVacancyDataSubject.asObservable()
-
+  private evaluationLinkSubject = new BehaviorSubject('')
+  public evaluationLink$ = this.evaluationLinkSubject.asObservable()
   vacancy = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.';
 
   data;
@@ -41,18 +42,16 @@ export class VacanciesService {
 
 
   getAllVacancies(): Observable<any> {
-    return this.http.get<IVacancy[]>(`${environment.API_URL}/vacancy`).pipe(
-      tap(vacancies => this.vacanciesListSubject.next(vacancies))
-    );
+    return this.http.get<IVacancy[]>(`${environment.API_URL}vacancy`)
   }
 
 
   getVacancy(id): Observable<any> {
-    return this.http.get<IVacancy>(`${environment.API_URL}vacancy/find-one/${id}`).pipe(
-      tap(vacancy => {
-          this.vacancyItemSubject.next(vacancy);
-        }
-      ));
+   return this.http.get<IVacancy>(`${environment.API_URL}vacancy/find-one/${id}`).pipe(
+     tap(vacancy => {
+       this.vacancyItemSubject.next(vacancy)
+     })
+   )
   }
 
 
@@ -85,7 +84,7 @@ export class VacanciesService {
       description: obj.description,
       type: obj.type,
     }).pipe(
-      tap(data => {
+      tap( data => {
         this.vacancyItemSubject.next(data);
       })
     )
@@ -100,9 +99,13 @@ export class VacanciesService {
 
   public inviteCandidate(invitePayload) {
     return this.http
-      .post(`${environment.API_URL}vacancy/invite/${invitePayload.vacancyId}`, {candidate: invitePayload.candidate})
-      // I need this console.log
-      .subscribe(data => console.log(data))
+      .post<string>(`${environment.API_URL}vacancy/invite/${invitePayload.vacancyId}`, {candidate: invitePayload.candidate})
+      .pipe(
+        tap(link => {
+          this.evaluationLinkSubject.next(link)
+        })
+      )
+      .subscribe()
   }
 }
 

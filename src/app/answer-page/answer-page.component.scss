@@ -112,7 +112,6 @@
     font-size: 0.7rem;
     padding: 2px 4px;
     border-radius: 2px;
-    background-color: #4a4a4a;
     color: #ffffff;
     font-family: OpenSans, sans-serif;
   }
@@ -155,4 +154,19 @@
 .mat-row:hover .arrow {
   visibility: visible;
 
+}
+
+.mat-cell {
+  color: black;
+}
+
+.evaluated {
+  background-color: #4a90e2;
+}
+.answered {
+  background-color: #00b2a9
+}
+
+.not-answered {
+  background-color: #4a4a4a;
 }

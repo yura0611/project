@@ -25,7 +25,7 @@ const routes: Routes = [
   {path: 'vacancy-info', canActivate:[AuthGuard], component: VacanciesInfoComponent},
   {path: 'vacancy-edit', canActivate:[AuthGuard], component: VacanciesEditComponent},
   {path: 'evaluation/:id', canActivate:[AuthGuard], component: AnswerEvaluateProcessModalComponent},
-  {path: 'answer', canActivate:[AuthGuard], component: AnswerPageComponent},
+  {path: 'answer/:evaluationId', canActivate:[AuthGuard], component: AnswerPageComponent},
   {path: 'system-settings', canActivate:[AuthGuard], component: RedirectToAdministratorComponent},
   {path: 'congratulations', canActivate:[AuthGuard], component: CongratulationsPageComponent},
   {path: '**', pathMatch: 'full', component: PageNotFoundComponent}

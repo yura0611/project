@@ -1,9 +1,6 @@
 
 <div class="title_block" >
-  <div class="clear-icon_block">
-    <mat-icon class="clear" (click)="closeModal()">clear</mat-icon>
-  </div>
-  <h1>Questions {{currentPosition$ | async}}/20</h1>
+  <h1>Questions {{currentPosition$ | async}}/ {{questionsListLength}}</h1>
 </div>
 <div class="question_block" *ngIf="(currentQuestion$ | async) as currentQuestion ">
   <div class="question_block-title-description">
@@ -44,5 +41,9 @@
   <mat-icon (click)="previousItem()" class="arrow-left" >keyboard_arrow_left</mat-icon>
   <mat-icon (click)="nextItem()" class="arrow-right">keyboard_arrow_right</mat-icon>
 </div>
+<div class="submit_btn-container">
+  <button *ngIf="!showButton" mat-raised-button (click)="onSubmitLastAnswer()" class="submit_btn">Submit</button>
+</div>
+
 
 

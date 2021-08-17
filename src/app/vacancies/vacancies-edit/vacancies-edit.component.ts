@@ -9,7 +9,6 @@ import {tap} from 'rxjs/operators';
   styleUrls: ['./vacancies-edit.component.scss']
 })
 export class VacanciesEditComponent implements OnInit {
-
   id;
   title;
   type;
@@ -41,9 +40,10 @@ export class VacanciesEditComponent implements OnInit {
         return '';
       })
     ).subscribe();
+
   }
 
-  vacancyEdit(object): void {
+  vacancyEdit(): void {
     this.editedVacancy = Object.assign({}, this.vacancy, {
       title: this.title,
       type: this.type,

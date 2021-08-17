@@ -28,6 +28,7 @@ import {VacancyTableService} from "./vacancy-table.service";
 import {ModalsModule} from "../../questions-library/shared/modals.module";
 import {MatListModule} from "@angular/material/list";
 import {RouterModule} from "@angular/router";
+import {ConvertTimePipe} from "../../app-shared/convertTime.pipe";
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import {RouterModule} from "@angular/router";
     SetReviewerModalComponent,
     VacanciesInviteModalComponent,
     ApplicationsTableComponent,
+    ConvertTimePipe
 
   ],
     imports: [
@@ -72,6 +74,7 @@ import {RouterModule} from "@angular/router";
     SetReviewerModalComponent,
     VacanciesInviteModalComponent,
     ApplicationsTableComponent,
+    ConvertTimePipe
   ],
   providers: [
     VacanciesService,

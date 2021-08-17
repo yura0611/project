@@ -11,6 +11,7 @@ import {AnswerPageService} from "../../../answer-page/shared/answerPage.service"
 import {SetReviewerModalComponent} from "../set-reviewer-modal/set-reviewer-modal.component";
 import {MatDialog} from "@angular/material/dialog";
 import {Constants} from "../../../constants/constants";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -24,7 +25,8 @@ export class ApplicationsTableComponent implements OnInit {
   @ViewChild(MatSort, {static: false}) sort: MatSort;
   @ViewChild(MatTable) table!: MatTable<VacanciesTableItem>;
   @Input() vacancyId: string;
-
+  candidate
+  vacancy
   evaluationData;
   show = false;
   evalId;
@@ -36,15 +38,18 @@ export class ApplicationsTableComponent implements OnInit {
     public evaluationService: EvaluationService,
     public dialog: MatDialog,
     private answerPageService: AnswerPageService,
-    public constants: Constants) {
+    public constants: Constants,
+    private router: Router
+    ) {
   }
 
-  displayedColumns = ['select', 'candidate', 'status', 'score', 'reviewer', 'created_at'];
+  displayedColumns = [ 'candidate', 'status', 'score', 'reviewer', 'created_at'];
 
 
   ngOnInit(): void {
+    this.vacancyTableService.scoreSubject.subscribe(data => console.log(data))
+    this.vacancyService.vacancyItem$.subscribe(data =>  this.vacancy = data)
     this.initMaterialTable()
-
   }
 
   initMaterialTable() {
@@ -55,12 +60,22 @@ export class ApplicationsTableComponent implements OnInit {
         this.evaluationData = new MatTableDataSource(data);
         this.evaluationData.sort = this.sort;
         this.evaluationData.paginator = this.paginator;
-      }
-      else {
+      } else {
         this.show = true;
+        // this.answerPageService.scoreUpdateSubject.subscribe(data => console.log(data))
+        this.evaluationService.getEvaluations(this.vacancyId).subscribe(data => {
+            if (!data) {
+              this.show = true;
+            } else {
+              this.evaluationData = new MatTableDataSource(data);
+            }
+
+          }
+        );
       }
     })
   }
+
 
   openReviewerModal(id): void {
     const dialogRef = this.dialog.open(SetReviewerModalComponent, {
@@ -73,19 +88,16 @@ export class ApplicationsTableComponent implements OnInit {
   }
 
 
-  showCandidate(candidate) {
-    const candidateData = candidate;
-    const vacancy = this.getCurrentVacancy;
-    this.answerPageService.getUserAndVacancy(candidateData, vacancy)
+  showCandidate(evaluationData) {
+    this.router.navigate(['/answer', evaluationData._id])
   }
 
+  // get getCurrentVacancy() {
+  //   let vacancy;
+  //   this.vacancyService.vacancyItem$.subscribe(data => vacancy = data)
+  //   return vacancy
+  // }
 
-  get getCurrentVacancy() {
-    let vacancy;
-    this.vacancyService.vacancyItem$.subscribe(data => vacancy = data)
-    return vacancy
-  }
+
+
 }
-
-
-
