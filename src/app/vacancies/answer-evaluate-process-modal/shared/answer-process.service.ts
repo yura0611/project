@@ -61,7 +61,7 @@ export class AnswerProcessService {
       answer
     };
     answerList.map(el => {
-      if (el.question === currentQuestionId) {
+      if (el.question._id === currentQuestionId) {
         el.answer = answer;
       }
     })
@@ -102,6 +102,7 @@ export class AnswerProcessService {
   sendAnswer(evaluationId) {
     let answerFromReq;
     this.oneAnswer$.subscribe(data => answerFromReq = data)
+    console.log(answerFromReq)
     this.http.put(`${environment.API_URL}vacancy/update-answer/${evaluationId}`, {answerFromReq})
       .subscribe()
 

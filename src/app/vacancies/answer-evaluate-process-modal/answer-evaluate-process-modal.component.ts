@@ -108,6 +108,7 @@ export class AnswerEvaluateProcessModalComponent implements
 
   onSubmitLastAnswer() {
     let lastAnswer: {question: string, answer: string};
+    this.answerProcessService.oneAnswer$.subscribe(data => console.log(data))
     this.answerProcessService.answerList$.pipe(
       tap(value => {
         lastAnswer = {
