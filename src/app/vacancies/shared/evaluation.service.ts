@@ -29,7 +29,7 @@ export class EvaluationService {
 
 
   setReviewer(id, email): Observable<any> {
-    return this.http.put<IEvaluation>(`${environment.API_URL}vacancy/invite-reviewer/${id}`, {
+    return this.http.put<IEvaluation>(`${environment.API_URL}vacancy/evaluation/${id}/reviewer`, {
       email
     }).pipe(tap(data => {
       const editedEvaluation = data;
