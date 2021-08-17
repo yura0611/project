@@ -1,10 +1,11 @@
 import {Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {VacanciesService} from "../shared/vacancies.service";
 import {patterns} from "../../app-shared/regexPatterns/patterns";
 import {filter, tap} from "rxjs/operators";
 import {Subscription} from "rxjs";
+import {EvaluationService} from "../shared/evaluation.service";
 
 @Component({
   selector: 'app-vacancies-invite-modal',
@@ -16,7 +17,7 @@ export class VacanciesInviteModalComponent implements OnInit, OnDestroy {
   invitationForm: FormGroup;
   showClose = false;
   subscription: Subscription;
-  invitationalLink = this.vacancyService.evaluationLink$.pipe(
+  invitationalLink = this.evaluationService.evaluationLink$.pipe(
     tap(data => console.log(data)),
     filter(val => !!val),
     tap((data) => {
@@ -28,8 +29,9 @@ export class VacanciesInviteModalComponent implements OnInit, OnDestroy {
   )
   constructor(private formBuilder: FormBuilder,
               private vacancyService: VacanciesService,
+              private evaluationService: EvaluationService,
               @Inject(MAT_DIALOG_DATA) public data: any,
-              private dialog: MatDialog) {
+              private dialog: MatDialogRef<VacanciesInviteModalComponent>) {
   }
 
   ngOnInit(): void {
@@ -47,11 +49,11 @@ export class VacanciesInviteModalComponent implements OnInit, OnDestroy {
       candidate,
       vacancyId
     }
-    this.subscription = this.vacancyService.inviteCandidate(payload)
+    this.subscription = this.evaluationService.inviteCandidate(payload).subscribe()
   }
 
   onClose() {
-    this.dialog.closeAll()
+    this.dialog.close()
   }
 
   ngOnDestroy() {
