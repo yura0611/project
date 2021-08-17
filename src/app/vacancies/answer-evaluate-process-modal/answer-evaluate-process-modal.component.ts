@@ -4,7 +4,7 @@ import {VacanciesService} from "../shared/vacancies.service";
 import {debounceTime, distinctUntilChanged, filter, map, switchMap, takeWhile, tap} from "rxjs/operators";
 import {AnswerProcessService} from "./shared/answer-process.service";
 import {combineLatest, fromEvent} from "rxjs";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {FormGroup} from "@angular/forms";
 
 @Component({
@@ -44,7 +44,8 @@ export class AnswerEvaluateProcessModalComponent implements
               public dialog: MatDialog,
               private route: ActivatedRoute,
               private vacancyService: VacanciesService,
-              private answerProcessService: AnswerProcessService) { }
+              private answerProcessService: AnswerProcessService,
+              private router: Router) { }
 
   ngOnInit() {
     this.answerProcessService.disabledValueEmitter.subscribe(data => this.showButton = data)
@@ -118,6 +119,7 @@ export class AnswerEvaluateProcessModalComponent implements
       })
     ).subscribe()
     this.answerProcessService.sendLastAnswer(this.evaluationId, lastAnswer)
+    this.router.navigate(['/congratulations'])
   }
 
   ngOnDestroy() {

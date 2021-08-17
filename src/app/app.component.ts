@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
     // on route change to '/login', set the variable showHead to false
     router.events.forEach((event) => {
       if (event instanceof NavigationStart) {
-        if (event['url'] == '/sign-in' || event['url'].startsWith('/evaluation')) {
+        if (event['url'] == '/sign-in' || event['url'].startsWith('/evaluation') || event['url'].startsWith('/congratulations')) {
           this.showHead = false;
         } else {
           this.showHead = true;

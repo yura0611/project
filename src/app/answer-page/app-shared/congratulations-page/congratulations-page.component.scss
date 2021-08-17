@@ -17,6 +17,9 @@
   height: 100%;
 }
 .content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
  padding-bottom: 30px;
   border-radius: 2px;
   background-color: white;
@@ -56,4 +59,16 @@
 
 .red-text {
   color: #e0004d;
+}
+.text_container {
+  p {
+    font-weight: bold;
+  }
+}
+.button-container {
+  text-align: center;
+  button {
+    width: fit-content;
+  }
+
 }
