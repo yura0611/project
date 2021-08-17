@@ -3,6 +3,7 @@
   color: #00b2a9;
   font-size: 20px;
   font-weight: bold;
+  width: 500px;
 }
 
 .vacancy-title{
@@ -96,6 +97,11 @@ p > span{
   white-space: nowrap;
 }
 
+.element-direction{
+  display: inline;
+  margin-left: 60px;
+}
+
 
 .btn{
   width: 40px;
@@ -118,6 +124,7 @@ p > span{
   width: 100px;
   height: 40px;
   padding: 12px 19.5px;
+  box-sizing: border-box;
   border-radius: 2px;
   border: solid 2px #007672;
   background-color: transparent;
@@ -170,3 +177,4 @@ p > span{
   background: transparent;
   color: #007672;
 }
+

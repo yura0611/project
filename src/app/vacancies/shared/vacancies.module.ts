@@ -26,6 +26,7 @@ import {EvaluationService} from "./evaluation.service";
 import {VacanciesCreateService} from "./vacancies-create.service";
 import {VacancyTableService} from "./vacancy-table.service";
 import {ModalsModule} from "../../questions-library/shared/modals.module";
+import {MatListModule} from "@angular/material/list";
 import {RouterModule} from "@angular/router";
 import {ConvertTimePipe} from "../../app-shared/convertTime.pipe";
 
@@ -61,7 +62,7 @@ import {ConvertTimePipe} from "../../app-shared/convertTime.pipe";
         MatCardModule,
         ModalsModule,
         RouterModule,
-
+        MatListModule,
     ],
   exports: [
     VacanciesTableComponent,

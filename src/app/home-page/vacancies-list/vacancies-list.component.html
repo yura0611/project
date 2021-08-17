@@ -4,20 +4,21 @@
 
     <ng-container matColumnDef="title">
       <mat-header-cell *matHeaderCellDef mat-sort-header> VACANCY </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.title}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.title | titlecase}}  </mat-cell>
     </ng-container>
 
 
 
     <ng-container matColumnDef="type">
       <mat-header-cell *matHeaderCellDef mat-sort-header> TYPE </mat-header-cell>
-      <mat-cell class="element-padding" *matCellDef="let element"> {{element.type}} </mat-cell>
+      <mat-cell  *matCellDef="let element"> {{element.type }} </mat-cell>
     </ng-container>
 
 
     <ng-container matColumnDef="status">
       <mat-header-cell *matHeaderCellDef mat-sort-header> STATUS </mat-header-cell>
-      <mat-cell class="element-padding" *matCellDef="let element">
+      &#160;&#160;&#160;&#160;
+      <mat-cell  *matCellDef="let element">
 
         <div [ngClass]="{'cell-active': element.status === 'Active',
                                                             'cell-closed': element.status === 'Closed'}">
@@ -27,13 +28,13 @@
 
     <ng-container matColumnDef="avg-score">
       <mat-header-cell *matHeaderCellDef mat-sort-header> AVG.SCORE </mat-header-cell>
-      <mat-cell class="center-text"  *matCellDef="let element"> {{avgScore}}% </mat-cell>
+      <mat-cell  *matCellDef="let element"> &#160;&#160;&#160;&#160;&#160;  {{avgScore}}% </mat-cell>
     </ng-container>
 
 
     <ng-container matColumnDef="createdAt">
       <mat-header-cell *matHeaderCellDef mat-sort-header>OPENED</mat-header-cell>
-      <mat-cell class="element-margin"  *matCellDef="let element"> {{element.createdAt | date: 'd MMM y'}} </mat-cell>
+      <mat-cell class="opened"  *matCellDef="let element"> {{element.createdAt | date: 'd MMM y'}} </mat-cell>
     </ng-container>
 
     <ng-container  matColumnDef="arrow">
@@ -45,7 +46,7 @@
 
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    <mat-row class="pointer"  *matRowDef="let element; columns: displayedColumns;" (click)="getInfo(element['_id'])">
     </mat-row>
   </mat-table>
   <mat-paginator #paginator

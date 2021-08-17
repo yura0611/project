@@ -25,6 +25,8 @@ import {RedirectToAdministratorComponent} from './redirect-to-administrator/redi
 import {VacanciesModule} from "./vacancies/shared/vacancies.module";
 import {ChangeColorStatusDirective} from "./app-shared/changeColorStatus.directive";
 import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
+import { CongratulationsPageComponent } from './answer-page/app-shared/congratulations-page/congratulations-page.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
     AnswerPageComponent,
     AnswerModalComponent,
     RedirectToAdministratorComponent,
-    ChangeColorStatusDirective
+    ChangeColorStatusDirective,
+    CongratulationsPageComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,

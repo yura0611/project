@@ -2,6 +2,7 @@
 
   <mat-table #table [dataSource]="data" matSort aria-label="Elements" >
 
+
     <ng-container matColumnDef="title">
       <mat-header-cell *matHeaderCellDef mat-sort-header> VACANCY </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.title}} </mat-cell>
@@ -11,13 +12,13 @@
 
     <ng-container matColumnDef="type">
       <mat-header-cell *matHeaderCellDef mat-sort-header> TYPE </mat-header-cell>
-      <mat-cell class="pd-10" *matCellDef="let element"> {{element.type}} </mat-cell>
+      <mat-cell  *matCellDef="let element"> {{element.type}} </mat-cell>
     </ng-container>
 
 
     <ng-container matColumnDef="status">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> STATUS </mat-header-cell>
-      <mat-cell class="pd-20" *matCellDef="let element">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>STATUS</mat-header-cell>
+      <mat-cell  *matCellDef="let element">
 
         <div [ngClass]="{'cell-active': element.status === 'Active',
                                                             'cell-closed': element.status === 'Closed'}">
@@ -27,25 +28,25 @@
 
     <ng-container matColumnDef="avg.score">
       <mat-header-cell *matHeaderCellDef mat-sort-header> AVG.SCORE </mat-header-cell>
-      <mat-cell class="center-text"  *matCellDef="let element"> {{avgScore}}% </mat-cell>
+      <mat-cell class="center-text"  *matCellDef="let element">  &#160;&#160;&#160;&#160;&#160; {{avgScore}}% </mat-cell>
     </ng-container>
 
 
     <ng-container matColumnDef="createdAt">
       <mat-header-cell *matHeaderCellDef mat-sort-header>OPENED</mat-header-cell>
-      <mat-cell class="mr-30"  *matCellDef="let element"> {{element.createdAt | date: 'd MMM y'}} </mat-cell>
+      <mat-cell class="opened" *matCellDef="let element"> {{element.createdAt | date: 'd MMM y'}} </mat-cell>
     </ng-container>
 
     <ng-container  matColumnDef="arrow">
-      <mat-header-cell  [ngClass]="'customWidthClass'"  *matHeaderCellDef ></mat-header-cell>
-      <mat-cell  [ngClass]="'customWidthClass'" *matCellDef="let element">
+      <mat-header-cell  class="customWidthClass"  *matHeaderCellDef ></mat-header-cell>
+      <mat-cell  class="customWidthClass"  *matCellDef="let element">
         <button mat-icon-button class="hidden" color="black" (click)="getInfo(element['_id'])" title="View Contact"><mat-icon>arrow_forward</mat-icon></button>
       </mat-cell>
     </ng-container>
 
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    <mat-row class="pointer"  *matRowDef="let element; columns: displayedColumns;" (click)="getInfo(element['_id'])">
     </mat-row>
   </mat-table>
   <mat-paginator #paginator

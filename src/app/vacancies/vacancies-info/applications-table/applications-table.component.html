@@ -1,23 +1,22 @@
 <div class="example-container mat-elevation-z8">
-  <mat-table #table [dataSource]="evaluationData">
+  <mat-table #table [dataSource]="evaluationData" matSort>
 
     <ng-container matColumnDef="select">
-      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-header-cell *matHeaderCellDef ></mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <mat-checkbox>
-
-        </mat-checkbox>
+        <mat-selection-list [multiple]="false">
+        </mat-selection-list>
       </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="candidate">
-      <mat-header-cell *matHeaderCellDef> CANDIDATE</mat-header-cell>
+    <ng-container matColumnDef="candidate" >
+      <mat-header-cell *matHeaderCellDef mat-sort-header>CANDIDATE</mat-header-cell>
       <mat-cell
         *matCellDef="let element"> {{element.candidate.firstName + ' ' + element.candidate.lastName}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="status">
-      <mat-header-cell *matHeaderCellDef> STATUS</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> STATUS</mat-header-cell>
       <mat-cell *matCellDef="let element">
         <div [ngClass]=
                "{'cell-invited': element.status === 'invited',
@@ -30,28 +29,31 @@
     </ng-container>
 
     <ng-container matColumnDef="score">
-      <mat-header-cell *matHeaderCellDef> SCORE</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> SCORE</mat-header-cell>
       <mat-cell *matCellDef="let element"> {{'---'}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="reviewer">
-      <mat-header-cell *matHeaderCellDef> REVIEWER</mat-header-cell>
-      <mat-cell *matCellDef="let element"><a class="link" (click)="openReviewerModal()">Set Reviewer</a></mat-cell>
+      <mat-header-cell *matHeaderCellDef > REVIEWER</mat-header-cell>
+      <mat-cell *matCellDef="let element"><a class="link" (click)="openReviewerModal(element._id)">{{element.reviewer.firstName + ' ' +  element.reviewer.lastName}}</a></mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="invited">
-      <mat-header-cell *matHeaderCellDef> INVITED</mat-header-cell>
+    <ng-container matColumnDef="created_at">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>INVITED</mat-header-cell>
       <mat-cell *matCellDef="let element" class="arrow_right">
         {{element['createdAt'] | date: 'd MMM y'}}
-        <mat-icon class="arrow" (click)="showCandidate(element)">
-          arrow_forward
-        </mat-icon>
+        <mat-icon class="arrow" [routerLink]="['/answer']">arrow_forward</mat-icon>
       </mat-cell>
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let element; columns: displayedColumns;">
+    <mat-row class="pointer" *matRowDef="let element; columns: displayedColumns;">
     </mat-row>
   </mat-table>
+  <mat-paginator #paginator *ngIf="!show"
+                 [pageIndex]="0"
+                 [pageSize]="5"
+                 [pageSizeOptions]="[5, 10, 20]">
+  </mat-paginator>
 </div>
 <div class="empty" *ngIf="show"><p>NO INVITED CANDIDATES</p></div>
 

@@ -1,19 +1,18 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
-import {SelectionModel} from '@angular/cdk/collections';
-import {MatTableDataSource} from '@angular/material/table';
 import {tap} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {environment} from '../../../environments/environment';
-import {SetReviewerModalComponent} from '../vacancies-info/set-reviewer-modal/set-reviewer-modal.component';
 import {MatDialog} from '@angular/material/dialog';
-import {Constants} from '../../constants/constants';
-import {IVacancy} from '../../app-shared/interfaces/IVacancy';
 import {TestVacanciesTableItem} from '../../app-shared/interfaces/ITestVacanciesTableItem';
+import {IVacancy} from "../../app-shared/interfaces/IVacancy";
 
 @Injectable()
 export class VacanciesService {
+
+
+
 
   private vacanciesListSubject = new BehaviorSubject([]);
   public vacanciesList$ = this.vacanciesListSubject.asObservable();
@@ -35,10 +34,10 @@ export class VacanciesService {
   percentage = 0;
 
 
+
   constructor(private http: HttpClient,
               private router: Router,
-              public dialog: MatDialog,
-              private constants: Constants) {
+              public dialog: MatDialog) {
   }
 
 
@@ -53,8 +52,9 @@ export class VacanciesService {
        this.vacancyItemSubject.next(vacancy)
      })
    )
-
   }
+
+
 
   setMessage(data): void {
     this.vacancy = data;
@@ -64,31 +64,18 @@ export class VacanciesService {
     return this.vacancy;
   }
 
-  removeSelectedRow(): void {
-    this.selection.selected.forEach(item => {
-      const index: number = this.data.findIndex(d => d === item);
-      this.data.splice(index, 1);
-      this.dataSource = new MatTableDataSource<Element>(this.data);
-    });
-    this.selection = new SelectionModel<Element>(false, []);
-    this.candidateSubject.next(false);
-  }
 
 
-  ReviewerModal(): void {
-    this.dialog.open(SetReviewerModalComponent, {
-      width: this.constants.modalWidth.s,
-      height: this.constants.modalHeight.m,
-    });
-  }
-
-  editStatus(id: string): void {
-    this.http.post<IVacancy[]>(`${environment.API_URL}vacancy/status`, {
+  public editStatus(id: string): Observable<any> {
+    return this.http.post<IVacancy>(`${environment.API_URL}vacancy/status`, {
       _id: id
     }).pipe(
-    ).subscribe((data: IVacancy[]) => {
-      this.vacanciesListSubject.next(data);
-    });
+      tap(
+        data => {
+          this.vacancyItemSubject.next(data);
+        }
+      )
+    )
   }
 
   editVacancy(obj: TestVacanciesTableItem) {
