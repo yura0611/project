@@ -24,6 +24,8 @@ import {AnswerPageComponent} from './answer-page/answer-page.component';
 import {AnswerModalComponent} from './answer-page/answer-modal/answer-modal.component';
 import {RedirectToAdministratorComponent} from './redirect-to-administrator/redirect-to-administrator.component';
 import {VacanciesModule} from "./vacancies/shared/vacancies.module";
+import { CongratulationsPageComponent } from './answer-page/app-shared/congratulations-page/congratulations-page.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import {VacanciesModule} from "./vacancies/shared/vacancies.module";
     AnswerPageComponent,
     AnswerModalComponent,
     RedirectToAdministratorComponent,
+    CongratulationsPageComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,

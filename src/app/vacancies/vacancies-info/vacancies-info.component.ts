@@ -6,7 +6,7 @@ import {VacanciesInviteModalComponent} from '../vacancies-invite-modal/vacancies
 import {Router} from '@angular/router';
 import {Constants} from '../../constants/constants';
 import {ActivatedRoute} from '@angular/router';
-import {tap} from 'rxjs/operators';
+
 
 
 @Component({
@@ -41,7 +41,7 @@ export class VacanciesInfoComponent implements OnInit {
 
   openInviteModal(): void {
     this.dialog.open(VacanciesInviteModalComponent, {
-      data:{
+      data: {
         vacancyId: this.id
       },
       width: this.constants.modalWidth.s,
@@ -49,19 +49,12 @@ export class VacanciesInfoComponent implements OnInit {
     });
   }
 
-  openSetReviewerModal(): void {
-    this.vacanciesService.ReviewerModal();
-  }
 
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
-    const desc = 'description';
     this.vacanciesService.getVacancy(this.id).subscribe();
     this.vacancy$ = this.vacanciesService.vacancyItem$;
-    this.vacanciesService.candidateSubject.subscribe();
-    this.vacanciesService.candidateSubject.next(false);
-    this.time = Date.parse(this.time);
   }
 
 
@@ -73,16 +66,10 @@ export class VacanciesInfoComponent implements OnInit {
     this.vacanciesService.deleteVacancy(id);
   }
 
-  getCandidateSubjectValue(): boolean {
-    return this.vacanciesService.candidateSubject.getValue();
-  }
-
-  removeCandidateRow(): void {
-    this.vacanciesService.removeSelectedRow();
-  }
 
   changeStatus(id): void {
-    this.vacanciesService.editStatus(id);
+    this.vacanciesService.editStatus(id).subscribe();
+    this.vacancy$ = this.vacanciesService.vacancyItem$;
   }
 
   getAvgScore(): number {

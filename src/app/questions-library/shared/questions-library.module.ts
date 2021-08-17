@@ -9,10 +9,11 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
+import {AppRoutingModule} from "../../app-routing.module";
 
 @NgModule({
   declarations: [QuestionsComponent, QuestionsListComponent, QuestionsFilterComponent],
-  imports: [ModalsModule, CommonModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatIconModule, MatButtonModule],
+    imports: [ModalsModule, CommonModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatIconModule, MatButtonModule, AppRoutingModule],
   exports: [QuestionsComponent, QuestionsListComponent, QuestionsFilterComponent]
 })
 export class QuestionsLibraryModule {

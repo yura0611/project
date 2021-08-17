@@ -4,5 +4,6 @@ export interface IEvaluation {
   status: string;
   vacancy: string;
   answers: [];
-  _v: number
-};
+  _v: number;
+}
+

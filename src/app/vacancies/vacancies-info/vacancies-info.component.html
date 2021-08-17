@@ -22,10 +22,8 @@
             <mat-card-title>Status</mat-card-title>
           </mat-card-header>
          <mat-card-content>
-          <div class="container-card-content">{{vacancy.status |  titlecase}}
-
-            <button class="btns" (click)="changeStatus(id)">{{ vacancy.status === 'Active' ? 'CLOSE' : 'RE-OPEN'}}</button>
-                </div>
+           {{vacancy.status |  titlecase}}
+           <div class="element-direction"><button class="btns" (click)="changeStatus(id)">{{ vacancy.status === 'Active' ? 'CLOSE' : 'RE-OPEN'}}</button></div>
       </mat-card-content>   </mat-card>
       <mat-card>
         <mat-card-header>
@@ -51,29 +49,13 @@
      </div>
      <div class="content-title">
       <h1>Applications</h1>
-      <a  (click)="openInviteModal()" *ngIf="!getCandidateSubjectValue()">
+      <a  (click)="openInviteModal()" >
       <div class="invite">
       <mat-icon><span>
         person_add
       </span></mat-icon>
       <span class="invite-text">INVITE CANDIDATE</span>
     </div>
-    </a>
-       <a   *ngIf="getCandidateSubjectValue()" (click)="openSetReviewerModal()">
-         <div class="mat-icon-btns">
-           <mat-icon><span>
-        person
-      </span></mat-icon>
-           <span class="invite-text">SET REVIEWER</span>
-         </div>
-       </a>
-       <a  (click)="removeCandidateRow()" *ngIf="getCandidateSubjectValue()">
-         <div class="mat-icon-btns">
-           <mat-icon><span>
-            delete
-      </span></mat-icon>
-           <span class="invite-text">REMOVE CANDIDATE</span>
-         </div>
        </a>
      </div>
      <app-applications-table [vacancyId]="id"></app-applications-table>

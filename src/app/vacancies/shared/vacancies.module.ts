@@ -26,6 +26,7 @@ import {EvaluationService} from "./evaluation.service";
 import {VacanciesCreateService} from "./vacancies-create.service";
 import {VacancyTableService} from "./vacancy-table.service";
 import {ModalsModule} from "../../questions-library/shared/modals.module";
+import {MatListModule} from "@angular/material/list";
 import {RouterModule} from "@angular/router";
 
 
@@ -59,7 +60,7 @@ import {RouterModule} from "@angular/router";
         MatCardModule,
         ModalsModule,
         RouterModule,
-
+        MatListModule,
     ],
   exports: [
     VacanciesTableComponent,

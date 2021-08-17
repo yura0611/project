@@ -1,41 +1,17 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, Subject, of} from 'rxjs';
-import {SelectionModel} from '@angular/cdk/collections';
-import {MatTableDataSource} from '@angular/material/table';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {environment} from '../../../environments/environment';
-import {SetReviewerModalComponent} from '../vacancies-info/set-reviewer-modal/set-reviewer-modal.component';
 import {MatDialog} from '@angular/material/dialog';
-import {Constants} from '../../constants/constants';
-import {IVacancy} from '../../app-shared/interfaces/IVacancy';
-import {ApplicationsTableItem} from '../../app-shared/interfaces/IApplecationsTableItem';
 import {TestVacanciesTableItem} from '../../app-shared/interfaces/ITestVacanciesTableItem';
+import {IVacancy} from "../../app-shared/interfaces/IVacancy";
 
 @Injectable()
 export class VacanciesService {
 
-  private EXAMPLE_DATA_FOR_APPLICATION_TABLE: ApplicationsTableItem[] = [
-    {_id: '1', candidate: 'Abhoy Latif', status: 'invited', score: 0, reviewer: 'Set Up', invited: '15 Sep, 2018'},
-    {
-      _id: '1',
-      candidate: 'Chinaza Akachi',
-      status: 'evaluated',
-      score: 75,
-      reviewer: 'Set Up',
-      invited: '15 Sep, 2018'
-    },
-    {
-      _id: '1',
-      candidate: 'Justine Marshall',
-      status: 'completed',
-      score: 0,
-      reviewer: 'Set Up',
-      invited: '15 Sep, 2019'
-    },
-    {_id: '1', candidate: 'Lu Zhou', status: 'in progress', score: 0, reviewer: 'Set Up', invited: '15 Sep, 2018'},
-  ];
+
 
 
   private vacanciesListSubject = new BehaviorSubject([]);
@@ -57,10 +33,10 @@ export class VacanciesService {
   percentage = 0;
 
 
+
   constructor(private http: HttpClient,
               private router: Router,
-              public dialog: MatDialog,
-              private constants: Constants) {
+              public dialog: MatDialog) {
   }
 
 
@@ -72,14 +48,14 @@ export class VacanciesService {
 
 
   getVacancy(id): Observable<any> {
-    return this.http.get<IVacancy[]>(`${environment.API_URL}vacancy/find-one/${id}`).pipe(
+    return this.http.get<IVacancy>(`${environment.API_URL}vacancy/find-one/${id}`).pipe(
       tap(vacancy => {
-        this.vacancyItemSubject.next(vacancy);
-      }
-    ));
+          this.vacancyItemSubject.next(vacancy);
+        }
+      ));
   }
 
-  getApplicationsTableData = () => of(this.EXAMPLE_DATA_FOR_APPLICATION_TABLE);
+
 
   setMessage(data): void {
     this.vacancy = data;
@@ -89,50 +65,18 @@ export class VacanciesService {
     return this.vacancy;
   }
 
-  initMaterialTable = () => {
-    this.getApplicationsTableData().pipe(
-      tap(val => {
-        this.data = val;
-      })
-    ).subscribe();
 
-    this.selection = new SelectionModel<Element>(false, []);
-    this.dataSource = new MatTableDataSource<Element>(this.data);
-  }
 
-  removeSelectedRow(): void {
-    this.selection.selected.forEach(item => {
-      const index: number = this.data.findIndex(d => d === item);
-      this.data.splice(index, 1);
-      this.dataSource = new MatTableDataSource<Element>(this.data);
-    });
-    this.selection = new SelectionModel<Element>(false, []);
-    this.candidateSubject.next(false);
-  }
-
-  toggleSubject(): void {
-    if (this.selection.selected.length === 0) {
-      this.candidateSubject.next(true);
-    }
-    if (this.selection.selected.length === 1) {
-      this.candidateSubject.next(false);
-    }
-  }
-
-  ReviewerModal(): void {
-    this.dialog.open(SetReviewerModalComponent, {
-      width: this.constants.modalWidth.s,
-      height: this.constants.modalHeight.m,
-    });
-  }
-
-  editStatus(id: string): void {
-    this.http.post<IVacancy[]>(`${environment.API_URL}vacancy/status`, {
+  public editStatus(id: string): Observable<any> {
+    return this.http.post<IVacancy>(`${environment.API_URL}vacancy/status`, {
       _id: id
     }).pipe(
-    ).subscribe((data: IVacancy[]) => {
-      this.vacanciesListSubject.next(data);
-    });
+      tap(
+        data => {
+          this.vacancyItemSubject.next(data);
+        }
+      )
+    )
   }
 
   editVacancy(obj: TestVacanciesTableItem) {
@@ -141,7 +85,7 @@ export class VacanciesService {
       description: obj.description,
       type: obj.type,
     }).pipe(
-      tap( data => {
+      tap(data => {
         this.vacancyItemSubject.next(data);
       })
     )

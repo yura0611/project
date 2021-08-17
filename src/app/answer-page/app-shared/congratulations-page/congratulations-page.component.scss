@@ -1,3 +1,14 @@
+.mainly{
+  display: flex;
+  flex-direction: column;
+  }
+
+.img{
+  margin-top: 150px;
+  align-self: center;
+  margin-bottom: 20px;
+}
+
 .container {
   display: flex;
   justify-content: center;
@@ -6,14 +17,13 @@
   height: 100%;
 }
 .content {
+ padding-bottom: 30px;
   border-radius: 2px;
   background-color: white;
   text-align: center;
   color: #101820;
   width: 50vw;
   height: 20vh;
-  padding: 20px;
-  margin: auto;
   -webkit-box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.05), 0 4px 25px 0 rgba(0, 184, 178, 0.05);
   -moz-box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.05), 0 4px 25px 0 rgba(0, 184, 178, 0.05);
   box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.05), 0 4px 25px 0 rgba(0, 184, 178, 0.05);
@@ -28,14 +38,22 @@
   font-family: 'Raleway', sans-serif;
   font-weight: 600;
   cursor: pointer;
+  pointer-events: none;
 }
 
 
 .text {
-  margin-top: 40px;
-    color: #4a4a4a;
-    font-size: 16px;
+  margin-top: 25px;
+  color: #4a4a4a;
+  font-size: 14px;
 }
+
+.text-subheader{
+  color: #4a4a4a;
+  font-size: 14px;
+}
+
+
 .red-text {
-    color: #e0004d;
+  color: #e0004d;
 }

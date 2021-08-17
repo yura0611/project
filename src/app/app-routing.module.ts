@@ -11,6 +11,8 @@ import {AnswerEvaluateProcessModalComponent} from "./vacancies/answer-evaluate-p
 import {AnswerPageComponent} from "./answer-page/answer-page.component";
 import {AuthGuard} from "./auth.guard";
 import {RedirectToAdministratorComponent} from "./redirect-to-administrator/redirect-to-administrator.component";
+import {CongratulationsPageComponent} from "./answer-page/app-shared/congratulations-page/congratulations-page.component";
+import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
 
 const routes: Routes = [
   {path: 'sign-in', component: SignInComponent},
@@ -24,8 +26,9 @@ const routes: Routes = [
   {path: 'vacancy-edit', canActivate:[AuthGuard], component: VacanciesEditComponent},
   {path: 'evaluation/:id', canActivate:[AuthGuard], component: AnswerEvaluateProcessModalComponent},
   {path: 'answer', canActivate:[AuthGuard], component: AnswerPageComponent},
-  {path: 'page-not-found', canActivate:[AuthGuard], component: RedirectToAdministratorComponent},
-  {path: 'system-settings', redirectTo: 'page-not-found'},
+  {path: 'system-settings', canActivate:[AuthGuard], component: RedirectToAdministratorComponent},
+  {path: 'congratulations', canActivate:[AuthGuard], component: CongratulationsPageComponent},
+  {path: '**', pathMatch: 'full', component: PageNotFoundComponent}
 ];
 
 @NgModule({
