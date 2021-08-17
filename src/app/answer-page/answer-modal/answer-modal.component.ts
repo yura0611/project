@@ -2,6 +2,8 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {AnswerPageService} from "../shared/answerPage.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {IQuestion} from "../../app-shared/interfaces/IQuestion";
+import {EvaluationService} from "../../vacancies/shared/evaluation.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-answer-modal',
@@ -15,7 +17,8 @@ export class AnswerModalComponent implements OnInit {
   question
   answer
   allQuestions
-
+  score
+  avgScore
   constructor(@Inject(MAT_DIALOG_DATA) public data: {
                 question: IQuestion,
                 allQuestions: IQuestion[],
@@ -26,9 +29,12 @@ export class AnswerModalComponent implements OnInit {
   }
 
   ngOnInit() {
+
+
     this.setScaleOfMarks()
     this.question = this.data.question
     this.allQuestions = this.data.allQuestions
+
   }
 
   closeModal() {
@@ -80,11 +86,13 @@ export class AnswerModalComponent implements OnInit {
   }
 
   setMark(mark, questionId) {
+
     this.currentMark = mark
     this.answerPage.setScore(questionId, mark, this.data.evaluationId)
     this.answerPage.onClose()
 
-    this.dialogRef.close({mark, questionId, status: 'evaluated'})
+    this.dialogRef.close({mark, questionId, status: 'evaluated', avgScore: this.avgScore})
+
   }
 
 

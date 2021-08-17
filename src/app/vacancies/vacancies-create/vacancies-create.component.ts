@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, QueryList, ViewChildren, ViewEncapsulation} from '@angular/core';
+import {Component, ElementRef, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {QuestionService} from '../../questions-library/shared/question.service';
 import {VacanciesCreateService} from "../shared/vacancies-create.service";
@@ -15,8 +15,7 @@ import {QuestionModalFormComponent} from "../../questions-library/question-modal
 @Component({
   selector: 'app-vacancies-create',
   templateUrl: './vacancies-create.component.html',
-  styleUrls: ['./vacancies-create.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./vacancies-create.component.scss']
 })
 export class VacanciesCreateComponent implements OnInit {
   @ViewChildren('element') checkbox: QueryList<ElementRef>;

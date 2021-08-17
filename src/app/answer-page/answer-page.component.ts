@@ -19,21 +19,18 @@ export class AnswerPageComponent implements OnInit {
   questions: IQuestion[];
   displayedColumns: string[] = ['question', 'status', 'mark'];
   dataSource;
-  score = 0;
+  score = 0
   answers = []
   constructor(private router: Router,
               private route: ActivatedRoute,
               private answerPage: AnswerPageService) { }
 
   ngOnInit(): void {
-
+    this.answerPage.scoreUpdateSubject.subscribe(data => {
+      this.score = data
+    })
     this.evaluationId = this.route.snapshot.params['evaluationId'];
-    this.answerPage.scoreUpdateSubject.next(this.evaluationId)
-    this.answerPage.getEvaluation(this.evaluationId).subscribe(data => console.log('fdf',data))
     this.answerPage.getEvaluation(this.evaluationId).pipe(
-      // tap(data => {
-      //     this.initCurrentScore(data)
-      // }),
       tap(data => {
         this.score = data.averageScore
       }),
@@ -54,40 +51,10 @@ export class AnswerPageComponent implements OnInit {
           answer.status = data.status
           answer.score = data.mark
         }
-        // this.calculateScore(data, this.dataSource.length)
 
       }
     })
   }
 
-  // calculateScore(data, amountOfAnswers) {
-  //   let currentScore = this.dataSource.map(item => {
-  //     if (item.question._id !== data.questionId) {
-  //       if (item.score) {
-  //         return item.score
-  //       } else{
-  //         return 0;
-  //       }
-  //     } else{
-  //       return 0;
-  //     }
-  //   });
-  //   currentScore = currentScore.reduce((acc,curr) => acc + curr);
-  //   currentScore += data.mark
-  //   this.score = (currentScore * 100)/ (10 * amountOfAnswers)
-  //
-  // }
-
-  // initCurrentScore(data) {
-  //   let amountOfAnswers = 0;
-  //   for (let key in data.answers) {
-  //     amountOfAnswers++
-  //     if (data.answers[key].score) {
-  //       this.score += data.answers[key].score
-  //     }
-  //   }
-  //   this.score = (this.score * 100) / (amountOfAnswers*10)
-  //   this.vacancyTableService.scoreSubject.next({score: this.score, evalId: this.evaluationId})
-  // }
 
 }
