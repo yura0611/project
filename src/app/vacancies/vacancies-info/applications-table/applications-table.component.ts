@@ -62,16 +62,6 @@ export class ApplicationsTableComponent implements OnInit {
         this.evaluationData.paginator = this.paginator;
       } else {
         this.show = true;
-        // this.answerPageService.scoreUpdateSubject.subscribe(data => console.log(data))
-        this.evaluationService.getEvaluations(this.vacancyId).subscribe(data => {
-            if (!data) {
-              this.show = true;
-            } else {
-              this.evaluationData = new MatTableDataSource(data);
-            }
-
-          }
-        );
       }
     })
   }
