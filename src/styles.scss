@@ -70,3 +70,7 @@ p {
 button, a {
   cursor: pointer;
 }
+
+.mat-dialog-container {
+  max-height: 100vh !important;
+}

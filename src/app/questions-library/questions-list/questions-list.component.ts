@@ -48,6 +48,7 @@ export class QuestionsListComponent implements OnInit {
     modalConfig.autoFocus = false;
     modalConfig.width = this.constants.modalWidth.xs;
     modalConfig.minHeight = this.constants.modalHeight.ml;
+    modalConfig.maxHeight = '100vh';
     modalConfig.data = {id: questionId};
 
     this.dialog.open(QuestionViewModalComponent, modalConfig)
