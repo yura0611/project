@@ -28,7 +28,7 @@
 
     <ng-container matColumnDef="avg.score">
       <mat-header-cell *matHeaderCellDef mat-sort-header> AVG.SCORE </mat-header-cell>
-      <mat-cell class="center-text"  *matCellDef="let element"> {{avgScore}}% </mat-cell>
+      <mat-cell class="center-text"  *matCellDef="let element"> {{avgScore || "--"}} </mat-cell>
     </ng-container>
 
 

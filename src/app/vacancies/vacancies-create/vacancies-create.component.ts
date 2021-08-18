@@ -6,7 +6,6 @@ import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {VacanciesViewModalComponent} from "./vacancies-view-modal/vacancies-view-modal.component";
 import {options} from "../../app-shared/inputsOptions";
 import {IQuestion} from "../../app-shared/interfaces/IQuestion";
-import {patterns} from "../../app-shared/regexPatterns/patterns";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Constants} from "../../constants/constants";
 import {ModalService} from "../../questions-library/shared/modals.service";
@@ -45,10 +44,10 @@ export class VacanciesCreateComponent implements OnInit {
 
     this.vacanciesForm = new FormGroup({
       'title': new FormControl(null,
-        [Validators.required, Validators.maxLength(200), Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
+        [Validators.required, Validators.maxLength(200)]),
       'type': new FormControl('', Validators.required),
       'description': new FormControl(null,
-        [Validators.required, Validators.maxLength(800), Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
+        [Validators.required, Validators.maxLength(800)]),
       'questions': new FormArray([], Validators.required)
     })
   }
