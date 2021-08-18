@@ -3,14 +3,10 @@
         <span class="vacancy-type">{{ vacancy.type | uppercase}} &#160;</span>
         <span class="vacancy-title">{{vacancy.title | uppercase}}</span>
         <button class="btn" (click)="vacancyDelete(id)" >
-          <mat-icon><span class="material-icons-outlined">
-              delete
-            </span></mat-icon>
+          <mat-icon>delete</mat-icon>
           </button >
     <button class="btn" (click)="editVacancy(id)">
-    <mat-icon><span class="material-icons-outlined">
-        edit
-      </span></mat-icon>
+    <mat-icon>edit</mat-icon>
     </button>
   </div>
     <div class="vacancy-description">
@@ -26,11 +22,12 @@
             <div>
               {{vacancy.status |  titlecase}}
             </div>
-
             <div>
-              <button class="btns" (click)="changeStatus(id)">{{ vacancy.status === 'Active' ? 'CLOSE' : 'RE-OPEN'}}</button>
+              <button  class="btns" mat-raised-button (click)="changeStatus(id)">{{ vacancy.status === 'Active' ? 'CLOSE' : 'RE-OPEN'}}</button>
             </div>
           </div>
+
+
 
       </mat-card-content>   </mat-card>
       <mat-card>
@@ -59,9 +56,9 @@
       <h1>Applications</h1>
       <a  (click)="openInviteModal()" >
       <div class="invite">
-      <mat-icon><span>
+      <mat-icon>
         person_add
-      </span></mat-icon>
+      </mat-icon>
       <span class="invite-text">INVITE CANDIDATE</span>
     </div>
        </a>

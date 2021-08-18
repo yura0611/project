@@ -10,7 +10,6 @@ import {EvaluationService} from "../shared/evaluation.service";
 import {tap} from "rxjs/operators";
 
 
-
 @Component({
   selector: 'app-vacancies-info',
   templateUrl: './vacancies-info.component.html',
