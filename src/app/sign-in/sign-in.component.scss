@@ -1,4 +1,6 @@
-
+:host {
+  width: 100%;
+}
 .container {
   margin-top: 192px;
 }
@@ -27,7 +29,7 @@
 
 .sign-in-content_logo {
   text-align: center;
-  font-family:  blueHighway;
+  font-family:  blueHighway, sans-serif;
   font-size: 32px;
   font-weight: 700;
   font-stretch: normal;
@@ -41,14 +43,11 @@
 }
 
 
-.footer{
-
-  width: 133px;
-  height: 15px;
-  margin-left: 500px;
+.footer {
   margin-top: 30px;
-  font-family: OpenSans;
+  font-family: OpenSans, sans-serif;
   font-size: 11px;
   font-weight: 600;
   color: #aaa;
+  text-align: center;
 }
