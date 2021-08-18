@@ -100,7 +100,7 @@ export class ModalService {
       const modalConfig = new MatDialogConfig();
       modalConfig.autoFocus = false;
       modalConfig.width = this.constants.modalWidth.xs;
-      modalConfig.height = this.constants.modalHeight.l;
+      modalConfig.minHeight = this.constants.modalHeight.m;
       modalConfig.data = {editMode: false};
       this.dialog.open(component, modalConfig)
     } else {
@@ -108,7 +108,7 @@ export class ModalService {
       const questionId = id;
       const modalConfig = new MatDialogConfig();
       modalConfig.width = this.constants.modalWidth.xs;
-      modalConfig.height = this.constants.modalHeight.l;
+      modalConfig.minHeight = this.constants.modalHeight.m;
       modalConfig.data = {question: question, questionId: questionId, editMode: true};
       this.dialog.open(component, modalConfig);
     }

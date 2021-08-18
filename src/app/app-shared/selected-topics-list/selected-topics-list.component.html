@@ -18,12 +18,14 @@
   </div>
 
 </div>
+<div class="chosen-topics_list-container">
+  <ul class="chosen-topics_list" [ngClass]="{'customHeight': customHeight === true}">
 
-<ul class="chosen-topics_list" [ngClass]="{'customHeight': customHeight === true}">
+    <li  class="list-item" *ngFor="let topic of selectedTopics; let i = index">
+      {{topic}}
+      <mat-icon (click)="onRemoveTopic(topic, i)" >clear</mat-icon>
+    </li>
 
-  <li class="list-item" *ngFor="let topic of selectedTopics; let i = index">
-    {{topic}}
-    <mat-icon (click)="onRemoveTopic(topic, i)" >clear</mat-icon>
-  </li>
+  </ul>
+</div>
 
-</ul>
