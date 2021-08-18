@@ -103,11 +103,14 @@ app-questions-list {
       margin: 10px 0;
       display: inline;
       ul {
+
         list-style-type: none;
         padding-left: 0;
         display: flex;
         a {
           color: #000;
+          font-family: OpenSans, sans-serif;
+          font-size: 11px;
         }
       }
       ul li {
