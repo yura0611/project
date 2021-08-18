@@ -57,7 +57,8 @@
 
 .answer_block {
   margin-bottom: 20px;
-
+  min-height: 30vh;
+  word-break: break-all;
   .answer_block-title {
     border-bottom: 1px solid #eee;
     border-top: 1px solid #eee;

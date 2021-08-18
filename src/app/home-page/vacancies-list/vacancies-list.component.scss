@@ -2,10 +2,6 @@
   width: 100%;
 }
 
-.mat-elevation-z8 {
-  margin-top: 30px;
-}
-
 .mat-header-cell {
   font-size: 11px;
   font-weight: bold;
@@ -24,7 +20,6 @@
   font-style: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: #ffffff;
 }
 
 .cell-active {
@@ -34,6 +29,7 @@
   padding-top: 2px;
   border-radius: 2px;
   background-color: #00b2a9;
+  color: #ffffff;
 }
 
 .cell-closed {

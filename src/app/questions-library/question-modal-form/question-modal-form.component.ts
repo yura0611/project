@@ -46,9 +46,9 @@ export class QuestionModalFormComponent implements OnInit {
     if (!this.data.editMode) {
       this.modal = new FormGroup({
         'title': new FormControl(null,
-          [Validators.maxLength(200), Validators.required, Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
+          [Validators.maxLength(200), Validators.required]),
         'description': new FormControl(null,
-          [Validators.maxLength(800), Validators.required, Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
+          [Validators.maxLength(800), Validators.required]),
         'topics': new FormArray([], [Validators.min(0), Validators.required]),
         'type': new FormControl(),
         'maxLength': new FormControl(null, [Validators.min(1), Validators.max(120), Validators.pattern(patterns.regexOnlyNumbers)])
@@ -57,9 +57,9 @@ export class QuestionModalFormComponent implements OnInit {
     } else {
       this.modal = new FormGroup({
         'title': new FormControl(this.data.question.title.trim(),
-          [Validators.required, Validators.maxLength(200), Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
+          [Validators.required, Validators.maxLength(200)]),
         'description': new FormControl(this.data.question.description.trim(),
-          [Validators.required, Validators.maxLength(800), Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
+          [Validators.required, Validators.maxLength(800)]),
         'topics': new FormArray(this.data.question.topics.map(el => new FormControl(el)), Validators.required),
         'type': new FormControl(this.data.question.type, Validators.required),
         'maxLength': new FormControl(this.data.question.maxLength,

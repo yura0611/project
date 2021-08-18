@@ -6,7 +6,6 @@ import {AnswerModalComponent} from "./answer-modal/answer-modal.component";
 import {tap} from "rxjs/operators";
 import {IVacancy} from "../app-shared/interfaces/IVacancy";
 import {ICandidate} from "../app-shared/interfaces/ICandidate";
-import {VacancyTableService} from "../vacancies/shared/vacancy-table.service";
 
 @Component({
   selector: 'app-answer-page',
@@ -14,26 +13,34 @@ import {VacancyTableService} from "../vacancies/shared/vacancy-table.service";
   styleUrls: ['./answer-page.component.scss']
 })
 export class AnswerPageComponent implements OnInit {
+  allEvaluated = true;
+  status = 'invited'
   evaluationId;
   user: ICandidate;
   vacancy: IVacancy;
   questions: IQuestion[];
   displayedColumns: string[] = ['question', 'status', 'mark'];
   dataSource;
-  score = 0;
+  score = 0
   answers = []
   constructor(private router: Router,
               private route: ActivatedRoute,
-              private answerPage: AnswerPageService,
-              private vacancyTableService: VacancyTableService) { }
+              private answerPage: AnswerPageService) { }
 
   ngOnInit(): void {
-
     this.evaluationId = this.route.snapshot.params['evaluationId'];
-    this.answerPage.getEvaluation(this.evaluationId).subscribe(data => console.log('fdf',data))
     this.answerPage.getEvaluation(this.evaluationId).pipe(
+      tap((data: any) => {
+        data.answers.map(el => {
+          if (el.status === 'evaluated') {
+            this.status = 'evaluated'
+          } else if (el.status === 'answered') {
+            this.status = 'completed'
+          }
+        })
+      }),
       tap(data => {
-          this.initCurrentScore(data)
+        this.score = data.averageScore
       }),
       tap(val => this.answers.push(val.answers)),
       tap(userData => this.user = userData.candidate),
@@ -52,8 +59,15 @@ export class AnswerPageComponent implements OnInit {
           answer.status = data.status
           answer.score = data.mark
         }
-        this.calculateScore(data, this.dataSource.length)
+        this.dataSource.map(el => {
 
+          if (el.status !== 'evaluated') {
+            this.status = 'completed'
+          } else {
+            this.status = 'evaluated'
+          }
+        })
+        this.calculateScore(data, this.dataSource.length)
       }
     })
   }
@@ -85,7 +99,6 @@ export class AnswerPageComponent implements OnInit {
       }
     }
     this.score = (this.score * 100) / (amountOfAnswers*10)
-    this.vacancyTableService.scoreSubject.next({score: this.score, evalId: this.evaluationId})
   }
 
 }

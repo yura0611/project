@@ -23,24 +23,22 @@
           <input  matInput  [value]="link">
         </mat-form-field>
       </ng-container>
+    </form>
+    <div class="btn_container">
       <button *ngIf="!showClose"
-        class="btn"
-        [ngClass]="{'btn-disabled': !invitationForm.valid}"
-        (click)="onInvite()">
+              class="btn"
+              [ngClass]="{'btn-disabled': !invitationForm.valid}"
+              (click)="onInvite()">
         INVITE
       </button>
       <button *ngIf="showClose"
-        class="btn"
-        [ngClass]="{'btn-disabled': !invitationForm.valid}"
-        (click)="onClose()">
+              class="btn"
+              [ngClass]="{'btn-disabled': !invitationForm.valid}"
+              (click)="onClose()">
         CLOSE
       </button>
-    </form>
+    </div>
 
   </div>
 
-<!--  <div class="invitational_link">-->
-<!--    <p>Link for evaluation:</p>-->
-<!--    <span *ngIf="(invitationalLink | async) as link">{{link}}</span>-->
-<!--  </div>-->
 </div>

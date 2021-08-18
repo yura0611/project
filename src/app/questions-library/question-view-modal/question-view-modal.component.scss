@@ -1,12 +1,11 @@
-.mat-dialog-container {
-  padding: 0;
-}
 
 app-question-view-modal {
   width: 50%;
 }
 
 .view-question-header {
+  display: flex;
+  justify-content: space-between;
   background-color: #fafafa;
 
   .view-question-header_title {
@@ -96,4 +95,9 @@ app-question-view-modal {
   }
 }
 
+.close-icon {
+  align-self: center;
+  margin-top: 12px;
+  padding-right: 40px;
+}
 

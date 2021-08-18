@@ -32,6 +32,7 @@ export class ApplicationsTableComponent implements OnInit {
   evalId;
   reviewer
 
+
   constructor(
     public vacancyService: VacanciesService,
     private vacancyTableService: VacancyTableService,
@@ -47,24 +48,30 @@ export class ApplicationsTableComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.vacancyTableService.scoreSubject.subscribe(data => console.log(data))
-    this.vacancyService.vacancyItem$.subscribe(data =>  this.vacancy = data)
+    this.vacancyService.vacancyItem$.subscribe(data =>  {
+      this.vacancy = data
+    })
     this.initMaterialTable()
   }
 
   initMaterialTable() {
     this.evaluationService.getEvaluations(this.vacancyId).subscribe();
-    this.evaluationService.evaluationList$.subscribe(data => {
+    this.evaluationService.evaluationList$.pipe(
+
+    ).subscribe(data => {
       if (data.length !== 0) {
         this.show = false;
         this.evaluationData = new MatTableDataSource(data);
         this.evaluationData.sort = this.sort;
         this.evaluationData.paginator = this.paginator;
-      } else {
+      }
+      else {
         this.show = true;
       }
     })
+
   }
+
 
 
   openReviewerModal(id): void {
@@ -82,11 +89,6 @@ export class ApplicationsTableComponent implements OnInit {
     this.router.navigate(['/answer', evaluationData._id])
   }
 
-  // get getCurrentVacancy() {
-  //   let vacancy;
-  //   this.vacancyService.vacancyItem$.subscribe(data => vacancy = data)
-  //   return vacancy
-  // }
 
 
 

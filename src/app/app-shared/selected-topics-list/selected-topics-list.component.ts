@@ -25,12 +25,12 @@ export class SelectedTopicsListComponent implements OnInit, OnDestroy, AfterView
   @Input() modal
   @Input() customHeight = false;
   availableTopics: string[];
-
   subscription: Subscription
   constructor(private modalService: ModalService,
               private questionService: QuestionService) { }
 
   ngOnInit(): void {
+
     this.subscription = this.questionService.availableTopics$.subscribe(data => this.availableTopics = data);
   }
   get selectedTopics() {

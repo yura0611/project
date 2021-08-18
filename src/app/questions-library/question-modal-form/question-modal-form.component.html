@@ -1,11 +1,11 @@
-<div class="modal_title">
-  <div class="modal_close_btn">
-    <a (click)="onClose()">
-      <mat-icon>clear</mat-icon>
-    </a>
+  <div class="modal_title">
+    <p>{{editMode ? 'Edit Question' : ' Create Question'}}</p>
+    <div class="modal_close_btn">
+      <a (click)="onClose()">
+        <mat-icon>clear</mat-icon>
+      </a>
+    </div>
   </div>
-  <p>{{editMode ? 'Edit ' : ' Create ' + 'Question'}}</p>
-</div>
 
 
 <form class="modal-form" [formGroup]="modal" (ngSubmit)="onSubmit()" #formElement='ngForm'>
@@ -60,7 +60,7 @@
   </div>
 
   <div *ngIf="!editMode" class="modal-form_edit_btn">
-    <button type="submit"
+    <button mat-raised-button type="submit"
             (click)="onCreate()"
             style="cursor: pointer"
             [disabled]="!formElement.valid"
@@ -70,8 +70,8 @@
   </div>
 
   <div class="edit-modal-form_edit_btn" *ngIf="editMode">
-    <button class="delete" type="button" (click)="onDelete()">{{'delete' | uppercase}}</button>
-    <button class="save" type="submit" (click)="onEdit()"
+    <button mat-raised-button class="delete" type="button" (click)="onDelete()">{{'delete' | uppercase}}</button>
+    <button mat-raised-button class="save" type="submit" (click)="onEdit()"
             [disabled]="!formElement.valid"
             [ngStyle]="{'opacity': modal.invalid ? '0.5': '1'}">
       Save
@@ -79,49 +79,3 @@
   </div>
 </form>
 
-
-<!--<form *ngIf="editMode" class="edit-modal-form" [formGroup]="modal" (ngSubmit)="onSubmit()" #formElement='ngForm'>-->
-<!--  <div class="edit-modal-form_title form-element_block">-->
-<!--    <label for="title">Title</label>-->
-<!--    <br>-->
-<!--    <input #titleInp type="text" name="title" id="title" formControlName="title" required>-->
-<!--    <span *ngIf="titleInp.value.length > 250 &&-->
-<!--            !modal.get('title').valid && modal.get('title').touched">Max amount of characters is 250</span>-->
-<!--    <span *ngIf="titleInp.value.length <= 0 &&-->
-<!--             !modal.get('title').valid && modal.get('title').touched">This field is required</span>-->
-<!--  </div>-->
-<!--  <div class="edit-modal-form_description form-element_block">-->
-<!--    <label for="description">Description</label>-->
-<!--    <br>-->
-<!--    <textarea #descInp name="description" id="description" rows="10" formControlName="description" required-->
-<!--              [maxlength]="descriptionLength"></textarea>-->
-<!--    <span *ngIf="descInp.value.length > 800 &&-->
-<!--            !modal.get('description').valid && modal.get('description').touched">Max amount of characters is 800</span>-->
-<!--    <span *ngIf="descInp.value.length <= 0 &&-->
-<!--             !modal.get('description').valid && modal.get('description').touched">This field is required</span>-->
-<!--  </div>-->
-
-<!--  <div class="edit-modal_form-topics form-element_block">-->
-<!--    <label>Topics</label>-->
-<!--    <br>-->
-<!--    <app-selected-topics-list [modal]="modal" [customHeight]="true" formArrayName="topics"></app-selected-topics-list>-->
-<!--  </div>-->
-
-<!--  <div class="type-maxLength_wrapper">-->
-<!--    <div class="edit-modal-form_type form-element_block">-->
-<!--      <label for="type">Type</label>-->
-<!--      <br>-->
-<!--      <select name="type" id="type" formControlName="type" required>-->
-<!--        <option value="code">code</option>-->
-<!--        <option value="text">text</option>-->
-<!--      </select>-->
-<!--    </div>-->
-<!--    <div class="edit-modal-form_max-length">-->
-<!--      <label for="maxlength">Max length</label>-->
-<!--      <br>-->
-<!--      <input #maxLength type="number" id="maxlength" name="maxLength" formControlName="maxLength" required>-->
-<!--      <span *ngIf="maxLength.value > 120">Max value is 120</span>-->
-<!--      <span *ngIf="maxLength.value < 1 && modal.get('maxLength').touched">Please enter value greater then 1</span>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</form>-->

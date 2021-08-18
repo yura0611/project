@@ -9,7 +9,7 @@ import {Subject} from "rxjs";
 
 @Injectable({providedIn: 'root'})
 export class AnswerPageService {
-  scoreUpdateSubject = new Subject()
+  scoreUpdateSubject = new Subject<number>()
   constructor(private dialog: MatDialog,
               private constants: Constants,
               private router: Router,

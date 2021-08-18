@@ -1,8 +1,12 @@
+
 ::ng-deep .mat-dialog-container {
   padding: 0 !important;
 }
 
 .modal_title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: #fafafa;
   padding: 20px 0 20px 40px;
   margin-bottom: 20px;
@@ -13,10 +17,6 @@
     font-weight: 800;
   }
 
-  .modal_close_btn {
-    text-align: right;
-    margin-right: 15px;
-  }
 }
 
 .selectBox-1 {
@@ -132,7 +132,7 @@
   }
   .modal_close_btn {
     text-align: right;
-    margin-right: 15px;
+    margin-right: 35px;
   }
 }
 
@@ -203,3 +203,7 @@ input, textarea, select {
   color: red;
 }
 
+.container_header {
+  display: flex;
+  justify-content: space-between;
+}

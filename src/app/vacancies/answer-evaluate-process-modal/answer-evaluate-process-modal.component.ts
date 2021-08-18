@@ -99,7 +99,7 @@ export class AnswerEvaluateProcessModalComponent implements
 
   initTextArea() {
     fromEvent(this.answer.nativeElement, 'input').pipe(
-      debounceTime(700),
+      debounceTime(200),
       distinctUntilChanged(),
       map(() => this.answer.nativeElement.value),
       tap(value => this.answerProcessService.updateAnswer(value)),

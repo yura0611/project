@@ -24,7 +24,7 @@ export class VacanciesTableComponent implements OnInit {
    length: number;
    createdAt = 'createdAt';
    value;
-   sortedData;
+   sortedData = []
    avgScore;
 
   constructor(private router: Router,
@@ -35,12 +35,14 @@ export class VacanciesTableComponent implements OnInit {
 
 
   ngOnInit(): void {
+
     this.vacanciesService.getAllVacancies().pipe(
         tap(vacancies => {
           this.sortedData = this.getMostRecentData(vacancies);
-          this.data = new MatTableDataSource(this.sortedData);
-          this.data.paginator = this.paginator;
-          this.data.sort = this.sort;
+            this.data = new MatTableDataSource(this.sortedData);
+            this.data.paginator = this.paginator;
+            this.data.sort = this.sort;
+
         })
     ).subscribe()
   }

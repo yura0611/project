@@ -36,9 +36,6 @@
   align-content: flex-start;
   padding: 8px 9px;
   height: 144px;
-  border-radius: 2px;
-  border: solid 2px #dddddd;
-  background-color: #ffffff;
 
   li {
     margin-right: 5px;
@@ -89,4 +86,15 @@ input {
 
 .customHeight {
   height: auto !important;
+}
+
+ul {
+  margin: 0 !important;
+}
+
+.chosen-topics_list-container {
+  border-radius: 2px;
+  border: solid 2px #dddddd;
+  padding: 8px 9px;
+  margin-top: 10px;
 }

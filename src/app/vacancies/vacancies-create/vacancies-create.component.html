@@ -85,7 +85,6 @@
         <p *ngIf="!searchMode">Library questions ({{allQuestions.length}})</p>
         <input [(ngModel)]="inputSearchValue" class="search-input" *ngIf="searchMode" type="text" name="search">
         <div>
-          <mat-icon class="search">search</mat-icon>
           <mat-icon (click)=" onOpenModal(null,false)" class="plus">add</mat-icon>
         </div>
       </div>

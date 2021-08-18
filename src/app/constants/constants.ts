@@ -8,7 +8,8 @@ export class Constants {
     m: '760px'
   };
   public modalHeight = {
-    m: '500px',
+    m: '30%',
+    ml: '55%',
     l: '850px',
     s: '200px'
   };

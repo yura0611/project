@@ -14,7 +14,7 @@
   <div class="answer_card_content">
     <div class="answer_card_content-text">
       <p class="text">Application Rank</p>
-      <p class="number">--</p>
+      <p class="number">1</p>
     </div>
   </div>
 
@@ -28,10 +28,11 @@
   <div class="answer_card_content">
     <div class="answer_card_content-text">
       <p class="text">Status</p>
-      <p class="number">Invited</p>
+      <p class="number">{{status | uppercase}}</p>
     </div>
   </div>
 </div>
+
 <div class="answers-title">
     <p>Answers</p>
 </div>
@@ -48,7 +49,7 @@
       <td mat-cell *matCellDef="let element" >
         <span class="status"
               [ngClass]="{
-                'not-answered': element.status === 'not answered',
+                'not': element.status === 'not Answered',
                 'evaluated': element.status === 'evaluated',
                 'answered': element.status === 'answered'
               }">
@@ -67,7 +68,7 @@
 
     </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-row *matRowDef="let element; columns: displayedColumns;" (click)="openModal(element)"   ></tr>
   </table>
 
 </div>

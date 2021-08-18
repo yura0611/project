@@ -2,6 +2,7 @@ import {IVacancy} from "./IVacancy";
 import {IQuestion} from "./IQuestion";
 
 export interface IEvaluationProcess {
+  averageScore: number,
   candidate: {
     role: string,
     isActive: boolean,

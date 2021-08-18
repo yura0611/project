@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, QueryList, ViewChildren, ViewEncapsulation} from '@angular/core';
+import {Component, ElementRef, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {QuestionService} from '../../questions-library/shared/question.service';
 import {VacanciesCreateService} from "../shared/vacancies-create.service";
@@ -6,7 +6,6 @@ import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {VacanciesViewModalComponent} from "./vacancies-view-modal/vacancies-view-modal.component";
 import {options} from "../../app-shared/inputsOptions";
 import {IQuestion} from "../../app-shared/interfaces/IQuestion";
-import {patterns} from "../../app-shared/regexPatterns/patterns";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Constants} from "../../constants/constants";
 import {ModalService} from "../../questions-library/shared/modals.service";
@@ -15,8 +14,7 @@ import {QuestionModalFormComponent} from "../../questions-library/question-modal
 @Component({
   selector: 'app-vacancies-create',
   templateUrl: './vacancies-create.component.html',
-  styleUrls: ['./vacancies-create.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./vacancies-create.component.scss']
 })
 export class VacanciesCreateComponent implements OnInit {
   @ViewChildren('element') checkbox: QueryList<ElementRef>;
@@ -46,10 +44,10 @@ export class VacanciesCreateComponent implements OnInit {
 
     this.vacanciesForm = new FormGroup({
       'title': new FormControl(null,
-        [Validators.required, Validators.maxLength(200), Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
+        [Validators.required, Validators.maxLength(200)]),
       'type': new FormControl('', Validators.required),
       'description': new FormControl(null,
-        [Validators.required, Validators.maxLength(800), Validators.pattern(patterns.regexOnlyAlphaNumeric)]),
+        [Validators.required, Validators.maxLength(800)]),
       'questions': new FormArray([], Validators.required)
     })
   }
@@ -71,8 +69,11 @@ export class VacanciesCreateComponent implements OnInit {
     }
     const questionsId = [];
     questions.map(el => questionsId.push(el._id))
-    this.vacanciesCreateService.createVacancy(questionsId, newVacancy).subscribe()
-    this.router.navigate(['/vacancies'], {relativeTo: this.route})
+    this.vacanciesCreateService.createVacancy(questionsId, newVacancy).subscribe(() => {
+      this.router.navigate(['/vacancies'], {relativeTo: this.route})
+    })
+
+
   }
 
   onAddQuestion(question, input) {
@@ -119,7 +120,7 @@ export class VacanciesCreateComponent implements OnInit {
     const modalConfig = new MatDialogConfig();
     modalConfig.autoFocus = false;
     modalConfig.width = this.constants.modalWidth.xs;
-    modalConfig.height = this.constants.modalHeight.l;
+    modalConfig.minHeight = this.constants.modalHeight.ml;
     modalConfig.data = question;
 
     this.dialog.open(VacanciesViewModalComponent, modalConfig)

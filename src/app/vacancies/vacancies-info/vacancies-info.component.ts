@@ -6,6 +6,8 @@ import {VacanciesInviteModalComponent} from '../vacancies-invite-modal/vacancies
 import {Router} from '@angular/router';
 import {Constants} from '../../constants/constants';
 import {ActivatedRoute} from '@angular/router';
+import {EvaluationService} from "../shared/evaluation.service";
+import {tap} from "rxjs/operators";
 
 
 
@@ -29,31 +31,44 @@ export class VacanciesInfoComponent implements OnInit {
   id;
   length;
   vacancy$;
-
-
+  avgScore = 0;
+  completedAmount = 0;
+  amountOfApplications
   constructor(public vacanciesService: VacanciesService,
               public dialog: MatDialog,
               public router: Router,
               private constants: Constants,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private evaluationService: EvaluationService) {
 
   }
 
   openInviteModal(): void {
-    this.dialog.open(VacanciesInviteModalComponent, {
+    const dialogRef = this.dialog.open(VacanciesInviteModalComponent, {
       data: {
         vacancyId: this.id
       },
-      width: this.constants.modalWidth.s,
-      height: this.constants.modalHeight.m
+      minHeight: this.constants.modalHeight.m
     });
+    dialogRef.afterClosed().subscribe()
   }
 
 
 
   ngOnInit(): void {
-
+    this.getAvgScore()
     this.id = this.route.snapshot.params['id'];
+    this.evaluationService.getEvaluations(this.id).pipe(
+      tap((data: any) => {
+        this.amountOfApplications = data.length
+        data.map(el => {
+          if (el.status === 'completed') {
+            this.completedAmount++
+          }
+        })
+      })
+    )
+      .subscribe()
     this.vacanciesService.getVacancy(this.id).subscribe();
     this.vacancy$ = this.vacanciesService.vacancyItem$;
   }
@@ -73,8 +88,18 @@ export class VacanciesInfoComponent implements OnInit {
     this.vacancy$ = this.vacanciesService.vacancyItem$;
   }
 
-  getAvgScore(): number {
-    return this.vacanciesService.percentage;
+  getAvgScore(): void {
+    this.evaluationService.getEvaluations(this.route.snapshot.params['id']).pipe(
+      tap(evaluation => {
+        let score = 0;
+        evaluation.map(el => {
+          if (el.averageScore && el.status === 'evaluated') {
+            score += el.averageScore
+          }
+        })
+        this.avgScore = score / evaluation.length
+      })
+    ).subscribe()
   }
 
 

@@ -7,9 +7,12 @@ app-question-view-modal {
 }
 
 .view-question-header {
+  display: flex;
+  justify-content: space-between;
   background-color: #fafafa;
 
   .view-question-header_title {
+
     padding: 40px 0 25px 40px;
 
     p {
@@ -99,4 +102,6 @@ app-question-view-modal {
 .close {
   cursor: pointer;
   text-align: end;
+  align-self: center;
+  padding-right: 35px;
 }
