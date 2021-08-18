@@ -5,6 +5,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {MatIconModule} from "@angular/material/icon";
 import {SelectedTopicsListComponent} from "../../app-shared/selected-topics-list/selected-topics-list.component";
 import {QuestionModalFormComponent} from "../question-modal-form/question-modal-form.component";
+import {MatButtonModule} from "@angular/material/button";
 
 
 @NgModule({
@@ -13,7 +14,7 @@ import {QuestionModalFormComponent} from "../question-modal-form/question-modal-
     SelectedTopicsListComponent,
     QuestionModalFormComponent
   ],
-    imports: [CommonModule, ReactiveFormsModule, MatIconModule],
+    imports: [CommonModule, ReactiveFormsModule, MatIconModule, MatButtonModule],
   exports: [
     QuestionViewModalComponent,
     SelectedTopicsListComponent,

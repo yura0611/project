@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild, OnChanges} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {VacanciesService} from '../../shared/vacancies.service';
 import {EvaluationService} from '../../shared/evaluation.service';
 import {MatTable, MatTableDataSource} from '@angular/material/table';
@@ -11,7 +11,7 @@ import {AnswerPageService} from "../../../answer-page/shared/answerPage.service"
 import {SetReviewerModalComponent} from "../set-reviewer-modal/set-reviewer-modal.component";
 import {MatDialog} from "@angular/material/dialog";
 import {Constants} from "../../../constants/constants";
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -32,6 +32,7 @@ export class ApplicationsTableComponent implements OnInit {
   evalId;
   reviewer
 
+
   constructor(
     public vacancyService: VacanciesService,
     private vacancyTableService: VacancyTableService,
@@ -39,8 +40,7 @@ export class ApplicationsTableComponent implements OnInit {
     public dialog: MatDialog,
     private answerPageService: AnswerPageService,
     public constants: Constants,
-    private router: Router,
-    private route: ActivatedRoute
+    private router: Router
     ) {
   }
 
@@ -56,7 +56,9 @@ export class ApplicationsTableComponent implements OnInit {
 
   initMaterialTable() {
     this.evaluationService.getEvaluations(this.vacancyId).subscribe();
-    this.evaluationService.evaluationList$.subscribe(data => {
+    this.evaluationService.evaluationList$.pipe(
+
+    ).subscribe(data => {
       if (data.length !== 0) {
         this.show = false;
         this.evaluationData = new MatTableDataSource(data);

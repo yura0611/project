@@ -63,6 +63,10 @@ p {
 }
 
 .mat-dialog-container {
-  padding: 0;
+  padding: 0 !important;
+  overflow: hidden !important;
 }
 
+button, a {
+  cursor: pointer;
+}

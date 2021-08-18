@@ -32,7 +32,8 @@ export class VacanciesInfoComponent implements OnInit {
   length;
   vacancy$;
   avgScore = 0;
-
+  completedAmount = 0;
+  amountOfApplications
   constructor(public vacanciesService: VacanciesService,
               public dialog: MatDialog,
               public router: Router,
@@ -47,8 +48,7 @@ export class VacanciesInfoComponent implements OnInit {
       data: {
         vacancyId: this.id
       },
-      width: this.constants.modalWidth.s,
-      height: this.constants.modalHeight.m
+      minHeight: this.constants.modalHeight.m
     });
     dialogRef.afterClosed().subscribe()
   }
@@ -58,6 +58,17 @@ export class VacanciesInfoComponent implements OnInit {
   ngOnInit(): void {
     this.getAvgScore()
     this.id = this.route.snapshot.params['id'];
+    this.evaluationService.getEvaluations(this.id).pipe(
+      tap((data: any) => {
+        this.amountOfApplications = data.length
+        data.map(el => {
+          if (el.status === 'completed') {
+            this.completedAmount++
+          }
+        })
+      })
+    )
+      .subscribe()
     this.vacanciesService.getVacancy(this.id).subscribe();
     this.vacancy$ = this.vacanciesService.vacancyItem$;
   }

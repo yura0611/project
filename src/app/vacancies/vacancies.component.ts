@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MatDialog} from "@angular/material/dialog";
 import {QuestionService} from "../questions-library/shared/question.service";
 
@@ -13,7 +13,8 @@ export class VacanciesComponent implements OnInit {
   allQuestions;
   constructor(private router: Router,
               public dialog: MatDialog,
-              private questionService: QuestionService) { }
+              private questionService: QuestionService,
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.questionService.questionList$.subscribe()
