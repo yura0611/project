@@ -1,5 +1,7 @@
+<div class="container">
 <div class="header">
-  <h2>Set Reviewer</h2>
+  <p>Set Reviewer</p>
+</div>
   <a class="hover" (click)="closeModal()">
     <mat-icon class="icon">close</mat-icon>
   </a>
@@ -9,7 +11,7 @@
     <p class="subheader">Please, write email to find reviewer</p>
     <form [formGroup]="reviewerForm">
       <mat-form-field appearance="outline">
-        <input matInput type="email" [(ngModel)]="email" formControlName="email" placeholder="Read only text">
+        <input  matInput type="email" [(ngModel)]="email" formControlName="email" placeholder="Read only text">
       </mat-form-field>
     </form>
     <div class="button-container"></div>
