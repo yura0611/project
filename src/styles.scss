@@ -6,10 +6,9 @@
 }
 
 
-
 html,body{margin:0;padding:0;}
 h1,p{margin:0 0 1em}
-body { font-family: Roboto, "Helvetica Neue", sans-serif; }
+* { font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mat-form-field-infix  {
   border: none !important;
 }
@@ -55,9 +54,6 @@ ul {
   padding-inline-start: 0 !important;
 }
 
-p {
-  font-family: OpenSans, sans-serif;
-}
 .mat-paginator .mat-form-field-underline {
   display: none;
 }
