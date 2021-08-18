@@ -13,6 +13,7 @@ import {ICandidate} from "../app-shared/interfaces/ICandidate";
   styleUrls: ['./answer-page.component.scss']
 })
 export class AnswerPageComponent implements OnInit {
+  allEvaluated = true;
   status = 'invited'
   evaluationId;
   user: ICandidate;
@@ -59,8 +60,9 @@ export class AnswerPageComponent implements OnInit {
           answer.score = data.mark
         }
         this.dataSource.map(el => {
+
           if (el.status !== 'evaluated') {
-            return
+            this.status = 'completed'
           } else {
             this.status = 'evaluated'
           }

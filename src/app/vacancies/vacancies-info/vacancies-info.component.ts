@@ -48,8 +48,7 @@ export class VacanciesInfoComponent implements OnInit {
       data: {
         vacancyId: this.id
       },
-      width: this.constants.modalWidth.s,
-      height: this.constants.modalHeight.m
+      minHeight: this.constants.modalHeight.m
     });
     dialogRef.afterClosed().subscribe()
   }
@@ -69,7 +68,7 @@ export class VacanciesInfoComponent implements OnInit {
         })
       })
     )
-      .subscribe(data => console.log(data))
+      .subscribe()
     this.vacanciesService.getVacancy(this.id).subscribe();
     this.vacancy$ = this.vacanciesService.vacancyItem$;
   }

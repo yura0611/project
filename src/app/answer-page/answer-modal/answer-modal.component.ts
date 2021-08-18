@@ -2,8 +2,6 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {AnswerPageService} from "../shared/answerPage.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {IQuestion} from "../../app-shared/interfaces/IQuestion";
-import {EvaluationService} from "../../vacancies/shared/evaluation.service";
-import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-answer-modal',
